@@ -62,14 +62,7 @@
                     ?>
                 </nav>
 
-                <!-- Search Button -->
-                <div class="hidden lg:block">
-                    <button id="search-toggle" class="p-2 text-white hover:text-navy-200 transition-colors duration-200">
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                </div>
+                <?php // Search icon removed from navbar ?>
             </div>
 
             <!-- Mobile Navigation -->
@@ -89,10 +82,7 @@
                 </div>
             </nav>
 
-            <!-- Search Form -->
-            <div id="search-form" class="search-form hidden border-t border-navy-700 py-4">
-                <?php get_search_form(); ?>
-            </div>
+            <?php // Collapsible search form removed ?>
         </div>
     </header>
 

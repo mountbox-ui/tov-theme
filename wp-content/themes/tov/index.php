@@ -7,6 +7,19 @@ get_header(); ?>
 
 <main class="container-custom py-8">
     <div class="max-w-4xl mx-auto">
+            <?php if (is_search()) : global $wp_query; ?>
+                <header class="mb-8">
+                    <h1 class="text-3xl lg:text-4xl font-bold text-white">
+                        <?php printf(esc_html__('Search results for “%s”', 'tov-theme'), get_search_query()); ?>
+                    </h1>
+                    <p class="text-navy-300 mt-2">
+                        <?php echo esc_html($wp_query->found_posts); ?> <?php echo esc_html($wp_query->found_posts === 1 ? __('result', 'tov-theme') : __('results', 'tov-theme')); ?>
+                    </p>
+                    <div class="mt-4">
+                        <?php get_search_form(); ?>
+                    </div>
+                </header>
+            <?php endif; ?>
             <?php if (have_posts()) : ?>
                 <div class="space-y-8">
                     <?php while (have_posts()) : the_post(); ?>
