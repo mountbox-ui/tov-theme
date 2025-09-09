@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-white leading-relaxed bg-navy-900;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold leading-tight text-white;
+  }
+  
+  h1 { @apply text-4xl lg:text-5xl; }
+  h2 { @apply text-3xl lg:text-4xl; }
+  h3 { @apply text-2xl lg:text-3xl; }
+  h4 { @apply text-xl lg:text-2xl; }
+  h5 { @apply text-lg lg:text-xl; }
+  h6 { @apply text-base lg:text-lg; }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn {
+    @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200;
+  }
+  
+  .btn-primary {
+    @apply btn text-white bg-primary-600 hover:bg-primary-700 focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply btn text-navy-700 bg-navy-100 hover:bg-navy-200 focus:ring-navy-500;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .card {
+    @apply bg-navy-800 rounded-lg shadow-lg overflow-hidden border border-navy-700;
+  }
+  
+  .post-content {
+    @apply prose prose-lg prose-invert max-w-none;
+  }
+  
+  /* Homepage Slider Styles */
+  .welcome-slider .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .welcome-slider .slide {
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .welcome-slider .slider-prev:hover,
+  .welcome-slider .slider-next:hover {
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  .welcome-slider .dot:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Homepage Sections */
+  .homepage-content {
+    @apply min-h-screen;
+  }
+  
+  .image-section img {
+    transition: transform 0.3s ease;
+  }
+  
+  .image-section img:hover {
+    transform: scale(1.02);
+  }
+}
