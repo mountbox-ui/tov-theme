@@ -43,38 +43,5 @@
 
 <?php wp_footer(); ?>
 
-<script>
-// Mobile menu toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileNavigation = document.getElementById('mobile-navigation');
-
-    // Main mobile menu toggle
-    if (mobileMenuButton && mobileNavigation) {
-        mobileMenuButton.addEventListener('click', function() {
-            mobileNavigation.classList.toggle('hidden');
-            const expanded = mobileNavigation.classList.contains('hidden') ? 'false' : 'true';
-            this.setAttribute('aria-expanded', expanded);
-        });
-    }
-
-    // Mobile submenu toggle
-    const menuItemsWithChildren = document.querySelectorAll('.mobile-navigation .menu-item-has-children');
-    menuItemsWithChildren.forEach(item => {
-        const link = item.querySelector('a');
-        if (link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                item.classList.toggle('open');
-                const submenu = item.querySelector('.sub-menu');
-                if (submenu) {
-                    submenu.style.display = item.classList.contains('open') ? 'block' : 'none';
-                }
-            });
-        }
-    });
-});
-</script>
-
 </body>
 </html>

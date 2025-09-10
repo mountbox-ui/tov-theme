@@ -225,11 +225,15 @@
   @media (max-width: 1023px) {
     /* Mobile navigation when visible */
     .mobile-navigation:not(.hidden) {
-      @apply block bg-navy-800 border-t border-navy-700;
+      @apply block bg-navy-800 border-t border-navy-700 w-full;
+    }
+
+    .mobile-navigation .menu-item {
+      @apply block w-full;
     }
 
     .mobile-navigation .menu-item a {
-      @apply block px-3 py-2 text-base font-medium text-white hover:text-white hover:bg-navy-700 rounded-md transition-colors duration-200;
+      @apply block w-full px-3 py-2 text-base font-medium text-white hover:text-white hover:bg-navy-700 transition-colors duration-200;
       text-decoration: none;
     }
     
@@ -239,16 +243,21 @@
 
     /* Mobile submenu styling */
     .mobile-navigation .sub-menu {
-      @apply static opacity-100 visible transform-none bg-navy-900 border-0 rounded-none shadow-none min-w-0 pl-4 hidden;
+      @apply hidden w-full bg-navy-900 pl-4;
     }
 
-    .mobile-navigation .menu-item-has-children > a::after {
-      @apply float-right;
+    .mobile-navigation .menu-item-has-children > a .dropdown-icon {
+      @apply inline-block ml-2 transition-transform duration-200;
     }
 
     /* Show submenu when parent is open */
-    .mobile-navigation .menu-item-has-children.open .sub-menu {
+    .mobile-navigation .menu-item-has-children.open > .sub-menu {
       @apply block;
+    }
+
+    /* Submenu items */
+    .mobile-navigation .sub-menu .menu-item a {
+      @apply py-2 px-4 text-sm;
     }
   }
 }
