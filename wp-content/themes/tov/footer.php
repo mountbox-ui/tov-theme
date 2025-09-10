@@ -48,8 +48,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileNavigation = document.getElementById('mobile-navigation');
-    const searchToggle = document.getElementById('search-toggle');
-    const searchForm = document.getElementById('search-form');
+    // Search UI removed
 
     if (mobileMenuButton && mobileNavigation) {
         mobileMenuButton.addEventListener('click', function() {
@@ -57,17 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    if (searchToggle && searchForm) {
-        searchToggle.addEventListener('click', function() {
-            searchForm.classList.toggle('hidden');
-            if (!searchForm.classList.contains('hidden')) {
-                const searchInput = searchForm.querySelector('input[type="search"]');
-                if (searchInput) {
-                    searchInput.focus();
-                }
-            }
-        });
-    }
+    // no-op
 });
 </script>
 

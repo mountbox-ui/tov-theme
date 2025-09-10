@@ -61,29 +61,9 @@
      * Initialize search toggle functionality
      */
     function initSearchToggle() {
-        const searchToggle = document.getElementById('search-toggle');
-        const searchForm = document.getElementById('search-form');
+        // Search UI removed from header
 
-        if (searchToggle && searchForm) {
-            searchToggle.addEventListener('click', function() {
-                searchForm.classList.toggle('hidden');
-                
-                if (!searchForm.classList.contains('hidden')) {
-                    const searchInput = searchForm.querySelector('input[type="search"]');
-                    if (searchInput) {
-                        searchInput.focus();
-                    }
-                }
-            });
-
-            // Close search form on escape key
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && !searchForm.classList.contains('hidden')) {
-                    searchForm.classList.add('hidden');
-                    searchToggle.focus();
-                }
-            });
-        }
+        // no-op
     }
 
     /**

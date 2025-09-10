@@ -15,9 +15,6 @@ get_header(); ?>
                     <p class="text-navy-300 mt-2">
                         <?php echo esc_html($wp_query->found_posts); ?> <?php echo esc_html($wp_query->found_posts === 1 ? __('result', 'tov-theme') : __('results', 'tov-theme')); ?>
                     </p>
-                    <div class="mt-4">
-                        <?php get_search_form(); ?>
-                    </div>
                 </header>
             <?php endif; ?>
             <?php if (have_posts()) : ?>

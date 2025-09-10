@@ -33,10 +33,7 @@ get_header(); ?>
                 </button>
             </div>
             
-            <div class="card p-6">
-                <h3 class="text-lg font-semibold mb-4"><?php esc_html_e('Search our site', 'tov-theme'); ?></h3>
-                <?php get_search_form(); ?>
-            </div>
+            <?php // Search block removed intentionally ?>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                 <div class="card p-6">
