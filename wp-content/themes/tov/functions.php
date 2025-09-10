@@ -1,6 +1,6 @@
 <?php
 /**
- * Tov Theme functions and definitions
+ * Tov Theme functions and definitions - Minimal Version
  */
 
 if (!defined('ABSPATH')) {
@@ -14,31 +14,11 @@ define('TOV_THEME_VERSION', '1.0.0');
  * Theme setup
  */
 function tov_theme_setup() {
-    // Add default posts and comments RSS feed links to head
-    add_theme_support('automatic-feed-links');
-
     // Let WordPress manage the document title
     add_theme_support('title-tag');
 
-    // Enable support for Post Thumbnails on posts and pages
+    // Enable support for Post Thumbnails
     add_theme_support('post-thumbnails');
-
-    // Add support for responsive embedded content
-    add_theme_support('responsive-embeds');
-
-    // Add support for editor styles
-    add_theme_support('editor-styles');
-
-    // Add support for full and wide align images
-    add_theme_support('align-wide');
-
-    // Add support for custom logo
-    add_theme_support('custom-logo', array(
-        'height'      => 100,
-        'width'       => 400,
-        'flex-height' => true,
-        'flex-width'  => true,
-    ));
 
     // Register navigation menus
     register_nav_menus(array(
@@ -48,9 +28,6 @@ function tov_theme_setup() {
 
     // Add support for HTML5 markup
     add_theme_support('html5', array(
-        'search-form',
-        'gallery',
-        'caption',
         'style',
         'script',
     ));
@@ -76,11 +53,8 @@ function tov_theme_scripts() {
         TOV_THEME_VERSION,
         true
     );
-
 }
 add_action('wp_enqueue_scripts', 'tov_theme_scripts');
-
-
 
 /**
  * Add custom classes to navigation menu
@@ -98,4 +72,5 @@ add_filter('nav_menu_css_class', 'tov_theme_nav_menu_css_class', 10, 3);
  * Load Shortcodes
  */
 require_once get_template_directory() . '/shortcodes/loader.php';
+
 
