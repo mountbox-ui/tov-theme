@@ -1,0 +1,31 @@
+# Ignore wp-config.php (keep local & live different)
+wp-config.php
+
+# Ignore OS junk files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temporary files
+*.log
+*.sql
+*.sqlite
+
+# Ignore node modules (if using Tailwind, etc.)
+node_modules/
+
+# Ignore Composer dependencies (if using PHP packages)
+vendor/
+
+# Ignore build/cache
+build/
+.cache/
+dist/
+
+# Ignore WordPress uploads (optional, if not managing via Git)
+wp-content/uploads/
+
+# Ignore wp-content cache and backup plugins
+wp-content/cache/
+wp-content/backups/
+wp-content/upgrade/
+wp-content/ai1wm-backups/

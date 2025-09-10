@@ -2,11 +2,10 @@
 module.exports = {
   content: [
     './*.php',
-    './template-parts/*.php',
     './inc/*.php',
-    './pages/*.php',
+    './templates/*.php',
     './shortcodes/*.php',
-    './js/*.js',
+    './assets/js/*.js',
     './*.html'
   ],
   theme: {
@@ -38,6 +37,10 @@ module.exports = {
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
         'serif': ['Merriweather', 'serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
+        'merriweather': ['Merriweather', 'serif'],
       },
       spacing: {
         '18': '4.5rem',

@@ -8,6 +8,7 @@
     // DOM Ready
     document.addEventListener('DOMContentLoaded', function() {
         initMobileMenu();
+        initMobileSubmenu();
         initSearchToggle();
         initSmoothScrolling();
         initFocusManagement();
@@ -20,20 +21,33 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileNavigation = document.getElementById('mobile-navigation');
 
+
         if (mobileMenuButton && mobileNavigation) {
-            mobileMenuButton.addEventListener('click', function() {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                mobileNavigation.classList.toggle('hidden');
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                const newState = !isExpanded;
+                
+                // Update aria-expanded
+                mobileMenuButton.setAttribute('aria-expanded', newState);
+                
+                // Toggle menu visibility
+                if (newState) {
+                    mobileNavigation.classList.remove('hidden');
+                } else {
+                    mobileNavigation.classList.add('hidden');
+                }
                 
                 // Update button icon
-                const icon = mobileMenuButton.querySelector('svg');
+                const icon = mobileMenuButton.querySelector('svg path');
                 if (icon) {
-                    if (isExpanded) {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
+                    if (newState) {
+                        // Show X icon when menu is open
+                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
                     } else {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+                        // Show hamburger icon when menu is closed
+                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
                     }
                 }
             });
@@ -55,6 +69,44 @@
                 }
             });
         }
+    }
+
+    /**
+     * Initialize mobile submenu functionality
+     */
+    function initMobileSubmenu() {
+        const mobileNavigation = document.getElementById('mobile-navigation');
+        if (!mobileNavigation) return;
+
+        // Find all parent menu items with submenus in mobile nav
+        const parentItems = mobileNavigation.querySelectorAll('.menu-item-has-children');
+        
+        parentItems.forEach(function(parentItem) {
+            const parentLink = parentItem.querySelector('a');
+            const submenu = parentItem.querySelector('.sub-menu');
+            
+            if (parentLink && submenu) {
+                // Add click event to parent link
+                parentLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Toggle the open class on parent item
+                    parentItem.classList.toggle('open');
+                    
+                    // Toggle submenu visibility
+                    if (parentItem.classList.contains('open')) {
+                        submenu.style.display = 'block';
+                        parentLink.setAttribute('aria-expanded', 'true');
+                    } else {
+                        submenu.style.display = 'none';
+                        parentLink.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                
+                // Set initial aria-expanded attribute
+                parentLink.setAttribute('aria-expanded', 'false');
+            }
+        });
     }
 
     /**
