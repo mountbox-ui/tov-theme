@@ -55,4 +55,66 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Load More Events AJAX functionality
+  var loadMoreButton = document.getElementById('load-more-events');
+  if (loadMoreButton) {
+    loadMoreButton.addEventListener('click', function() {
+      var currentPage = parseInt(this.getAttribute('data-page'));
+      var maxPages = parseInt(this.getAttribute('data-max-pages'));
+      var buttonText = this.querySelector('.button-text');
+      var loadingText = this.querySelector('.loading-text');
+      
+      if (currentPage >= maxPages) {
+        this.style.display = 'none';
+        return;
+      }
+      
+      // Show loading state
+      this.disabled = true;
+      buttonText.classList.add('hidden');
+      loadingText.classList.remove('hidden');
+      
+      // Make AJAX request
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', (typeof ajax_object !== 'undefined' ? ajax_object.ajax_url : '/wp-admin/admin-ajax.php'), true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+              // Append new events to the grid
+              var eventsGrid = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-6');
+              if (eventsGrid) {
+                eventsGrid.insertAdjacentHTML('beforeend', response.data.html);
+              }
+              
+              // Update page number
+              currentPage++;
+              loadMoreButton.setAttribute('data-page', currentPage);
+              
+              // Hide button if no more pages
+              if (currentPage >= maxPages) {
+                loadMoreButton.style.display = 'none';
+              }
+            } else {
+              console.error('Error loading events:', response.data);
+            }
+          } else {
+            console.error('AJAX request failed');
+          }
+          
+          // Reset button state
+          loadMoreButton.disabled = false;
+          buttonText.classList.remove('hidden');
+          loadingText.classList.add('hidden');
+        }
+      };
+      
+      var nonce = (typeof ajax_object !== 'undefined' ? ajax_object.ajax_nonce : '');
+      xhr.send('action=load_more_events&page=' + (currentPage + 1) + '&nonce=' + nonce);
+    });
+  }
 });
