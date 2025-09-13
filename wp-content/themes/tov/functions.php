@@ -73,4 +73,9 @@ add_filter('nav_menu_css_class', 'tov_theme_nav_menu_css_class', 10, 3);
  */
 require_once get_template_directory() . '/shortcodes/loader.php';
 
+/**
+ * Load Custom Post Types
+ */
+require_once get_template_directory() . '/inc/post-types/events.php';
+
 

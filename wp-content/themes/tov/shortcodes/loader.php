@@ -18,6 +18,7 @@ $shortcode_files = array(
     'welcome-slider.php',
     'image-section.php',
     'text-section.php',
+    'events-section.php',
 );
 
 // Load each shortcode file

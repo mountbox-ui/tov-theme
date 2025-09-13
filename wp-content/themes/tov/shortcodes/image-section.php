@@ -1,99 +1,49 @@
 <?php
 /**
  * Image Section Shortcode
- * Creates a two-column section with image and text content.
- * 
- * Usage: [image_section image="..." alt="..." position="left" title="..." content="..." button_text="..." button_url="..." background="transparent"]
+ * [image_section position="left"]
+ *    [image_section_image src="image.jpg" alt="Alt text"]
+ *    [image_section_content title="Title" button_text="Click" button_url="#"]Content[/image_section_content]
+ * [/image_section]
  */
 
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
-}
+if (!defined('ABSPATH')) exit;
 
-function tov_image_section_shortcode($atts) {
-    $atts = shortcode_atts(array(
-        'image' => '',
-        'alt' => '',
-        'position' => 'left', // left or right
-        'title' => '',
-        'content' => '',
-        'button_text' => '',
-        'button_url' => '',
-        'background' => 'transparent' // transparent, navy, white
-    ), $atts);
+function tov_image_section_shortcode($atts, $content = null) {
+    $atts = shortcode_atts(['position' => 'left'], $atts);
     
-    $section_classes = 'image-section py-16';
-    if ($atts['background'] === 'navy') {
-        $section_classes .= ' bg-navy-800';
-    } elseif ($atts['background'] === 'white') {
-        $section_classes .= ' bg-white text-gray-900';
+    // Parse nested shortcodes
+    $pattern = get_shortcode_regex(['image_section_content', 'image_section_image']);
+    preg_match_all('/'.$pattern.'/s', $content, $matches);
+    
+    $image_content = '';
+    $text_content = '';
+    
+    if (!empty($matches[0])) {
+        foreach ($matches[0] as $shortcode) {
+            if (strpos($shortcode, 'image_section_content') !== false) {
+                $text_content = do_shortcode($shortcode);
+            } elseif (strpos($shortcode, 'image_section_image') !== false) {
+                $image_content = do_shortcode($shortcode);
+            }
+        }
     }
-    
-    $text_color = $atts['background'] === 'white' ? 'text-gray-900' : 'text-white';
-    $subtitle_color = $atts['background'] === 'white' ? 'text-gray-600' : 'text-navy-200';
     
     ob_start();
     ?>
-    <section class="<?php echo esc_attr($section_classes); ?>">
-        <div class="container-custom">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <?php if ($atts['position'] === 'right') : ?>
-                    <!-- Text Content First -->
-                    <div class="content-area">
-                        <?php if (!empty($atts['title'])) : ?>
-                            <h2 class="text-3xl md:text-4xl font-bold mb-6 <?php echo $text_color; ?>">
-                                <?php echo esc_html($atts['title']); ?>
-                            </h2>
-                        <?php endif; ?>
-                        <?php if (!empty($atts['content'])) : ?>
-                            <p class="text-lg mb-6 <?php echo $subtitle_color; ?> leading-relaxed">
-                                <?php echo esc_html($atts['content']); ?>
-                            </p>
-                        <?php endif; ?>
-                        <?php if (!empty($atts['button_text']) && !empty($atts['button_url'])) : ?>
-                            <a href="<?php echo esc_url($atts['button_url']); ?>" class="btn btn-primary">
-                                <?php echo esc_html($atts['button_text']); ?>
-                            </a>
-                        <?php endif; ?>
+    <section class="bg-navy-900 py-8 sm:py-12 md:py-16">
+        <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col gap-8 sm:gap-12 lg:gap-16 <?php echo $atts['position'] === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'; ?> items-center justify-between">
+                <!-- Text Content -->
+                <div class="w-full md:w-4/5 lg:w-1/2 text-center lg:text-left">
+                    <?php echo $text_content; ?>
+                </div>
+                <!-- Image Content -->
+                <div class="w-full md:w-4/5 lg:w-1/2">
+                    <div class="bg-white rounded-lg p-4 sm:p-6 shadow-lg">
+                        <?php echo $image_content; ?>
                     </div>
-                    
-                    <!-- Image Second -->
-                    <?php if (!empty($atts['image'])) : ?>
-                        <div class="image-area">
-                            <img src="<?php echo esc_url($atts['image']); ?>" 
-                                 alt="<?php echo esc_attr($atts['alt']); ?>" 
-                                 class="w-full h-auto rounded-lg shadow-lg">
-                        </div>
-                    <?php endif; ?>
-                <?php else : ?>
-                    <!-- Image First -->
-                    <?php if (!empty($atts['image'])) : ?>
-                        <div class="image-area">
-                            <img src="<?php echo esc_url($atts['image']); ?>" 
-                                 alt="<?php echo esc_attr($atts['alt']); ?>" 
-                                 class="w-full h-auto rounded-lg shadow-lg">
-                        </div>
-                    <?php endif; ?>
-                    
-                    <!-- Text Content Second -->
-                    <div class="content-area">
-                        <?php if (!empty($atts['title'])) : ?>
-                            <h2 class="text-3xl md:text-4xl font-bold mb-6 <?php echo $text_color; ?>">
-                                <?php echo esc_html($atts['title']); ?>
-                            </h2>
-                        <?php endif; ?>
-                        <?php if (!empty($atts['content'])) : ?>
-                            <p class="text-lg mb-6 <?php echo $subtitle_color; ?> leading-relaxed">
-                                <?php echo esc_html($atts['content']); ?>
-                            </p>
-                        <?php endif; ?>
-                        <?php if (!empty($atts['button_text']) && !empty($atts['button_url'])) : ?>
-                            <a href="<?php echo esc_url($atts['button_url']); ?>" class="btn btn-primary">
-                                <?php echo esc_html($atts['button_text']); ?>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
+                </div>
             </div>
         </div>
     </section>
@@ -101,5 +51,49 @@ function tov_image_section_shortcode($atts) {
     return ob_get_clean();
 }
 
-// Register the shortcode
+function tov_image_section_image_shortcode($atts, $content = null) {
+    $atts = shortcode_atts(['src' => '', 'alt' => ''], $atts);
+    $src = empty($atts['src']) ? trim($content) : $atts['src'];
+    if (empty($src)) return '';
+    
+    return sprintf(
+        '<img src="%s" alt="%s" class="w-full h-auto rounded-lg">',
+        esc_url($src),
+        esc_attr($atts['alt'])
+    );
+}
+
+function tov_image_section_content_shortcode($atts, $content = null) {
+    $atts = shortcode_atts([
+        'title' => '',
+        'button_text' => '',
+        'button_url' => ''
+    ], $atts);
+    
+    ob_start();
+    ?>
+    <div class="content-container">
+        <?php if (!empty($atts['title'])) : ?>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 md:mb-8">
+                <?php echo esc_html($atts['title']); ?>
+            </h2>
+        <?php endif; ?>
+        
+        <div class="text-base sm:text-lg text-navy-200 leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0">
+            <?php echo wp_kses_post($content); ?>
+        </div>
+        
+        <?php if (!empty($atts['button_text']) && !empty($atts['button_url'])) : ?>
+            <a href="<?php echo esc_url($atts['button_url']); ?>" 
+               class="inline-block bg-blue-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-md text-base sm:text-lg font-medium hover:bg-blue-700 transition-colors duration-200">
+                <?php echo esc_html($atts['button_text']); ?>
+            </a>
+        <?php endif; ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
 add_shortcode('image_section', 'tov_image_section_shortcode');
+add_shortcode('image_section_image', 'tov_image_section_image_shortcode');
+add_shortcode('image_section_content', 'tov_image_section_content_shortcode');
