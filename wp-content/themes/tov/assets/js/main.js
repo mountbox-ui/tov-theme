@@ -117,4 +117,149 @@ document.addEventListener('DOMContentLoaded', function() {
       xhr.send('action=load_more_events&page=' + (currentPage + 1) + '&nonce=' + nonce);
     });
   }
+
+  // Load More News AJAX functionality
+  var loadMoreNewsButton = document.getElementById('load-more-news');
+  if (loadMoreNewsButton) {
+    loadMoreNewsButton.addEventListener('click', function() {
+      var currentPage = parseInt(this.getAttribute('data-page'));
+      var maxPages = parseInt(this.getAttribute('data-max-pages'));
+      var buttonText = this.querySelector('.button-text');
+      var loadingText = this.querySelector('.loading-text');
+      
+      if (currentPage >= maxPages) {
+        this.style.display = 'none';
+        return;
+      }
+      
+      // Show loading state
+      this.disabled = true;
+      buttonText.classList.add('hidden');
+      loadingText.classList.remove('hidden');
+      
+      // Make AJAX request
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', (typeof ajax_object !== 'undefined' ? ajax_object.ajax_url : '/wp-admin/admin-ajax.php'), true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+              // Append new news to the grid
+              var newsGrid = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-6');
+              if (newsGrid) {
+                newsGrid.insertAdjacentHTML('beforeend', response.data.html);
+              }
+              
+              // Update page number
+              currentPage++;
+              loadMoreNewsButton.setAttribute('data-page', currentPage);
+              
+              // Hide button if no more pages
+              if (currentPage >= maxPages) {
+                loadMoreNewsButton.style.display = 'none';
+              }
+            } else {
+              console.error('Error loading news:', response.data);
+            }
+          } else {
+            console.error('AJAX request failed');
+          }
+          
+          // Reset button state
+          loadMoreNewsButton.disabled = false;
+          buttonText.classList.remove('hidden');
+          loadingText.classList.add('hidden');
+        }
+      };
+      
+      var nonce = (typeof ajax_object !== 'undefined' ? ajax_object.ajax_nonce : '');
+      xhr.send('action=load_more_news&page=' + (currentPage + 1) + '&nonce=' + nonce);
+    });
+  }
+
+  // Load More Blog AJAX functionality
+  var loadMoreBlogButton = document.getElementById('load-more-blog');
+  if (loadMoreBlogButton) {
+    loadMoreBlogButton.addEventListener('click', function() {
+      var currentPage = parseInt(this.getAttribute('data-page'));
+      var maxPages = parseInt(this.getAttribute('data-max-pages'));
+      var buttonText = this.querySelector('.button-text');
+      var loadingText = this.querySelector('.loading-text');
+      
+      if (currentPage >= maxPages) {
+        this.style.display = 'none';
+        return;
+      }
+      
+      // Show loading state
+      this.disabled = true;
+      buttonText.classList.add('hidden');
+      loadingText.classList.remove('hidden');
+      
+      // Make AJAX request
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', (typeof ajax_object !== 'undefined' ? ajax_object.ajax_url : '/wp-admin/admin-ajax.php'), true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+              // Append new blog posts to the grid
+              var blogGrid = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-6');
+              if (blogGrid) {
+                blogGrid.insertAdjacentHTML('beforeend', response.data.html);
+              }
+              
+              // Update page number
+              currentPage++;
+              loadMoreBlogButton.setAttribute('data-page', currentPage);
+              
+              // Hide button if no more pages
+              if (currentPage >= maxPages) {
+                loadMoreBlogButton.style.display = 'none';
+              }
+            } else {
+              console.error('Error loading blog posts:', response.data);
+            }
+          } else {
+            console.error('AJAX request failed');
+          }
+          
+          // Reset button state
+          loadMoreBlogButton.disabled = false;
+          buttonText.classList.remove('hidden');
+          loadingText.classList.add('hidden');
+        }
+      };
+      
+      var nonce = (typeof ajax_object !== 'undefined' ? ajax_object.ajax_nonce : '');
+      xhr.send('action=load_more_blog&page=' + (currentPage + 1) + '&nonce=' + nonce);
+    });
+  }
+});
+
+
+document.addEventListener("scroll", function () {
+  const header = document.getElementById("masthead");
+  const firstDiv = document.querySelector("#support-center"); // add this class to your first div
+
+  if (!firstDiv) return;
+
+  const firstDivHeight = firstDiv.offsetHeight;
+
+  if (window.scrollY > firstDivHeight - 80) {
+    // after passing first div
+    header.classList.remove("bg-transparent");
+    header.classList.add("bg-[#016a7c]");
+  } else {
+    // at top
+    header.classList.remove("bg-[#016a7c]");
+    header.classList.add("bg-transparent");
+    header.classList.add("");
+  }
 });

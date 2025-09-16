@@ -17,29 +17,24 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site min-h-screen flex flex-col">
-    <header id="masthead" class="site-header bg-navy-800 shadow-lg sticky top-0 z-50">
+    <header id="masthead" class="site-header bg-transparent fixed shadow-lg top-0 pt-4 w-full z-50">
         <div class="container-custom">
             <div class="flex items-center justify-between py-4">
                 <!-- Site Logo/Title -->
-                <div class="site-branding">
-                    <?php if (has_custom_logo()) : ?>
-                        <div class="site-logo">
-                            <?php the_custom_logo(); ?>
-                        </div>
-                    <?php else : ?>
-                        <h1 class="site-title text-2xl font-bold">
-                            <a href="<?php echo esc_url(home_url('/')); ?>" class="text-white hover:text-navy-200 transition-colors duration-200">
-                                <?php bloginfo('name'); ?>
-                            </a>
-                        </h1>
-                        <?php
-                        $description = get_bloginfo('description', 'display');
-                        if ($description || is_customize_preview()) :
-                        ?>
-                            <p class="site-description text-navy-200 text-sm mt-1"><?php echo $description; ?></p>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </div>
+            <div class="site-branding">
+                <?php if (has_custom_logo()) : ?>
+                    <div class="site-logo">
+                    <?php the_custom_logo(); ?>
+                    </div>
+                <?php else : ?>
+                    <h1 class="site-title text-2xl font-bold">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="text-white hover:text-navy-200 transition-colors duration-200">
+                     <?php bloginfo('name'); ?>
+                    </a>
+                    </h1>
+                <?php endif; ?>
+            </div>
+
 
                 <!-- Mobile Menu Button -->
                 <button id="mobile-menu-button" class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-navy-200 hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-navy-400" aria-expanded="false">

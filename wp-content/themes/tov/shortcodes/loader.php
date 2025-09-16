@@ -15,10 +15,12 @@ $shortcodes_dir = get_template_directory() . '/shortcodes/';
 
 // Array of shortcode files to load
 $shortcode_files = array(
-    'welcome-slider.php',
     'image-section.php',
     'text-section.php',
     'events-section.php',
+    'support-center.php',
+    'news-section.php',
+    'blog-section.php',
 );
 
 // Load each shortcode file
