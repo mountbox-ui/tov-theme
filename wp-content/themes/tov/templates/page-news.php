@@ -146,30 +146,31 @@ if ($specific_news_id && $specific_news_id > 0) {
             </article>
         <?php else : ?>
             <?php
-            // Latest news (last 30 days)
-        $latest_args = array(
+            // Highlighted news (filtered by highlighted category)
+        $highlighted_args = array(
             'post_type' => 'news',
             'posts_per_page' => -1,
             'orderby' => 'date',
             'order' => 'DESC',
-            'date_query' => array(
+            'tax_query' => array(
                 array(
-                    'after' => date('Y-m-d', strtotime('-30 days')),
-                    'inclusive' => true,
+                    'taxonomy' => 'news_category',
+                    'field' => 'slug',
+                    'terms' => 'highlighted',
                 )
             )
         );
-        $latest_news = new WP_Query($latest_args);
+        $highlighted_news = new WP_Query($highlighted_args);
         ?>
 
-        <?php if ($latest_news->have_posts()) : ?>
-        <!-- Latest News Section -->
+        <?php if ($highlighted_news->have_posts()) : ?>
+        <!-- Highlighted News Section -->
         <section class="mb-12">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                <?php esc_html_e('Latest', 'tov'); ?>
+                <?php esc_html_e('Highlighted News', 'tov'); ?>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <?php while ($latest_news->have_posts()) : $latest_news->the_post();
+                <?php while ($highlighted_news->have_posts()) : $highlighted_news->the_post();
                     $news_date = get_the_date('Y-m-d', get_the_ID());
                     tov_render_news_card(get_the_ID(), $news_date);
                 endwhile; ?>
