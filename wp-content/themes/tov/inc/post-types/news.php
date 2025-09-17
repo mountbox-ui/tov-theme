@@ -101,6 +101,15 @@ function tov_add_news_meta_boxes() {
         'normal',
         'high'
     );
+    
+    add_meta_box(
+        'news_homepage_settings',
+        __('Homepage Display Settings', 'tov'),
+        'tov_news_homepage_meta_box',
+        'news',
+        'side',
+        'high'
+    );
 }
 add_action('add_meta_boxes', 'tov_add_news_meta_boxes');
 
@@ -169,8 +178,50 @@ function tov_save_news_meta($post_id) {
     if (isset($_POST['news_reporter'])) {
         update_post_meta($post_id, '_news_reporter', sanitize_text_field($_POST['news_reporter']));
     }
+    
+    // Save homepage settings
+    if (isset($_POST['news_homepage_meta_box_nonce']) && wp_verify_nonce($_POST['news_homepage_meta_box_nonce'], 'news_homepage_meta_box')) {
+        if (isset($_POST['_show_on_homepage'])) {
+            update_post_meta($post_id, '_show_on_homepage', '1');
+        } else {
+            delete_post_meta($post_id, '_show_on_homepage');
+        }
+        
+        if (isset($_POST['_homepage_priority'])) {
+            $priority = intval($_POST['_homepage_priority']);
+            if ($priority >= 1 && $priority <= 10) {
+                update_post_meta($post_id, '_homepage_priority', $priority);
+            }
+        }
+    }
 }
 add_action('save_post', 'tov_save_news_meta');
+
+/**
+ * Homepage meta box for news selection
+ */
+function tov_news_homepage_meta_box($post) {
+    wp_nonce_field('news_homepage_meta_box', 'news_homepage_meta_box_nonce');
+    
+    $show_on_homepage = get_post_meta($post->ID, '_show_on_homepage', true);
+    $homepage_priority = get_post_meta($post->ID, '_homepage_priority', true);
+    if (empty($homepage_priority)) $homepage_priority = 5; // Default priority
+    
+    echo '<div class="news-homepage-fields">';
+    echo '<p>';
+    echo '<label for="show_on_homepage">';
+    echo '<input type="checkbox" id="show_on_homepage" name="_show_on_homepage" value="1" ' . checked($show_on_homepage, '1', false) . ' />';
+    echo ' ' . __('Show on Homepage', 'tov');
+    echo '</label>';
+    echo '</p>';
+    
+    echo '<p>';
+    echo '<label for="homepage_priority">' . __('Homepage Priority (1-10, higher = more important):', 'tov') . '</label><br>';
+    echo '<input type="number" id="homepage_priority" name="_homepage_priority" value="' . esc_attr($homepage_priority) . '" min="1" max="10" style="width: 100%;" />';
+    echo '<small>' . __('Higher priority news will be shown first if more than 3 are selected.', 'tov') . '</small>';
+    echo '</p>';
+    echo '</div>';
+}
 
 /**
  * Debug function to check news post type registration
@@ -264,15 +315,31 @@ function tov_render_news_card($post_id, $news_date = null) {
     $author_id = get_post_field('post_author', $post_id);
     $author_name = get_the_author_meta('display_name', $author_id);
     $author_avatar = get_avatar($author_id, 40, '', '', ['class'=>'size-10 rounded-full bg-gray-100 dark:bg-gray-800']);
+    
+    // Check if this post has the "highlighted" category
+    $is_highlighted = false;
+    if ($categories && !is_wp_error($categories)) {
+        foreach ($categories as $category) {
+            if ($category->slug === 'highlighted') {
+                $is_highlighted = true;
+                break;
+            }
+        }
+    }
+    
+    $card_classes = "flex flex-col items-start justify-between";
+    if ($is_highlighted) {
+        $card_classes .= " bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border border-orange-200 dark:border-orange-700/50 rounded-2xl p-6 shadow-lg";
+    }
     ?>
-    <article class="flex flex-col items-start justify-between">
+    <article class="<?php echo esc_attr($card_classes); ?>">
         <div class="relative w-full">
             <?php if (has_post_thumbnail($post_id)) : ?>
                 <a href="<?php echo get_permalink($post_id); ?>">
-                    <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] dark:bg-gray-800')); ?>
+                    <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-48 rounded-2xl bg-gray-100 object-cover object-center dark:bg-gray-800')); ?>
                 </a>
             <?php else : ?>
-                <div class="aspect-video w-full rounded-2xl bg-gray-100 sm:aspect-[2/1] lg:aspect-[3/2] dark:bg-gray-800 flex items-center justify-center">
+                <div class="w-full h-48 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
                     <span class="text-gray-400 dark:text-gray-500">No Image</span>
                 </div>
             <?php endif; ?>
@@ -284,36 +351,39 @@ function tov_render_news_card($post_id, $news_date = null) {
                 <time datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>" class="text-gray-500 dark:text-gray-400">
                     <?php echo esc_html(get_the_date('M j, Y', $post_id)); ?>
                 </time>
-                <?php if ($categories && !is_wp_error($categories)) : ?>
-                    <a href="<?php echo esc_url(get_term_link($categories[0])); ?>"
-                       class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 dark:bg-gray-800/60 dark:text-gray-300 dark:hover:bg-gray-800">
-                        <?php echo esc_html($categories[0]->name); ?>
-                    </a>
-                <?php endif; ?>
             </div>
             
             <div class="group relative grow">
-                <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
+                <h3 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
                     <a href="<?php echo get_permalink($post_id); ?>">
                         <span class="absolute inset-0"></span>
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="mt-5 line-clamp-3 text-sm/6 text-gray-600 dark:text-gray-400">
+                <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
             </div>
             
             <div class="relative mt-8 flex items-center gap-x-4 justify-self-end">
                 <?php echo $author_avatar; ?>
-                <div class="text-sm/6">
+                <div class="text-sm leading-6">
                     <p class="font-semibold text-gray-900 dark:text-white">
                         <a href="<?php echo get_author_posts_url($author_id); ?>">
                             <span class="absolute inset-0"></span>
-                            <?php echo esc_html($author_name); ?>
+                            <?php 
+                            $custom_reporter = get_post_meta($post_id, '_news_reporter', true);
+                            echo esc_html($custom_reporter ? $custom_reporter : $author_name); 
+                            ?>
                         </a>
                     </p>
-                    <p class="text-gray-600 dark:text-gray-400">Reporter</p>
+                    <?php 
+                    $news_source = get_post_meta($post_id, '_news_source', true);
+                    if ($news_source) : ?>
+                        <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($news_source); ?></p>
+                    <?php else : ?>
+                        <p class="text-gray-600 dark:text-gray-400">Reporter</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -409,9 +479,26 @@ function tov_render_horizontal_news_card($post_id) {
     $author_id = get_post_field('post_author', $post_id);
     $author_name = get_the_author_meta('display_name', $author_id);
     $author_avatar = get_avatar($author_id, 40, '', '', ['class'=>'size-10 rounded-full bg-gray-50 dark:bg-gray-800']);
+    
+    
+    // Check if this post has the "highlighted" category
+    $is_highlighted = false;
+    if ($categories && !is_wp_error($categories)) {
+        foreach ($categories as $category) {
+            if ($category->slug === 'highlighted') {
+                $is_highlighted = true;
+                break;
+            }
+        }
+    }
+    
+    $card_classes = "relative isolate flex flex-col gap-8 lg:flex-row";
+    if ($is_highlighted) {
+        $card_classes .= " bg-gray-50 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-2xl p-6 shadow-lg";
+    }
     ?>
-    <article class="relative isolate flex flex-col gap-8 lg:flex-row">
-        <div class="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
+    <article class="<?php echo esc_attr($card_classes); ?>">
+        <div class="relative w-full h-16 lg:w-16 lg:h-16 lg:shrink-0">
             <?php if (has_post_thumbnail($post_id)) : ?>
                 <a href="<?php echo get_permalink($post_id); ?>">
                     <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover dark:bg-gray-800')); ?>
@@ -428,35 +515,38 @@ function tov_render_horizontal_news_card($post_id) {
                 <time datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>" class="text-gray-500 dark:text-gray-400">
                     <?php echo esc_html(get_the_date('M j, Y', $post_id)); ?>
                 </time>
-                <?php if ($categories && !is_wp_error($categories)) : ?>
-                    <a href="<?php echo esc_url(get_term_link($categories[0])); ?>"
-                       class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 dark:bg-gray-800/60 dark:text-gray-300 dark:hover:bg-gray-800">
-                        <?php echo esc_html($categories[0]->name); ?>
-                    </a>
-                <?php endif; ?>
             </div>
             <div class="group relative max-w-xl">
-                <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
+                <h3 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
                     <a href="<?php echo get_permalink($post_id); ?>">
                         <span class="absolute inset-0"></span>
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="mt-5 text-sm/6 text-gray-600 dark:text-gray-400">
+                <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
             </div>
             <div class="mt-6 flex border-t border-gray-900/5 pt-6 dark:border-white/10">
                 <div class="relative flex items-center gap-x-4">
                     <?php echo $author_avatar; ?>
-                    <div class="text-sm/6">
+                    <div class="text-sm leading-6">
                         <p class="font-semibold text-gray-900 dark:text-white">
                             <a href="<?php echo get_author_posts_url($author_id); ?>">
                                 <span class="absolute inset-0"></span>
-                                <?php echo esc_html($author_name); ?>
+                                <?php 
+                                $custom_reporter = get_post_meta($post_id, '_news_reporter', true);
+                                echo esc_html($custom_reporter ? $custom_reporter : $author_name); 
+                                ?>
                             </a>
                         </p>
-                        <p class="text-gray-600 dark:text-gray-400">Reporter</p>
+                        <?php 
+                        $news_source = get_post_meta($post_id, '_news_source', true);
+                        if ($news_source) : ?>
+                            <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($news_source); ?></p>
+                        <?php else : ?>
+                            <p class="text-gray-600 dark:text-gray-400">Reporter</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

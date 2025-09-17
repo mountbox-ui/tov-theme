@@ -73,6 +73,26 @@ add_filter('nav_menu_css_class', 'tov_theme_nav_menu_css_class', 10, 3);
  */
 require_once get_template_directory() . '/shortcodes/loader.php';
 
+// Force clear caches for blog updates
+function tov_force_clear_blog_cache() {
+    if (current_user_can('manage_options') && isset($_GET['clear_blog_cache'])) {
+        // Clear WordPress object cache
+        wp_cache_flush();
+        
+        // Clear any plugin caches
+        if (function_exists('wp_cache_clear_cache')) {
+            wp_cache_clear_cache();
+        }
+        
+        // Clear rewrite rules
+        flush_rewrite_rules();
+        
+        wp_redirect(remove_query_arg('clear_blog_cache'));
+        exit;
+    }
+}
+add_action('init', 'tov_force_clear_blog_cache');
+
 /**
  * Load Custom Post Types
  */

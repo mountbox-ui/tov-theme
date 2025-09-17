@@ -105,6 +105,7 @@ function tov_add_blog_meta_boxes() {
 add_action('admin_head-post-new.php', 'tov_blog_admin_style');
 add_action('admin_head-post.php', 'tov_blog_admin_style');
 
+
 function tov_blog_admin_style() {
     global $post_type;
     if ($post_type == 'blog') {
@@ -132,6 +133,7 @@ add_action('add_meta_boxes', 'tov_add_blog_meta_boxes');
 function tov_blog_details_meta_box($post) {
     wp_nonce_field('tov_blog_details', 'tov_blog_details_nonce');
 
+    $blog_author_name = get_post_meta($post->ID, '_blog_author_name', true);
     $blog_author_bio = get_post_meta($post->ID, '_blog_author_bio', true);
     $blog_read_time = get_post_meta($post->ID, '_blog_read_time', true);
     $blog_featured = get_post_meta($post->ID, '_blog_featured', true);
@@ -159,13 +161,23 @@ function tov_blog_details_meta_box($post) {
             margin-right: 8px;
         }
     </style>
+    
     <div class="blog-meta-fields">
         <p>
-            <label for="blog_author_bio"><?php _e('Author Bio (optional):', 'tov'); ?></label>
+            <label for="blog_author_name"><?php _e('Custom Author Name (optional):', 'tov'); ?></label>
+            <input type="text" 
+                   id="blog_author_name" 
+                   name="blog_author_name" 
+                   value="<?php echo esc_attr($blog_author_name); ?>"
+                   placeholder="Leave empty to use WordPress author">
+            <small><?php _e('Enter a custom author name or leave empty to use the WordPress post author.', 'tov'); ?></small>
+        </p>
+        <p>
+            <label for="blog_author_bio"><?php _e('Author Bio/Role (optional):', 'tov'); ?></label>
             <textarea id="blog_author_bio" 
                       name="blog_author_bio" 
                       rows="3"
-                      placeholder="Brief author bio for this post"><?php echo esc_textarea($blog_author_bio); ?></textarea>
+                      placeholder="e.g., Marketing Director, Guest Writer, CEO"><?php echo esc_textarea($blog_author_bio); ?></textarea>
         </p>
         <p>
             <label for="blog_read_time"><?php _e('Estimated Read Time (optional):', 'tov'); ?></label>
@@ -203,6 +215,11 @@ function tov_save_blog_meta($post_id) {
         return;
     }
 
+    // Save custom author name
+    if (isset($_POST['blog_author_name'])) {
+        update_post_meta($post_id, '_blog_author_name', sanitize_text_field($_POST['blog_author_name']));
+    }
+    
     // Save author bio
     if (isset($_POST['blog_author_bio'])) {
         update_post_meta($post_id, '_blog_author_bio', sanitize_textarea_field($_POST['blog_author_bio']));
@@ -223,21 +240,40 @@ add_action('save_post', 'tov_save_blog_meta');
  * Custom function to render blog card (similar to events)
  */
 function tov_render_blog_card($post_id, $blog_date = null) {
+    // Debug: Force clear any caching
+    if (current_user_can('manage_options')) {
+        echo '<!-- Blog Card Debug: Post ID ' . $post_id . ' -->';
+    }
     $categories = get_the_terms($post_id, 'blog_category');
     $read_time = get_post_meta($post_id, '_blog_read_time', true);
+    // Get custom author info or fallback to WordPress author
+    $custom_author_name = get_post_meta($post_id, '_blog_author_name', true);
+    $author_bio = get_post_meta($post_id, '_blog_author_bio', true);
+    
+    // Always get the WordPress author ID
     $author_id = get_post_field('post_author', $post_id);
-    $author_name = get_the_author_meta('display_name', $author_id);
-    $author_avatar = get_avatar($author_id, 40, '', '', ['class'=>'size-10 rounded-full bg-gray-100 dark:bg-gray-800']);
+    
+    // Use custom author name or fallback to WordPress author
+    if (!empty($custom_author_name)) {
+        $author_name = $custom_author_name;
+    } else {
+        $author_name = get_the_author_meta('display_name', $author_id);
+    }
+    
+    // Always use WordPress avatar
+    $author_avatar = get_avatar($author_id, 40, '', '', ['class'=>'w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700']);
     ?>
     <article class="flex flex-col items-start justify-between">
         <div class="relative w-full">
             <?php if (has_post_thumbnail($post_id)) : ?>
-                <a href="<?php echo get_permalink($post_id); ?>">
-                    <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] dark:bg-gray-800')); ?>
+                <a href="<?php echo get_permalink($post_id); ?>" class="block overflow-hidden rounded-2xl">
+                    <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-64 bg-gray-100 object-cover object-center transition-transform duration-300 hover:scale-105 dark:bg-gray-800')); ?>
                 </a>
             <?php else : ?>
-                <div class="aspect-video w-full rounded-2xl bg-gray-100 sm:aspect-[2/1] lg:aspect-[3/2] dark:bg-gray-800 flex items-center justify-center">
-                    <span class="text-gray-400 dark:text-gray-500">No Image</span>
+                <div class="w-full h-64 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
                 </div>
             <?php endif; ?>
             <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
@@ -257,27 +293,33 @@ function tov_render_blog_card($post_id, $blog_date = null) {
             </div>
             
             <div class="group relative grow">
-                <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
+                <h3 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
                     <a href="<?php echo get_permalink($post_id); ?>">
                         <span class="absolute inset-0"></span>
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="mt-5 line-clamp-3 text-sm/6 text-gray-600 dark:text-gray-400">
+                <p class="mt-5 text-sm text-gray-600 dark:text-gray-400">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
             </div>
             
             <div class="relative mt-8 flex items-center gap-x-4 justify-self-end">
                 <?php echo $author_avatar; ?>
-                <div class="text-sm/6">
+                <div class="text-sm">
                     <p class="font-semibold text-gray-900 dark:text-white">
-                        <a href="<?php echo get_author_posts_url($author_id); ?>">
-                            <span class="absolute inset-0"></span>
+                        <?php if (!empty($custom_author_name)) : ?>
                             <?php echo esc_html($author_name); ?>
-                        </a>
+                        <?php else : ?>
+                            <a href="<?php echo get_author_posts_url($author_id); ?>">
+                                <span class="absolute inset-0"></span>
+                                <?php echo esc_html($author_name); ?>
+                            </a>
+                        <?php endif; ?>
                     </p>
-                    <?php if ($read_time) : ?>
+                    <?php if (!empty($author_bio)) : ?>
+                        <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($author_bio); ?></p>
+                    <?php elseif ($read_time) : ?>
                         <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($read_time); ?></p>
                     <?php else : ?>
                         <p class="text-gray-600 dark:text-gray-400">Author</p>
@@ -695,6 +737,52 @@ function tov_check_and_fix_blog_errors() {
     }
 }
 add_action('wp_head', 'tov_check_and_fix_blog_errors');
+
+/**
+ * Debug function to check blog author system
+ */
+function tov_debug_blog_author_system() {
+    if (!current_user_can('manage_options') || !isset($_GET['debug_blog_authors'])) {
+        return;
+    }
+    
+    echo '<div style="background: #fff; border: 2px solid #0073aa; padding: 20px; margin: 20px; position: fixed; top: 50px; right: 20px; z-index: 9999; max-width: 400px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">';
+    echo '<h3 style="margin: 0 0 10px 0; color: #0073aa;">🔍 Blog Author System Debug</h3>';
+    
+    // Check if blog posts exist
+    $blog_posts = get_posts(array(
+        'post_type' => 'blog',
+        'posts_per_page' => 5,
+        'post_status' => 'publish'
+    ));
+    
+    echo '<p><strong>Blog Posts Found:</strong> ' . count($blog_posts) . '</p>';
+    
+    if (!empty($blog_posts)) {
+        echo '<p><strong>Sample Blog Posts:</strong></p>';
+        echo '<ul style="margin: 10px 0; padding-left: 20px;">';
+        foreach ($blog_posts as $post) {
+            $custom_author = get_post_meta($post->ID, '_blog_author_name', true);
+            $author_bio = get_post_meta($post->ID, '_blog_author_bio', true);
+            $author_image = get_post_meta($post->ID, '_blog_author_image', true);
+            
+            echo '<li>';
+            echo '<strong>' . esc_html($post->post_title) . '</strong><br>';
+            echo 'Custom Author: ' . ($custom_author ? esc_html($custom_author) : 'None') . '<br>';
+            echo 'Author Bio: ' . ($author_bio ? esc_html($author_bio) : 'None') . '<br>';
+            echo 'Custom Image: ' . ($author_image ? 'Yes' : 'No') . '<br>';
+            echo '</li>';
+        }
+        echo '</ul>';
+    } else {
+        echo '<p style="color: #d63638;"><strong>❌ No published blog posts found!</strong></p>';
+        echo '<p><a href="' . admin_url('post-new.php?post_type=blog') . '" style="color: #0073aa;">Create a blog post</a></p>';
+    }
+    
+    echo '<p><a href="' . remove_query_arg('debug_blog_authors') . '" style="background: #0073aa; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px;">Close Debug</a></p>';
+    echo '</div>';
+}
+add_action('wp_head', 'tov_debug_blog_author_system');
 
 /**
  * Debug function to check blog post type registration

@@ -145,28 +145,91 @@ if ($specific_news_id && $specific_news_id > 0) {
                 </div>
             </article>
         <?php else : ?>
-            <?php
-            // Latest news (last 30 days)
-        $latest_args = array(
+        <?php
+        // Get the same 3 selected homepage news items
+        // First, get manually selected homepage news
+        $selected_args = array(
             'post_type' => 'news',
             'posts_per_page' => -1,
-            'orderby' => 'date',
+            'meta_key' => '_show_on_homepage',
+            'meta_value' => '1',
+            'orderby' => 'meta_value_num date',
             'order' => 'DESC',
-            'date_query' => array(
+            'meta_query' => array(
                 array(
-                    'after' => date('Y-m-d', strtotime('-30 days')),
-                    'inclusive' => true,
+                    'key' => '_show_on_homepage',
+                    'value' => '1',
+                    'compare' => '='
+                ),
+                array(
+                    'key' => '_homepage_priority',
+                    'value' => '',
+                    'compare' => '!=',
+                    'type' => 'NUMERIC'
                 )
             )
+        );
+        
+        $selected_news = new WP_Query($selected_args);
+        
+        // Limit selected news to maximum 3
+        $display_limit = 3;
+        $selected_posts = array();
+        
+        if ($selected_news->have_posts()) {
+            $count = 0;
+            while ($selected_news->have_posts() && $count < $display_limit) {
+                $selected_news->the_post();
+                $selected_posts[] = get_the_ID();
+                $count++;
+            }
+            wp_reset_postdata();
+        }
+        
+        // If we need more posts to reach the limit, get latest news
+        $remaining_needed = $display_limit - count($selected_posts);
+        $all_posts = $selected_posts;
+        
+        if ($remaining_needed > 0) {
+            $latest_fallback_args = array(
+                'post_type' => 'news',
+                'posts_per_page' => $remaining_needed,
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'post__not_in' => $selected_posts, // Exclude already selected posts
+                'date_query' => array(
+                    array(
+                        'after' => date('Y-m-d', strtotime('-30 days')),
+                        'inclusive' => true,
+                    )
+                )
+            );
+            
+            $latest_fallback = new WP_Query($latest_fallback_args);
+            if ($latest_fallback->have_posts()) {
+                while ($latest_fallback->have_posts()) {
+                    $latest_fallback->the_post();
+                    $all_posts[] = get_the_ID();
+                }
+                wp_reset_postdata();
+            }
+        }
+        
+        // Create final query with the selected post IDs
+        $latest_args = array(
+            'post_type' => 'news',
+            'post__in' => $all_posts,
+            'orderby' => 'post__in', // Maintain the order we created
+            'posts_per_page' => count($all_posts),
         );
         $latest_news = new WP_Query($latest_args);
         ?>
 
         <?php if ($latest_news->have_posts()) : ?>
         <!-- Latest News Section -->
-        <section class="mb-12">
+        <section class="mb-12 bg-green-50 dark:bg-gray-800 rounded-lg p-10">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                <?php esc_html_e('Latest', 'tov'); ?>
+                <?php esc_html_e('Highlights', 'tov'); ?>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($latest_news->have_posts()) : $latest_news->the_post();
@@ -201,7 +264,7 @@ if ($specific_news_id && $specific_news_id > 0) {
         <!-- Past News Section -->
         <section>
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                <?php esc_html_e('Past', 'tov'); ?>
+                <?php esc_html_e('Explore News', 'tov'); ?>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($older_news->have_posts()) : $older_news->the_post();

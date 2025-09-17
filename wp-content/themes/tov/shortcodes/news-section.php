@@ -12,11 +12,75 @@ function tov_news_section_shortcode($atts) {
     // Convert show_past to boolean
     $show_past = filter_var($atts['show_past'], FILTER_VALIDATE_BOOLEAN);
 
+    // First, get manually selected homepage news
+    $selected_args = array(
+        'post_type' => 'news',
+        'posts_per_page' => -1,
+        'meta_key' => '_show_on_homepage',
+        'meta_value' => '1',
+        'orderby' => 'meta_value_num date',
+        'order' => 'DESC',
+        'meta_query' => array(
+            array(
+                'key' => '_show_on_homepage',
+                'value' => '1',
+                'compare' => '='
+            ),
+            array(
+                'key' => '_homepage_priority',
+                'value' => '',
+                'compare' => '!=',
+                'type' => 'NUMERIC'
+            )
+        )
+    );
+    
+    $selected_news = new WP_Query($selected_args);
+    $selected_count = $selected_news->found_posts;
+    
+    // Limit selected news to maximum 3
+    $display_limit = min(3, intval($atts['limit']));
+    $selected_posts = array();
+    
+    if ($selected_news->have_posts()) {
+        $count = 0;
+        while ($selected_news->have_posts() && $count < $display_limit) {
+            $selected_news->the_post();
+            $selected_posts[] = get_the_ID();
+            $count++;
+        }
+        wp_reset_postdata();
+    }
+    
+    // If we need more posts to reach the limit, get latest news
+    $remaining_needed = $display_limit - count($selected_posts);
+    $all_posts = $selected_posts;
+    
+    if ($remaining_needed > 0) {
+        $latest_args = array(
+            'post_type' => 'news',
+            'posts_per_page' => $remaining_needed,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'post__not_in' => $selected_posts, // Exclude already selected posts
+        );
+        
+        $latest_news = new WP_Query($latest_args);
+        if ($latest_news->have_posts()) {
+            while ($latest_news->have_posts()) {
+                $latest_news->the_post();
+                $all_posts[] = get_the_ID();
+            }
+            wp_reset_postdata();
+        }
+    }
+    
+    // Create final query with the selected post IDs
     $args = array(
         'post_type' => 'news',
-        'posts_per_page' => intval($atts['limit']),
-        'orderby' => 'date',
-        'order' => 'DESC',
+        'post__in' => $all_posts,
+        'orderby' => 'post__in', // Maintain the order we created
+        'posts_per_page' => count($all_posts),
     );
 
     // Add category if specified
@@ -70,8 +134,8 @@ function tov_news_section_shortcode($atts) {
     <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-4xl">
-          <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">From the news</h2>
-          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-400">Stay informed with our latest news and updates.</p>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">From the news</h2>
+          <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">Stay informed with our latest news and updates.</p>
           <div class="mt-16 space-y-20 lg:mt-20">
             <?php if ($news_query->have_posts()) : ?>
               <?php while ($news_query->have_posts()) : $news_query->the_post();
@@ -137,8 +201,8 @@ function tov_latest_news_shortcode($atts) {
     <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-4xl">
-          <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Latest News</h2>
-          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-400">Stay updated with our latest news and announcements.</p>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Latest News</h2>
+          <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">Stay updated with our latest news and announcements.</p>
           <div class="mt-16 space-y-20 lg:mt-20">
             <?php if ($news_query->have_posts()) : ?>
               <?php while ($news_query->have_posts()) : $news_query->the_post();
@@ -203,8 +267,8 @@ function tov_past_news_shortcode($atts) {
     <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-4xl">
-          <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Past News</h2>
-          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-400">Browse through our previous news and updates.</p>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Past News</h2>
+          <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">Browse through our previous news and updates.</p>
           <div class="mt-16 space-y-20 lg:mt-20">
             <?php if ($news_query->have_posts()) : ?>
               <?php while ($news_query->have_posts()) : $news_query->the_post();
