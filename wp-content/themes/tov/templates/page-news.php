@@ -38,7 +38,7 @@ if ($specific_news_id && $specific_news_id > 0) {
                 <?php if ($specific_news) : ?>
                     <?php echo esc_html($specific_news->post_title); ?>
                 <?php else : ?>
-                    <?php esc_html_e('News & Updates', 'tov'); ?>
+                <?php esc_html_e('News & Updates', 'tov'); ?>
                 <?php endif; ?>
             </h1>
         </header>
@@ -146,31 +146,30 @@ if ($specific_news_id && $specific_news_id > 0) {
             </article>
         <?php else : ?>
             <?php
-            // Highlighted news (filtered by highlighted category)
-        $highlighted_args = array(
+            // Latest news (last 30 days)
+        $latest_args = array(
             'post_type' => 'news',
             'posts_per_page' => -1,
             'orderby' => 'date',
             'order' => 'DESC',
-            'tax_query' => array(
+            'date_query' => array(
                 array(
-                    'taxonomy' => 'news_category',
-                    'field' => 'slug',
-                    'terms' => 'highlighted',
+                    'after' => date('Y-m-d', strtotime('-30 days')),
+                    'inclusive' => true,
                 )
             )
         );
-        $highlighted_news = new WP_Query($highlighted_args);
+        $latest_news = new WP_Query($latest_args);
         ?>
 
-        <?php if ($highlighted_news->have_posts()) : ?>
-        <!-- Highlighted News Section -->
+        <?php if ($latest_news->have_posts()) : ?>
+        <!-- Latest News Section -->
         <section class="mb-12">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                <?php esc_html_e('Highlighted News', 'tov'); ?>
+                <?php esc_html_e('Latest', 'tov'); ?>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <?php while ($highlighted_news->have_posts()) : $highlighted_news->the_post();
+                <?php while ($latest_news->have_posts()) : $latest_news->the_post();
                     $news_date = get_the_date('Y-m-d', get_the_ID());
                     tov_render_news_card(get_the_ID(), $news_date);
                 endwhile; ?>

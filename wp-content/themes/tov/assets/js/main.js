@@ -246,20 +246,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener("scroll", function () {
   const header = document.getElementById("masthead");
-  const firstDiv = document.querySelector("#support-center"); // add this class to your first div
+  
+  if (!header) return;
 
-  if (!firstDiv) return;
+  // Check if we're on the home page
+  const isHomePage = window.location.pathname === '/' || 
+                     window.location.pathname === '/home' || 
+                     document.body.classList.contains('home');
 
-  const firstDivHeight = firstDiv.offsetHeight;
-
-  if (window.scrollY > firstDivHeight - 80) {
-    // after passing first div
-    header.classList.remove("bg-transparent");
-    header.classList.add("bg-[#016a7c]");
+  if (isHomePage) {
+    // Only apply transparent effect on home page
+    if (window.scrollY > 100) {
+      // after scrolling down
+      header.classList.remove("bg-transparent");
+      header.classList.add("bg-slate-700");
+    } else {
+      // at top
+      header.classList.remove("bg-slate-700");
+      header.classList.add("bg-transparent");
+    }
   } else {
-    // at top
-    header.classList.remove("bg-[#016a7c]");
-    header.classList.add("bg-transparent");
-    header.classList.add("");
+    // On other pages, always use solid background
+    header.classList.remove("bg-transparent");
+    header.classList.add("bg-slate-700");
   }
 });
