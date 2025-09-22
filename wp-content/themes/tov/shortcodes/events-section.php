@@ -15,17 +15,18 @@ function tov_events_section_shortcode($atts) {
 	
 	// Convert show_past to boolean
 	$show_past = filter_var($atts['show_past'], FILTER_VALIDATE_BOOLEAN);
+	$limit = intval($atts['limit']);
 
-	// Query args
+	// Simple approach: Get all events and prioritize homepage ones
 	$args = array(
 		'post_type' => 'event',
-		'posts_per_page' => $atts['limit'],
-		'meta_key' => '_event_date',
+		'posts_per_page' => $limit,
+		'meta_key' => 'event_start_date',
 		'orderby' => 'meta_value',
 		'order' => 'ASC',
 	);
 
-	// Add category if specified
+	// Add category filter if specified
 	if (!empty($atts['category'])) {
 		$args['tax_query'] = array(
 			array(
@@ -40,7 +41,7 @@ function tov_events_section_shortcode($atts) {
 	if (!$show_past) {
 		$args['meta_query'] = array(
 			array(
-				'key' => '_event_date',
+				'key' => 'event_start_date',
 				'value' => date('Y-m-d'),
 				'compare' => '>=',
 				'type' => 'DATE'
@@ -66,11 +67,32 @@ function tov_events_section_shortcode($atts) {
 			<?php if ($events_query->have_posts()) : ?>
 				<div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 					<?php while ($events_query->have_posts()) : $events_query->the_post(); 
-						// Get event details
-						$event_date = get_post_meta(get_the_ID(), '_event_date', true);
-						$event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
-						$event_time = get_post_meta(get_the_ID(), '_event_time', true);
-						$event_location = get_post_meta(get_the_ID(), '_event_location', true);
+						// Get event details from ACF fields
+						$event_date = '';
+						$event_end_date = '';
+						$event_time = '';
+						$event_location = '';
+						
+						if (function_exists('get_field')) {
+							$event_date = get_field('event_start_date', get_the_ID());
+							$event_end_date = get_field('event_end_date', get_the_ID());
+							$event_time = get_field('event_time', get_the_ID());
+							$event_location = get_field('event_location', get_the_ID());
+						}
+						
+						// Fallback to WordPress meta fields if ACF fields are empty
+						if (empty($event_date)) {
+							$event_date = get_post_meta(get_the_ID(), '_event_date', true);
+						}
+						if (empty($event_end_date)) {
+							$event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
+						}
+						if (empty($event_time)) {
+							$event_time = get_post_meta(get_the_ID(), '_event_time', true);
+						}
+						if (empty($event_location)) {
+							$event_location = get_post_meta(get_the_ID(), '_event_location', true);
+						}
 						
 						// Format date and time
 						$start_ts = $event_date ? strtotime($event_date) : null;
@@ -127,27 +149,18 @@ function tov_events_section_shortcode($atts) {
 							<div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
 
 							<div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm/6 text-gray-300">
-								<time datetime="<?php echo esc_attr($event_date); ?>" class="mr-8">
-									<?php echo esc_html($date_display); ?>
-									<?php if ($time_formatted) : ?>
-										<span class="ml-2"><?php echo esc_html($time_formatted); ?></span>
-									<?php endif; ?>
-								</time>
+								<?php if ($date_display) : ?>
+									<div class="mr-8">
+										<?php echo esc_html($date_display); ?>
+										<?php if ($time_formatted) : ?>
+											<span class="ml-2"><?php echo esc_html($time_formatted); ?></span>
+										<?php endif; ?>
+									</div>
+								<?php endif; ?>
 								<?php if ($event_location) : ?>
-								<div class="-ml-4 flex items-center gap-x-4">
-									<svg viewBox="0 0 2 2" class="-ml-0.5 size-0.5 flex-none fill-white/50 dark:fill-gray-300/50">
-										<circle r="1" cx="1" cy="1" />
-									</svg>
-									<div class="flex gap-x-2.5">
-										<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-											      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-											      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-										</svg>
+									<div class="mr-8">
 										<?php echo esc_html($event_location); ?>
 									</div>
-								</div>
 								<?php endif; ?>
 							</div>
 
@@ -182,6 +195,7 @@ function tov_events_section_shortcode($atts) {
 }
 add_shortcode('events_section', 'tov_events_section_shortcode');
 
+
 /**
  * Upcoming Events Shortcode
  * [upcoming_events limit="6" category=""]
@@ -196,19 +210,19 @@ function tov_upcoming_events_shortcode($atts) {
 	$args = array(
 		'post_type' => 'event',
 		'posts_per_page' => $atts['limit'],
-		'meta_key' => '_event_date',
+		'meta_key' => 'event_start_date',
 		'orderby' => 'meta_value',
 		'order' => 'ASC',
 		'meta_query' => array(
 			'relation' => 'OR',
 			array(
-				'key' => '_event_date',
+				'key' => 'event_start_date',
 				'value' => date('Y-m-d'),
 				'compare' => '>=',
 				'type' => 'DATE'
 			),
 			array(
-				'key' => '_event_end_date',
+				'key' => 'event_end_date',
 				'value' => date('Y-m-d'),
 				'compare' => '>=',
 				'type' => 'DATE'
@@ -244,11 +258,32 @@ function tov_upcoming_events_shortcode($atts) {
 			<div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 		<?php if ($events_query->have_posts()) : ?>
 				<?php while ($events_query->have_posts()) : $events_query->the_post(); 
-					// Get event details
-					$event_date = get_post_meta(get_the_ID(), '_event_date', true);
-					$event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
-					$event_time = get_post_meta(get_the_ID(), '_event_time', true);
-					$event_location = get_post_meta(get_the_ID(), '_event_location', true);
+					// Get event details from ACF fields
+					$event_date = '';
+					$event_end_date = '';
+					$event_time = '';
+					$event_location = '';
+					
+					if (function_exists('get_field')) {
+						$event_date = get_field('event_start_date', get_the_ID());
+						$event_end_date = get_field('event_end_date', get_the_ID());
+						$event_time = get_field('event_time', get_the_ID());
+						$event_location = get_field('event_location', get_the_ID());
+					}
+					
+					// Fallback to WordPress meta fields if ACF fields are empty
+					if (empty($event_date)) {
+						$event_date = get_post_meta(get_the_ID(), '_event_date', true);
+					}
+					if (empty($event_end_date)) {
+						$event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
+					}
+					if (empty($event_time)) {
+						$event_time = get_post_meta(get_the_ID(), '_event_time', true);
+					}
+					if (empty($event_location)) {
+						$event_location = get_post_meta(get_the_ID(), '_event_location', true);
+					}
 					
 					// Format date and time
 					$start_ts = $event_date ? strtotime($event_date) : null;
@@ -279,18 +314,14 @@ function tov_upcoming_events_shortcode($atts) {
 						<div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
 
 						<div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm/6 text-gray-300">
-							<time datetime="<?php echo esc_attr($event_date); ?>" class="mr-8"><?php echo esc_html($date_display); ?></time>
+							<?php if ($date_display) : ?>
+								<div class="mr-8">
+									<?php echo esc_html($date_display); ?>
+								</div>
+							<?php endif; ?>
 							<?php if ($event_location) : ?>
-								<div class="-ml-4 flex items-center gap-x-4">
-									<svg viewBox="0 0 2 2" class="-ml-0.5 size-0.5 flex-none fill-white/50 dark:fill-gray-300/50">
-										<circle r="1" cx="1" cy="1" />
-									</svg>
-									<div class="flex gap-x-2.5">
-										<svg class="size-6 flex-none text-white/50 dark:text-gray-300/50" fill="currentColor" viewBox="0 0 20 20">
-											<path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-										</svg>
-										<?php echo esc_html($event_location); ?>
-									</div>
+								<div class="mr-8">
+									<?php echo esc_html($event_location); ?>
 								</div>
 							<?php endif; ?>
 						</div>
@@ -343,12 +374,12 @@ function tov_past_events_shortcode($atts) {
 	$args = array(
 		'post_type' => 'event',
 		'posts_per_page' => $atts['limit'],
-		'meta_key' => '_event_date',
+		'meta_key' => 'event_start_date',
 		'orderby' => 'meta_value',
 		'order' => 'DESC',
 		'meta_query' => array(
 			array(
-				'key' => '_event_date',
+				'key' => 'event_start_date',
 				'value' => date('Y-m-d'),
 				'compare' => '<',
 				'type' => 'DATE'
@@ -384,11 +415,32 @@ function tov_past_events_shortcode($atts) {
 			<div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 		<?php if ($events_query->have_posts()) : ?>
 				<?php while ($events_query->have_posts()) : $events_query->the_post(); 
-					// Get event details
-					$event_date = get_post_meta(get_the_ID(), '_event_date', true);
-					$event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
-					$event_time = get_post_meta(get_the_ID(), '_event_time', true);
-					$event_location = get_post_meta(get_the_ID(), '_event_location', true);
+					// Get event details from ACF fields
+					$event_date = '';
+					$event_end_date = '';
+					$event_time = '';
+					$event_location = '';
+					
+					if (function_exists('get_field')) {
+						$event_date = get_field('event_start_date', get_the_ID());
+						$event_end_date = get_field('event_end_date', get_the_ID());
+						$event_time = get_field('event_time', get_the_ID());
+						$event_location = get_field('event_location', get_the_ID());
+					}
+					
+					// Fallback to WordPress meta fields if ACF fields are empty
+					if (empty($event_date)) {
+						$event_date = get_post_meta(get_the_ID(), '_event_date', true);
+					}
+					if (empty($event_end_date)) {
+						$event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
+					}
+					if (empty($event_time)) {
+						$event_time = get_post_meta(get_the_ID(), '_event_time', true);
+					}
+					if (empty($event_location)) {
+						$event_location = get_post_meta(get_the_ID(), '_event_location', true);
+					}
 					
 					// Format date and time
 					$start_ts = $event_date ? strtotime($event_date) : null;
@@ -419,18 +471,14 @@ function tov_past_events_shortcode($atts) {
 						<div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
 
 						<div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm/6 text-gray-300">
-							<time datetime="<?php echo esc_attr($event_date); ?>" class="mr-8"><?php echo esc_html($date_display); ?></time>
+							<?php if ($date_display) : ?>
+								<div class="mr-8">
+									<?php echo esc_html($date_display); ?>
+								</div>
+							<?php endif; ?>
 							<?php if ($event_location) : ?>
-								<div class="-ml-4 flex items-center gap-x-4">
-									<svg viewBox="0 0 2 2" class="-ml-0.5 size-0.5 flex-none fill-white/50 dark:fill-gray-300/50">
-										<circle r="1" cx="1" cy="1" />
-									</svg>
-									<div class="flex gap-x-2.5">
-										<svg class="size-6 flex-none text-white/50 dark:text-gray-300/50" fill="currentColor" viewBox="0 0 20 20">
-											<path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-										</svg>
-										<?php echo esc_html($event_location); ?>
-									</div>
+								<div class="mr-8">
+									<?php echo esc_html($event_location); ?>
 								</div>
 							<?php endif; ?>
 						</div>

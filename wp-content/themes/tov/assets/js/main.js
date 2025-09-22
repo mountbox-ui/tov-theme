@@ -258,12 +258,12 @@ document.addEventListener("scroll", function () {
     // Only apply transparent effect on home page
     if (window.scrollY > 100) {
       // after scrolling down
-      header.classList.remove("bg-transparent");
+    header.classList.remove("bg-transparent");
       header.classList.add("bg-slate-700");
-    } else {
-      // at top
+  } else {
+    // at top
       header.classList.remove("bg-slate-700");
-      header.classList.add("bg-transparent");
+    header.classList.add("bg-transparent");
     }
   } else {
     // On other pages, always use solid background

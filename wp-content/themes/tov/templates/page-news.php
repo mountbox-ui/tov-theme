@@ -145,119 +145,87 @@ if ($specific_news_id && $specific_news_id > 0) {
                 </div>
             </article>
         <?php else : ?>
-        <?php
-        // Get the same 3 selected homepage news items
-        // First, get manually selected homepage news
-        $selected_args = array(
+            <?php
+        // Get only the news marked as "highlighted" using the radio button
+        $highlighted_args = array(
             'post_type' => 'news',
-            'posts_per_page' => -1,
-            'meta_key' => '_show_on_homepage',
-            'meta_value' => '1',
-            'orderby' => 'meta_value_num date',
+            'posts_per_page' => 3, // Show up to 3 highlighted news
+            'orderby' => 'date',
             'order' => 'DESC',
             'meta_query' => array(
                 array(
-                    'key' => '_show_on_homepage',
+                    'key' => '_is_highlighted',
                     'value' => '1',
                     'compare' => '='
-                ),
-                array(
-                    'key' => '_homepage_priority',
-                    'value' => '',
-                    'compare' => '!=',
-                    'type' => 'NUMERIC'
                 )
             )
         );
         
-        $selected_news = new WP_Query($selected_args);
-        
-        // Limit selected news to maximum 3
-        $display_limit = 3;
-        $selected_posts = array();
-        
-        if ($selected_news->have_posts()) {
-            $count = 0;
-            while ($selected_news->have_posts() && $count < $display_limit) {
-                $selected_news->the_post();
-                $selected_posts[] = get_the_ID();
-                $count++;
-            }
-            wp_reset_postdata();
-        }
-        
-        // If we need more posts to reach the limit, get latest news
-        $remaining_needed = $display_limit - count($selected_posts);
-        $all_posts = $selected_posts;
-        
-        if ($remaining_needed > 0) {
-            $latest_fallback_args = array(
-                'post_type' => 'news',
-                'posts_per_page' => $remaining_needed,
-                'orderby' => 'date',
-                'order' => 'DESC',
-                'post__not_in' => $selected_posts, // Exclude already selected posts
-                'date_query' => array(
-                    array(
-                        'after' => date('Y-m-d', strtotime('-30 days')),
-                        'inclusive' => true,
-                    )
-                )
-            );
-            
-            $latest_fallback = new WP_Query($latest_fallback_args);
-            if ($latest_fallback->have_posts()) {
-                while ($latest_fallback->have_posts()) {
-                    $latest_fallback->the_post();
-                    $all_posts[] = get_the_ID();
-                }
-                wp_reset_postdata();
-            }
-        }
-        
-        // Create final query with the selected post IDs
-        $latest_args = array(
-            'post_type' => 'news',
-            'post__in' => $all_posts,
-            'orderby' => 'post__in', // Maintain the order we created
-            'posts_per_page' => count($all_posts),
-        );
-        $latest_news = new WP_Query($latest_args);
+        $latest_news = new WP_Query($highlighted_args);
         ?>
 
-        <?php if ($latest_news->have_posts()) : ?>
-        <!-- Latest News Section -->
+        <!-- Highlights Section - Always Show -->
         <section class="mb-12 bg-green-50 dark:bg-gray-800 rounded-lg p-10">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 <?php esc_html_e('Highlights', 'tov'); ?>
             </h2>
+            <?php if ($latest_news->have_posts()) : ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($latest_news->have_posts()) : $latest_news->the_post();
                     $news_date = get_the_date('Y-m-d', get_the_ID());
                     tov_render_news_card(get_the_ID(), $news_date);
                 endwhile; ?>
             </div>
+            <?php else : ?>
+                <div class="text-center py-12">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full mb-4">
+                        <svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        <?php esc_html_e('No Highlighted News', 'tov'); ?>
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                        <?php esc_html_e('No news items have been selected for highlighting yet. Check back later for featured content.', 'tov'); ?>
+                    </p>
+                    <?php if (current_user_can('edit_posts')) : ?>
+                        <p class="mt-4">
+                            <a href="<?php echo admin_url('edit.php?post_type=news'); ?>" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm">
+                                <?php esc_html_e('Manage News Highlights', 'tov'); ?>
+                            </a>
+                        </p>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
         </section>
-        <?php endif; wp_reset_postdata(); ?>
+        <?php wp_reset_postdata(); ?>
 
 
         <?php
-        // Older news with pagination
+        // Show all news EXCEPT highlighted ones in Explore News section
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        $past_args = array(
+        
+        // Get highlighted post IDs to exclude them from Explore News
+        $highlighted_post_ids = array();
+        $highlighted_query = new WP_Query($highlighted_args);
+        if ($highlighted_query->have_posts()) {
+            while ($highlighted_query->have_posts()) {
+                $highlighted_query->the_post();
+                $highlighted_post_ids[] = get_the_ID();
+            }
+            wp_reset_postdata();
+        }
+        
+        $explore_args = array(
             'post_type' => 'news',
             'posts_per_page' => 6,
             'paged' => $paged,
             'orderby' => 'date',
             'order' => 'DESC',
-            'date_query' => array(
-                array(
-                    'before' => $today,
-                    'inclusive' => true,
-                ),
-            ),
+            'post__not_in' => $highlighted_post_ids, // Exclude highlighted posts
         );
-        $older_news = new WP_Query($past_args);
+        $older_news = new WP_Query($explore_args);
         ?>
 
         <?php if ($older_news->have_posts()) : ?>

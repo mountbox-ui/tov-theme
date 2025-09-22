@@ -98,7 +98,16 @@ add_action('init', 'tov_force_clear_blog_cache');
  */
 require_once get_template_directory() . '/inc/post-types/events.php';
 require_once get_template_directory() . '/inc/post-types/news.php';
+require_once get_template_directory() . '/inc/post-types/news-highlight-admin.php';
 require_once get_template_directory() . '/inc/post-types/blog.php';
+require_once get_template_directory() . '/inc/post-types/team.php';
+
+/**
+ * Load Gallery Management System
+ */
+require_once get_template_directory() . '/inc/gallery/gallery-management.php';
+require_once get_template_directory() . '/shortcodes/gallery-section.php';
+
 
 /**
  * Debug function to check if blog post type is working
@@ -248,12 +257,12 @@ function tov_load_more_events() {
         'post_type' => 'event',
         'posts_per_page' => 6,
         'paged' => $page,
-        'meta_key' => '_event_date',
+        'meta_key' => 'event_start_date',
         'orderby' => 'meta_value',
         'order' => 'DESC',
         'meta_query' => array(
             array(
-                'key' => '_event_date',
+                'key' => 'event_start_date',
                 'value' => $today,
                 'compare' => '<',
                 'type' => 'DATE'
@@ -267,9 +276,29 @@ function tov_load_more_events() {
         ob_start();
         while ($events_query->have_posts()) {
             $events_query->the_post();
-            $event_date = get_post_meta(get_the_ID(), '_event_date', true);
-            $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
-            $event_location = get_post_meta(get_the_ID(), '_event_location', true);
+            
+            // Get event details from ACF fields
+            $event_date = '';
+            $event_end_date = '';
+            $event_location = '';
+            
+            if (function_exists('get_field')) {
+                $event_date = get_field('event_start_date', get_the_ID());
+                $event_end_date = get_field('event_end_date', get_the_ID());
+                $event_location = get_field('event_location', get_the_ID());
+            }
+            
+            // Fallback to WordPress meta fields if ACF fields are empty
+            if (empty($event_date)) {
+                $event_date = get_post_meta(get_the_ID(), '_event_date', true);
+            }
+            if (empty($event_end_date)) {
+                $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
+            }
+            if (empty($event_location)) {
+                $event_location = get_post_meta(get_the_ID(), '_event_location', true);
+            }
+            
             tov_render_event_card(get_the_ID(), $event_date, $event_end_date, $event_location);
         }
         wp_reset_postdata();

@@ -16,21 +16,13 @@ function tov_news_section_shortcode($atts) {
     $selected_args = array(
         'post_type' => 'news',
         'posts_per_page' => -1,
-        'meta_key' => '_show_on_homepage',
-        'meta_value' => '1',
-        'orderby' => 'meta_value_num date',
+        'orderby' => 'date',
         'order' => 'DESC',
         'meta_query' => array(
             array(
                 'key' => '_show_on_homepage',
                 'value' => '1',
                 'compare' => '='
-            ),
-            array(
-                'key' => '_homepage_priority',
-                'value' => '',
-                'compare' => '!=',
-                'type' => 'NUMERIC'
             )
         )
     );

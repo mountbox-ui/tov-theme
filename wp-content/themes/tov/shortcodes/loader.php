@@ -21,6 +21,7 @@ $shortcode_files = array(
     'support-center.php',
     'news-section.php',
     'blog-section.php',
+    'team-section.php',
 );
 
 // Load each shortcode file

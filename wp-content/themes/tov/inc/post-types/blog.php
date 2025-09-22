@@ -91,164 +91,50 @@ function tov_flush_blog_rules_on_save() {
 }
 add_action('save_post', 'tov_flush_blog_rules_on_save');
 
-// Add custom meta boxes for blog details
-function tov_add_blog_meta_boxes() {
-    add_meta_box(
-        'blog_details',
-        __('Blog Details', 'tov'),
-        'tov_blog_details_meta_box',
-        'blog',
-        'normal',
-        'high'
-    );
-}
-add_action('admin_head-post-new.php', 'tov_blog_admin_style');
-add_action('admin_head-post.php', 'tov_blog_admin_style');
+// Remove custom meta boxes - we'll use ACF instead
+// The ACF fields will be registered in tov_register_blog_acf_fields()
 
-
-function tov_blog_admin_style() {
-    global $post_type;
-    if ($post_type == 'blog') {
-        ?>
-        <style>
-            #blog_details {
-                margin-top: 20px;
-            }
-            #blog_details .inside {
-                padding: 0;
-                margin: 0;
-            }
-            .blog-meta-fields {
-                background: #f8fafc;
-                border: 1px solid #e2e4e7;
-                border-radius: 4px;
-                padding: 15px;
-            }
-        </style>
-        <?php
-    }
-}
-add_action('add_meta_boxes', 'tov_add_blog_meta_boxes');
-
-function tov_blog_details_meta_box($post) {
-    wp_nonce_field('tov_blog_details', 'tov_blog_details_nonce');
-
-    $blog_author_name = get_post_meta($post->ID, '_blog_author_name', true);
-    $blog_author_bio = get_post_meta($post->ID, '_blog_author_bio', true);
-    $blog_read_time = get_post_meta($post->ID, '_blog_read_time', true);
-    $blog_featured = get_post_meta($post->ID, '_blog_featured', true);
-    ?>
-    <style>
-        .blog-meta-fields {
-            padding: 10px;
-            background: #fff;
-            border: 1px solid #e2e4e7;
-            border-radius: 4px;
-        }
-        .blog-meta-fields p {
-            margin: 1em 0;
-        }
-        .blog-meta-fields label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        .blog-meta-fields input[type="text"],
-        .blog-meta-fields textarea {
-            width: 100%;
-        }
-        .blog-meta-fields input[type="checkbox"] {
-            margin-right: 8px;
-        }
-    </style>
-    
-    <div class="blog-meta-fields">
-        <p>
-            <label for="blog_author_name"><?php _e('Custom Author Name (optional):', 'tov'); ?></label>
-            <input type="text" 
-                   id="blog_author_name" 
-                   name="blog_author_name" 
-                   value="<?php echo esc_attr($blog_author_name); ?>"
-                   placeholder="Leave empty to use WordPress author">
-            <small><?php _e('Enter a custom author name or leave empty to use the WordPress post author.', 'tov'); ?></small>
-        </p>
-        <p>
-            <label for="blog_author_bio"><?php _e('Author Bio/Role (optional):', 'tov'); ?></label>
-            <textarea id="blog_author_bio" 
-                      name="blog_author_bio" 
-                      rows="3"
-                      placeholder="e.g., Marketing Director, Guest Writer, CEO"><?php echo esc_textarea($blog_author_bio); ?></textarea>
-        </p>
-        <p>
-            <label for="blog_read_time"><?php _e('Estimated Read Time (optional):', 'tov'); ?></label>
-            <input type="text" 
-                   id="blog_read_time" 
-                   name="blog_read_time" 
-                   value="<?php echo esc_attr($blog_read_time); ?>"
-                   placeholder="e.g., 5 min read">
-        </p>
-        <p>
-            <label for="blog_featured">
-                <input type="checkbox" 
-                       id="blog_featured" 
-                       name="blog_featured" 
-                       value="1" 
-                       <?php checked($blog_featured, '1'); ?>>
-                <?php _e('Featured Blog Post', 'tov'); ?>
-            </label>
-        </p>
-    </div>
-    <?php
-}
-
-function tov_save_blog_meta($post_id) {
-    if (!isset($_POST['tov_blog_details_nonce'])) {
-        return;
-    }
-    if (!wp_verify_nonce($_POST['tov_blog_details_nonce'], 'tov_blog_details')) {
-        return;
-    }
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
-    }
-    if (!current_user_can('edit_post', $post_id)) {
-        return;
-    }
-
-    // Save custom author name
-    if (isset($_POST['blog_author_name'])) {
-        update_post_meta($post_id, '_blog_author_name', sanitize_text_field($_POST['blog_author_name']));
-    }
-    
-    // Save author bio
-    if (isset($_POST['blog_author_bio'])) {
-        update_post_meta($post_id, '_blog_author_bio', sanitize_textarea_field($_POST['blog_author_bio']));
-    }
-    
-    // Save read time
-    if (isset($_POST['blog_read_time'])) {
-        update_post_meta($post_id, '_blog_read_time', sanitize_text_field($_POST['blog_read_time']));
-    }
-    
-    // Save featured status
-    $featured = isset($_POST['blog_featured']) ? '1' : '0';
-    update_post_meta($post_id, '_blog_featured', $featured);
-}
-add_action('save_post', 'tov_save_blog_meta');
+// Meta box functions removed - using ACF fields instead
+// ACF will handle saving automatically
 
 /**
  * Custom function to render blog card (similar to events)
  */
-function tov_render_blog_card($post_id, $blog_date = null) {
+function tov_render_blog_card($post_id, $blog_date = null, $use_acf = false) {
     // Debug: Force clear any caching
     if (current_user_can('manage_options')) {
         echo '<!-- Blog Card Debug: Post ID ' . $post_id . ' -->';
     }
     $categories = get_the_terms($post_id, 'blog_category');
-    $read_time = get_post_meta($post_id, '_blog_read_time', true);
-    // Get custom author info or fallback to WordPress author
-    $custom_author_name = get_post_meta($post_id, '_blog_author_name', true);
-    $author_bio = get_post_meta($post_id, '_blog_author_bio', true);
+    
+    // Get read time from ACF or fallback to WordPress meta field (only if ACF is enabled)
+    $read_time = '';
+    if ($use_acf && function_exists('get_field')) {
+        $read_time = get_field('blog_read_time', $post_id);
+    }
+    if (empty($read_time)) {
+        $read_time = get_post_meta($post_id, '_blog_read_time', true);
+    }
+    // Get custom author info from ACF or fallback to WordPress meta fields (only if ACF is enabled)
+    $custom_author_name = '';
+    $author_bio = '';
+    $author_image = '';
+    
+    // Try ACF fields first (only if ACF is enabled)
+    if ($use_acf && function_exists('get_field')) {
+        $custom_author_name = get_field('blog_author_name', $post_id);
+        $author_bio = get_field('blog_author_bio', $post_id);
+        $author_image = get_field('blog_author_image', $post_id);
+        
+    }
+    
+    // Fallback to WordPress meta fields if ACF fields are empty
+    if (empty($custom_author_name)) {
+        $custom_author_name = get_post_meta($post_id, '_blog_author_name', true);
+    }
+    if (empty($author_bio)) {
+        $author_bio = get_post_meta($post_id, '_blog_author_bio', true);
+    }
     
     // Always get the WordPress author ID
     $author_id = get_post_field('post_author', $post_id);
@@ -260,8 +146,22 @@ function tov_render_blog_card($post_id, $blog_date = null) {
         $author_name = get_the_author_meta('display_name', $author_id);
     }
     
-    // Always use WordPress avatar
-    $author_avatar = get_avatar($author_id, 40, '', '', ['class'=>'w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700']);
+    // Use ACF author image or fallback to WordPress avatar
+    if (!empty($author_image)) {
+        if (is_array($author_image)) {
+            // ACF Image field returns array
+            $avatar_url = $author_image['sizes']['thumbnail'] ?? $author_image['url'];
+            $avatar_alt = $author_image['alt'] ?? 'Author Avatar';
+        } else {
+            // ACF Image field returns URL (if return format is URL)
+            $avatar_url = $author_image;
+            $avatar_alt = 'Author Avatar';
+        }
+        $author_avatar = '<img src="' . esc_url($avatar_url) . '" alt="' . esc_attr($avatar_alt) . '" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 object-cover border border-gray-200 dark:border-gray-700 flex-shrink-0" />';
+    } else {
+        // Fallback to WordPress avatar
+        $author_avatar = get_avatar($author_id, 32, '', '', ['class'=>'w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700']);
+    }
     ?>
     <article class="flex flex-col items-start justify-between">
         <div class="relative w-full">
@@ -300,7 +200,19 @@ function tov_render_blog_card($post_id, $blog_date = null) {
                     </a>
                 </h3>
                 <p class="mt-5 text-sm text-gray-600 dark:text-gray-400">
-                    <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
+                    <?php 
+                    // Use custom excerpt from ACF if available, otherwise use WordPress excerpt (only if ACF is enabled)
+                    $custom_excerpt = '';
+                    if ($use_acf && function_exists('get_field')) {
+                        $custom_excerpt = get_field('blog_custom_excerpt', $post_id);
+                    }
+                    
+                    if (!empty($custom_excerpt)) {
+                        echo wp_trim_words($custom_excerpt, 25, '...');
+                    } else {
+                        echo wp_trim_words(get_the_excerpt($post_id), 25, '...');
+                    }
+                    ?>
                 </p>
             </div>
             
@@ -324,6 +236,26 @@ function tov_render_blog_card($post_id, $blog_date = null) {
                     <?php else : ?>
                         <p class="text-gray-600 dark:text-gray-400">Author</p>
                     <?php endif; ?>
+                    
+                    <?php 
+                    // Display blog tags if available (only if ACF is enabled)
+                    $blog_tags = '';
+                    if ($use_acf && function_exists('get_field')) {
+                        $blog_tags = get_field('blog_tags', $post_id);
+                    }
+                    
+                    if (!empty($blog_tags)) : 
+                        $tags_array = array_map('trim', explode(',', $blog_tags));
+                        ?>
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            <?php foreach ($tags_array as $tag) : ?>
+                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-200 dark:ring-blue-700/30">
+                                    <?php echo esc_html($tag); ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    
                 </div>
             </div>
         </div>
@@ -840,3 +772,166 @@ function tov_debug_blog_registration() {
 }
 add_action('wp_head', 'tov_debug_blog_registration');
 add_action('admin_head', 'tov_debug_blog_registration');
+
+/**
+ * ACF Field Groups - Create these manually in ACF plugin
+ * 
+ * ========================================
+ * STEP-BY-STEP ACF SETUP GUIDE
+ * ========================================
+ * 
+ * 1. CREATE OPTIONS PAGE:
+ *    - Go to: WordPress Admin → Custom Fields → Options Pages
+ *    - Click "Add New"
+ *    - Page Title: "Blog Settings"
+ *    - Menu Title: "Blog Settings"
+ *    - Menu Slug: "blog-settings"
+ *    - Parent Menu: "Blog" (or leave empty)
+ *    - Save
+ * 
+ * 2. CREATE FIELD GROUP 1: "Blog Section Settings"
+ *    - Go to: WordPress Admin → Custom Fields → Field Groups
+ *    - Click "Add New"
+ *    - Title: "Blog Section Settings"
+ *    - Location Rules: Options Page is equal to blog-settings
+ *    - Add these fields:
+ * 
+ *    Field 1: Blog Section Title
+ *    - Field Label: "Blog Section Title"
+ *    - Field Name: "blog_section_title"
+ *    - Field Type: Text
+ *    - Default Value: "From the blog"
+ *    - Placeholder: "Enter section title"
+ * 
+ *    Field 2: Blog Section Subtitle
+ *    - Field Label: "Blog Section Subtitle"
+ *    - Field Name: "blog_section_subtitle"
+ *    - Field Type: Textarea
+ *    - Default Value: "Learn how to grow your business with our expert advice."
+ *    - Placeholder: "Enter section subtitle"
+ * 
+ *    Field 3: Latest Blog Section Title
+ *    - Field Label: "Latest Blog Section Title"
+ *    - Field Name: "latest_blog_section_title"
+ *    - Field Type: Text
+ *    - Default Value: "Latest Blog Posts"
+ * 
+ *    Field 4: Latest Blog Section Subtitle
+ *    - Field Label: "Latest Blog Section Subtitle"
+ *    - Field Name: "latest_blog_section_subtitle"
+ *    - Field Type: Textarea
+ *    - Default Value: "Stay updated with our latest blog posts and articles."
+ * 
+ *    Field 5: Past Blog Section Title
+ *    - Field Label: "Past Blog Section Title"
+ *    - Field Name: "past_blog_section_title"
+ *    - Field Type: Text
+ *    - Default Value: "Past Blog Posts"
+ * 
+ *    Field 6: Past Blog Section Subtitle
+ *    - Field Label: "Past Blog Section Subtitle"
+ *    - Field Name: "past_blog_section_subtitle"
+ *    - Field Type: Textarea
+ *    - Default Value: "Browse through our previous blog posts and articles."
+ * 
+ * 3. CREATE FIELD GROUP 2: "Blog Post Details"
+ *    - Go to: WordPress Admin → Custom Fields → Field Groups
+ *    - Click "Add New"
+ *    - Title: "Blog Post Details"
+ *    - Location Rules: Post Type is equal to Blog
+ *    - Add these fields:
+ * 
+ *    Field 1: Custom Author Name
+ *    - Field Label: "Custom Author Name"
+ *    - Field Name: "blog_author_name"
+ *    - Field Type: Text
+ *    - Instructions: "Leave empty to use WordPress author"
+ *    - Placeholder: "Enter custom author name"
+ *    - Width: 50%
+ * 
+ *    Field 2: Author Bio/Role
+ *    - Field Label: "Author Bio/Role"
+ *    - Field Name: "blog_author_bio"
+ *    - Field Type: Text
+ *    - Placeholder: "e.g., Marketing Director, Guest Writer, CEO"
+ *    - Width: 50%
+ * 
+ *    Field 3: Author Image
+ *    - Field Label: "Author Image"
+ *    - Field Name: "blog_author_image"
+ *    - Field Type: Image
+ *    - Instructions: "Upload custom author image or leave empty to use WordPress avatar"
+ *    - Return Format: Array
+ *    - Preview Size: Thumbnail
+ *    - Width: 50%
+ * 
+ *    Field 4: Estimated Read Time
+ *    - Field Label: "Estimated Read Time"
+ *    - Field Name: "blog_read_time"
+ *    - Field Type: Text
+ *    - Placeholder: "e.g., 5 min read"
+ *    - Width: 50%
+ * 
+ *    Field 5: Featured Blog Post
+ *    - Field Label: "Featured Blog Post"
+ *    - Field Name: "blog_featured"
+ *    - Field Type: True / False
+ *    - Default Value: No
+ *    - Stylised UI: Yes
+ *    - Width: 50%
+ * 
+ *    Field 6: Custom Excerpt
+ *    - Field Label: "Custom Excerpt"
+ *    - Field Name: "blog_custom_excerpt"
+ *    - Field Type: Textarea
+ *    - Instructions: "Override the default excerpt with custom text"
+ *    - Placeholder: "Enter custom excerpt..."
+ *    - Rows: 3
+ * 
+ *    Field 7: Blog Tags
+ *    - Field Label: "Blog Tags"
+ *    - Field Name: "blog_tags"
+ *    - Field Type: Text
+ *    - Instructions: "Enter tags separated by commas"
+ *    - Placeholder: "tag1, tag2, tag3"
+ * 
+ *    Field 8: Custom Blog Image
+ *    - Field Label: "Custom Blog Image"
+ *    - Field Name: "blog_custom_image"
+ *    - Field Type: Image
+ *    - Instructions: "Upload a custom image for this blog post"
+ *    - Return Format: Array
+ *    - Preview Size: Medium
+ *    - Width: 50%
+ * 
+ *    Field 9: Blog Image Gallery
+ *    - Field Label: "Blog Image Gallery"
+ *    - Field Name: "blog_image_gallery"
+ *    - Field Type: Gallery
+ *    - Instructions: "Upload multiple images for this blog post"
+ *    - Return Format: Array
+ *    - Preview Size: Medium
+ *    - Width: 50%
+ * 
+ * 4. SAVE AND PUBLISH:
+ *    - Save both field groups
+ *    - Publish them
+ *    - The fields will now appear in the appropriate locations
+ * 
+ * ========================================
+ * END OF SETUP GUIDE
+ * ========================================
+ */
+
+/**
+ * ACF Options Page - Create manually in ACF plugin
+ * 
+ * To create the Blog Settings options page:
+ * 1. Go to WordPress Admin → Custom Fields → Options Pages
+ * 2. Click "Add New"
+ * 3. Set Page Title: "Blog Settings"
+ * 4. Set Menu Title: "Blog Settings" 
+ * 5. Set Menu Slug: "blog-settings"
+ * 6. Set Parent Menu: "Blog" (or leave empty for top-level)
+ * 7. Save
+ */

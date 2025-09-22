@@ -77,11 +77,34 @@ get_header(); ?>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
-                        <?php echo get_the_author_meta('display_name', $specific_blog->post_author); ?>
+                        <?php 
+                        // Get custom author name from ACF or fallback to WordPress author
+                        $custom_author_name = '';
+                        if (function_exists('get_field')) {
+                            $custom_author_name = get_field('blog_author_name', $specific_blog->ID);
+                        }
+                        if (empty($custom_author_name)) {
+                            $custom_author_name = get_post_meta($specific_blog->ID, '_blog_author_name', true);
+                        }
+                        
+                        
+                        if (!empty($custom_author_name)) {
+                            echo esc_html($custom_author_name);
+                        } else {
+                            echo esc_html(get_the_author_meta('display_name', $specific_blog->post_author));
+                        }
+                        ?>
                     </span>
                     
                     <?php 
-                    $read_time = get_post_meta($specific_blog->ID, '_blog_read_time', true);
+                    // Get read time from ACF or fallback to WordPress meta field
+                    $read_time = '';
+                    if (function_exists('get_field')) {
+                        $read_time = get_field('blog_read_time', $specific_blog->ID);
+                    }
+                    if (empty($read_time)) {
+                        $read_time = get_post_meta($specific_blog->ID, '_blog_read_time', true);
+                    }
                     if ($read_time) : ?>
                         <span class="flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,8 +128,23 @@ get_header(); ?>
 
                 <!-- Blog Meta Information -->
                 <?php 
-                $author_bio = get_post_meta($specific_blog->ID, '_blog_author_bio', true);
-                $is_featured = get_post_meta($specific_blog->ID, '_blog_featured', true);
+                // Get author bio from ACF or fallback to WordPress meta field
+                $author_bio = '';
+                if (function_exists('get_field')) {
+                    $author_bio = get_field('blog_author_bio', $specific_blog->ID);
+                }
+                if (empty($author_bio)) {
+                    $author_bio = get_post_meta($specific_blog->ID, '_blog_author_bio', true);
+                }
+                
+                // Get featured status from ACF or fallback to WordPress meta field
+                $is_featured = '';
+                if (function_exists('get_field')) {
+                    $is_featured = get_field('blog_featured', $specific_blog->ID);
+                }
+                if (empty($is_featured)) {
+                    $is_featured = get_post_meta($specific_blog->ID, '_blog_featured', true);
+                }
                 ?>
                 <?php if ($author_bio || $is_featured) : ?>
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6">
@@ -134,6 +172,54 @@ get_header(); ?>
                     <?php echo apply_filters('the_content', $specific_blog->post_content); ?>
                 </div>
 
+                <!-- Custom ACF Images -->
+                <?php 
+                // Get custom images from ACF fields
+                $custom_images = array();
+                if (function_exists('get_field')) {
+                    // Single image field
+                    $single_image = get_field('blog_custom_image', $specific_blog->ID);
+                    if ($single_image) {
+                        $custom_images[] = $single_image;
+                    }
+                    
+                    // Gallery field (multiple images)
+                    $gallery_images = get_field('blog_image_gallery', $specific_blog->ID);
+                    if ($gallery_images && is_array($gallery_images)) {
+                        $custom_images = array_merge($custom_images, $gallery_images);
+                    }
+                }
+                
+                // Display custom images if any exist
+                if (!empty($custom_images)) : ?>
+                    <div class="mt-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <?php foreach ($custom_images as $image) : 
+                                if (is_array($image)) {
+                                    $image_url = $image['sizes']['large'] ?? $image['url'];
+                                    $image_alt = $image['alt'] ?? 'Blog Image';
+                                    $image_caption = $image['caption'] ?? '';
+                                } else {
+                                    $image_url = $image;
+                                    $image_alt = 'Blog Image';
+                                    $image_caption = '';
+                                }
+                            ?>
+                                <div class="relative">
+                                    <img src="<?php echo esc_url($image_url); ?>" 
+                                         alt="<?php echo esc_attr($image_alt); ?>" 
+                                         class="w-full h-64 object-cover rounded-lg shadow-lg">
+                                    <?php if ($image_caption) : ?>
+                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 text-center italic">
+                                            <?php echo esc_html($image_caption); ?>
+                                        </p>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
                 <!-- Share Buttons -->
                 <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
                     <div class="flex items-center gap-4">
@@ -159,7 +245,7 @@ get_header(); ?>
             // Latest blog posts (last 30 days)
             $latest_args = array(
                 'post_type' => 'blog',
-                'posts_per_page' => -1,
+                'posts_per_page' => 1,
                 'orderby' => 'date',
                 'order' => 'DESC',
                 'date_query' => array(
@@ -177,21 +263,117 @@ get_header(); ?>
             <section class="bg-white py-24 sm:py-32 dark:bg-gray-900">
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="mx-auto max-w-2xl text-center">
-                        <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">From the blog</h2>
-                        <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-300">Learn how to grow your business with our expert advice.</p>
+                        <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Recent Blogs</h2>
                     </div>
-                    <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                    <div class="mx-auto mt-16 max-w-4xl">
                         <?php while ($latest_blog->have_posts()) : $latest_blog->the_post();
-                            $blog_date = get_the_date('Y-m-d', get_the_ID());
-                            tov_render_blog_card(get_the_ID(), $blog_date);
-                        endwhile; ?>
+                            $post_id = get_the_ID();
+                            $blog_date = get_the_date('F j, Y', $post_id);
+                            
+                            // Get ACF fields
+                            $read_time = '';
+                            $custom_author_name = '';
+                            $author_bio = '';
+                            
+                            if (function_exists('get_field')) {
+                                $read_time = get_field('blog_read_time', $post_id);
+                                $custom_author_name = get_field('blog_author_name', $post_id);
+                                $author_bio = get_field('blog_author_bio', $post_id);
+                            }
+                            
+                            // Fallback to WordPress meta fields
+                            if (empty($read_time)) {
+                                $read_time = get_post_meta($post_id, '_blog_read_time', true);
+                            }
+                            if (empty($custom_author_name)) {
+                                $custom_author_name = get_post_meta($post_id, '_blog_author_name', true);
+                            }
+                            if (empty($author_bio)) {
+                                $author_bio = get_post_meta($post_id, '_blog_author_bio', true);
+                            }
+                            
+                            // Use custom author name or fallback to WordPress author
+                            if (!empty($custom_author_name)) {
+                                $author_name = $custom_author_name;
+                            } else {
+                                $author_name = get_the_author_meta('display_name', get_post_field('post_author', $post_id));
+                            }
+                            ?>
+                            
+                            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                                <div class="flex flex-col lg:flex-row">
+                                    <!-- Image on the left -->
+                                    <div class="lg:w-1/2">
+                                        <?php if (has_post_thumbnail($post_id)) : ?>
+                                            <a href="<?php echo get_permalink($post_id); ?>">
+                                                <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-64 lg:h-full object-cover')); ?>
+                                            </a>
+                                        <?php else : ?>
+                                            <div class="w-full h-64 lg:h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                </svg>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <!-- Content on the right -->
+                                    <div class="lg:w-1/2 p-8 flex flex-col justify-center">
+                                        <!-- Date and read time -->
+                                        <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                            <span><?php echo esc_html($blog_date); ?></span>
+                                            <?php if ($read_time) : ?>
+                                                <span>|</span>
+                                                <span><?php echo esc_html($read_time); ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                        
+                                        <!-- Title -->
+                                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                                            <a href="<?php echo get_permalink($post_id); ?>" class="hover:text-blue-600 dark:hover:text-blue-400">
+                                                <?php echo get_the_title($post_id); ?>
+                                            </a>
+                                        </h3>
+                                        
+                                        <!-- Excerpt -->
+                                        <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                                            <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
+                                        </p>
+                                        
+                                        <!-- Author info -->
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                                                <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900 dark:text-white">By <?php echo esc_html($author_name); ?></p>
+                                                <?php if ($author_bio) : ?>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400"><?php echo esc_html($author_bio); ?></p>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        <?php endwhile; ?>
                     </div>
                 </div>
             </section>
             <?php endif; wp_reset_postdata(); ?>
 
             <?php
-            // Older blog posts with pagination
+            // Get the recent post ID to exclude it from past articles
+            $recent_post_id = null;
+            if ($latest_blog->have_posts()) {
+                $latest_blog->the_post();
+                $recent_post_id = get_the_ID();
+                wp_reset_postdata();
+            }
+            
+            // Older blog posts with pagination (excluding the recent post)
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
             $past_args = array(
                 'post_type' => 'blog',
@@ -206,6 +388,12 @@ get_header(); ?>
                     ),
                 ),
             );
+            
+            // Exclude the recent post from past articles
+            if ($recent_post_id) {
+                $past_args['post__not_in'] = array($recent_post_id);
+            }
+            
             $older_blog = new WP_Query($past_args);
             ?>
 
@@ -220,7 +408,7 @@ get_header(); ?>
                     <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                         <?php while ($older_blog->have_posts()) : $older_blog->the_post();
                             $blog_date = get_the_date('Y-m-d', get_the_ID());
-                            tov_render_blog_card(get_the_ID(), $blog_date);
+                            tov_render_blog_card(get_the_ID(), $blog_date, true);
                         endwhile; ?>
                     </div>
 

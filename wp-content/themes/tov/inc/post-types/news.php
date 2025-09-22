@@ -94,15 +94,6 @@ add_action('save_post', 'tov_flush_news_rules_on_save');
 // ✅ News meta box (you can add fields like Source, Reporter, Published Date)
 function tov_add_news_meta_boxes() {
     add_meta_box(
-        'news_details',
-        __('News Details', 'tov'),
-        'tov_news_details_meta_box',
-        'news',
-        'normal',
-        'high'
-    );
-    
-    add_meta_box(
         'news_homepage_settings',
         __('Homepage Display Settings', 'tov'),
         'tov_news_homepage_meta_box',
@@ -113,71 +104,10 @@ function tov_add_news_meta_boxes() {
 }
 add_action('add_meta_boxes', 'tov_add_news_meta_boxes');
 
-/**
- * Add admin styles for news post type
- */
-function tov_news_admin_styles() {
-    global $post_type;
-    if ($post_type == 'news') {
-        ?>
-        <style>
-            .news-meta-fields {
-                padding: 15px;
-                background: #f8fafc;
-                border: 1px solid #e2e4e7;
-                border-radius: 4px;
-            }
-            .news-meta-fields p {
-                margin: 1em 0;
-            }
-            .news-meta-fields label {
-                display: block;
-                font-weight: 600;
-                margin-bottom: 5px;
-            }
-            .news-meta-fields input[type="text"] {
-                width: 100%;
-            }
-        </style>
-        <?php
-    }
-}
-add_action('admin_head-post-new.php', 'tov_news_admin_styles');
-add_action('admin_head-post.php', 'tov_news_admin_styles');
-
-function tov_news_details_meta_box($post) {
-    wp_nonce_field('tov_news_details', 'tov_news_details_nonce');
-
-    $news_source = get_post_meta($post->ID, '_news_source', true);
-    $news_reporter = get_post_meta($post->ID, '_news_reporter', true);
-    ?>
-    <div class="news-meta-fields">
-        <p>
-            <label for="news_source"><?php _e('News Source:', 'tov'); ?></label>
-            <input type="text" id="news_source" name="news_source"
-                   value="<?php echo esc_attr($news_source); ?>" class="widefat">
-        </p>
-        <p>
-            <label for="news_reporter"><?php _e('Reporter/Author:', 'tov'); ?></label>
-            <input type="text" id="news_reporter" name="news_reporter"
-                   value="<?php echo esc_attr($news_reporter); ?>" class="widefat">
-        </p>
-    </div>
-    <?php
-}
 
 function tov_save_news_meta($post_id) {
-    if (!isset($_POST['tov_news_details_nonce'])) return;
-    if (!wp_verify_nonce($_POST['tov_news_details_nonce'], 'tov_news_details')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (!current_user_can('edit_post', $post_id)) return;
-
-    if (isset($_POST['news_source'])) {
-        update_post_meta($post_id, '_news_source', sanitize_text_field($_POST['news_source']));
-    }
-    if (isset($_POST['news_reporter'])) {
-        update_post_meta($post_id, '_news_reporter', sanitize_text_field($_POST['news_reporter']));
-    }
     
     // Save homepage settings
     if (isset($_POST['news_homepage_meta_box_nonce']) && wp_verify_nonce($_POST['news_homepage_meta_box_nonce'], 'news_homepage_meta_box')) {
@@ -185,13 +115,6 @@ function tov_save_news_meta($post_id) {
             update_post_meta($post_id, '_show_on_homepage', '1');
         } else {
             delete_post_meta($post_id, '_show_on_homepage');
-        }
-        
-        if (isset($_POST['_homepage_priority'])) {
-            $priority = intval($_POST['_homepage_priority']);
-            if ($priority >= 1 && $priority <= 10) {
-                update_post_meta($post_id, '_homepage_priority', $priority);
-            }
         }
     }
 }
@@ -204,8 +127,6 @@ function tov_news_homepage_meta_box($post) {
     wp_nonce_field('news_homepage_meta_box', 'news_homepage_meta_box_nonce');
     
     $show_on_homepage = get_post_meta($post->ID, '_show_on_homepage', true);
-    $homepage_priority = get_post_meta($post->ID, '_homepage_priority', true);
-    if (empty($homepage_priority)) $homepage_priority = 5; // Default priority
     
     echo '<div class="news-homepage-fields">';
     echo '<p>';
@@ -213,12 +134,6 @@ function tov_news_homepage_meta_box($post) {
     echo '<input type="checkbox" id="show_on_homepage" name="_show_on_homepage" value="1" ' . checked($show_on_homepage, '1', false) . ' />';
     echo ' ' . __('Show on Homepage', 'tov');
     echo '</label>';
-    echo '</p>';
-    
-    echo '<p>';
-    echo '<label for="homepage_priority">' . __('Homepage Priority (1-10, higher = more important):', 'tov') . '</label><br>';
-    echo '<input type="number" id="homepage_priority" name="_homepage_priority" value="' . esc_attr($homepage_priority) . '" min="1" max="10" style="width: 100%;" />';
-    echo '<small>' . __('Higher priority news will be shown first if more than 3 are selected.', 'tov') . '</small>';
     echo '</p>';
     echo '</div>';
 }
@@ -314,18 +229,12 @@ function tov_render_news_card($post_id, $news_date = null) {
     $categories = get_the_terms($post_id, 'news_category');
     $author_id = get_post_field('post_author', $post_id);
     $author_name = get_the_author_meta('display_name', $author_id);
-    $author_avatar = get_avatar($author_id, 40, '', '', ['class'=>'size-10 rounded-full bg-gray-100 dark:bg-gray-800']);
     
-    // Check if this post has the "highlighted" category
-    $is_highlighted = false;
-    if ($categories && !is_wp_error($categories)) {
-        foreach ($categories as $category) {
-            if ($category->slug === 'highlighted') {
-                $is_highlighted = true;
-                break;
-            }
-        }
-    }
+    // Check if this post is highlighted using the meta field (consistent with admin system)
+    $is_highlighted = get_post_meta($post_id, '_is_highlighted', true) === '1';
+    
+    // Check if this post is set to show on homepage
+    $show_on_homepage = get_post_meta($post_id, '_show_on_homepage', true);
     
     $card_classes = "flex flex-col items-start justify-between";
     if ($is_highlighted) {
@@ -363,26 +272,64 @@ function tov_render_news_card($post_id, $news_date = null) {
                 <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
+                
             </div>
             
             <div class="relative mt-8 flex items-center gap-x-4 justify-self-end">
-                <?php echo $author_avatar; ?>
+                <?php 
+                // Try ACF field for author avatar first, then fallback to WordPress avatar
+                $acf_avatar = function_exists('get_field') ? get_field('news_author_avatar', $post_id) : '';
+                if (!empty($acf_avatar)) {
+                    if (is_array($acf_avatar)) {
+                        // ACF Image field returns array
+                        $avatar_url = $acf_avatar['sizes']['thumbnail'] ?? $acf_avatar['url'];
+                        $avatar_alt = $acf_avatar['alt'] ?? 'Author Avatar';
+                    } else {
+                        // ACF Image field returns URL (if return format is URL)
+                        $avatar_url = $acf_avatar;
+                        $avatar_alt = 'Author Avatar';
+                    }
+                    echo '<img src="' . esc_url($avatar_url) . '" alt="' . esc_attr($avatar_alt) . '" class="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 object-cover border border-gray-200 dark:border-gray-700 flex-shrink-0" />';
+                } else {
+                    // Fallback to WordPress avatar
+                    echo get_avatar($author_id, 24, '', '', ['class'=>'w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex-shrink-0']);
+                }
+                ?>
                 <div class="text-sm leading-6">
                     <p class="font-semibold text-gray-900 dark:text-white">
                         <a href="<?php echo get_author_posts_url($author_id); ?>">
                             <span class="absolute inset-0"></span>
                             <?php 
-                            $custom_reporter = get_post_meta($post_id, '_news_reporter', true);
-                            echo esc_html($custom_reporter ? $custom_reporter : $author_name); 
+                            // Try ACF field first, then fallback to author name
+                            $acf_reporter = function_exists('get_field') ? get_field('news_reporter', $post_id) : '';
+                            
+                            if (!empty($acf_reporter)) {
+                                echo esc_html($acf_reporter);
+                            } else {
+                                echo esc_html($author_name);
+                            }
                             ?>
                         </a>
                     </p>
                     <?php 
-                    $news_source = get_post_meta($post_id, '_news_source', true);
-                    if ($news_source) : ?>
-                        <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($news_source); ?></p>
+                    // Try ACF field first, then show default text
+                    $acf_source = function_exists('get_field') ? get_field('news_source', $post_id) : '';
+                    
+                    if (!empty($acf_source)) : ?>
+                        <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($acf_source); ?></p>
                     <?php else : ?>
                         <p class="text-gray-600 dark:text-gray-400">Reporter</p>
+                    <?php endif; ?>
+                    
+                    <?php 
+                    // Display dynamic tag from ACF field if available
+                    $dynamic_tag = function_exists('get_field') ? get_field('news_tag', $post_id) : '';
+                    if (!empty($dynamic_tag)) : ?>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-200 dark:ring-blue-700/30">
+                                <?php echo esc_html($dynamic_tag); ?>
+                            </span>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -472,25 +419,15 @@ function tov_flush_news_rewrite_rules_now() {
 add_action('wp_head', 'tov_flush_news_rewrite_rules_now');
 
 /**
- * Render horizontal news card (blog-style layout)
+ * Render horizontal news card (for shortcodes)
  */
 function tov_render_horizontal_news_card($post_id) {
     $categories = get_the_terms($post_id, 'news_category');
     $author_id = get_post_field('post_author', $post_id);
     $author_name = get_the_author_meta('display_name', $author_id);
-    $author_avatar = get_avatar($author_id, 40, '', '', ['class'=>'size-10 rounded-full bg-gray-50 dark:bg-gray-800']);
     
-    
-    // Check if this post has the "highlighted" category
-    $is_highlighted = false;
-    if ($categories && !is_wp_error($categories)) {
-        foreach ($categories as $category) {
-            if ($category->slug === 'highlighted') {
-                $is_highlighted = true;
-                break;
-            }
-        }
-    }
+    // Check if this post is highlighted using the meta field (consistent with admin system)
+    $is_highlighted = get_post_meta($post_id, '_is_highlighted', true) === '1';
     
     $card_classes = "relative isolate flex flex-col gap-8 lg:flex-row";
     if ($is_highlighted) {
@@ -498,14 +435,14 @@ function tov_render_horizontal_news_card($post_id) {
     }
     ?>
     <article class="<?php echo esc_attr($card_classes); ?>">
-        <div class="relative w-full h-16 lg:w-16 lg:h-16 lg:shrink-0">
+        <div class="relative lg:shrink-0" style="width: 256px; height: 256px;">
             <?php if (has_post_thumbnail($post_id)) : ?>
                 <a href="<?php echo get_permalink($post_id); ?>">
-                    <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover dark:bg-gray-800')); ?>
+                    <?php echo get_the_post_thumbnail($post_id, 'thumbnail', array('class' => 'w-full h-full rounded-2xl bg-gray-50 object-cover dark:bg-gray-800')); ?>
                 </a>
             <?php else : ?>
-                <div class="absolute inset-0 size-full rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
-                    <span class="text-gray-400 dark:text-gray-500">No Image</span>
+                <div class="w-full h-full rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
+                    <span class="text-gray-400 dark:text-gray-500 text-xs">No Image</span>
                 </div>
             <?php endif; ?>
             <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
@@ -529,23 +466,60 @@ function tov_render_horizontal_news_card($post_id) {
             </div>
             <div class="mt-6 flex border-t border-gray-900/5 pt-6 dark:border-white/10">
                 <div class="relative flex items-center gap-x-4">
-                    <?php echo $author_avatar; ?>
+                    <?php 
+                    // Try ACF field for author avatar first, then fallback to WordPress avatar
+                    $acf_avatar = function_exists('get_field') ? get_field('news_author_avatar', $post_id) : '';
+                    if (!empty($acf_avatar)) {
+                        if (is_array($acf_avatar)) {
+                            // ACF Image field returns array
+                            $avatar_url = $acf_avatar['sizes']['thumbnail'] ?? $acf_avatar['url'];
+                            $avatar_alt = $acf_avatar['alt'] ?? 'Author Avatar';
+                        } else {
+                            // ACF Image field returns URL (if return format is URL)
+                            $avatar_url = $acf_avatar;
+                            $avatar_alt = 'Author Avatar';
+                        }
+                        echo '<img src="' . esc_url($avatar_url) . '" alt="' . esc_attr($avatar_alt) . '" class="w-6 h-6 rounded-full bg-gray-50 dark:bg-gray-800 object-cover border border-gray-200 dark:border-gray-700 flex-shrink-0" />';
+                    } else {
+                        // Fallback to WordPress avatar
+                        echo get_avatar($author_id, 24, '', '', ['class'=>'w-6 h-6 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex-shrink-0']);
+                    }
+                    ?>
                     <div class="text-sm leading-6">
                         <p class="font-semibold text-gray-900 dark:text-white">
                             <a href="<?php echo get_author_posts_url($author_id); ?>">
                                 <span class="absolute inset-0"></span>
                                 <?php 
-                                $custom_reporter = get_post_meta($post_id, '_news_reporter', true);
-                                echo esc_html($custom_reporter ? $custom_reporter : $author_name); 
+                                // Try ACF field first, then fallback to author name
+                                $acf_reporter = function_exists('get_field') ? get_field('news_reporter', $post_id) : '';
+                                
+                                if (!empty($acf_reporter)) {
+                                    echo esc_html($acf_reporter);
+                                } else {
+                                    echo esc_html($author_name);
+                                }
                                 ?>
                             </a>
                         </p>
                         <?php 
-                        $news_source = get_post_meta($post_id, '_news_source', true);
-                        if ($news_source) : ?>
-                            <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($news_source); ?></p>
+                        // Try ACF field first, then show default text
+                        $acf_source = function_exists('get_field') ? get_field('news_source', $post_id) : '';
+                        
+                        if (!empty($acf_source)) : ?>
+                            <p class="text-gray-600 dark:text-gray-400"><?php echo esc_html($acf_source); ?></p>
                         <?php else : ?>
                             <p class="text-gray-600 dark:text-gray-400">Reporter</p>
+                        <?php endif; ?>
+                        
+                        <?php 
+                        // Display dynamic tag from ACF field if available
+                        $dynamic_tag = function_exists('get_field') ? get_field('news_tag', $post_id) : '';
+                        if (!empty($dynamic_tag)) : ?>
+                            <div class="mt-2">
+                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-200 dark:ring-blue-700/30">
+                                    <?php echo esc_html($dynamic_tag); ?>
+                                </span>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>

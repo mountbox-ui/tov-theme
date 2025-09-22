@@ -8,14 +8,43 @@ if (!defined('ABSPATH')) exit;
 
 function tov_blog_section_shortcode($atts) {
     $atts = shortcode_atts(array(
-        'limit' => 6,
+        'limit' => 3,
         'category' => '',
         'show_past' => 'false',
-        'debug' => 'false'
+        'debug' => 'false',
+        'title' => '',
+        'subtitle' => '',
+        'use_acf' => 'true'
     ), $atts, 'blog_section');
 
     // Convert show_past to boolean
     $show_past = filter_var($atts['show_past'], FILTER_VALIDATE_BOOLEAN);
+
+    // Get title and subtitle - ACF fields are default for blog_section
+    $section_title = '';
+    $section_subtitle = '';
+    
+    // Use ACF fields by default (unless explicitly disabled)
+    if (function_exists('get_field') && $atts['use_acf'] !== 'false') {
+        $section_title = get_field('blog_section_title', 'option');
+        $section_subtitle = get_field('blog_section_subtitle', 'option');
+    }
+    
+    // Fallback to shortcode attributes if ACF fields are empty
+    if (empty($section_title) && !empty($atts['title'])) {
+        $section_title = $atts['title'];
+    }
+    if (empty($section_subtitle) && !empty($atts['subtitle'])) {
+        $section_subtitle = $atts['subtitle'];
+    }
+    
+    // Final fallback to default values
+    if (empty($section_title)) {
+        $section_title = 'From the blog';
+    }
+    if (empty($section_subtitle)) {
+        $section_subtitle = 'Learn how to grow your business with our expert advice.';
+    }
 
     $args = array(
         'post_type' => 'blog',
@@ -75,14 +104,14 @@ function tov_blog_section_shortcode($atts) {
     <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">From the blog</h2>
-          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-300">Learn how to grow your business with our expert advice.</p>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white"><?php echo esc_html($section_title); ?></h2>
+          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-300"><?php echo esc_html($section_subtitle); ?></p>
         </div>
         <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <?php if ($blog_query->have_posts()) : ?>
             <?php while ($blog_query->have_posts()) : $blog_query->the_post();
                 $blog_date = get_the_date('Y-m-d', get_the_ID());
-                tov_render_blog_card(get_the_ID(), $blog_date);
+                tov_render_blog_card(get_the_ID(), $blog_date, $atts['use_acf'] !== 'false');
             endwhile; ?>
           <?php else : ?>
             <div class="col-span-full text-center text-gray-600 dark:text-gray-400 py-12">
@@ -107,8 +136,37 @@ add_shortcode('blog_section', 'tov_blog_section_shortcode');
 function tov_latest_blog_shortcode($atts) {
     $atts = shortcode_atts(array(
         'limit' => 6,
-        'category' => ''
+        'category' => '',
+        'title' => '',
+        'subtitle' => '',
+        'use_acf' => 'false'
     ), $atts);
+    
+    // Get title and subtitle - ACF fields only work within shortcode context
+    $section_title = '';
+    $section_subtitle = '';
+    
+    // Only use ACF fields when shortcode is explicitly called (not on main pages)
+    if (function_exists('get_field') && isset($atts['use_acf']) && $atts['use_acf'] === 'true') {
+        $section_title = get_field('latest_blog_section_title', 'option');
+        $section_subtitle = get_field('latest_blog_section_subtitle', 'option');
+    }
+    
+    // Fallback to shortcode attributes if ACF fields are empty or not requested
+    if (empty($section_title) && !empty($atts['title'])) {
+        $section_title = $atts['title'];
+    }
+    if (empty($section_subtitle) && !empty($atts['subtitle'])) {
+        $section_subtitle = $atts['subtitle'];
+    }
+    
+    // Final fallback to default values
+    if (empty($section_title)) {
+        $section_title = 'Latest Blog Posts';
+    }
+    if (empty($section_subtitle)) {
+        $section_subtitle = 'Stay updated with our latest blog posts and articles.';
+    }
     
     // Query args for latest blog posts only
     $args = array(
@@ -143,14 +201,14 @@ function tov_latest_blog_shortcode($atts) {
     <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Latest Blog Posts</h2>
-          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-300">Stay updated with our latest blog posts and articles.</p>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white"><?php echo esc_html($section_title); ?></h2>
+          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-300"><?php echo esc_html($section_subtitle); ?></p>
         </div>
         <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <?php if ($blog_query->have_posts()) : ?>
             <?php while ($blog_query->have_posts()) : $blog_query->the_post();
                 $blog_date = get_the_date('Y-m-d', get_the_ID());
-                tov_render_blog_card(get_the_ID(), $blog_date);
+                tov_render_blog_card(get_the_ID(), $blog_date, $atts['use_acf'] !== 'false');
             endwhile; ?>
           <?php else : ?>
             <div class="col-span-full text-center text-gray-600 dark:text-gray-400 py-12">
@@ -174,8 +232,37 @@ add_shortcode('latest_blog', 'tov_latest_blog_shortcode');
 function tov_past_blog_shortcode($atts) {
     $atts = shortcode_atts(array(
         'limit' => 6,
-        'category' => ''
+        'category' => '',
+        'title' => '',
+        'subtitle' => '',
+        'use_acf' => 'false'
     ), $atts);
+    
+    // Get title and subtitle - ACF fields only work within shortcode context
+    $section_title = '';
+    $section_subtitle = '';
+    
+    // Only use ACF fields when shortcode is explicitly called (not on main pages)
+    if (function_exists('get_field') && isset($atts['use_acf']) && $atts['use_acf'] === 'true') {
+        $section_title = get_field('past_blog_section_title', 'option');
+        $section_subtitle = get_field('past_blog_section_subtitle', 'option');
+    }
+    
+    // Fallback to shortcode attributes if ACF fields are empty or not requested
+    if (empty($section_title) && !empty($atts['title'])) {
+        $section_title = $atts['title'];
+    }
+    if (empty($section_subtitle) && !empty($atts['subtitle'])) {
+        $section_subtitle = $atts['subtitle'];
+    }
+    
+    // Final fallback to default values
+    if (empty($section_title)) {
+        $section_title = 'Past Blog Posts';
+    }
+    if (empty($section_subtitle)) {
+        $section_subtitle = 'Browse through our previous blog posts and articles.';
+    }
     
     // Query args for past blog posts only
     $args = array(
@@ -210,14 +297,14 @@ function tov_past_blog_shortcode($atts) {
     <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Past Blog Posts</h2>
-          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-300">Browse through our previous blog posts and articles.</p>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white"><?php echo esc_html($section_title); ?></h2>
+          <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-300"><?php echo esc_html($section_subtitle); ?></p>
         </div>
         <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <?php if ($blog_query->have_posts()) : ?>
             <?php while ($blog_query->have_posts()) : $blog_query->the_post();
                 $blog_date = get_the_date('Y-m-d', get_the_ID());
-                tov_render_blog_card(get_the_ID(), $blog_date);
+                tov_render_blog_card(get_the_ID(), $blog_date, $atts['use_acf'] !== 'false');
             endwhile; ?>
           <?php else : ?>
             <div class="col-span-full text-center text-gray-600 dark:text-gray-400 py-12">

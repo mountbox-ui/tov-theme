@@ -49,6 +49,9 @@ get_header(); ?>
                     $badge_color = 'bg-purple-600';
                 }
             }
+            
+            // Hide the problematic ACF field by starting output buffering
+            ob_start();
             ?>
             <article class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <?php if (has_post_thumbnail($post_id)) : ?>
@@ -64,30 +67,41 @@ get_header(); ?>
                         <a href="<?php echo get_permalink($post_id); ?>" class="hover:text-blue-600 transition-colors duration-200"><?php echo get_the_title($post_id); ?></a>
                     </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
-                        <?php echo esc_html($range); ?><?php if ($event_location) : ?> — <?php echo esc_html($event_location); ?><?php endif; ?>
+                        <?php echo esc_html($range); ?>
+                        <?php if ($event_location) : ?>
+                            <br><?php echo esc_html($event_location); ?>
+                        <?php endif; ?>
                     </p>
                 </div>
             </article>
             <?php
+            $output = ob_get_clean();
+            
+            // Remove the problematic field from the output
+            $output = preg_replace('/field_68ccff5169cd3/', '', $output);
+            $output = preg_replace('/<[^>]*>field_68ccff5169cd3<\/[^>]*>/', '', $output);
+            
+            echo $output;
         }
         
-        // Get upcoming events
+        // Get upcoming events - only events with dates >= today
         $upcoming_args = array(
             'post_type' => 'event',
             'posts_per_page' => -1,
-            'meta_key' => '_event_date',
+            'post_status' => 'publish',
+            'meta_key' => 'event_start_date',
             'orderby' => 'meta_value',
             'order' => 'ASC',
             'meta_query' => array(
                 'relation' => 'OR',
                 array(
-                    'key' => '_event_date',
+                    'key' => 'event_start_date',
                     'value' => $today,
                     'compare' => '>=',
                     'type' => 'DATE'
                 ),
                 array(
-                    'key' => '_event_end_date',
+                    'key' => 'event_end_date',
                     'value' => $today,
                     'compare' => '>=',
                     'type' => 'DATE'
@@ -95,6 +109,7 @@ get_header(); ?>
             )
         );
         $upcoming_events = new WP_Query($upcoming_args);
+        
         ?>
 
         <?php if ($upcoming_events->have_posts()) : ?>
@@ -103,9 +118,28 @@ get_header(); ?>
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6"><?php esc_html_e('Upcoming', 'tov'); ?></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($upcoming_events->have_posts()) : $upcoming_events->the_post();
-                    $event_date = get_post_meta(get_the_ID(), '_event_date', true);
-                    $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
-                    $event_location = get_post_meta(get_the_ID(), '_event_location', true);
+                    // Get event details from ACF fields first
+                    $event_date = '';
+                    $event_end_date = '';
+                    $event_location = '';
+                    
+                    if (function_exists('get_field')) {
+                        $event_date = get_field('event_start_date', get_the_ID());
+                        $event_end_date = get_field('event_end_date', get_the_ID());
+                        $event_location = get_field('event_location', get_the_ID());
+                    }
+                    
+                    // Fallback to WordPress meta fields if ACF fields are empty
+                    if (empty($event_date)) {
+                        $event_date = get_post_meta(get_the_ID(), '_event_date', true);
+                    }
+                    if (empty($event_end_date)) {
+                        $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
+                    }
+                    if (empty($event_location)) {
+                        $event_location = get_post_meta(get_the_ID(), '_event_location', true);
+                    }
+                    
                     tov_render_event_card(get_the_ID(), $event_date, $event_end_date, $event_location);
                 endwhile; ?>
             </div>
@@ -119,13 +153,12 @@ get_header(); ?>
             'post_type' => 'event',
             'posts_per_page' => 6,
             'paged' => $paged,
-            'meta_key' => '_event_date',
+            'meta_key' => 'event_start_date',
             'orderby' => 'meta_value',
             'order' => 'DESC',
             'meta_query' => array(
-                'relation' => 'AND',
                 array(
-                    'key' => '_event_date',
+                    'key' => 'event_start_date',
                     'value' => $today,
                     'compare' => '<',
                     'type' => 'DATE'
@@ -141,9 +174,28 @@ get_header(); ?>
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6"><?php esc_html_e('Past', 'tov'); ?></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($past_events->have_posts()) : $past_events->the_post();
-                    $event_date = get_post_meta(get_the_ID(), '_event_date', true);
-                    $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
-                    $event_location = get_post_meta(get_the_ID(), '_event_location', true);
+                    // Get event details from ACF fields
+                    $event_date = '';
+                    $event_end_date = '';
+                    $event_location = '';
+                    
+                    if (function_exists('get_field')) {
+                        $event_date = get_field('event_start_date', get_the_ID());
+                        $event_end_date = get_field('event_end_date', get_the_ID());
+                        $event_location = get_field('event_location', get_the_ID());
+                    }
+                    
+                    // Fallback to WordPress meta fields if ACF fields are empty
+                    if (empty($event_date)) {
+                        $event_date = get_post_meta(get_the_ID(), '_event_date', true);
+                    }
+                    if (empty($event_end_date)) {
+                        $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
+                    }
+                    if (empty($event_location)) {
+                        $event_location = get_post_meta(get_the_ID(), '_event_location', true);
+                    }
+                    
                     tov_render_event_card(get_the_ID(), $event_date, $event_end_date, $event_location);
                 endwhile; ?>
             </div>
