@@ -36,6 +36,28 @@
                         ?>
                     </div>
                 </div>
+                
+                <!-- Location Pages Menu -->
+                <?php if (has_nav_menu('location_pages')) : ?>
+                    <div class="location-pages-section mt-6 pt-6 border-t border-navy-800">
+                        <h4 class="text-sm font-semibold text-navy-200 mb-3">Location Pages</h4>
+                        <div class="location-pages-menu">
+                            <?php
+                            wp_nav_menu(array(
+                                'theme_location' => 'location_pages',
+                                'menu_id'        => 'location-pages-menu',
+                                'menu_class'     => 'flex flex-wrap gap-4 text-sm',
+                                'container'      => false,
+                                'fallback_cb'    => false,
+                                'depth'          => 1,
+                                'link_before'    => '<span class="text-navy-300 hover:text-white transition-colors duration-200">',
+                                'link_after'     => '</span>',
+                            ));
+                            ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                </div>
             </div>
         </div>
     </footer>

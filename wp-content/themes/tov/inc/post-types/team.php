@@ -90,7 +90,7 @@ function tov_team_admin_columns($columns) {
     foreach ($columns as $key => $value) {
         $new_columns[$key] = $value;
         if ($key === 'title') {
-            $new_columns['show_on_homepage'] = __('Show on Homepage', 'tov');
+            $new_columns['highlight'] = __('Highlight', 'tov');
         }
     }
     return $new_columns;
@@ -101,45 +101,232 @@ add_filter('manage_team_posts_columns', 'tov_team_admin_columns');
  * Display custom column content
  */
 function tov_team_admin_column_content($column, $post_id) {
-    if ($column === 'show_on_homepage') {
-        $show_on_homepage = false;
-        if (function_exists('get_field')) {
-            $show_on_homepage = get_field('show_on_homepage', $post_id);
-        }
-        
-        if ($show_on_homepage) {
-            echo '<span class="dashicons dashicons-admin-home" style="color: #46b450;" title="Shows on Homepage"></span>';
-        } else {
-            echo '<span class="dashicons dashicons-admin-home" style="color: #ddd;" title="Not on Homepage"></span>';
-        }
+    if ($column === 'highlight') {
+        // Simple approach: check if this post is marked as highlighted
+        $is_highlighted = get_post_meta($post_id, '_is_highlighted', true) === '1';
+        ?>
+        <label class="tov-highlight-radio">
+            <input type="radio" 
+                   name="highlight_team" 
+                   value="<?php echo esc_attr($post_id); ?>"
+                   <?php checked($is_highlighted); ?>
+                   data-is-highlighted="<?php echo $is_highlighted ? '1' : '0'; ?>"
+                   onchange="if(typeof updateRadioVisualState === 'function') { updateRadioVisualState(this); } else { console.log('updateRadioVisualState not available'); }"
+                   onclick="if(typeof handleRadioClick === 'function') { handleRadioClick(this); } else { console.log('handleRadioClick not available'); }"
+                   style="margin-right: 8px;">
+            <span style="<?php echo $is_highlighted ? 'color: #d97706; font-weight: 600;' : 'color: #6b7280;'; ?>">
+                <?php echo $is_highlighted ? '★ Highlighted' : '☆ Highlight'; ?>
+            </span>
+        </label>
+        <?php
     }
 }
 add_action('manage_team_posts_custom_column', 'tov_team_admin_column_content', 10, 2);
 
 /**
- * Make custom column sortable
+ * Add save button above the team list
  */
-function tov_team_admin_sortable_columns($columns) {
-    $columns['show_on_homepage'] = 'show_on_homepage';
-    return $columns;
+function tov_add_team_highlight_save_button() {
+    global $pagenow, $typenow;
+    if ($pagenow === 'edit.php' && $typenow === 'team') {
+        ?>
+        <div style="margin: 20px 0; padding: 15px; background: #f1f1f1; border: 1px solid #ccc; border-radius: 4px;">
+            <h3 style="margin: 0 0 10px 0;">Highlight Team Member</h3>
+            <p style="margin: 0 0 15px 0;">Select one team member to highlight, then click Save to apply changes.</p>
+            <button type="button" id="save-highlight-btn" class="button button-primary" onclick="saveHighlightSelection()">
+                <span class="save-text">Save Highlight Selection</span>
+                <span class="loading-text" style="display: none;">Saving...</span>
+            </button>
+            <div id="highlight-status" style="margin-left: 10px; display: inline-block;"></div>
+        </div>
+        <?php
+    }
 }
-add_filter('manage_edit-team_sortable_columns', 'tov_team_admin_sortable_columns');
+add_action('all_admin_notices', 'tov_add_team_highlight_save_button');
 
 /**
- * Handle sorting for custom column
+ * Add JavaScript for team highlight functionality
  */
-function tov_team_admin_column_orderby($query) {
-    if (!is_admin() || !$query->is_main_query()) {
+function tov_team_admin_scripts($hook) {
+    global $pagenow, $typenow;
+    if (($hook === 'edit.php' && isset($_GET['post_type']) && $_GET['post_type'] === 'team') || 
+        ($pagenow === 'edit.php' && $typenow === 'team')) {
+        ?>
+        <script type="text/javascript">
+        console.log('=== TOV Team Highlight Script Loading ===');
+        let lastChecked = null;
+        
+        // Make functions globally available
+        window.handleRadioClick = function(clickedRadio) {
+            console.log('handleRadioClick called');
+            if (clickedRadio.checked && lastChecked === clickedRadio) {
+                // If clicking the same radio that's already checked, uncheck it
+                clickedRadio.checked = false;
+                lastChecked = null;
+                updateRadioVisualState(clickedRadio);
+            } else {
+                lastChecked = clickedRadio;
+                updateRadioVisualState(clickedRadio);
+            }
+        };
+        
+        // Update visual state of radio buttons
+        window.updateRadioVisualState = function(clickedRadio) {
+            console.log('updateRadioVisualState called');
+            const radios = document.querySelectorAll('input[name="highlight_team"]');
+            
+            radios.forEach(radio => {
+                const span = radio.nextElementSibling;
+                
+                if (radio.checked) {
+                    span.textContent = '★ Highlighted (pending save)';
+                    span.style.color = '#059669';
+                    span.style.fontWeight = '600';
+                } else {
+                    span.textContent = '☆ Highlight';
+                    span.style.color = '#6b7280';
+                    span.style.fontWeight = 'normal';
+                }
+            });
+        };
+        
+        // Save highlight selection function
+        window.saveHighlightSelection = function() {
+            const saveBtn = document.getElementById('save-highlight-btn');
+            const statusDiv = document.getElementById('highlight-status');
+            const saveText = saveBtn.querySelector('.save-text');
+            const loadingText = saveBtn.querySelector('.loading-text');
+            
+            // Get selected radio button
+            const selectedRadio = document.querySelector('input[name="highlight_team"]:checked');
+            const selectedPostId = selectedRadio ? selectedRadio.value : null;
+            
+            // Show loading state
+            saveBtn.disabled = true;
+            saveText.style.display = 'none';
+            loadingText.style.display = 'inline';
+            statusDiv.innerHTML = '';
+            
+            // Send AJAX request
+            const data = new FormData();
+            data.append('action', 'tov_save_team_highlight');
+            data.append('post_id', selectedPostId || '');
+            data.append('nonce', '<?php echo wp_create_nonce('tov_team_highlight_save_nonce'); ?>');
+            
+            fetch(ajaxurl, {
+                method: 'POST',
+                body: data
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Reset button state
+                saveBtn.disabled = false;
+                saveText.style.display = 'inline';
+                loadingText.style.display = 'none';
+                
+                if (result.success) {
+                    statusDiv.innerHTML = '<span style="color: #46b450;">✓ Saved successfully!</span>';
+                    // Reload page to show updated states
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    statusDiv.innerHTML = '<span style="color: #dc3232;">Error: ' + (result.data || 'Unknown error') + '</span>';
+                }
+            })
+            .catch(error => {
+                // Reset button state
+                saveBtn.disabled = false;
+                saveText.style.display = 'inline';
+                loadingText.style.display = 'none';
+                
+                console.error('AJAX Error:', error);
+                statusDiv.innerHTML = '<span style="color: #dc3232;">Error saving. Please try again.</span>';
+            });
+        };
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== Radio Button State Check ===');
+            const radios = document.querySelectorAll('input[name="highlight_team"]');
+            radios.forEach(radio => {
+                const isHighlighted = radio.getAttribute('data-is-highlighted') === '1';
+                const span = radio.nextElementSibling;
+                
+                console.log('Post ID:', radio.value, 'Should be highlighted:', isHighlighted);
+                
+                if (isHighlighted) {
+                    radio.checked = true;
+                    span.textContent = '★ Highlighted';
+                    span.style.color = '#d97706';
+                    span.style.fontWeight = '600';
+                    lastChecked = radio;
+                    console.log('✓ Set as highlighted');
+                } else {
+                    radio.checked = false;
+                    span.textContent = '☆ Highlight';
+                    span.style.color = '#6b7280';
+                    span.style.fontWeight = 'normal';
+                }
+            });
+        });
+        </script>
+        <style>
+        .tov-highlight-radio {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .tov-highlight-radio input[type="radio"] {
+            margin-right: 8px;
+        }
+        </style>
+        <?php
+    }
+}
+add_action('admin_head', 'tov_team_admin_scripts');
+
+/**
+ * AJAX handler for save team highlight
+ */
+function tov_ajax_save_team_highlight() {
+    // Verify nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'tov_team_highlight_save_nonce')) {
+        wp_send_json_error('Security check failed');
         return;
     }
     
-    $orderby = $query->get('orderby');
-    if ('show_on_homepage' === $orderby) {
-        $query->set('meta_key', 'show_on_homepage');
-        $query->set('orderby', 'meta_value');
+    // Check permissions
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('Insufficient permissions');
+        return;
     }
+    
+    $post_id = !empty($_POST['post_id']) ? intval($_POST['post_id']) : null;
+    
+    // Remove highlight from all team posts first
+    $all_team = get_posts(array(
+        'post_type' => 'team',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'fields' => 'ids'
+    ));
+    
+    foreach ($all_team as $team_id) {
+        delete_post_meta($team_id, '_is_highlighted');
+    }
+    
+    // If a post was selected, mark it as highlighted
+    if ($post_id) {
+        update_post_meta($post_id, '_is_highlighted', '1');
+        $message = 'Team member highlighted successfully';
+    } else {
+        $message = 'All highlights cleared successfully';
+    }
+    
+    wp_send_json_success($message);
 }
-add_action('pre_get_posts', 'tov_team_admin_column_orderby');
+add_action('wp_ajax_tov_save_team_highlight', 'tov_ajax_save_team_highlight');
 
 /**
  * Flush rewrite rules when team post type is updated
@@ -161,7 +348,6 @@ function tov_render_team_card($post_id, $use_acf = false) {
     $image = '';
     $message = '';
     $message_visibility = true;
-    $show_on_homepage = false;
     
     // Get ACF fields using your specific field names
     if ($use_acf && function_exists('get_field')) {
@@ -170,7 +356,6 @@ function tov_render_team_card($post_id, $use_acf = false) {
         $image = get_field('image', $post_id);
         $message = get_field('message', $post_id);
         $message_visibility = get_field('message_visibility', $post_id);
-        $show_on_homepage = get_field('show_on_homepage', $post_id);
     }
     
     // Use post title as fallback for name

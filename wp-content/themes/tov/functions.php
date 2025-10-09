@@ -24,6 +24,7 @@ function tov_theme_setup() {
     register_nav_menus(array(
         'primary' => esc_html__('Primary Menu', 'tov-theme'),
         'footer'  => esc_html__('Footer Menu', 'tov-theme'),
+        'location_pages' => esc_html__('Location Pages', 'tov-theme'),
     ));
 
     // Add support for HTML5 markup
@@ -417,4 +418,159 @@ function tov_enqueue_ajax_script() {
 }
 add_action('wp_enqueue_scripts', 'tov_enqueue_ajax_script');
 
+/**
+ * Add Location Pages to WordPress Admin Menu
+ */
+function tov_add_location_pages_admin_menu() {
+    add_menu_page(
+        'Location Pages',                    // Page title
+        'Location Pages',                    // Menu title
+        'manage_options',                    // Capability
+        'location-pages',                   // Menu slug
+        'tov_location_pages_admin_page',    // Function to display page
+        'dashicons-location',              // Icon
+        30                                  // Position
+    );
+}
+add_action('admin_menu', 'tov_add_location_pages_admin_menu');
 
+/**
+ * Location Pages Admin Page Content
+ */
+function tov_location_pages_admin_page() {
+    // Get all pages and check which ones are location pages
+    $all_pages = get_posts(array(
+        'post_type' => 'page',
+        'posts_per_page' => -1,
+        'post_status' => array('publish', 'draft', 'private')
+    ));
+    
+    // Filter pages that use location template or could be location pages
+    $location_pages = array();
+    foreach ($all_pages as $page) {
+        $template = get_page_template_slug($page->ID);
+        // Include pages with location template or pages that might be location pages
+        if ($template === 'templates/page-location.php' || 
+            strpos(strtolower($page->post_title), 'location') !== false ||
+            strpos(strtolower($page->post_title), 'branch') !== false ||
+            strpos(strtolower($page->post_title), 'office') !== false) {
+            $location_pages[] = $page;
+        }
+    }
+    
+    $total_pages = count($location_pages);
+    $published_pages = count(array_filter($location_pages, function($page) {
+        return $page->post_status === 'publish';
+    }));
+    ?>
+    <div class="wrap">
+        <h1 class="wp-heading-inline">Location Pages</h1>
+        <a href="<?php echo admin_url('post-new.php?post_type=page'); ?>" class="page-title-action">Add New Location Page</a>
+        <hr class="wp-header-end">
+        
+        <!-- Status and Actions -->
+        <div class="tablenav top">
+            <div class="alignleft actions bulkactions">
+                <label for="bulk-action-selector-top" class="screen-reader-text">Select bulk action</label>
+                <select name="action" id="bulk-action-selector-top">
+                    <option value="-1">Bulk actions</option>
+                    <option value="trash">Move to Trash</option>
+                </select>
+                <input type="submit" id="doaction" class="button action" value="Apply">
+            </div>
+            
+            <div class="alignleft actions">
+                <select name="m" id="filter-by-date">
+                    <option value="0">All dates</option>
+                    <option value="today">Today</option>
+                    <option value="week">Past week</option>
+                    <option value="month">Past month</option>
+                </select>
+                <input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filter">
+            </div>
+            
+            <div class="tablenav-pages">
+                <span class="displaying-num"><?php echo $total_pages; ?> items</span>
+            </div>
+        </div>
+        
+        <!-- Location Pages Table -->
+        <table class="wp-list-table widefat fixed striped posts">
+            <thead>
+                <tr>
+                    <td id="cb" class="manage-column column-cb check-column">
+                        <label class="screen-reader-text" for="cb-select-all-1">Select All</label>
+                        <input id="cb-select-all-1" type="checkbox">
+                    </td>
+                    <th scope="col" id="title" class="manage-column column-title column-primary sortable desc">
+                        <a href="#"><span>Title</span><span class="sorting-indicators"><span class="sorting-indicator asc" aria-hidden="true"></span></span></a>
+                    </th>
+                    <th scope="col" id="template" class="manage-column column-template">Template</th>
+                    <th scope="col" id="date" class="manage-column column-date sortable desc">
+                        <a href="#"><span>Date</span><span class="sorting-indicators"><span class="sorting-indicator desc" aria-hidden="true"></span></span></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($location_pages)): ?>
+                    <tr class="no-items">
+                        <td class="colspanchange" colspan="4">No location pages found.</td>
+                    </tr>
+                <?php else: ?>
+                    <?php foreach ($location_pages as $page): ?>
+                        <tr id="post-<?php echo $page->ID; ?>" class="iedit author-self level-0 post-<?php echo $page->ID; ?> type-page status-<?php echo $page->post_status; ?> hentry">
+                            <th scope="row" class="check-column">
+                                <input type="checkbox" name="post[]" value="<?php echo $page->ID; ?>">
+                            </th>
+                            <td class="title column-title has-row-actions column-primary page-title">
+                                <strong>
+                                    <a class="row-title" href="<?php echo get_edit_post_link($page->ID); ?>" aria-label="Edit &#8220;<?php echo esc_attr($page->post_title); ?>&#8221;"><?php echo esc_html($page->post_title); ?></a>
+                                </strong>
+                                <div class="row-actions">
+                                    <span class="edit"><a href="<?php echo get_edit_post_link($page->ID); ?>" aria-label="Edit &#8220;<?php echo esc_attr($page->post_title); ?>&#8221;">Edit</a> | </span>
+                                    <span class="view"><a href="<?php echo get_permalink($page->ID); ?>" rel="bookmark" aria-label="View &#8220;<?php echo esc_attr($page->post_title); ?>&#8221;">View</a> | </span>
+                                    <span class="trash"><a href="<?php echo get_delete_post_link($page->ID); ?>" class="submitdelete" aria-label="Move &#8220;<?php echo esc_attr($page->post_title); ?>&#8221; to the Trash">Trash</a></span>
+                                </div>
+                            </td>
+                            <td class="template column-template">
+                                <?php 
+                                $template = get_page_template_slug($page->ID);
+                                if ($template === 'templates/page-location.php') {
+                                    echo '<span class="template-name" style="color: #00a32a;">✓ Location Page</span>';
+                                } else {
+                                    echo '<span class="template-name" style="color: #d63638;">✗ ' . ($template ? basename($template, '.php') : 'Default') . '</span>';
+                                    echo '<br><a href="' . get_edit_post_link($page->ID) . '" style="font-size: 11px;">Assign Location Template</a>';
+                                }
+                                ?>
+                            </td>
+                            <td class="date column-date">
+                                <?php if ($page->post_status === 'publish'): ?>
+                                    <abbr title="<?php echo get_the_date('c', $page->ID); ?>"><?php echo get_the_date('Y/m/d', $page->ID); ?> at <?php echo get_the_time('g:i a', $page->ID); ?></abbr>
+                                <?php else: ?>
+                                    <abbr title="<?php echo get_the_date('c', $page->ID); ?>"><?php echo ucfirst($page->post_status); ?>: <?php echo get_the_date('Y/m/d', $page->ID); ?> at <?php echo get_the_time('g:i a', $page->ID); ?></abbr>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        
+        <!-- Bottom Actions -->
+        <div class="tablenav bottom">
+            <div class="alignleft actions bulkactions">
+                <label for="bulk-action-selector-bottom" class="screen-reader-text">Select bulk action</label>
+                <select name="action2" id="bulk-action-selector-bottom">
+                    <option value="-1">Bulk actions</option>
+                    <option value="trash">Move to Trash</option>
+                </select>
+                <input type="submit" id="doaction2" class="button action" value="Apply">
+            </div>
+            <div class="tablenav-pages">
+                <span class="displaying-num"><?php echo $total_pages; ?> items</span>
+            </div>
+        </div>
+        
+    </div>
+    <?php
+}

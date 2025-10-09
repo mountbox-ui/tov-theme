@@ -3,7 +3,7 @@
  * Gallery Management System
  * 
  * Handles the backend logic for the custom gallery management system.
- * Allows uploading and managing up to 6 photos for the gallery.
+ * Allows uploading and managing unlimited photos for the gallery (max 2.5MB per image).
  */
 
 if (!defined('ABSPATH')) {
@@ -45,13 +45,8 @@ function tov_render_gallery_page() {
     ?>
     <div class="wrap">
         <h1><?php echo esc_html__('Gallery Management', 'tov'); ?></h1>
-        <p><?php echo esc_html__('Upload and manage up to 6 photos for your gallery. Use the [tov_gallery] shortcode to display the gallery on your website.', 'tov'); ?></p>
+        <p><?php echo esc_html__('Upload and manage unlimited photos for your gallery. Each image must be less than 2.5MB. Use the [tov_gallery] shortcode to display the gallery on your website.', 'tov'); ?></p>
         
-        <?php if (count($gallery_images) >= 6): ?>
-            <div class="notice notice-warning">
-                <p><strong><?php echo esc_html__('Gallery Full:', 'tov'); ?></strong> <?php echo esc_html__('You have reached the maximum of 6 images. Remove an image to upload a new one.', 'tov'); ?></p>
-            </div>
-        <?php endif; ?>
         
         <!-- Upload Form -->
         <div class="card" style="max-width: 800px;">
@@ -66,26 +61,23 @@ function tov_render_gallery_page() {
                             <label for="gallery_images"><?php echo esc_html__('Select Images', 'tov'); ?></label>
                         </th>
                         <td>
-                            <input type="file" id="gallery_images" name="gallery_images[]" multiple accept="image/*" <?php echo count($gallery_images) >= 6 ? 'disabled' : ''; ?>>
+                            <input type="file" id="gallery_images" name="gallery_images[]" multiple accept="image/*">
                             <p class="description">
-                                <?php echo esc_html__('You can select multiple images at once. Maximum 6 images total.', 'tov'); ?>
-                                <?php if (count($gallery_images) >= 6): ?>
-                                    <br><strong><?php echo esc_html__('Gallery is full. Remove an image first.', 'tov'); ?></strong>
-                                <?php endif; ?>
+                                <?php echo esc_html__('You can select multiple images at once. Each image must be less than 2.5MB.', 'tov'); ?>
                             </p>
                         </td>
                     </tr>
                 </table>
                 
                 <p class="submit">
-                    <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo esc_attr__('Upload Images', 'tov'); ?>" <?php echo count($gallery_images) >= 6 ? 'disabled' : ''; ?>>
+                    <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo esc_attr__('Upload Images', 'tov'); ?>">
                 </p>
             </form>
         </div>
         
         <!-- Current Gallery Images -->
         <div class="card" style="max-width: 1000px;">
-            <h2><?php echo esc_html__('Current Gallery Images', 'tov'); ?> (<?php echo count($gallery_images); ?>/6)</h2>
+            <h2><?php echo esc_html__('Current Gallery Images', 'tov'); ?> (<?php echo count($gallery_images); ?>)</h2>
             
             <?php if (empty($gallery_images)): ?>
                 <p><?php echo esc_html__('No images uploaded yet.', 'tov'); ?></p>
@@ -164,6 +156,37 @@ function tov_render_gallery_page() {
                             });
                         }
                     });
+                    
+                    // File size validation before upload
+                    $('#gallery_images').on('change', function() {
+                        var files = this.files;
+                        var maxSize = 2.5 * 1024 * 1024; // 2.5MB in bytes
+                        var validFiles = [];
+                        var invalidFiles = [];
+                        
+                        for (var i = 0; i < files.length; i++) {
+                            if (files[i].size > maxSize) {
+                                invalidFiles.push(files[i].name + ' (' + (files[i].size / (1024 * 1024)).toFixed(2) + ' MB)');
+                            } else {
+                                validFiles.push(files[i]);
+                            }
+                        }
+                        
+                        if (invalidFiles.length > 0) {
+                            alert('The following files are too large (maximum 2.5MB):\n' + invalidFiles.join('\n'));
+                        }
+                        
+                        // Replace the file input with only valid files
+                        if (invalidFiles.length > 0 && validFiles.length > 0) {
+                            var dt = new DataTransfer();
+                            for (var i = 0; i < validFiles.length; i++) {
+                                dt.items.add(validFiles[i]);
+                            }
+                            this.files = dt.files;
+                        } else if (invalidFiles.length > 0 && validFiles.length === 0) {
+                            this.value = '';
+                        }
+                    });
                 });
                 </script>
             <?php endif; ?>
@@ -195,19 +218,24 @@ function tov_handle_gallery_upload() {
     
     $gallery_images = get_option('tov_gallery_images', array());
     $uploaded_count = 0;
+    $skipped_count = 0;
+    $max_file_size = 2.5 * 1024 * 1024; // 2.5MB in bytes
     
     if (!empty($_FILES['gallery_images']['name'][0])) {
         $files = $_FILES['gallery_images'];
         
         for ($i = 0; $i < count($files['name']); $i++) {
-            if (count($gallery_images) >= 6) {
-                add_action('admin_notices', function() {
-                    echo '<div class="notice notice-warning"><p>' . esc_html__('Maximum of 6 images reached. Some images were not uploaded.', 'tov') . '</p></div>';
-                });
-                break;
-            }
-            
             if ($files['error'][$i] === UPLOAD_ERR_OK) {
+                // Check file size
+                if ($files['size'][$i] > $max_file_size) {
+                    $skipped_count++;
+                    add_action('admin_notices', function() use ($files, $i) {
+                        $file_size_mb = round($files['size'][$i] / (1024 * 1024), 2);
+                        echo '<div class="notice notice-warning"><p>' . sprintf(esc_html__('File "%s" (%s MB) is too large. Maximum file size is 2.5MB.', 'tov'), esc_html($files['name'][$i]), $file_size_mb) . '</p></div>';
+                    });
+                    continue;
+                }
+                
                 $file = array(
                     'name' => $files['name'][$i],
                     'type' => $files['type'][$i],
@@ -227,8 +255,8 @@ function tov_handle_gallery_upload() {
                     );
                     $uploaded_count++;
                 } else {
-                    add_action('admin_notices', function() use ($upload) {
-                        echo '<div class="notice notice-error"><p>' . esc_html__('Upload Error:', 'tov') . ' ' . esc_html($upload['error']) . '</p></div>';
+                    add_action('admin_notices', function() use ($upload, $files, $i) {
+                        echo '<div class="notice notice-error"><p>' . sprintf(esc_html__('Upload Error for "%s": %s', 'tov'), esc_html($files['name'][$i]), esc_html($upload['error'])) . '</p></div>';
                     });
                 }
             }
@@ -239,6 +267,12 @@ function tov_handle_gallery_upload() {
         if ($uploaded_count > 0) {
             add_action('admin_notices', function() use ($uploaded_count) {
                 echo '<div class="notice notice-success"><p>' . sprintf(esc_html__('%d image(s) uploaded successfully.', 'tov'), $uploaded_count) . '</p></div>';
+            });
+        }
+        
+        if ($skipped_count > 0) {
+            add_action('admin_notices', function() use ($skipped_count) {
+                echo '<div class="notice notice-warning"><p>' . sprintf(esc_html__('%d image(s) were skipped due to file size exceeding 2.5MB.', 'tov'), $skipped_count) . '</p></div>';
             });
         }
     }

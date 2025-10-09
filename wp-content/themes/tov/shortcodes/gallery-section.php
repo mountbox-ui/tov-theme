@@ -28,6 +28,9 @@ function tov_gallery_shortcode($atts) {
         return '<p>' . esc_html__('No gallery images found.', 'tov') . '</p>';
     }
     
+    // Reverse the array so the last uploaded image shows first
+    $gallery_images = array_reverse($gallery_images);
+    
     // Validate columns
     $columns = intval($atts['columns']);
     if ($columns < 1) $columns = 1;
