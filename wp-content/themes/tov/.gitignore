@@ -29,3 +29,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+
+# Tailwind output
+assets/css/tov.css

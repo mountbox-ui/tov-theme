@@ -87,9 +87,9 @@ get_header(); ?>
                     <label for="care_home" class="form-label">CARE HOME (REQUIRED)</label>
                     <select id="care_home" name="care_home" class="form-select" required>
                         <option value="">Select a care home</option>
-                        <option value="arlington-manor">Otterton</option>
-                        <option value="sunset-gardens">Exmouth</option>
-                        <option value="maple-ridge">Sidmouth</option>
+                        <option value="otterton">Otterton</option>
+                        <option value="exmouth">Exmouth</option>
+                        <option value="sidmouth">Sidmouth</option>
                     </select>
                 </div>
                 
