@@ -1,0 +1,133 @@
+/* ========================================
+   CUSTOM GLOBAL STYLES - HIGH PRIORITY
+   Keep this file small and easy to edit.
+   It is enqueued AFTER tov.css, so it wins.
+======================================== */
+
+/* Global Heading Styles */
+body h1,
+html h1,
+h1 {
+  color: #FFF !important;
+  font-family: "Plus Jakarta Sans" !important;
+  font-size: 60.071px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+}
+
+body h2,
+html h2,
+h2 {
+  font-family: sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 28px !important;
+  line-height: 1.3 !important;
+  color: #1f2937 !important;
+}
+
+body h3,
+html h3,
+h3 {
+  font-family: sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 24px !important;
+  line-height: 1.4 !important;
+  color: #374151 !important;
+}
+
+body h6,
+html h6,
+h6 {
+  font-family: Lato !important;
+  font-size: 13px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: 13px !important;
+  /* 100% */
+  letter-spacing: 3px !important;
+  text-transform: uppercase !important;
+}
+
+
+/* Link Styles */
+nav a {
+  font-family: Lato !important;
+  color: #FFF !important;
+  text-decoration: none !important;
+  font-size: 18px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: 26px !important;
+}
+
+
+nav a:hover {
+  color: #CDAC79 !important;
+  font-weight: 600 !important;
+}
+
+/* Mobile scaling */
+@media (max-width: 768px) {
+
+  body h1,
+  html h1,
+  h1 {
+    font-size: 28px !important;
+  }
+
+  body h2,
+  html h2,
+  h2 {
+    font-size: 24px !important;
+  }
+
+  body h3,
+  html h3,
+  h3 {
+    font-size: 20px !important;
+  }
+}
+
+/* Header Menu - Keep "Why TOV" on one line */
+.main-navigation a {
+  white-space: nowrap !important;
+}
+
+/* Header solid on scroll */
+.site-header {
+  transition: background-color .25s ease, box-shadow .25s ease;
+}
+
+.site-header.header-solid {
+  background-color: #014854 !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
+}
+
+.btn-primary {
+  display: flex;
+  padding: 16px 24px !important;
+  align-items: center !important;
+  gap: 11px !important;
+  border-radius: 5.4px !important;
+  background: #016A7C !important;
+  color: #FFF !important;
+  font-family: Lato !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: 22.68px !important;
+  letter-spacing: 0.567px !important;
+  text-transform: uppercase !important;
+  transition: all 0.3s ease !important;
+}
+
+.bg-primary {
+  background-color: #014854 !important;
+}
+
+.hero-section-text{
+  color: rgba(255, 255, 255, 0.86) !important;
+  font-family: Lato !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+}

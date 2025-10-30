@@ -14,8 +14,8 @@ if (!defined('ABSPATH')) {
 function add_manual_height_meta_box() {
     global $post;
     
-    // Only show on pages with Awards template
-    if ($post && get_page_template_slug($post->ID) === 'templates/page-awards.php') {
+    // Show on all pages - JavaScript will handle hiding/showing based on shortcode
+    if ($post && $post->post_type === 'page') {
         add_meta_box(
             'awards_height_control',
             '🎯 Awards Height Control - Adjust Image Sizes',

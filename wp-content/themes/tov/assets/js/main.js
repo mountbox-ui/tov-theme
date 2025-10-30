@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Hero video modal (background keeps looping; modal plays on demand)
+  const heroTrigger = document.getElementById('hero-video-trigger');
+  const heroOverlay = document.getElementById('hero-video-overlay');
+  const heroClose   = document.getElementById('hero-video-close');
+  const heroIframe  = document.getElementById('hero-video-iframe');
+  const heroSection = document.getElementById('support-center');
+
+  function closeHeroVideo() {
+    if (heroOverlay) heroOverlay.classList.add('hidden');
+    if (heroIframe) heroIframe.src = '';
+  }
+
+  if (heroTrigger && heroOverlay && heroIframe && heroSection) {
+    heroTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const vid = heroSection.getAttribute('data-video-id');
+      if (!vid) return;
+      const url = 'https://www.youtube.com/embed/' + vid + '?autoplay=1&mute=0&controls=1&playsinline=1&rel=0&modestbranding=1';
+      heroIframe.src = url;
+      heroOverlay.classList.remove('hidden');
+    });
+  }
+
+  if (heroClose) {
+    heroClose.addEventListener('click', closeHeroVideo);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeHeroVideo();
+  });
   var mobileMenuButton = document.getElementById('mobile-menu-button');
   var mobileNavigation = document.getElementById('mobile-navigation');
 
@@ -246,28 +276,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener("scroll", function () {
   const header = document.getElementById("masthead");
-  
   if (!header) return;
 
-  // Check if we're on the home page
-  const isHomePage = window.location.pathname === '/' || 
-                     window.location.pathname === '/home' || 
-                     document.body.classList.contains('home');
+  const isHomePage = document.body.classList.contains('home') || document.body.classList.contains('front-page');
 
   if (isHomePage) {
-    // Only apply transparent effect on home page
-    if (window.scrollY > 100) {
-      // after scrolling down
-    header.classList.remove("bg-transparent");
-      header.classList.add("bg-slate-700");
-  } else {
-    // at top
-      header.classList.remove("bg-slate-700");
-    header.classList.add("bg-transparent");
+    if (window.scrollY > 10) {
+      header.classList.add('header-solid');
+      header.classList.remove('bg-transparent');
+    } else {
+      header.classList.remove('header-solid');
+      header.classList.add('bg-transparent');
     }
   } else {
-    // On other pages, always use solid background
-    header.classList.remove("bg-transparent");
-    header.classList.add("bg-slate-700");
+    // Non-home: ensure solid header
+    header.classList.add('header-solid');
+    header.classList.remove('bg-transparent');
   }
 });

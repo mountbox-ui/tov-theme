@@ -281,6 +281,279 @@ function register_awards_acf_fields() {
 add_action('acf/init', 'register_awards_acf_fields');
 
 /**
+ * Register awards fields for all pages (JavaScript will show/hide based on shortcode)
+ */
+function add_awards_fields_to_shortcode_pages() {
+    global $post;
+    
+    // Only run on page edit screens
+    if (!$post || $post->post_type !== 'page') {
+        return;
+    }
+    
+    // Register fields for all pages - JavaScript will handle visibility
+    if (function_exists('acf_add_local_field_group')) {
+            acf_add_local_field_group(array(
+                'key' => 'group_awards_shortcode',
+                'title' => 'Awards Template Fields (Shortcode Page)',
+                'fields' => array(
+                    // Awards Repeater Field
+                    array(
+                        'key' => 'field_awards_repeater_shortcode',
+                        'label' => 'Awards',
+                        'name' => 'awards',
+                        'type' => 'repeater',
+                        'instructions' => 'Add awards and recognitions received by your organization',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'collapsed' => 'field_award_title_shortcode',
+                        'min' => 0,
+                        'max' => 0,
+                        'layout' => 'block',
+                        'button_label' => 'Add Award',
+                        'sub_fields' => array(
+                            // Award Image
+                            array(
+                                'key' => 'field_award_image_shortcode',
+                                'label' => 'Award Image/Logo',
+                                'name' => 'award_image',
+                                'type' => 'image',
+                                'instructions' => 'Upload an image or logo of the award (recommended size: 400x300px)',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'return_format' => 'array',
+                                'preview_size' => 'medium',
+                                'library' => 'all',
+                                'min_width' => '',
+                                'min_height' => '',
+                                'min_size' => '',
+                                'max_width' => '',
+                                'max_height' => '',
+                                'max_size' => '',
+                                'mime_types' => 'jpg,jpeg,png,svg',
+                            ),
+                            
+                            // Award Image Height
+                            array(
+                                'key' => 'field_award_image_height_shortcode',
+                                'label' => 'Image Height (px) - Adjust to change size on website',
+                                'name' => 'award_image_height',
+                                'type' => 'number',
+                                'instructions' => 'Set the image height (100-500px). Default is 200px. See preview below.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => 'award-height-control',
+                                    'id' => '',
+                                ),
+                                'default_value' => 200,
+                                'placeholder' => '200',
+                                'min' => 100,
+                                'max' => 500,
+                                'step' => 10,
+                                'prepend' => '',
+                                'append' => 'px',
+                            ),
+                            
+                            // Live Preview Message
+                            array(
+                                'key' => 'field_award_preview_shortcode',
+                                'label' => 'Website Preview - How it will look on the website',
+                                'name' => 'award_preview',
+                                'type' => 'message',
+                                'instructions' => 'This preview shows exactly how your award will appear on the website. It updates automatically when you change the image or height.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => 'award-preview-container',
+                                    'id' => '',
+                                ),
+                                'message' => '<div class="award-preview-wrapper">
+                                    <div class="award-preview-notice">📱 <strong>Live Preview:</strong> This shows exactly how your award will look on the website</div>
+                                    <div class="award-preview-box">
+                                        <div class="award-preview-card">
+                                            <div class="award-preview-image-container" style="height: 230px;">
+                                                <img src="" alt="Preview" class="award-preview-image" style="display:none;">
+                                                <div class="award-preview-placeholder">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="width: 40px; height: 40px; margin-bottom: 10px;">
+                                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                                    </svg>
+                                                    <div>Upload an image to see preview</div>
+                                                </div>
+                                            </div>
+                                            <div class="award-preview-content">
+                                                <h3 class="award-preview-title">Your award title will appear here</h3>
+                                                <p class="award-preview-org">Organization name</p>
+                                                <div class="award-preview-meta">
+                                                    <span class="award-preview-year">2024</span>
+                                                    <span class="award-preview-category">Excellence</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="award-preview-info">
+                                            <small>💡 Tip: Adjust the "Image Height" field above to change the image size</small>
+                                        </div>
+                                    </div>
+                                </div>',
+                                'new_lines' => '',
+                                'esc_html' => 0,
+                            ),
+                            
+                            // Award Title
+                            array(
+                                'key' => 'field_award_title_shortcode',
+                                'label' => 'Award Title',
+                                'name' => 'award_title',
+                                'type' => 'text',
+                                'instructions' => 'Name of the award or recognition',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'Excellence in Care Award',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                            ),
+                            
+                            // Award Organization
+                            array(
+                                'key' => 'field_award_organization_shortcode',
+                                'label' => 'Awarding Organization',
+                                'name' => 'award_organization',
+                                'type' => 'text',
+                                'instructions' => 'Name of the organization that gave the award',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'Care Quality Commission',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                            ),
+                            
+                            // Award Year
+                            array(
+                                'key' => 'field_award_year_shortcode',
+                                'label' => 'Award Year',
+                                'name' => 'award_year',
+                                'type' => 'number',
+                                'instructions' => 'Year the award was received',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '25',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'default_value' => '',
+                                'placeholder' => '2024',
+                                'min' => 1900,
+                                'max' => 2100,
+                                'step' => 1,
+                            ),
+                            
+                            // Award Category
+                            array(
+                                'key' => 'field_award_category_shortcode',
+                                'label' => 'Award Category',
+                                'name' => 'award_category',
+                                'type' => 'select',
+                                'instructions' => 'Category or type of award',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '25',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'choices' => array(
+                                    'excellence' => 'Excellence',
+                                    'quality' => 'Quality',
+                                    'innovation' => 'Innovation',
+                                    'safety' => 'Safety',
+                                    'customer_service' => 'Customer Service',
+                                    'leadership' => 'Leadership',
+                                    'sustainability' => 'Sustainability',
+                                    'community' => 'Community',
+                                    'other' => 'Other',
+                                ),
+                                'default_value' => 'excellence',
+                                'allow_null' => 1,
+                                'multiple' => 0,
+                                'ui' => 0,
+                                'return_format' => 'value',
+                                'ajax' => 0,
+                                'placeholder' => '',
+                            ),
+                            
+                            // Award Description
+                            array(
+                                'key' => 'field_award_description_shortcode',
+                                'label' => 'Award Description',
+                                'name' => 'award_description',
+                                'type' => 'textarea',
+                                'instructions' => 'Brief description of the award or what it recognizes',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'Recognized for outstanding quality of care and exceptional patient outcomes...',
+                                'maxlength' => 200,
+                                'rows' => 3,
+                                'new_lines' => 'br',
+                            ),
+                        ),
+                    ),
+                ),
+                'location' => array(
+                    array(
+                        array(
+                            'param' => 'post_type',
+                            'operator' => '==',
+                            'value' => 'page',
+                        ),
+                    ),
+                ),
+                'menu_order' => 0,
+                'position' => 'normal',
+                'style' => 'default',
+                'label_placement' => 'top',
+                'instruction_placement' => 'label',
+                'hide_on_screen' => '',
+                'active' => true,
+                'description' => 'Awards fields for pages using the [awards] shortcode',
+            ));
+    }
+}
+add_action('acf/init', 'add_awards_fields_to_shortcode_pages', 20);
+
+/**
  * Force refresh ACF fields cache
  */
 function refresh_awards_acf_cache() {
@@ -307,7 +580,12 @@ function awards_field_admin_notice() {
         return;
     }
     
-    if (!$post || get_page_template_slug($post->ID) !== 'templates/page-awards.php') {
+    if (!$post || $post->post_type !== 'page') {
+        return;
+    }
+    
+    // Only show notice on pages that contain the awards shortcode
+    if (!has_shortcode($post->post_content, 'awards') && get_page_template_slug($post->ID) !== 'templates/page-awards.php') {
         return;
     }
     
@@ -328,7 +606,7 @@ function awards_field_admin_notice() {
 add_action('admin_notices', 'awards_field_admin_notice');
 
 /**
- * Check if we're on the Awards page edit screen
+ * Check if we're on a page edit screen with awards shortcode
  */
 function is_awards_page_edit_screen() {
     global $post, $pagenow;
@@ -341,8 +619,9 @@ function is_awards_page_edit_screen() {
         return false;
     }
     
-    $template = get_page_template_slug($post->ID);
-    return ($template === 'templates/page-awards.php');
+    // Show only on pages that contain the awards shortcode or use the awards template
+    return ($post->post_type === 'page' && 
+            (has_shortcode($post->post_content, 'awards') || get_page_template_slug($post->ID) === 'templates/page-awards.php'));
 }
 
 /**
@@ -519,15 +798,69 @@ function awards_admin_preview_styles() {
 }
 
 /**
- * Admin JavaScript for Awards preview
+ * Admin JavaScript for Awards preview and shortcode detection
  */
 function awards_admin_preview_scripts() {
-    if (!is_awards_page_edit_screen()) {
+    global $post;
+    
+    // Only run on page edit screens
+    if (!$post || $post->post_type !== 'page') {
         return;
     }
     ?>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
+        
+        // Function to check if awards shortcode is present in content
+        function checkForAwardsShortcode() {
+            var content = '';
+            
+            // Try to get content from the editor
+            if (typeof wp !== 'undefined' && wp.data && wp.data.select('core/editor')) {
+                content = wp.data.select('core/editor').getEditedPostContent();
+            } else if ($('#content').length) {
+                content = $('#content').val() || '';
+            } else if ($('.wp-editor-area').length) {
+                content = $('.wp-editor-area').val() || '';
+            }
+            
+            var hasShortcode = content.indexOf('[awards') !== -1;
+            var $awardsFieldGroup = $('.acf-field-group[data-key="group_awards_shortcode"]');
+            var $heightMetaBox = $('#awards_height_control');
+            
+            // Show/hide awards fields based on shortcode presence
+            if (hasShortcode) {
+                $awardsFieldGroup.show();
+                $heightMetaBox.show();
+                console.log('Awards shortcode detected - showing fields');
+            } else {
+                $awardsFieldGroup.hide();
+                $heightMetaBox.hide();
+                console.log('No awards shortcode - hiding fields');
+            }
+        }
+        
+        // Check on page load
+        setTimeout(checkForAwardsShortcode, 1000);
+        
+        // Check when content changes (Classic Editor)
+        $(document).on('input keyup paste change', '#content, .wp-editor-area', function() {
+            setTimeout(checkForAwardsShortcode, 300);
+        });
+        
+        // Check when Gutenberg editor content changes
+        if (typeof wp !== 'undefined' && wp.data) {
+            wp.data.subscribe(function() {
+                setTimeout(checkForAwardsShortcode, 200);
+            });
+        }
+        
+        // Additional check for TinyMCE editor
+        if (typeof tinyMCE !== 'undefined') {
+            $(document).on('tinymce-editor-init', function() {
+                setTimeout(checkForAwardsShortcode, 500);
+            });
+        }
         
         // Function to update preview for a single repeater row
         function updateAwardPreview($row) {

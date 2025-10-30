@@ -1,63 +1,77 @@
     </div><!-- #content -->
 
-    <footer id="colophon" class="site-footer bg-navy-950 text-white border-t border-navy-800">
-        <div class="container-custom">
-            <?php if (is_active_sidebar('footer-1')) : ?>
-                <div class="footer-widgets py-12">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <?php dynamic_sidebar('footer-1'); ?>
+    <footer id="colophon" class="site-footer bg-[#014854] text-white">
+        <div class="container-custom max-w-[1280px] mx-auto py-10 lg:py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-white/20 pb-8">
+                <!-- Brand + Address -->
+                <div>
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center ">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/tov-log-white.svg" alt="<?php bloginfo('name'); ?>" class="w-[260px] h-[72px]">
+                    </a>
+                    <div class="mt-4 text-sm text-white leading-6">
+                        <p>Ropers Lane, Otterton, Budleigh<br> Salterton East Devon, EX9 7JF</p>
+                        <p class="mt-3">01395 568208</p>
+                        <p>enquiries@theoldvicarageotterton.com</p>
                     </div>
                 </div>
-            <?php endif; ?>
-            
-            <div class="footer-bottom border-t border-navy-800 py-6">
-                <div class="flex flex-col md:flex-row items-center justify-between">
-                    <div class="site-info text-sm text-navy-300">
-                        <p>&copy; <?php echo date('Y'); ?> 
-                            <a href="<?php echo esc_url(home_url('/')); ?>" class="text-white hover:text-navy-200 transition-colors duration-200">
-                                <?php bloginfo('name'); ?>
-                            </a>. 
-                            <?php esc_html_e('All rights reserved.', 'tov-theme'); ?>
-                        </p>
-                    </div>
-                    
-                    <div class="footer-menu mt-4 md:mt-0">
-                        <?php
+
+                <!-- About Us -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">About Us</h4>
+                    <?php if (has_nav_menu('footer_about')) {
                         wp_nav_menu(array(
-                            'theme_location' => 'footer',
-                            'menu_id'        => 'footer-menu',
-                            'menu_class'     => 'flex space-x-6 text-sm',
-                            'container'      => false,
-                            'fallback_cb'    => false,
-                            'depth'          => 1,
-                            'link_before'    => '<span class="text-navy-300 hover:text-white transition-colors duration-200">',
-                            'link_after'     => '</span>',
+                            'theme_location' => 'footer_about',
+                            'menu_class' => 'space-y-2 text-sm text-white/80',
+                            'container' => false,
+                            'depth' => 1,
                         ));
-                        ?>
-                    </div>
+                    } ?>
                 </div>
-                
-                <!-- Location Pages Menu -->
-                <?php if (has_nav_menu('location_pages')) : ?>
-                    <div class="location-pages-section mt-6 pt-6 border-t border-navy-800">
-                        <h4 class="text-sm font-semibold text-navy-200 mb-3">Location Pages</h4>
-                        <div class="location-pages-menu">
-                            <?php
-                            wp_nav_menu(array(
-                                'theme_location' => 'location_pages',
-                                'menu_id'        => 'location-pages-menu',
-                                'menu_class'     => 'flex flex-wrap gap-4 text-sm',
-                                'container'      => false,
-                                'fallback_cb'    => false,
-                                'depth'          => 1,
-                                'link_before'    => '<span class="text-navy-300 hover:text-white transition-colors duration-200">',
-                                'link_after'     => '</span>',
-                            ));
-                            ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Services</h4>
+                    <?php if (has_nav_menu('footer_services')) {
+                        wp_nav_menu(array(
+                            'theme_location' => 'footer_services',
+                            'menu_class' => 'space-y-2 text-sm text-white/80',
+                            'container' => false,
+                            'depth' => 1,
+                        ));
+                    } ?>
                 </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Resources</h4>
+                    <?php if (has_nav_menu('footer_resources')) {
+                        wp_nav_menu(array(
+                            'theme_location' => 'footer_resources',
+                            'menu_class' => 'space-y-2 text-sm text-white/80',
+                            'container' => false,
+                            'depth' => 1,
+                        ));
+                    } ?>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6">
+                <p class="text-xs text-white/70">&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</p>
+                <?php if (has_nav_menu('footer_legal')) {
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer_legal',
+                        'menu_class' => 'flex items-center gap-6 text-xs text-white/80',
+                        'container' => false,
+                        'depth' => 1,
+                    ));
+                } else { ?>
+                    <ul class="flex items-center gap-6 text-xs text-white/80">
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Terms &amp; conditions</a></li>
+                        <li><a href="#">Modern Slavery Act</a></li>
+                    </ul>
+                <?php } ?>
             </div>
         </div>
     </footer>

@@ -18,6 +18,10 @@ get_header(); ?>
         <?php
         $today = date('Y-m-d');
         
+        // Debug: Uncomment the line below to see debug output
+        // echo '<div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border: 1px solid #ccc;"><strong>Debug Info:</strong> Today is ' . $today . '</div>';
+        
+        
         // Function to format event date range
         function tov_format_event_range($start, $end) {
             $s = $start ? strtotime($start) : null;
@@ -84,30 +88,88 @@ get_header(); ?>
             echo $output;
         }
         
-        // Get upcoming events - only events with dates >= today
-        $upcoming_args = array(
+        // Get all events and categorize them
+        $all_events_args = array(
             'post_type' => 'event',
             'posts_per_page' => -1,
             'post_status' => 'publish',
-            'meta_key' => 'event_start_date',
-            'orderby' => 'meta_value',
-            'order' => 'ASC',
-            'meta_query' => array(
-                'relation' => 'OR',
-                array(
-                    'key' => 'event_start_date',
-                    'value' => $today,
-                    'compare' => '>=',
-                    'type' => 'DATE'
-                ),
-                array(
-                    'key' => 'event_end_date',
-                    'value' => $today,
-                    'compare' => '>=',
-                    'type' => 'DATE'
-                )
-            )
+            'orderby' => 'date',
+            'order' => 'ASC'
         );
+        $all_events = new WP_Query($all_events_args);
+        
+        // Categorize events
+        $upcoming_events_data = array();
+        $past_events_data = array();
+        
+        if ($all_events->have_posts()) {
+            while ($all_events->have_posts()) {
+                $all_events->the_post();
+                $event_start_date = get_field('event_start_date', get_the_ID());
+                $event_end_date = get_field('event_end_date', get_the_ID());
+                
+                // Convert ACF dates to Y-m-d format for proper comparison
+                if ($event_start_date) {
+                    $event_start_date = date('Y-m-d', strtotime($event_start_date));
+                }
+                if ($event_end_date) {
+                    $event_end_date = date('Y-m-d', strtotime($event_end_date));
+                }
+                
+                // Determine if event is upcoming or past
+                $is_upcoming = false;
+                $is_past = false;
+                
+                if ($event_start_date) {
+                    if ($event_start_date >= $today) {
+                        // Event starts today or in the future
+                        $is_upcoming = true;
+                    } elseif ($event_end_date && $event_end_date >= $today) {
+                        // Event started in the past but hasn't ended yet
+                        $is_upcoming = true;
+                    } else {
+                        // Event has ended
+                        $is_past = true;
+                    }
+                } elseif ($event_end_date) {
+                    // Only end date available
+                    if ($event_end_date >= $today) {
+                        $is_upcoming = true;
+                    } else {
+                        $is_past = true;
+                    }
+                }
+                
+                // Debug: Uncomment the lines below to see debug output for each event
+                // echo '<div style="background: #e8f4f8; padding: 5px; margin: 2px 0; font-size: 12px;">';
+                // echo 'Event: ' . get_the_title() . ' | Start: ' . ($event_start_date ?: 'None') . ' | End: ' . ($event_end_date ?: 'None') . ' | Upcoming: ' . ($is_upcoming ? 'YES' : 'NO') . ' | Past: ' . ($is_past ? 'YES' : 'NO');
+                // echo '</div>';
+                
+                if ($is_upcoming) {
+                    $upcoming_events_data[] = get_the_ID();
+                } elseif ($is_past) {
+                    $past_events_data[] = get_the_ID();
+                }
+            }
+            wp_reset_postdata();
+        }
+        
+        // Create queries for upcoming events
+        if (!empty($upcoming_events_data)) {
+            $upcoming_args = array(
+                'post_type' => 'event',
+                'posts_per_page' => -1,
+                'post_status' => 'publish',
+                'post__in' => $upcoming_events_data,
+                'orderby' => 'post__in'
+            );
+        } else {
+            $upcoming_args = array(
+                'post_type' => 'event',
+                'posts_per_page' => 0,
+                'post_status' => 'publish'
+            );
+        }
         $upcoming_events = new WP_Query($upcoming_args);
         
         ?>
@@ -147,25 +209,32 @@ get_header(); ?>
         <?php endif; wp_reset_postdata(); ?>
 
         <?php
-        // Get past events with pagination
-        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        $past_args = array(
-            'post_type' => 'event',
-            'posts_per_page' => 6,
-            'paged' => $paged,
-            'meta_key' => 'event_start_date',
-            'orderby' => 'meta_value',
-            'order' => 'DESC',
-            'meta_query' => array(
-                array(
-                    'key' => 'event_start_date',
-                    'value' => $today,
-                    'compare' => '<',
-                    'type' => 'DATE'
-                )
-            )
-        );
+        // Create query for past events (show all, no pagination)
+        if (!empty($past_events_data)) {
+            $past_args = array(
+                'post_type' => 'event',
+                'posts_per_page' => -1,
+                'post__in' => $past_events_data,
+                'orderby' => 'post__in'
+            );
+        } else {
+            $past_args = array(
+                'post_type' => 'event',
+                'posts_per_page' => 0,
+                'post_status' => 'publish'
+            );
+        }
         $past_events = new WP_Query($past_args);
+        
+        // Debug: Uncomment the lines below to see summary debug output
+        // echo '<div style="background: #fff3cd; padding: 10px; margin: 10px 0; border: 1px solid #ffeaa7;"><strong>Debug Summary:</strong><br>';
+        // echo 'Today is: ' . $today . '<br>';
+        // echo 'Total events found: ' . $all_events->found_posts . '<br>';
+        // echo 'Events marked as upcoming: ' . count($upcoming_events_data) . '<br>';
+        // echo 'Events marked as past: ' . count($past_events_data) . '<br>';
+        // echo 'Events showing in upcoming section: ' . $upcoming_events->found_posts . '<br>';
+        // echo 'Events showing in past section: ' . $past_events->found_posts;
+        // echo '</div>';
         ?>
 
         <?php if ($past_events->have_posts()) : ?>
@@ -200,17 +269,6 @@ get_header(); ?>
                 endwhile; ?>
             </div>
             
-            <?php if ($past_events->max_num_pages > 1 && $paged < $past_events->max_num_pages) : ?>
-                <div class="text-center mt-8">
-                    <button id="load-more-events" 
-                            data-page="<?php echo $paged; ?>" 
-                            data-max-pages="<?php echo $past_events->max_num_pages; ?>"
-                            class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed">
-                        <span class="button-text"><?php esc_html_e('Load more', 'tov'); ?></span>
-                        <span class="loading-text hidden"><?php esc_html_e('Loading...', 'tov'); ?></span>
-                    </button>
-                </div>
-            <?php endif; ?>
         </section>
         <?php endif; wp_reset_postdata(); ?>
 

@@ -22,9 +22,14 @@ function tov_theme_setup() {
 
     // Register navigation menus
     register_nav_menus(array(
-        'primary' => esc_html__('Primary Menu', 'tov-theme'),
-        'footer'  => esc_html__('Footer Menu', 'tov-theme'),
-        'location_pages' => esc_html__('Location Pages', 'tov-theme'),
+        'primary'         => esc_html__('Primary Menu', 'tov-theme'),
+        'footer'          => esc_html__('Footer Menu', 'tov-theme'),
+        'location_pages'  => esc_html__('Location Pages', 'tov-theme'),
+        // New footer columns
+        'footer_about'    => esc_html__('Footer About', 'tov-theme'),
+        'footer_services' => esc_html__('Footer Services', 'tov-theme'),
+        'footer_resources'=> esc_html__('Footer Resources', 'tov-theme'),
+        'footer_legal'    => esc_html__('Footer Legal', 'tov-theme'),
     ));
 
     // Add support for HTML5 markup
@@ -43,6 +48,14 @@ function tov_theme_scripts() {
         'tov-theme-style',
         get_template_directory_uri() . '/assets/css/tov.css',
         array(),
+        TOV_THEME_VERSION
+    );
+
+    // Custom overrides stylesheet (loads after tov.css)
+    wp_enqueue_style(
+        'tov-theme-custom',
+        get_template_directory_uri() . '/assets/css/custom.css',
+        array('tov-theme-style'),
         TOV_THEME_VERSION
     );
 
@@ -118,6 +131,13 @@ require_once get_template_directory() . '/shortcodes/faq-section.php';
  * Load ACF Fields for Awards Template
  */
 require_once get_template_directory() . '/inc/acf/awards-fields.php';
+
+/**
+ * Load ACF Fields for Events
+ */
+require_once get_template_directory() . '/inc/acf/events-fields.php';
+
+
 
 /**
  * Load Simple Awards Height Control
@@ -284,23 +304,76 @@ function tov_load_more_events() {
     $page = intval($_POST['page']);
     $today = date('Y-m-d');
     
-    // Query past events for the specific page
-    $args = array(
+    // Get all events and filter past ones (same logic as main page)
+    $all_events = new WP_Query(array(
         'post_type' => 'event',
-        'posts_per_page' => 6,
-        'paged' => $page,
-        'meta_key' => 'event_start_date',
-        'orderby' => 'meta_value',
-        'order' => 'DESC',
-        'meta_query' => array(
-            array(
-                'key' => 'event_start_date',
-                'value' => $today,
-                'compare' => '<',
-                'type' => 'DATE'
-            )
-        )
-    );
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'orderby' => 'date',
+        'order' => 'DESC'
+    ));
+    
+    // Filter past events using the same logic as the main page
+    $past_events_data = array();
+    if ($all_events->have_posts()) {
+        while ($all_events->have_posts()) {
+            $all_events->the_post();
+            $event_start_date = get_field('event_start_date', get_the_ID());
+            $event_end_date = get_field('event_end_date', get_the_ID());
+            
+            // Convert ACF dates to Y-m-d format for proper comparison
+            if ($event_start_date) {
+                $event_start_date = date('Y-m-d', strtotime($event_start_date));
+            }
+            if ($event_end_date) {
+                $event_end_date = date('Y-m-d', strtotime($event_end_date));
+            }
+            
+            // Check if event is past (same logic as main page)
+            $is_past = false;
+            if ($event_start_date) {
+                if ($event_start_date < $today) {
+                    // If there's an end date, check if it's also in the past
+                    if ($event_end_date) {
+                        if ($event_end_date < $today) {
+                            $is_past = true;
+                        }
+                    } else {
+                        // No end date, so if start date is past, event is past
+                        $is_past = true;
+                    }
+                }
+            } elseif ($event_end_date) {
+                // Only end date available
+                if ($event_end_date < $today) {
+                    $is_past = true;
+                }
+            }
+            
+            if ($is_past) {
+                $past_events_data[] = get_the_ID();
+            }
+        }
+        wp_reset_postdata();
+    }
+    
+    // Create paginated query for past events
+    if (!empty($past_events_data)) {
+        $args = array(
+            'post_type' => 'event',
+            'posts_per_page' => 6,
+            'paged' => $page,
+            'post__in' => $past_events_data,
+            'orderby' => 'post__in'
+        );
+    } else {
+        $args = array(
+            'post_type' => 'event',
+            'posts_per_page' => 0,
+            'paged' => $page,
+            'post_status' => 'publish'
+        );
+    }
     
     $events_query = new WP_Query($args);
     
