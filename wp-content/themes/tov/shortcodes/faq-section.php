@@ -25,8 +25,7 @@ if (!defined('ABSPATH')) {
  */
 function tov_faq_section_shortcode($atts, $content = null) {
     $atts = shortcode_atts(array(
-        'title' => 'Frequently Asked Questions',
-        'subtitle' => 'Find answers to common questions',
+        // Visual + behavior
         'style' => 'modern', // modern, minimal, card
         'layout' => 'accordion', // accordion, grid
         'show_icons' => 'true',
@@ -55,32 +54,27 @@ function tov_faq_section_shortcode($atts, $content = null) {
     <div class="faq-section <?php echo ($atts['dark_mode'] === 'true') ? 'dark' : ''; ?> <?php echo esc_attr($atts['class']); ?>" id="<?php echo esc_attr($faq_id); ?>" 
          data-style="<?php echo esc_attr($atts['style']); ?>" 
          data-layout="<?php echo esc_attr($atts['layout']); ?>">
-        
         <div class="faq-container-wrapper">
-            <div class="faq-inner-container">
-                <!-- FAQ Header -->
-                <?php if (!empty($atts['title']) || !empty($atts['subtitle'])): ?>
-                <div class="faq-header">
-                    <?php if (!empty($atts['title'])): ?>
-                        <h2 class="faq-title"><?php echo esc_html($atts['title']); ?></h2>
-                    <?php endif; ?>
-                    
-                    <?php if (!empty($atts['subtitle'])): ?>
-                        <p class="faq-subtitle"><?php echo esc_html($atts['subtitle']); ?></p>
-                    <?php endif; ?>
+            <div class="faq-two-col">
+                <!-- Left column -->
+                <div class="faq-left pr-[120px]">
+                    <h6 class="faq-pretitle">FREQUENTLY ASKED QUESTIONS</h6>
+                    <h2 class="faq-heading text-[40px]">Get the answers you need about<span class="faq-heading-span "> our senior care</span></h2>
+                    <p class="faq-lead">Reach out today to learn more about our personalized services, schedule a free visit, or speak with a care specialist.</p>
+                    <a href="#contact" class="faq-cta">Contact Us Now</a>
                 </div>
-                <?php endif; ?>
-                
-        <!-- FAQ Items Container -->
-        <dl class="faq-container" data-animation="<?php echo esc_attr($atts['animation']); ?>">
-            <?php if (!empty($faq_items)): ?>
-                <?php foreach ($faq_items as $index => $item): ?>
-                    <?php tov_render_faq_item($item, $index, $atts); ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="faq-no-items">No FAQ items found.</p>
-            <?php endif; ?>
-        </dl>
+                <!-- Right column: FAQ accordion -->
+                <div class="faq-right">
+                    <dl class="faq-container" data-animation="<?php echo esc_attr($atts['animation']); ?>">
+                        <?php if (!empty($faq_items)): ?>
+                            <?php foreach ($faq_items as $index => $item): ?>
+                                <?php tov_render_faq_item($item, $index, $atts); ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="faq-no-items">No FAQ items found.</p>
+                        <?php endif; ?>
+                    </dl>
+                </div>
             </div>
         </div>
     </div>
@@ -103,6 +97,27 @@ function tov_faq_section_shortcode($atts, $content = null) {
         margin: 0 auto;
         padding: 1.5rem 1.5rem 6rem 1.5rem; /* px-6 py-24 */
     }
+    .faq-left { padding-right: 120px; }
+
+    /* Two-column layout */
+    .faq-two-col {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: start;
+    }
+    @media (min-width: 1024px) {
+        .faq-two-col { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+    .faq-left {}
+    .faq-right {}
+    .faq-pretitle { color: #0a4c5a; letter-spacing: .2em; font-size: .75rem; font-weight: 600; margin-bottom: .5rem; }
+    .faq-heading { font-size: 40px; line-height: 1.15; font-weight: 600; margin-bottom: .75rem; }
+    .faq-heading-span { font-family: Lora; font-size: 40px; font-style: italic; font-weight: 500; }
+    @media (min-width: 640px) { .faq-heading { font-size: 2.25rem; } }
+    @media (min-width: 768px) { .faq-heading { font-size: 2.5rem; } }
+    .faq-lead { color: #374151; opacity: .9; margin: .75rem 0 1.25rem; }
+    .faq-cta { display: inline-flex; align-items: center; gap: .5rem; background: #016A7C; color: #fff; padding: .75rem 1.25rem; border-radius: .5rem; text-decoration: none; font-weight: 600; }
     
     @media (min-width: 640px) {
         .faq-container-wrapper {
@@ -411,7 +426,6 @@ function tov_faq_item_shortcode($atts, $content = null) {
     $atts = shortcode_atts(array(
         'question' => '',
         'answer' => '',
-        'icon' => 'plus', // plus, chevron, arrow
         'class' => '',
         'id' => ''
     ), $atts);
@@ -425,9 +439,6 @@ function tov_faq_item_shortcode($atts, $content = null) {
     
     // Generate unique ID for the FAQ item
     $item_id = !empty($atts['id']) ? $atts['id'] : 'faq-item-' . uniqid();
-    
-    // Get the icon HTML
-    $icon_html = tov_get_faq_icon($atts['icon']);
     
     ob_start();
     ?>
@@ -512,26 +523,8 @@ function tov_extract_faq_items_from_raw($content) {
  * @return array Array of FAQ items
  */
 function tov_extract_faq_items($content) {
-    $faq_items = array();
-    
-    // Pattern to match [faq_item] shortcodes
-    $pattern = '/\[faq_item\s+([^\]]+)\]([^\[]*(?:\[[^\]]*\][^\[]*)*)\[\/faq_item\]/';
-    preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
-    
-    foreach ($matches as $match) {
-        $attributes = shortcode_parse_atts($match[1]);
-        $answer = $match[2];
-        
-        $faq_items[] = array(
-            'question' => isset($attributes['question']) ? $attributes['question'] : '',
-            'answer' => $answer,
-            'icon' => isset($attributes['icon']) ? $attributes['icon'] : 'plus',
-            'class' => isset($attributes['class']) ? $attributes['class'] : '',
-            'id' => isset($attributes['id']) ? $attributes['id'] : ''
-        );
-    }
-    
-    return $faq_items;
+    // Legacy function removed: no longer used
+    return array();
 }
 
 /**
@@ -575,27 +568,7 @@ function tov_render_faq_item($item, $index, $section_atts) {
  * @param string $icon_type Icon type
  * @return string Icon HTML
  */
-function tov_get_faq_icon($icon_type = 'plus') {
-    switch ($icon_type) {
-        case 'chevron':
-            return '<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="6,9 12,15 18,9"></polyline>
-                    </svg>';
-        
-        case 'arrow':
-            return '<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12,5 19,12 12,19"></polyline>
-                    </svg>';
-        
-        case 'plus':
-        default:
-            return '<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>';
-    }
-}
+// Removed unused icon helper
 
 // Register shortcodes
 add_shortcode('faq_section', 'tov_faq_section_shortcode');
@@ -608,4 +581,6 @@ if (!function_exists('tov_load_faq_shortcodes')) {
         return true;
     }
 }
+
+// Removed demo [faq_block] shortcode and related code
 ?>

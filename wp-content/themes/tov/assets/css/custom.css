@@ -8,9 +8,8 @@
 body h1,
 html h1,
 h1 {
-  color: #FFF !important;
   font-family: "Plus Jakarta Sans" !important;
-  font-size: 60.071px !important;
+  font-size: 60px !important;
   font-style: normal !important;
   font-weight: 700 !important;
 }
@@ -18,21 +17,16 @@ h1 {
 body h2,
 html h2,
 h2 {
-  font-family: sans-serif !important;
+  font-family: Plus Jakarta Sans !important;
   font-weight: 600 !important;
-  font-size: 28px !important;
-  line-height: 1.3 !important;
-  color: #1f2937 !important;
 }
 
 body h3,
 html h3,
 h3 {
-  font-family: sans-serif !important;
+  font-family: Lato !important;
   font-weight: 600 !important;
   font-size: 24px !important;
-  line-height: 1.4 !important;
-  color: #374151 !important;
 }
 
 body h6,
@@ -125,9 +119,16 @@ nav a:hover {
   background-color: #014854 !important;
 }
 
-.hero-section-text{
+.hero-section-text {
   color: rgba(255, 255, 255, 0.86) !important;
   font-family: Lato !important;
   font-style: normal !important;
   font-weight: 400 !important;
+}
+
+span .heading2-span {
+  font-family: Lora;
+  font-size: 40px;
+  font-style: italic;
+  font-weight: 500;
 }

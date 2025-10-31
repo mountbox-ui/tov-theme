@@ -72,7 +72,7 @@ function support_center_heading_shortcode($atts) {
         'text' => 'Default Heading',
     ), $atts, 'sc_heading');
 
-    return '<h1 class="pb-[14px] leading-[1.15] sm:leading-[1.15] md:leading-[1.2] lg:leading-[1.25]">'
+    return '<h1 class="text-white pb-[14px] leading-[1.15] sm:leading-[1.15] md:leading-[1.2] lg:leading-[1.25]">'
             . esc_html($atts['text']) . '</h1>';
 }
 add_shortcode('sc_heading', 'support_center_heading_shortcode');
@@ -123,7 +123,7 @@ function support_center_buttons_shortcode($atts) {
     $left  = '<div class="flex flex-wrap items-center gap-2 sm:gap-3">' . $primary . '<span class="hidden sm:inline-block w-2"></span>' . $phone . '</div>';
     $right = '<div class="mt-2 sm:mt-0 self-start sm:self-auto sm:ml-auto shrink-0">' . $see . '</div>';
 
-    return '<div class="mt-6 w-[1200px] sm:mt-8 w-full flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:flex-nowrap justify-between">' . $left . $right . '</div>';
+    return '<div class="mt-6 w-[1200px] lg:w-[1200px] md:w-full  sm:mt-8  flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:flex-nowrap justify-between">' . $left . $right . '</div>';
 }
 add_shortcode('sc_buttons', 'support_center_buttons_shortcode');
 
