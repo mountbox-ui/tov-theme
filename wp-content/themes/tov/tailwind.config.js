@@ -41,6 +41,9 @@ module.exports = {
         'roboto': ['Roboto', 'sans-serif'],
         'inter': ['Inter', 'sans-serif'],
         'merriweather': ['Merriweather', 'serif'],
+        'jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'lora': ['Lora', 'serif'],
+        'lato': ['Lato', 'sans-serif'],
       },
       spacing: {
         '18': '4.5rem',

@@ -51,10 +51,14 @@ function manual_height_meta_box_callback($post) {
             // Get awards data - try multiple methods
             $awards = get_field('awards', $post->ID);
             
-            // If no awards from ACF, try individual fields
-            if (empty($awards)) {
+            // Make sure $awards is an array (ACF can return false/null)
+            if (!is_array($awards)) {
                 $awards = array();
-                for ($i = 1; $i <= 3; $i++) {
+            }
+            
+            // If no awards from ACF repeater, try individual fields (fallback)
+            if (empty($awards)) {
+                for ($i = 1; $i <= 10; $i++) {
                     $award_field = get_field('award' . $i, $post->ID);
                     if (!empty($award_field)) {
                         $awards[] = $award_field;
@@ -62,9 +66,27 @@ function manual_height_meta_box_callback($post) {
                 }
             }
             
+            // Count awards with images
+            $awards_with_images = 0;
+            foreach ($awards as $award) {
+                $has_image = false;
+                if (is_array($award)) {
+                    if (isset($award['url']) && isset($award['ID'])) {
+                        $has_image = true;
+                    } elseif (isset($award['award_image'])) {
+                        $has_image = true;
+                    } elseif (isset($award['image'])) {
+                        $has_image = true;
+                    }
+                }
+                if ($has_image) {
+                    $awards_with_images++;
+                }
+            }
+            
             // Show success message
             echo '<div style="margin-bottom: 10px; padding: 10px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; font-size: 12px; color: #155724;">';
-            echo '<strong>✅ Success!</strong> Found ' . count($awards) . ' awards with images. You can now adjust their heights below.';
+            echo '<strong>✅ Success!</strong> Found ' . count($awards) . ' total awards (' . $awards_with_images . ' with images). You can now adjust their heights below.';
             echo '</div>';
             
             if (!empty($awards) && is_array($awards)) {
@@ -85,9 +107,27 @@ function manual_height_meta_box_callback($post) {
                             $award_title = isset($award['title']) ? $award['title'] : 'Award ' . ($index + 1);
                         } 
                         // Check if this is an award with image subfield
-                        elseif (isset($award['award_image']['url'])) {
-                            $img_url = $award['award_image']['url'];
-                            $img_alt = isset($award['award_image']['alt']) ? $award['award_image']['alt'] : $award_title;
+                        elseif (isset($award['award_image'])) {
+                            $award_image_raw = $award['award_image'];
+                            
+                            // Handle different ACF return formats
+                            if (is_numeric($award_image_raw)) {
+                                // Image ID - get full image array
+                                $award_image_data = acf_get_attachment($award_image_raw);
+                                if ($award_image_data) {
+                                    $img_url = isset($award_image_data['url']) ? $award_image_data['url'] : '';
+                                    $img_alt = isset($award_image_data['alt']) ? $award_image_data['alt'] : $award_title;
+                                }
+                            } elseif (is_array($award_image_raw) && isset($award_image_raw['url'])) {
+                                // Image array
+                                $img_url = $award_image_raw['url'];
+                                $img_alt = isset($award_image_raw['alt']) ? $award_image_raw['alt'] : $award_title;
+                            } elseif (filter_var($award_image_raw, FILTER_VALIDATE_URL)) {
+                                // Image URL
+                                $img_url = $award_image_raw;
+                                $img_alt = $award_title;
+                            }
+                            
                             $award_title = isset($award['award_title']) ? $award['award_title'] : 'Award ' . ($index + 1);
                         }
                         // Check other possible structures

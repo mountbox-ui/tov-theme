@@ -28,6 +28,21 @@ h3 {
   font-weight: 600 !important;
   font-size: 24px !important;
 }
+body h4,
+html h4,
+h4 {
+  font-family: Plus Jakarta Sans !important;
+  font-weight: 600 !important;
+  font-size: 20px !important;
+}
+
+body h5,
+html h5,
+h5 {
+  font-family: Plus Jakarta Sans !important;
+  font-weight: 700 !important;
+  font-size: 24px !important;
+}
 
 body h6,
 html h6,
@@ -36,10 +51,17 @@ h6 {
   font-size: 13px !important;
   font-style: normal !important;
   font-weight: 400 !important;
-  line-height: 13px !important;
+  padding-bottom: 12px !important;
   /* 100% */
   letter-spacing: 3px !important;
-  text-transform: uppercase !important;
+  text-transform: uppercase;
+}
+
+h2 span  {
+  font-family: Lora !important;
+  font-size: 40px !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
 }
 
 
@@ -126,9 +148,3 @@ nav a:hover {
   font-weight: 400 !important;
 }
 
-span .heading2-span {
-  font-family: Lora;
-  font-size: 40px;
-  font-style: italic;
-  font-weight: 500;
-}
