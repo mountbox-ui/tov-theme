@@ -2376,6 +2376,10 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 36rem;
 }
 
+.max-w-full {
+  max-width: 100%;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -2572,6 +2576,10 @@ h1, h2, h3, h4, h5, h6 {
   row-gap: 2.5rem;
 }
 
+.gap-y-6 {
+  row-gap: 1.5rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -2654,6 +2662,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .text-pretty {
   text-wrap: pretty;
+}
+
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .rounded {
@@ -3842,6 +3854,14 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 2rem;
   }
 
+  .sm\:mb-10 {
+    margin-bottom: 2.5rem;
+  }
+
+  .sm\:mb-\[24px\] {
+    margin-bottom: 24px;
+  }
+
   .sm\:inline-block {
     display: inline-block;
   }
@@ -3892,6 +3912,15 @@ h1, h2, h3, h4, h5, h6 {
 
   .sm\:gap-3 {
     gap: 0.75rem;
+  }
+
+  .sm\:gap-x-8 {
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+  }
+
+  .sm\:gap-y-8 {
+    row-gap: 2rem;
   }
 
   .sm\:self-auto {
@@ -3993,8 +4022,17 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 2rem;
   }
 
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
   .sm\:leading-\[1\.15\] {
     line-height: 1.15;
+  }
+
+  .sm\:tracking-\[0\.3em\] {
+    letter-spacing: 0.3em;
   }
 }
 
@@ -4053,6 +4091,15 @@ h1, h2, h3, h4, h5, h6 {
 
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:gap-x-14 {
+    -moz-column-gap: 3.5rem;
+         column-gap: 3.5rem;
+  }
+
+  .md\:gap-y-10 {
+    row-gap: 2.5rem;
   }
 
   .md\:py-16 {

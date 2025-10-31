@@ -56,17 +56,17 @@ function tov_awards_shortcode($atts) {
     }
     
     ?>
-    <section class="bg-[#FAF8F4] py-12 lg:py-16">
-        <div class="max-w-7xl mx-auto px-6">
+    <section class="bg-[#FAF8F4] py-8 sm:py-12 lg:py-16 awards-section-responsive">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <?php if ($atts['show_title'] === 'yes'): ?>
-                <div class="text-center mb-10">
-                    <h1 class="text-3xl font-bold text-[#273A29] m-0"><?php echo get_the_title($post_id); ?></h1>
+                <div class="text-center mb-8 sm:mb-10">
+                    <h1 class="text-2xl sm:text-3xl font-bold text-[#273A29] m-0"><?php echo get_the_title($post_id); ?></h1>
                 </div>
             <?php endif; ?>
 
-            <h4 class="text-center text-[#273A29]/70 text-[20px] tracking-[0.3em] uppercase mb-[24px]">AWARDS/RECOGNITIONS/ PARTNERSHIPS</h4>
+            <h4 class="text-center text-[#273A29]/70 text-sm sm:text-base md:text-[20px] tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-6 sm:mb-[24px] px-2 break-words">AWARDS/RECOGNITIONS/ PARTNERSHIPS</h4>
 
-            <div class="flex flex-wrap items-center justify-center gap-x-14 gap-y-10">
+            <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-6 sm:gap-x-8 sm:gap-y-8 md:gap-x-14 md:gap-y-10">
                 <?php
                 if (!empty($awards) && is_array($awards)):
                     $award_index = 0;
@@ -156,12 +156,17 @@ function tov_awards_shortcode($atts) {
                             $award_image_width = round($award_image_height * $aspect_ratio);
                         }
                         
-                        // Display image
+                        // Display image - responsive height calculation
+                        // On mobile (< 412px), reduce height to 60% of desktop size
+                        $mobile_height = round($award_image_height * 0.6);
+                        if ($mobile_height < 40) {
+                            $mobile_height = 40; // Minimum height
+                        }
                         if (!empty($img_url)): ?>
                             <img src="<?php echo esc_url($img_url); ?>" 
                                  alt="<?php echo esc_attr($img_alt); ?>" 
-                                 class="opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition h-[56px] md:h-[72px] w-auto" 
-                                 style="height: <?php echo esc_attr($award_image_height); ?>px; width: auto;">
+                                 class="award-image-responsive opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition w-auto max-w-full object-contain" 
+                                 style="--mobile-h: <?php echo esc_attr($mobile_height); ?>px; --desktop-h: <?php echo esc_attr($award_image_height); ?>px; height: var(--mobile-h); width: auto;">
                         <?php endif;
                         
                         $award_index++;
@@ -184,6 +189,21 @@ function tov_awards_shortcode($atts) {
 
         </div>
     </section>
+    
+    <style>
+    /* Responsive awards images - mobile under 412px uses smaller height */
+    @media (max-width: 411px) {
+        .awards-section-responsive .award-image-responsive {
+            height: var(--mobile-h) !important;
+        }
+    }
+    
+    @media (min-width: 412px) {
+        .awards-section-responsive .award-image-responsive {
+            height: var(--desktop-h) !important;
+        }
+    }
+    </style>
     <?php
     
     // Return the buffered content
