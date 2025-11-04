@@ -19,16 +19,16 @@ function tov_why_tov_shortcode($atts, $content = null) {
 
     ob_start();
     ?>
-    <section class="container-full py-12 sm:py-16 bg-no-repeat bg-cover bg-center" style="background-image: url('<?php echo esc_url($bg_image); ?>');">
+    <section class="container-full py-[80px] sm:py-[80px] bg-no-repeat bg-cover bg-center" style="background-image: url('<?php echo esc_url($bg_image); ?>');">
         <div class="container-custom max-w-[1280px] mx-auto">
             <!-- outer wrapper -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-[48px] items-start">
                 <!-- left column -->
                 <div class="text-white">
                     <!-- left: upper block (pretitle + title) -->
                     <div class="mb-8">
-                        <h6 class="text-white/70 text-xs tracking-[0.2em] mb-3 pb-[26px]"><?php echo esc_html($a['pretitle']); ?></h6>
-                        <h2 class="text-[40px] sm:text-3xl md:text-4xl font-semibold leading-[48px] pb-[35px]">
+                        <h6 class="text-white/70 text-xs tracking-[0.2em]  pb-[26px]"><?php echo esc_html($a['pretitle']); ?></h6>
+                        <h2 class="text-[40px] sm:text-3xl md:text-4xl font-semibold pb-[37px]">
                             <?php echo esc_html($a['title']); ?>
                             <span class="block md:inline"><?php echo esc_html($a['italic']); ?></span>
                         </h2>
@@ -36,15 +36,15 @@ function tov_why_tov_shortcode($atts, $content = null) {
                     <!-- left: icons grid (2 rows x 2 cols) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-[106px] gap-y-[67px]">
                         <?php for ($i = 1; $i <= 4; $i++): ?>
-                            <div class="flex flex-col items-start gap-3">
+                            <div class="flex flex-col items-start gap-6 w-[269px]">
                                 <?php if (!empty($a['icon'.$i])): ?>
                                     <img src="<?php echo esc_url($a['icon'.$i]); ?>" alt="" class="w-[78px] h-[78px] object-contain" />
                                 <?php else: ?>
                                     <span class="w-[78px] h-[78px] rounded-full bg-white/15 flex items-center justify-center">★</span>
                                 <?php endif; ?>
                                 <div>
-                                    <div class="font-semibold mb-1"> <h5><?php echo esc_html($a['h'.$i]); ?></h5></div>
-                                    <div class="text-white/80 text-sm leading-relaxed"><?php echo esc_html($a['p'.$i]); ?></div>
+                                    <div class="font-semibold mb-1 w-[269px]"> <h5><?php echo esc_html($a['h'.$i]); ?></h5></div>
+                                    <div class="text-white/80 text-[18px] leading-relaxed"><?php echo esc_html($a['p'.$i]); ?></div>
                                 </div>
                             </div>
                         <?php endfor; ?>
@@ -53,7 +53,7 @@ function tov_why_tov_shortcode($atts, $content = null) {
 
                 <!-- right column: single svg image -->
                 <div class="flex justify-center items-start px-0px">
-                    <img src="<?php echo esc_url($right_image); ?>" alt="Why TOV" class="w-full max-w-[420px] h-[620px] object-contain">
+                    <img src="<?php echo esc_url($right_image); ?>" alt="Why TOV" class="w-full max-w-[530px] h-[580px] object-contain mt-[44px]">
                 </div>
             </div>
         </div>

@@ -72,7 +72,7 @@ function support_center_heading_shortcode($atts) {
         'text' => 'Default Heading',
     ), $atts, 'sc_heading');
 
-    return '<h1 class="text-white pb-[14px] leading-[1.15] sm:leading-[1.15] md:leading-[1.2] lg:leading-[1.25]">'
+    return '<h1 class="text-white pb-[14px] leading-[66px] sm:leading-[60px] md:leading-[60px] lg:leading-[66px]">'
             . esc_html($atts['text']) . '</h1>';
 }
 add_shortcode('sc_heading', 'support_center_heading_shortcode');
@@ -100,14 +100,20 @@ function support_center_buttons_shortcode($atts) {
         'see_text'     => 'See how we work',
         'see_url'      => '#',
     ), $atts, 'sc_buttons');
+ $arrow_icon = '<span class="ml-2 inline-block transform transition-transform duration-300 ease-in-out group-hover:translate-x-2">
+    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+        <path d="M12.6014 18.39L18.7246 12.4443C19.0204 12.2076 19.1683 11.8823 19.1683 11.4681C19.1683 11.054 19.0204 10.7286 18.7246 10.492L12.6014 4.54629C12.3648 4.25048 12.0542 4.10258 11.6697 4.10258C11.2851 4.10258 10.9597 4.23569 10.6935 4.50192C10.4273 4.76814 10.2942 5.10832 10.2942 5.52245C10.2942 5.93657 10.4421 6.26196 10.7379 6.4986L14.3763 10.0483H4.88093C4.52596 10.0483 4.21537 10.1814 3.94914 10.4476C3.68292 10.7138 3.5498 11.054 3.5498 11.4681C3.5498 11.8823 3.68292 12.2224 3.94914 12.4887C4.21537 12.7549 4.52596 12.888 4.88093 12.888H14.3763L10.7379 16.4377C10.4421 16.6743 10.2942 16.9997 10.2942 17.4138C10.2942 17.8279 10.4273 18.1681 10.6935 18.4343C10.9597 18.7006 11.2851 18.8337 11.6697 18.8337C12.0542 18.8337 12.3648 18.6858 12.6014 18.39Z" fill="white"/>
+    </svg>
+</span>';
 
-    $primary = '<a href="' . esc_url($atts['primary_url']) . '" class="inline-flex items-center justify-center rounded-md bg-[#016A7C] hover:bg-teal-700 text-white px-6 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm md:text-base font-semibold transition-colors whitespace-nowrap">'
-             . esc_html($atts['primary_text']) . '</a>';
+    $primary = '<a href="' . esc_url($atts['primary_url']) . '" class="btn-secondary inline-flex items-center group transition-all duration-300 ease-in-out hover:bg-blue-600">'
+             . esc_html($atts['primary_text']) . $arrow_icon . '</a>';
+   
 
     $phone_icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3.5 w-3.5 sm:h-4 sm:w-4">'
                 . '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372a1.125 1.125 0 0 0-.852-1.09l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a1.125 1.125 0 0 1-1.21.386 12.035 12.035 0 0 1-7.143-7.143 1.125 1.125 0 0 1 .386-1.21l1.293-.97a1.125 1.125 0 0 0 .417-1.173L6.962 3.102A1.125 1.125 0 0 0 5.872 2.25H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"/></svg>';
 
-    $phone = '<a href="' . esc_url($atts['phone_url']) . '" class="inline-flex items-center gap-1.5 sm:gap-2 rounded-md border border-white/30 text-white px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm md:text-base hover:bg-white/10 transition-colors whitespace-nowrap">'
+    $phone = '<a href="' . esc_url($atts['phone_url']) . '" class="inline-flex items-center gap-1.5 sm:gap-2 rounded-md border border-white/30 text-white px-[22px] py-2.5 sm:px-5 sm:py-[18px] text-xs sm:text-sm md:text-base hover:bg-white/10 transition-colors whitespace-nowrap w-[256px] justify-center">'
            . $phone_icon . '<span>' . esc_html($atts['phone_text']) . '</span></a>';
 
     $play_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55" fill="none" class="w-10 h-10 sm:w-12 sm:h-12 md:w-[55px] md:h-[55px]">
@@ -123,7 +129,7 @@ function support_center_buttons_shortcode($atts) {
     $left  = '<div class="flex flex-wrap items-center gap-2 sm:gap-3">' . $primary . '<span class="hidden sm:inline-block w-2"></span>' . $phone . '</div>';
     $right = '<div class="mt-2 sm:mt-0 self-start sm:self-auto sm:ml-auto shrink-0">' . $see . '</div>';
 
-    return '<div class="mt-6 w-[1200px] lg:w-[1200px] md:w-full  sm:mt-8  flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:flex-nowrap justify-between">' . $left . $right . '</div>';
+    return '<div class="w-[1200px] lg:w-[1200px] md:w-full   flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:flex-nowrap justify-between">' . $left . $right . '</div>';
 }
 add_shortcode('sc_buttons', 'support_center_buttons_shortcode');
 

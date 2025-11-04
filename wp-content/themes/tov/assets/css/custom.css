@@ -12,6 +12,7 @@ h1 {
   font-size: 60px !important;
   font-style: normal !important;
   font-weight: 700 !important;
+  line-height: 66px !important;
 }
 
 body h2,
@@ -19,6 +20,8 @@ html h2,
 h2 {
   font-family: Plus Jakarta Sans !important;
   font-weight: 600 !important;
+  line-height: 46px !important ;
+
 }
 
 body h3,
@@ -51,8 +54,7 @@ h6 {
   font-size: 13px !important;
   font-style: normal !important;
   font-weight: 400 !important;
-  padding-bottom: 12px !important;
-  /* 100% */
+  padding-bottom: 19px;
   letter-spacing: 3px !important;
   text-transform: uppercase;
 }
@@ -64,6 +66,7 @@ h2 span  {
   font-weight: 500 !important;
 }
 
+body
 
 /* Link Styles */
 nav a {
@@ -135,6 +138,28 @@ nav a:hover {
   letter-spacing: 0.567px !important;
   text-transform: uppercase !important;
   transition: all 0.3s ease !important;
+  border-radius: 5.4px;
+  opacity: 0.867 !important;
+}
+
+.btn-secondary {
+  display: flex;
+  padding: 19.867px 43.688px 21.822px 26.213px !important;
+  align-items: flex-start !important;
+  gap: 8.737px !important;
+  border-radius: 4.369px !important;
+  opacity: 0.867 !important;
+  background: #016A7C !important;
+  color: #FFF !important;
+  font-family: Lato !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: 22.68px !important;
+  letter-spacing: 0.567px !important;
+  transition: all 0.3s ease !important;
+  width: 235px !important;
+  justify-content: center !important;
 }
 
 .bg-primary {

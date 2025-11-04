@@ -78,7 +78,7 @@ function tov_faq_section_shortcode($atts, $content = null) {
                                 <span> our senior care</span>
                             </h2>
                             <p class="text-gray-600 dark:text-gray-400 opacity-90 mt-3 mb-5">Reach out today to learn more about our personalized services, schedule a free visit, or speak with a care specialist.</p>
-                            <a href="#contact" class="inline-flex items-center gap-2 bg-[#016A7C] text-white px-5 py-3 rounded-lg font-semibold hover:bg-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-colors">Contact Us Now</a>
+                            <a href="#contact" class="inline-flex items-center gap-2 bg-[#016A7C] text-white px-5 py-3 rounded-lg font-semibold opacity-867 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-colors">Contact Us Now</a>
                         </div>
                         <!-- Right column: FAQ accordion -->
                         <div>
@@ -190,11 +190,11 @@ function tov_faq_item_shortcode($atts, $content = null) {
         <dt>
             <button class="faq-question group flex w-full items-start justify-between text-left text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-colors" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
                 <span class="font-jakarta text-[20px] leading-[26px] font-semibold flex-1"><?php echo esc_html($atts['question']); ?></span>
-                <span class="ml-6 flex h-7 items-center shrink-0 text-white bg-[#E2A76F] rounded-full p-1">
+                <span class="ml-6 flex h-7 items-center shrink-0 text-white  rounded-full p-1">
                     <svg viewBox="0 0 24 24" fill="none" stroke="#E2A76F" stroke-width="1.5" class="size-6 icon-plus transition-all" aria-hidden="true">
                         <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 icon-minus hidden transition-all" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#273A29" stroke-width="1.5" class="size-6 icon-minus hidden transition-all" aria-hidden="true">
                         <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </span>
@@ -294,7 +294,7 @@ function tov_render_faq_item($item, $index, $section_atts) {
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 icon-plus transition-all" aria-hidden="true">
                             <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 icon-minus hidden transition-all" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#273A29" stroke-width="1.5" class="size-6 icon-minus hidden transition-all" aria-hidden="true">
                             <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </span>
