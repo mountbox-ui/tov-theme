@@ -113,7 +113,7 @@ function support_center_buttons_shortcode($atts) {
     $phone_icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3.5 w-3.5 sm:h-4 sm:w-4">'
                 . '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372a1.125 1.125 0 0 0-.852-1.09l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a1.125 1.125 0 0 1-1.21.386 12.035 12.035 0 0 1-7.143-7.143 1.125 1.125 0 0 1 .386-1.21l1.293-.97a1.125 1.125 0 0 0 .417-1.173L6.962 3.102A1.125 1.125 0 0 0 5.872 2.25H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"/></svg>';
 
-    $phone = '<a href="' . esc_url($atts['phone_url']) . '" class="inline-flex items-center gap-1.5 sm:gap-2 rounded-md border border-white/30 text-white px-[22px] py-2.5 sm:px-5 sm:py-[18px] text-xs sm:text-sm md:text-base hover:bg-white/10 transition-colors whitespace-nowrap w-[256px] justify-center">'
+    $phone = '<a href="' . esc_url($atts['phone_url']) . '" class="inline-flex items-center gap-1.5 sm:gap-2 rounded-md border border-white/30 text-white px-[22px] py-2.5 sm:px-5 sm:py-[18px] bg-[rgba(28, 35, 33, 0.20)] opacity-[0.7983] text-[18px]  hover:bg-white/10 transition-colors whitespace-nowrap w-[256px] justify-center">'
            . $phone_icon . '<span>' . esc_html($atts['phone_text']) . '</span></a>';
 
     $play_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55" fill="none" class="w-10 h-10 sm:w-12 sm:h-12 md:w-[55px] md:h-[55px]">
