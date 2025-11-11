@@ -20,28 +20,25 @@ if ($specific_news_id && $specific_news_id > 0) {
 ?>
 
 <main class="bg-white dark:bg-gray-900">
+    <div class="top-spacer" style="height: 100px; width: 100%;"></div>
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-12 lg:py-16">
+        <?php if ($specific_news) : ?>
         <header class="mb-8">
-            <?php if ($specific_news) : ?>
-                <div class="mb-4">
-                    <a href="<?php echo remove_query_arg('news_id'); ?>" 
-                       class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                        Back to News
-                    </a>
-                </div>
-            <?php endif; ?>
+            <div class="mb-4">
+                <a href="<?php echo remove_query_arg('news_id'); ?>" 
+                   class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to News
+                </a>
+            </div>
             
             <h1 class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
-                <?php if ($specific_news) : ?>
-                    <?php echo esc_html($specific_news->post_title); ?>
-                <?php else : ?>
-                <?php esc_html_e('News & Updates', 'tov'); ?>
-                <?php endif; ?>
+                <?php echo esc_html($specific_news->post_title); ?>
             </h1>
         </header>
+        <?php endif; ?>
 
         <?php
         $today = date('Y-m-d');
@@ -165,17 +162,76 @@ if ($specific_news_id && $specific_news_id > 0) {
         ?>
 
         <!-- Highlights Section - Always Show -->
-        <section class="mb-12 bg-green-50 dark:bg-gray-800 rounded-lg p-10">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                <?php esc_html_e('Highlights', 'tov'); ?>
-            </h2>
+        <section class="mb-12">
             <?php if ($latest_news->have_posts()) : ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <?php while ($latest_news->have_posts()) : $latest_news->the_post();
-                    $news_date = get_the_date('Y-m-d', get_the_ID());
-                    tov_render_news_card(get_the_ID(), $news_date);
-                endwhile; ?>
-            </div>
+                <?php 
+                // Get the first highlighted news for the main horizontal display
+                $first_post = true;
+                while ($latest_news->have_posts()) : $latest_news->the_post();
+                    $post_id = get_the_ID();
+                    $news_date = get_the_date('Y-m-d', $post_id);
+                    
+                    if ($first_post) :
+                        // Render the first highlighted news in horizontal layout
+                        $categories = get_the_terms($post_id, 'news_category');
+                        $author_id = get_post_field('post_author', $post_id);
+                        $author_name = get_the_author_meta('display_name', $author_id);
+                        ?>
+                        <article class="highlighted-news-horizontal mb-8">
+                            <div class="highlighted-news-container">
+                                <?php if (has_post_thumbnail($post_id)) : ?>
+                                    <div class="highlighted-news-image">
+                                        <a href="<?php echo get_permalink($post_id); ?>">
+                                            <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'highlighted-news-img')); ?>
+                                        </a>
+                                    </div>
+                                <?php else : ?>
+                                    <div class="highlighted-news-image">
+                                        <div class="highlighted-news-img-placeholder">
+                                            <span>No Image</span>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <div class="highlighted-news-content">
+                                    <h2 class="highlighted-news-section-label">
+                                        <?php esc_html_e('HIGHLIGHTED NEWS', 'tov'); ?>
+                                    </h2>
+                                    <h3 class="highlighted-news-title">
+                                        <a href="<?php echo get_permalink($post_id); ?>">
+                                            <?php echo get_the_title($post_id); ?>
+                                        </a>
+                                    </h3>
+                                    <time datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>" class="highlighted-news-date">
+                                        <?php echo esc_html(get_the_date('F j, Y', $post_id)); ?>
+                                    </time>
+                                </div>
+                            </div>
+                        </article>
+                        <div class="highlighted-news-separator"></div>
+                        <?php 
+                        $first_post = false;
+                        break; // Only show the first one in horizontal layout
+                    endif;
+                endwhile; 
+                wp_reset_postdata();
+                
+                // Reset the query to show remaining highlighted news in grid below
+                $latest_news = new WP_Query($highlighted_args);
+                if ($latest_news->have_posts() && $latest_news->post_count > 1) : ?>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                        <?php 
+                        $skip_first = true;
+                        while ($latest_news->have_posts()) : $latest_news->the_post();
+                            if ($skip_first) {
+                                $skip_first = false;
+                                continue;
+                            }
+                            $news_date = get_the_date('Y-m-d', get_the_ID());
+                            tov_render_news_card(get_the_ID(), $news_date);
+                        endwhile; ?>
+                    </div>
+                <?php endif; ?>
             <?php else : ?>
                 <div class="text-center py-12">
                     <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full mb-4">
@@ -231,9 +287,6 @@ if ($specific_news_id && $specific_news_id > 0) {
         <?php if ($older_news->have_posts()) : ?>
         <!-- Past News Section -->
         <section>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                <?php esc_html_e('Explore News', 'tov'); ?>
-            </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($older_news->have_posts()) : $older_news->the_post();
                     $news_date = get_the_date('Y-m-d', get_the_ID());

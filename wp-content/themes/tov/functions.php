@@ -51,14 +51,6 @@ function tov_theme_scripts() {
         TOV_THEME_VERSION
     );
 
-    // Custom overrides stylesheet (loads after tov.css)
-    wp_enqueue_style(
-        'tov-theme-custom',
-        get_template_directory_uri() . '/assets/css/custom.css',
-        array('tov-theme-style'),
-        TOV_THEME_VERSION
-    );
-
     // Main JavaScript file
     wp_enqueue_script(
         'tov-theme-script',

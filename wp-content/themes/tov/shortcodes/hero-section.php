@@ -33,7 +33,7 @@ function support_center_shortcode($atts, $content = null) {
         <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 to-black/0"></div>
         <div class="absolute inset-0 -z-10 bg-[linear-gradient(282deg,rgba(0,58,68,0.40)_5.65%,rgba(82,60,37,0.40)_97.18%)]"></div>
 
-        <div class="container-custom max-w-[1280px] mx-auto py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-0">
+        <div class="max-w-[1280px] mx-auto py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6">
             <div class="max-w-3xl mt-[56px] lg:mx-0">
                 <?php echo do_shortcode($content); ?>
             </div>
@@ -72,7 +72,7 @@ function support_center_heading_shortcode($atts) {
         'text' => 'Default Heading',
     ), $atts, 'sc_heading');
 
-    return '<h1 class="text-white pb-[14px] leading-[66px] sm:leading-[60px] md:leading-[60px] lg:leading-[66px]">'
+    return '<h1 class="text-white">'
             . esc_html($atts['text']) . '</h1>';
 }
 add_shortcode('sc_heading', 'support_center_heading_shortcode');
@@ -106,14 +106,14 @@ function support_center_buttons_shortcode($atts) {
     </svg>
 </span>';
 
-    $primary = '<a href="' . esc_url($atts['primary_url']) . '" class="btn-secondary inline-flex items-center group transition-all duration-300 ease-in-out hover:bg-blue-600">'
+    $primary = '<a href="' . esc_url($atts['primary_url']) . '" class="btn btn-primary w-full sm:w-auto min-w-[220px] justify-center group transition-all duration-300 ease-in-out hover:bg-[#018a9f]">'
              . esc_html($atts['primary_text']) . $arrow_icon . '</a>';
    
 
     $phone_icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3.5 w-3.5 sm:h-4 sm:w-4">'
                 . '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372a1.125 1.125 0 0 0-.852-1.09l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a1.125 1.125 0 0 1-1.21.386 12.035 12.035 0 0 1-7.143-7.143 1.125 1.125 0 0 1 .386-1.21l1.293-.97a1.125 1.125 0 0 0 .417-1.173L6.962 3.102A1.125 1.125 0 0 0 5.872 2.25H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"/></svg>';
 
-    $phone = '<a href="' . esc_url($atts['phone_url']) . '" class="inline-flex items-center gap-1.5 sm:gap-2 rounded-md border border-white/30 text-white px-[22px] py-2.5 sm:px-5 sm:py-[18px] bg-[rgba(28, 35, 33, 0.20)] opacity-[0.7983] text-[18px]  hover:bg-white/10 transition-colors whitespace-nowrap w-[256px] justify-center">'
+    $phone = '<a href="' . esc_url($atts['phone_url']) . '" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-md border border-white/30 text-white px-5 py-3 sm:px-6 sm:py-4 bg-[rgba(28, 35, 33, 0.20)] opacity-[0.7983] text-base sm:text-lg hover:bg-white/10 transition-colors whitespace-nowrap w-full sm:w-auto min-w-[220px]">'
            . $phone_icon . '<span>' . esc_html($atts['phone_text']) . '</span></a>';
 
     $play_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55" fill="none" class="w-10 h-10 sm:w-12 sm:h-12 md:w-[55px] md:h-[55px]">
@@ -126,10 +126,10 @@ function support_center_buttons_shortcode($atts) {
          . $play_icon . '<span class="mt-1 text-white/90">' . esc_html($atts['see_text']) . '</span></a>';
 
     // Left buttons (primary + phone) and right-aligned play link (kept on same row on large screens)
-    $left  = '<div class="flex flex-wrap items-center gap-2 sm:gap-3">' . $primary . '<span class="hidden sm:inline-block w-2"></span>' . $phone . '</div>';
-    $right = '<div class="mt-2 sm:mt-0 self-start sm:self-auto sm:ml-auto shrink-0">' . $see . '</div>';
+    $left  = '<div class="flex flex-col min-[600px]:flex-row min-[600px]:items-center gap-3 sm:gap-4 w-full sm:w-auto">' . $primary . $phone . '</div>';
+    $right = '<div class="mt-4 sm:mt-0 sm:ml-auto shrink-0">' . $see . '</div>';
 
-    return '<div class="w-[1200px] lg:w-[1200px] md:w-full   flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 sm:flex-nowrap justify-between">' . $left . $right . '</div>';
+    return '<div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 w-full max-w-[1200px]">' . $left . $right . '</div>';
 }
 add_shortcode('sc_buttons', 'support_center_buttons_shortcode');
 
