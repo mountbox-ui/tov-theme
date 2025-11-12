@@ -72,7 +72,7 @@ function tov_faq_section_shortcode($atts, $content = null) {
                     <div class="grid grid-cols-1 gap-8 items-start lg:grid-cols-2 lg:gap-12">
                         <!-- Left column -->
                         <div class="lg:pr-28">
-                            <h6 class="text-[#0a4c5a] tracking-[0.2em] text-xs font-semibold mb-2">FREQUENTLY ASKED QUESTIONS</h6>
+                            <h6 class="text-[#0a4c5a] tracking-[0.2em]">FREQUENTLY ASKED QUESTIONS</h6>
                             <h2 class="font-jakarta text-[40px] leading-[48px] font-semibold mb-8 sm:text-[40px] md:text-4xl">
                                 Get the answers you need about
                                 <span> our senior care</span>
@@ -190,11 +190,11 @@ function tov_faq_item_shortcode($atts, $content = null) {
         <dt>
             <button class="faq-question group flex w-full items-start justify-between text-left text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-colors" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
                 <span class="font-jakarta text-[20px] leading-[26px] font-semibold flex-1"><?php echo esc_html($atts['question']); ?></span>
-                <span class="ml-6 flex h-7 items-center shrink-0 text-white  rounded-full p-1">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#E2A76F" stroke-width="1.5" class="size-6 icon-plus transition-all" aria-hidden="true">
+                <span class="ml-6 flex h-8 w-8 items-center justify-center shrink-0 rounded-full bg-[#E2A76F] transition-colors group-hover:bg-[#0f172a]">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.5" class="size-4 icon-plus transition-all" aria-hidden="true">
                         <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#273A29" stroke-width="1.5" class="size-6 icon-minus hidden transition-all" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-minus hidden transition-all" aria-hidden="true">
                         <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </span>
@@ -290,11 +290,11 @@ function tov_render_faq_item($item, $index, $section_atts) {
             <dt>
                 <button class="faq-question group flex w-full items-start justify-between text-left text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-colors" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
                     <span class="font-jakarta text-[20px] leading-[26px] font-semibold flex-1"><?php echo esc_html($item['question']); ?></span>
-                    <span class="ml-4 flex h-7 items-center shrink-0">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 icon-plus transition-all" aria-hidden="true">
+                    <span class="ml-4 flex h-8 w-8 items-center justify-center shrink-0 rounded-full bg-[#222222]">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-plus transition-all" aria-hidden="true">
                             <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#273A29" stroke-width="1.5" class="size-6 icon-minus hidden transition-all" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-minus hidden transition-all" aria-hidden="true">
                             <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </span>
@@ -314,11 +314,11 @@ function tov_render_faq_item($item, $index, $section_atts) {
             <dt>
                 <button class="faq-question group flex w-full items-start justify-between text-left text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-colors" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
                     <span class="font-jakarta text-[20px] leading-[26px] font-semibold flex-1 "><?php echo esc_html($item['question']); ?></span>
-                    <span class="ml-6 flex h-7 items-center shrink-0 text-white bg-[#E2A76F] rounded-full p-1">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 icon-plus transition-all" aria-hidden="true">
+                    <span class="ml-6 flex h-8 w-8 items-center justify-center shrink-0 rounded-full bg-[#E2A76F]">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-plus transition-all" aria-hidden="true">
                             <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 icon-minus hidden transition-all" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-minus hidden transition-all" aria-hidden="true">
                             <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </span>

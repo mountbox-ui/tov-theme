@@ -1,10 +1,10 @@
 <?php
 // === Parent Shortcode ===
-function support_center_shortcode($atts, $content = null) {
+function hero_section_shortcode($atts, $content = null) {
     $atts = shortcode_atts(array(
         'bg' => '',         // background image URL (optional)
         'youtube' => '',    // YouTube URL for background video (optional)
-    ), $atts, 'support_center');
+    ), $atts, 'hero_section');
 
     $bg = esc_url($atts['bg']);
     $youtube = trim($atts['youtube']);
@@ -13,6 +13,12 @@ function support_center_shortcode($atts, $content = null) {
     if (!empty($youtube) && preg_match('~(?:youtu.be/|v=|embed/)([A-Za-z0-9_-]{6,})~', $youtube, $m)) {
         $video_id = $m[1];
     }
+
+    $content = $content ?? '';
+
+    // Remove auto-inserted paragraph and line break tags that WordPress may add
+    $clean_content = shortcode_unautop($content);
+    $clean_content = preg_replace('#(?:<br\s*/?>\s*)+#', "\n", $clean_content ?? '');
 
     ob_start();
     ?>
@@ -35,7 +41,7 @@ function support_center_shortcode($atts, $content = null) {
 
         <div class="max-w-[1280px] mx-auto py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6">
             <div class="max-w-3xl mt-[56px] lg:mx-0">
-                <?php echo do_shortcode($content); ?>
+                <?php echo do_shortcode($clean_content); ?>
             </div>
         </div>
     </section>
@@ -51,47 +57,47 @@ function support_center_shortcode($atts, $content = null) {
     <?php
     return ob_get_clean();
 }
-add_shortcode('support_center', 'support_center_shortcode');
+add_shortcode('hero_section', 'hero_section_shortcode');
 
 
 // === Pretitle Shortcode ===
-function support_center_pretitle_shortcode($atts) {
+function hero_section_pretitle_shortcode($atts) {
     $atts = shortcode_atts(array(
         'text' => 'A WARM WELCOME AWAITS YOU',
-    ), $atts, 'sc_pretitle');
+    ), $atts, 'hero_pretitle');
 
-    return '<h6 class="text-white opacity-90" >'
+    return '<h6 class="text-white opacity-90 pb-4" >'
             . esc_html($atts['text']) . '</h6>';
 }
-add_shortcode('sc_pretitle', 'support_center_pretitle_shortcode');
+add_shortcode('hero_pretitle', 'hero_section_pretitle_shortcode');
 
 
 // === Heading Shortcode ===
-function support_center_heading_shortcode($atts) {
+function hero_section_heading_shortcode($atts) {
     $atts = shortcode_atts(array(
         'text' => 'Default Heading',
-    ), $atts, 'sc_heading');
+    ), $atts, 'hero_heading');
 
-    return '<h1 class="text-white">'
+    return '<h1 class="text-white pb-4">'
             . esc_html($atts['text']) . '</h1>';
 }
-add_shortcode('sc_heading', 'support_center_heading_shortcode');
+add_shortcode('hero_heading', 'hero_section_heading_shortcode');
 
 
 // === Paragraph Shortcode ===
-function support_center_paragraph_shortcode($atts) {
+function hero_section_paragraph_shortcode($atts) {
     $atts = shortcode_atts(array(
         'text' => 'Default paragraph goes here...',
-    ), $atts, 'sc_paragraph');
+    ), $atts, 'hero_paragraph');
 
-    return '<p class="hero-section-text sm:text-[14px] md:text-[20px] lg:text-[20px] opacity-80 pb-[24px] leading-[1.15] sm:leading-[1.15] md:leading-[1.2] lg:leading-[1.25]" >'
+    return '<p class="hero-section-text sm:text-sm md:text-xl lg:text-xl opacity-80 pb-6 leading-[1.15] sm:leading-[1.15] md:leading-[1.2] lg:leading-[1.25]" >'
             . esc_html($atts['text']) . '</p>';
 }
-add_shortcode('sc_paragraph', 'support_center_paragraph_shortcode');
+add_shortcode('hero_paragraph', 'hero_section_paragraph_shortcode');
 
 
 // === Buttons Row Shortcode ===
-function support_center_buttons_shortcode($atts) {
+function hero_section_buttons_shortcode($atts) {
     $atts = shortcode_atts(array(
         'primary_text' => 'Get In Touch',
         'primary_url'  => '#contact',
@@ -99,7 +105,7 @@ function support_center_buttons_shortcode($atts) {
         'phone_url'    => 'tel:01395542808',
         'see_text'     => 'See how we work',
         'see_url'      => '#',
-    ), $atts, 'sc_buttons');
+    ), $atts, 'hero_buttons');
  $arrow_icon = '<span class="ml-2 inline-block transform transition-transform duration-300 ease-in-out group-hover:translate-x-2">
     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
         <path d="M12.6014 18.39L18.7246 12.4443C19.0204 12.2076 19.1683 11.8823 19.1683 11.4681C19.1683 11.054 19.0204 10.7286 18.7246 10.492L12.6014 4.54629C12.3648 4.25048 12.0542 4.10258 11.6697 4.10258C11.2851 4.10258 10.9597 4.23569 10.6935 4.50192C10.4273 4.76814 10.2942 5.10832 10.2942 5.52245C10.2942 5.93657 10.4421 6.26196 10.7379 6.4986L14.3763 10.0483H4.88093C4.52596 10.0483 4.21537 10.1814 3.94914 10.4476C3.68292 10.7138 3.5498 11.054 3.5498 11.4681C3.5498 11.8823 3.68292 12.2224 3.94914 12.4887C4.21537 12.7549 4.52596 12.888 4.88093 12.888H14.3763L10.7379 16.4377C10.4421 16.6743 10.2942 16.9997 10.2942 17.4138C10.2942 17.8279 10.4273 18.1681 10.6935 18.4343C10.9597 18.7006 11.2851 18.8337 11.6697 18.8337C12.0542 18.8337 12.3648 18.6858 12.6014 18.39Z" fill="white"/>
@@ -131,5 +137,5 @@ function support_center_buttons_shortcode($atts) {
 
     return '<div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 w-full max-w-[1200px]">' . $left . $right . '</div>';
 }
-add_shortcode('sc_buttons', 'support_center_buttons_shortcode');
+add_shortcode('hero_buttons', 'hero_section_buttons_shortcode');
 
