@@ -35,11 +35,11 @@ module.exports = {
         }
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'serif': ['Merriweather', 'serif'],
-        'poppins': ['Poppins', 'sans-serif'],
-        'roboto': ['Roboto', 'sans-serif'],
-        'inter': ['Inter', 'sans-serif'],
+        // 'sans': ['Inter', 'system-ui', 'sans-serif'],
+        // 'serif': ['Merriweather', 'serif'],
+        // 'poppins': ['Poppins', 'sans-serif'],
+        // 'roboto': ['Roboto', 'sans-serif'],
+        // 'inter': ['Inter', 'sans-serif'],
         'merriweather': ['Merriweather', 'serif'],
         'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
         'lora': ['Lora', 'serif'],

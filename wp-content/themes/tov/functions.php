@@ -528,3 +528,5 @@ function tov_enqueue_ajax_script() {
 }
 add_action('wp_enqueue_scripts', 'tov_enqueue_ajax_script');
 
+// template for jobs
+require_once get_template_directory() . '/jobs/theme-functions.php';
