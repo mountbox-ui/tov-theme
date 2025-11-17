@@ -7,8 +7,8 @@
 if (!defined('ABSPATH')) exit;
 
 function tov_blog_section_shortcode($atts) {
-    $atts = shortcode_atts(array(
-        'limit' => 3,
+	$atts = shortcode_atts(array(
+		'limit' => 3,
         'category' => '',
         'show_past' => 'false',
         'debug' => 'false',
@@ -17,8 +17,8 @@ function tov_blog_section_shortcode($atts) {
         'use_acf' => 'true'
     ), $atts, 'blog_section');
 
-    // Convert show_past to boolean
-    $show_past = filter_var($atts['show_past'], FILTER_VALIDATE_BOOLEAN);
+	// Always show the last 3 added blogs regardless of date filters
+	$limit = 3;
 
     // Get title and subtitle - ACF fields are default for blog_section
     $section_title = '';
@@ -46,9 +46,9 @@ function tov_blog_section_shortcode($atts) {
         $section_subtitle = 'Learn how to grow your business with our expert advice.';
     }
 
-    $args = array(
+	$args = array(
         'post_type' => 'blog',
-        'posts_per_page' => intval($atts['limit']),
+		'posts_per_page' => $limit,
         'orderby' => 'date',
         'order' => 'DESC',
     );
@@ -60,16 +60,6 @@ function tov_blog_section_shortcode($atts) {
                 'taxonomy' => 'blog_category',
                 'field' => 'slug',
                 'terms' => sanitize_text_field($atts['category']),
-            )
-        );
-    }
-
-    // Filter past blog posts if show_past is false (show only recent blog posts)
-    if (!$show_past) {
-        $args['date_query'] = array(
-            array(
-                'after' => date('Y-m-d', strtotime('-30 days')), // Show blog posts from last 30 days
-                'inclusive' => true,
             )
         );
     }
