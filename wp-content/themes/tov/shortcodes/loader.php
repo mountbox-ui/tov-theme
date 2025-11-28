@@ -24,6 +24,9 @@ $shortcode_files = array(
     'team-section.php',
     'awards-section.php',
     'why-tov.php',
+    'aboutus-home.php',
+    'services-home.php',
+    'fecilities-home.php',
 );
 
 // Load each shortcode file
