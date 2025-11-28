@@ -2356,6 +2356,18 @@ nav a:hover {
   bottom: 0px;
 }
 
+.bottom-\[-30px\] {
+  bottom: -30px;
+}
+
+.bottom-\[510px\] {
+  bottom: 510px;
+}
+
+.bottom-\[735px\] {
+  bottom: 735px;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -2370,6 +2382,18 @@ nav a:hover {
 
 .left-3 {
   left: 0.75rem;
+}
+
+.left-\[0px\] {
+  left: 0px;
+}
+
+.left-\[270px\] {
+  left: 270px;
+}
+
+.left-\[545px\] {
+  left: 545px;
 }
 
 .right-0 {
@@ -2394,46 +2418,6 @@ nav a:hover {
 
 .top-4 {
   top: 1rem;
-}
-
-.bottom-\[-27px\] {
-  bottom: -27px;
-}
-
-.left-\[302px\] {
-  left: 302px;
-}
-
-.bottom-\[510px\] {
-  bottom: 510px;
-}
-
-.left-\[270px\] {
-  left: 270px;
-}
-
-.bottom-\[735px\] {
-  bottom: 735px;
-}
-
-.left-\[435px\] {
-  left: 435px;
-}
-
-.left-\[450px\] {
-  left: 450px;
-}
-
-.left-\[545px\] {
-  left: 545px;
-}
-
-.bottom-\[-30px\] {
-  bottom: -30px;
-}
-
-.left-\[0px\] {
-  left: 0px;
 }
 
 .isolate {
@@ -2701,8 +2685,16 @@ nav a:hover {
   height: 105%;
 }
 
+.h-\[155px\] {
+  height: 155px;
+}
+
 .h-\[240px\] {
   height: 240px;
+}
+
+.h-\[395px\] {
+  height: 395px;
 }
 
 .h-\[460px\] {
@@ -2723,14 +2715,6 @@ nav a:hover {
 
 .h-px {
   height: 1px;
-}
-
-.h-\[155px\] {
-  height: 155px;
-}
-
-.h-\[395px\] {
-  height: 395px;
 }
 
 .min-h-\[640px\] {
@@ -2797,6 +2781,10 @@ nav a:hover {
   width: 105%;
 }
 
+.w-\[138px\] {
+  width: 138px;
+}
+
 .w-\[260px\] {
   width: 260px;
 }
@@ -2809,24 +2797,16 @@ nav a:hover {
   width: 412px;
 }
 
+.w-\[600px\] {
+  width: 600px;
+}
+
 .w-auto {
   width: auto;
 }
 
 .w-full {
   width: 100%;
-}
-
-.w-\[138px\] {
-  width: 138px;
-}
-
-.w-\[520px\] {
-  width: 520px;
-}
-
-.w-\[600px\] {
-  width: 600px;
 }
 
 .min-w-0 {
@@ -3769,6 +3749,10 @@ nav a:hover {
   line-height: 1rem;
 }
 
+.font-\[400\] {
+  font-weight: 400;
+}
+
 .font-\[600\] {
   font-weight: 600;
 }
@@ -3787,10 +3771,6 @@ nav a:hover {
 
 .font-semibold {
   font-weight: 600;
-}
-
-.font-\[400\] {
-  font-weight: 400;
 }
 
 .uppercase {
@@ -4020,10 +4000,6 @@ nav a:hover {
 
 .underline {
   text-decoration-line: underline;
-}
-
-.opacity-10 {
-  opacity: 0.1;
 }
 
 .opacity-20 {
