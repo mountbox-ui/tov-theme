@@ -107,7 +107,7 @@
 }
 
 /*
-! tailwindcss v3.4.18 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -1145,7 +1145,7 @@ h2 span {
   font-weight: 500;
   font-family: inherit;
   color: var(--tw-prose-kbd);
-  box-shadow: 0 0 0 1px var(--tw-prose-kbd-shadows), 0 3px 0 var(--tw-prose-kbd-shadows);
+  box-shadow: 0 0 0 1px rgb(var(--tw-prose-kbd-shadows) / 10%), 0 3px 0 rgb(var(--tw-prose-kbd-shadows) / 10%);
   font-size: 0.875em;
   border-radius: 0.3125rem;
   padding-top: 0.1875em;
@@ -1308,7 +1308,7 @@ h2 span {
   --tw-prose-quote-borders: #e5e7eb;
   --tw-prose-captions: #6b7280;
   --tw-prose-kbd: #111827;
-  --tw-prose-kbd-shadows: rgb(17 24 39 / 10%);
+  --tw-prose-kbd-shadows: 17 24 39;
   --tw-prose-code: #111827;
   --tw-prose-pre-code: #e5e7eb;
   --tw-prose-pre-bg: #1f2937;
@@ -1326,7 +1326,7 @@ h2 span {
   --tw-prose-invert-quote-borders: #374151;
   --tw-prose-invert-captions: #9ca3af;
   --tw-prose-invert-kbd: #fff;
-  --tw-prose-invert-kbd-shadows: rgb(255 255 255 / 10%);
+  --tw-prose-invert-kbd-shadows: 255 255 255;
   --tw-prose-invert-code: #fff;
   --tw-prose-invert-pre-code: #d1d5db;
   --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
@@ -2344,21 +2344,28 @@ nav a:hover {
   inset: 0px;
 }
 
-<<<<<<< HEAD
-.-inset-4 {
-  inset: -1rem;
-=======
 .-bottom-\[15\%\] {
   bottom: -15%;
 }
 
 .-left-\[2\%\] {
   left: -2%;
->>>>>>> master
 }
 
 .bottom-0 {
   bottom: 0px;
+}
+
+.bottom-\[-30px\] {
+  bottom: -30px;
+}
+
+.bottom-\[510px\] {
+  bottom: 510px;
+}
+
+.bottom-\[735px\] {
+  bottom: 735px;
 }
 
 .left-0 {
@@ -2369,19 +2376,24 @@ nav a:hover {
   left: 50%;
 }
 
-<<<<<<< HEAD
-=======
 .left-1\/3 {
   left: 33.333333%;
 }
 
->>>>>>> master
 .left-3 {
   left: 0.75rem;
 }
 
-.left-\[186px\] {
-  left: 186px;
+.left-\[0px\] {
+  left: 0px;
+}
+
+.left-\[270px\] {
+  left: 270px;
+}
+
+.left-\[545px\] {
+  left: 545px;
 }
 
 .right-0 {
@@ -2408,53 +2420,8 @@ nav a:hover {
   top: 1rem;
 }
 
-<<<<<<< HEAD
 .top-\[50px\] {
   top: 50px;
-}
-
-.top-\[877px\] {
-  top: 877px;
-=======
-.bottom-\[-27px\] {
-  bottom: -27px;
-}
-
-.left-\[302px\] {
-  left: 302px;
-}
-
-.bottom-\[510px\] {
-  bottom: 510px;
-}
-
-.left-\[270px\] {
-  left: 270px;
-}
-
-.bottom-\[735px\] {
-  bottom: 735px;
-}
-
-.left-\[435px\] {
-  left: 435px;
-}
-
-.left-\[450px\] {
-  left: 450px;
-}
-
-.left-\[545px\] {
-  left: 545px;
-}
-
-.bottom-\[-30px\] {
-  bottom: -30px;
-}
-
-.left-\[0px\] {
-  left: 0px;
->>>>>>> master
 }
 
 .isolate {
@@ -2714,38 +2681,32 @@ nav a:hover {
   height: 2rem;
 }
 
-<<<<<<< HEAD
-.h-\[21px\] {
-  height: 21px;
-=======
 .h-96 {
   height: 24rem;
 }
 
 .h-\[105\%\] {
   height: 105%;
->>>>>>> master
+}
+
+.h-\[155px\] {
+  height: 155px;
 }
 
 .h-\[240px\] {
   height: 240px;
 }
 
-<<<<<<< HEAD
+.h-\[395px\] {
+  height: 395px;
+}
+
 .h-\[400px\] {
   height: 400px;
 }
 
-.h-\[460\.213px\] {
-  height: 460.213px;
-}
-
-.h-\[500px\] {
-  height: 500px;
-=======
 .h-\[460px\] {
   height: 460px;
->>>>>>> master
 }
 
 .h-\[72px\] {
@@ -2762,17 +2723,6 @@ nav a:hover {
 
 .h-px {
   height: 1px;
-<<<<<<< HEAD
-=======
-}
-
-.h-\[155px\] {
-  height: 155px;
-}
-
-.h-\[395px\] {
-  height: 395px;
->>>>>>> master
 }
 
 .min-h-\[640px\] {
@@ -2831,42 +2781,36 @@ nav a:hover {
   width: 2rem;
 }
 
-<<<<<<< HEAD
-.w-\[1200px\] {
-  width: 1200px;
-}
-
-.w-\[21px\] {
-  width: 21px;
-=======
 .w-96 {
   width: 24rem;
 }
 
 .w-\[105\%\] {
   width: 105%;
->>>>>>> master
+}
+
+.w-\[138px\] {
+  width: 138px;
 }
 
 .w-\[260px\] {
   width: 260px;
 }
 
-<<<<<<< HEAD
-.w-\[28rem\] {
-  width: 28rem;
+.w-\[297px\] {
+  width: 297px;
 }
 
 .w-\[400px\] {
   width: 400px;
-=======
-.w-\[297px\] {
-  width: 297px;
->>>>>>> master
 }
 
 .w-\[412px\] {
   width: 412px;
+}
+
+.w-\[600px\] {
+  width: 600px;
 }
 
 .w-auto {
@@ -2877,32 +2821,14 @@ nav a:hover {
   width: 100%;
 }
 
-<<<<<<< HEAD
-=======
-.w-\[138px\] {
-  width: 138px;
-}
-
-.w-\[520px\] {
-  width: 520px;
-}
-
-.w-\[600px\] {
-  width: 600px;
-}
-
->>>>>>> master
 .min-w-0 {
   min-width: 0px;
 }
 
-<<<<<<< HEAD
-=======
 .min-w-\[220px\] {
   min-width: 220px;
 }
 
->>>>>>> master
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -2931,10 +2857,6 @@ nav a:hover {
   max-width: 1280px;
 }
 
-<<<<<<< HEAD
-.max-w-\[420px\] {
-  max-width: 420px;
-=======
 .max-w-\[320px\] {
   max-width: 320px;
 }
@@ -2945,7 +2867,6 @@ nav a:hover {
 
 .max-w-full {
   max-width: 100%;
->>>>>>> master
 }
 
 .max-w-md {
@@ -3014,14 +2935,6 @@ nav a:hover {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-<<<<<<< HEAD
-.-rotate-90 {
-  --tw-rotate: -90deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-=======
->>>>>>> master
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -3122,18 +3035,9 @@ nav a:hover {
   gap: 20px;
 }
 
-<<<<<<< HEAD
-.gap-\[80px\] {
-  gap: 80px;
-}
-
-.gap-16 {
-  gap: 4rem;
-=======
 .gap-x-10 {
   -moz-column-gap: 2.5rem;
        column-gap: 2.5rem;
->>>>>>> master
 }
 
 .gap-x-2 {
@@ -3155,13 +3059,8 @@ nav a:hover {
   row-gap: 0.25rem;
 }
 
-<<<<<<< HEAD
-.gap-y-12 {
-  row-gap: 3rem;
-=======
 .gap-y-10 {
   row-gap: 2.5rem;
->>>>>>> master
 }
 
 .gap-y-14 {
@@ -3284,10 +3183,6 @@ nav a:hover {
   border-radius: 0.375rem;
 }
 
-.rounded-3xl {
-  border-radius: 1.5rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -3368,21 +3263,6 @@ nav a:hover {
   background-color: rgb(1 106 124 / var(--tw-bg-opacity, 1));
 }
 
-<<<<<<< HEAD
-.bg-\[\#0C515B\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(12 81 91 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#2D7A7F\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(45 122 127 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#E8F1F2\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(232 241 242 / var(--tw-bg-opacity, 1));
-=======
 .bg-\[\#222222\] {
   --tw-bg-opacity: 1;
   background-color: rgb(34 34 34 / var(--tw-bg-opacity, 1));
@@ -3406,7 +3286,6 @@ nav a:hover {
 .bg-\[\#FAF8F4\] {
   --tw-bg-opacity: 1;
   background-color: rgb(250 248 244 / var(--tw-bg-opacity, 1));
->>>>>>> master
 }
 
 .bg-\[\#FDFBF7\] {
@@ -3514,10 +3393,6 @@ nav a:hover {
   background-color: rgb(255 255 255 / 0.15);
 }
 
-.bg-white\/15 {
-  background-color: rgb(255 255 255 / 0.15);
-}
-
 .bg-yellow-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
@@ -3528,17 +3403,6 @@ nav a:hover {
   background-color: rgb(254 240 138 / var(--tw-bg-opacity, 1));
 }
 
-<<<<<<< HEAD
-.bg-orange-100\/50 {
-  background-color: rgb(255 237 213 / 0.5);
-}
-
-.bg-opacity-90 {
-  --tw-bg-opacity: 0.9;
-}
-
-=======
->>>>>>> master
 .bg-\[linear-gradient\(282deg\2c rgba\(0\2c 58\2c 68\2c 0\.40\)_5\.65\%\2c rgba\(82\2c 60\2c 37\2c 0\.40\)_97\.18\%\)\] {
   background-image: linear-gradient(282deg,rgba(0,58,68,0.40) 5.65%,rgba(82,60,37,0.40) 97.18%);
 }
@@ -3704,11 +3568,6 @@ nav a:hover {
   padding-bottom: 0.625rem;
 }
 
-.py-20 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
 .py-24 {
   padding-top: 6rem;
   padding-bottom: 6rem;
@@ -3748,14 +3607,6 @@ nav a:hover {
 
 .pb-8 {
   padding-bottom: 2rem;
-}
-
-.pb-\[14px\] {
-  padding-bottom: 14px;
-}
-
-.pb-\[24px\] {
-  padding-bottom: 24px;
 }
 
 .pl-4 {
@@ -3814,14 +3665,6 @@ nav a:hover {
   text-align: right;
 }
 
-<<<<<<< HEAD
-.font-sans {
-  font-family: Inter, system-ui, sans-serif;
-}
-
-.font-serif {
-  font-family: Merriweather, serif;
-=======
 .font-inter {
   font-family: Inter, sans-serif;
 }
@@ -3836,7 +3679,10 @@ nav a:hover {
 
 .font-lora {
   font-family: Lora, serif;
->>>>>>> master
+}
+
+.font-sans {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .text-2xl {
@@ -3852,6 +3698,10 @@ nav a:hover {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-\[12px\] {
+  font-size: 12px;
 }
 
 .text-\[14px\] {
@@ -3872,30 +3722,6 @@ nav a:hover {
 
 .text-\[40px\] {
   font-size: 40px;
-}
-
-.text-\[12px\] {
-  font-size: 12px;
-}
-
-.text-\[14px\] {
-  font-size: 14px;
-}
-
-.text-\[16px\] {
-  font-size: 16px;
-}
-
-.text-\[18px\] {
-  font-size: 18px;
-}
-
-.text-\[20px\] {
-  font-size: 20px;
-}
-
-.text-\[30px\] {
-  font-size: 30px;
 }
 
 .text-base {
@@ -3943,6 +3769,10 @@ nav a:hover {
   line-height: 1rem;
 }
 
+.font-\[400\] {
+  font-weight: 400;
+}
+
 .font-\[600\] {
   font-weight: 600;
 }
@@ -3961,10 +3791,6 @@ nav a:hover {
 
 .font-semibold {
   font-weight: 600;
-}
-
-.font-\[400\] {
-  font-weight: 400;
 }
 
 .uppercase {
@@ -3987,13 +3813,10 @@ nav a:hover {
   line-height: 1.15;
 }
 
-<<<<<<< HEAD
 .leading-\[12px\] {
   line-height: 12px;
 }
 
-=======
->>>>>>> master
 .leading-\[16px\] {
   line-height: 16px;
 }
@@ -4002,35 +3825,24 @@ nav a:hover {
   line-height: 20px;
 }
 
-<<<<<<< HEAD
 .leading-\[22px\] {
   line-height: 22px;
 }
 
-=======
->>>>>>> master
 .leading-\[26px\] {
   line-height: 26px;
 }
 
-<<<<<<< HEAD
 .leading-\[28px\] {
   line-height: 28px;
 }
 
-=======
->>>>>>> master
 .leading-\[36px\] {
   line-height: 36px;
 }
 
-<<<<<<< HEAD
-.leading-normal {
-  line-height: 1.5;
-=======
 .leading-\[48px\] {
   line-height: 48px;
->>>>>>> master
 }
 
 .leading-relaxed {
@@ -4055,17 +3867,10 @@ nav a:hover {
 
 .tracking-\[0\.2em\] {
   letter-spacing: 0.2em;
-<<<<<<< HEAD
-}
-
-.tracking-\[0\.48px\] {
-  letter-spacing: 0.48px;
 }
 
 .tracking-\[3\.6px\] {
   letter-spacing: 3.6px;
-=======
->>>>>>> master
 }
 
 .tracking-tight {
@@ -4076,22 +3881,12 @@ nav a:hover {
   letter-spacing: 0.025em;
 }
 
-<<<<<<< HEAD
-.tracking-widest {
-  letter-spacing: 0.1em;
-}
-
-.text-\[\#000\] {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
-=======
 .tracking-wider {
   letter-spacing: 0.05em;
 }
 
 .tracking-widest {
   letter-spacing: 0.1em;
->>>>>>> master
 }
 
 .text-\[\#016A7C\] {
@@ -4104,24 +3899,16 @@ nav a:hover {
   color: rgb(9 9 11 / var(--tw-text-opacity, 1));
 }
 
-<<<<<<< HEAD
-=======
 .text-\[\#0a4c5a\] {
   --tw-text-opacity: 1;
   color: rgb(10 76 90 / var(--tw-text-opacity, 1));
 }
 
->>>>>>> master
 .text-\[\#1C2321\] {
   --tw-text-opacity: 1;
   color: rgb(28 35 33 / var(--tw-text-opacity, 1));
 }
 
-<<<<<<< HEAD
-.text-\[\#2D7A7F\] {
-  --tw-text-opacity: 1;
-  color: rgb(45 122 127 / var(--tw-text-opacity, 1));
-=======
 .text-\[\#273A29\] {
   --tw-text-opacity: 1;
   color: rgb(39 58 41 / var(--tw-text-opacity, 1));
@@ -4129,7 +3916,6 @@ nav a:hover {
 
 .text-\[\#273A29\]\/70 {
   color: rgb(39 58 41 / 0.7);
->>>>>>> master
 }
 
 .text-\[\#6A7282\] {
@@ -4248,30 +4034,20 @@ nav a:hover {
   color: rgb(133 77 14 / var(--tw-text-opacity, 1));
 }
 
-.text-gray-800 {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
-}
-
 .underline {
   text-decoration-line: underline;
-}
-
-.opacity-10 {
-  opacity: 0.1;
 }
 
 .opacity-20 {
   opacity: 0.2;
 }
 
-<<<<<<< HEAD
 .opacity-30 {
   opacity: 0.3;
-=======
+}
+
 .opacity-70 {
   opacity: 0.7;
->>>>>>> master
 }
 
 .opacity-80 {
@@ -4344,10 +4120,6 @@ nav a:hover {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-<<<<<<< HEAD
-.blur-2xl {
-  --tw-blur: blur(40px);
-=======
 .blur-\[100px\] {
   --tw-blur: blur(100px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -4360,7 +4132,6 @@ nav a:hover {
 
 .grayscale {
   --tw-grayscale: grayscale(100%);
->>>>>>> master
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -4370,11 +4141,14 @@ nav a:hover {
 
 .backdrop-blur-sm {
   --tw-backdrop-blur: blur(4px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
 .transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -4528,11 +4302,6 @@ nav a:hover {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-<<<<<<< HEAD
-.hover\:bg-\[\#236064\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(35 96 100 / var(--tw-bg-opacity, 1));
-=======
 .hover\:bg-\[\#014854\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(1 72 84 / var(--tw-bg-opacity, 1));
@@ -4541,7 +4310,6 @@ nav a:hover {
 .hover\:bg-\[\#018a9f\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(1 138 159 / var(--tw-bg-opacity, 1));
->>>>>>> master
 }
 
 .hover\:bg-blue-200:hover {
@@ -4643,23 +4411,17 @@ nav a:hover {
   color: rgb(194 65 12 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-primary-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
-}
-
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-<<<<<<< HEAD
 .hover\:underline:hover {
   text-decoration-line: underline;
-=======
+}
+
 .hover\:opacity-100:hover {
   opacity: 1;
->>>>>>> master
 }
 
 .hover\:shadow-md:hover {
@@ -4756,11 +4518,6 @@ nav a:hover {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-<<<<<<< HEAD
-.group:hover .group-hover\:bg-\[\#2D7A7F\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(45 122 127 / var(--tw-bg-opacity, 1));
-=======
 .group:hover .group-hover\:translate-x-2 {
   --tw-translate-x: 0.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -4780,7 +4537,6 @@ nav a:hover {
 .group:hover .group-hover\:bg-\[\#0f172a\] {
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity, 1));
->>>>>>> master
 }
 
 .group:hover .group-hover\:text-white {
@@ -4788,9 +4544,6 @@ nav a:hover {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-<<<<<<< HEAD
-@media (min-width: 640px) {
-=======
 .dark\:hidden:is(.dark *) {
   display: none;
 }
@@ -5002,7 +4755,6 @@ nav a:hover {
     margin-bottom: 2.5rem;
   }
 
->>>>>>> master
   .sm\:mb-6 {
     margin-bottom: 1.5rem;
   }
@@ -5011,25 +4763,12 @@ nav a:hover {
     margin-bottom: 2rem;
   }
 
-<<<<<<< HEAD
-  .sm\:ml-auto {
-    margin-left: auto;
-  }
-
-  .sm\:mt-0 {
-    margin-top: 0px;
-=======
   .sm\:mb-\[24px\] {
     margin-bottom: 24px;
->>>>>>> master
   }
 
-  .sm\:mt-20 {
-    margin-top: 5rem;
-  }
-
-  .sm\:mt-8 {
-    margin-top: 2rem;
+  .sm\:ml-auto {
+    margin-left: auto;
   }
 
   .sm\:mt-0 {
@@ -5068,8 +4807,6 @@ nav a:hover {
     width: 1rem;
   }
 
-<<<<<<< HEAD
-=======
   .sm\:w-48 {
     width: 12rem;
   }
@@ -5082,7 +4819,6 @@ nav a:hover {
     max-width: 400px;
   }
 
->>>>>>> master
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5132,14 +4868,6 @@ nav a:hover {
     padding: 1.5rem;
   }
 
-<<<<<<< HEAD
-  .sm\:px-5 {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-=======
->>>>>>> master
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -5193,14 +4921,11 @@ nav a:hover {
     padding-top: 12rem;
   }
 
-<<<<<<< HEAD
-=======
   .sm\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
   }
 
->>>>>>> master
   .sm\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -5216,15 +4941,6 @@ nav a:hover {
     line-height: 1;
   }
 
-<<<<<<< HEAD
-  .sm\:text-7xl {
-    font-size: 4.5rem;
-    line-height: 1;
-  }
-
-  .sm\:text-\[14px\] {
-    font-size: 14px;
-=======
   .sm\:text-\[40px\] {
     font-size: 40px;
   }
@@ -5232,7 +4948,6 @@ nav a:hover {
   .sm\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
->>>>>>> master
   }
 
   .sm\:text-lg {
@@ -5245,16 +4960,6 @@ nav a:hover {
     line-height: 1.25rem;
   }
 
-<<<<<<< HEAD
-  .sm\:text-xl\/8 {
-    font-size: 1.25rem;
-    line-height: 2rem;
-  }
-
-  .sm\:leading-\[1\.15\] {
-    line-height: 1.15;
-  }
-=======
   .sm\:leading-\[1\.15\] {
     line-height: 1.15;
   }
@@ -5262,7 +4967,6 @@ nav a:hover {
   .sm\:tracking-\[0\.3em\] {
     letter-spacing: 0.3em;
   }
->>>>>>> master
 }
 
 @media (min-width: 768px) {
@@ -5270,13 +4974,10 @@ nav a:hover {
     margin-bottom: 2rem;
   }
 
-<<<<<<< HEAD
-=======
   .md\:mt-10 {
     margin-top: 2.5rem;
   }
 
->>>>>>> master
   .md\:block {
     display: block;
   }
@@ -5317,13 +5018,10 @@ nav a:hover {
     width: auto;
   }
 
-<<<<<<< HEAD
-=======
   .md\:max-w-\[440px\] {
     max-width: 440px;
   }
 
->>>>>>> master
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5340,10 +5038,6 @@ nav a:hover {
     flex-direction: row;
   }
 
-<<<<<<< HEAD
-  .md\:p-12 {
-    padding: 3rem;
-=======
   .md\:items-start {
     align-items: flex-start;
   }
@@ -5355,7 +5049,6 @@ nav a:hover {
 
   .md\:gap-y-10 {
     row-gap: 2.5rem;
->>>>>>> master
   }
 
   .md\:py-16 {
@@ -5391,14 +5084,11 @@ nav a:hover {
     line-height: 1.5rem;
   }
 
-<<<<<<< HEAD
-=======
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
 
->>>>>>> master
   .md\:leading-\[1\.2\] {
     line-height: 1.2;
   }
@@ -5414,13 +5104,10 @@ nav a:hover {
     margin-top: 5rem;
   }
 
-<<<<<<< HEAD
   .lg\:block {
     display: block;
   }
 
-=======
->>>>>>> master
   .lg\:flex {
     display: flex;
   }
@@ -5544,13 +5231,6 @@ nav a:hover {
 
   .lg\:p-16 {
     padding: 4rem;
-<<<<<<< HEAD
-  }
-
-  .lg\:p-8 {
-    padding: 2rem;
-=======
->>>>>>> master
   }
 
   .lg\:p-8 {
@@ -5613,10 +5293,6 @@ nav a:hover {
     line-height: 1;
   }
 
-<<<<<<< HEAD
-  .lg\:text-\[20px\] {
-    font-size: 20px;
-=======
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
@@ -5625,7 +5301,6 @@ nav a:hover {
   .lg\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
->>>>>>> master
   }
 
   .lg\:leading-\[1\.25\] {
