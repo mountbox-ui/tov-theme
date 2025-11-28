@@ -8,6 +8,7 @@ module.exports = {
     './assets/js/*.js',
     './*.html',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -44,6 +45,10 @@ module.exports = {
         'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
         'lora': ['Lora', 'serif'],
         'lato': ['Lato', 'sans-serif'],
+<<<<<<< HEAD
+=======
+        'inter': ['Inter', 'sans-serif'],
+>>>>>>> master
       },
       spacing: {
         '18': '4.5rem',

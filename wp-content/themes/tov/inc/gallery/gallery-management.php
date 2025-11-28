@@ -192,18 +192,6 @@ function tov_render_gallery_page() {
             <?php endif; ?>
         </div>
         
-        <!-- Shortcode Usage -->
-        <div class="card" style="max-width: 800px;">
-            <h2><?php echo esc_html__('How to Use', 'tov'); ?></h2>
-            <p><?php echo esc_html__('To display the gallery on your website, use this shortcode:', 'tov'); ?></p>
-            <code>[tov_gallery]</code>
-            <p><?php echo esc_html__('You can also use these parameters:', 'tov'); ?></p>
-            <ul>
-                <li><code>[tov_gallery columns="2"]</code> - <?php echo esc_html__('Set number of columns (1-3)', 'tov'); ?></li>
-                <li><code>[tov_gallery lightbox="true"]</code> - <?php echo esc_html__('Enable lightbox (true/false)', 'tov'); ?></li>
-                <li><code>[tov_gallery size="medium"]</code> - <?php echo esc_html__('Image size (thumbnail, medium, large, full)', 'tov'); ?></li>
-            </ul>
-        </div>
     </div>
     <?php
 }

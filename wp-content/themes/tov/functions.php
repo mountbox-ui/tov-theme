@@ -51,14 +51,6 @@ function tov_theme_scripts() {
         TOV_THEME_VERSION
     );
 
-    // Custom overrides stylesheet (loads after tov.css)
-    wp_enqueue_style(
-        'tov-theme-custom',
-        get_template_directory_uri() . '/assets/css/custom.css',
-        array('tov-theme-style'),
-        TOV_THEME_VERSION
-    );
-
     // Main JavaScript file
     wp_enqueue_script(
         'tov-theme-script',
@@ -69,6 +61,20 @@ function tov_theme_scripts() {
     );
 }
 add_action('wp_enqueue_scripts', 'tov_theme_scripts');
+
+/**
+ * Strip wpautop <p>/<br> wrappers around hero shortcodes.
+ */
+add_filter('the_content', function ($content) {
+    if (has_shortcode($content, 'hero_section')) {
+        // Remove paragraph wrappers around hero_* shortcodes.
+        $content = preg_replace('#<p>\s*(\[(?:/?hero_[^\]]+)\])\s*</p>#', '$1', $content);
+        // Remove line breaks injected before/after hero_* shortcodes.
+        $content = preg_replace('#<br\s*/?>\s*(\[(?:/?hero_[^\]]+)\])#', '$1', $content);
+        $content = preg_replace('#(\[(?:/?hero_[^\]]+)\])\s*<br\s*/?>#', '$1', $content);
+    }
+    return $content;
+}, 11);
 
 /**
  * Add custom classes to navigation menu
@@ -522,3 +528,5 @@ function tov_enqueue_ajax_script() {
 }
 add_action('wp_enqueue_scripts', 'tov_enqueue_ajax_script');
 
+// template for jobs
+require_once get_template_directory() . '/jobs/theme-functions.php';

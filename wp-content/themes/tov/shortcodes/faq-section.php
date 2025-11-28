@@ -25,8 +25,7 @@ if (!defined('ABSPATH')) {
  */
 function tov_faq_section_shortcode($atts, $content = null) {
     $atts = shortcode_atts(array(
-        'title' => 'Frequently Asked Questions',
-        'subtitle' => 'Find answers to common questions',
+        // Visual + behavior
         'style' => 'modern', // modern, minimal, card
         'layout' => 'accordion', // accordion, grid
         'show_icons' => 'true',
@@ -52,301 +51,55 @@ function tov_faq_section_shortcode($atts, $content = null) {
     // Start output buffering
     ob_start();
     ?>
-    <div class="faq-section <?php echo ($atts['dark_mode'] === 'true') ? 'dark' : ''; ?> <?php echo esc_attr($atts['class']); ?>" id="<?php echo esc_attr($faq_id); ?>" 
+    <div class="<?php echo ($atts['dark_mode'] === 'true') ? 'dark' : ''; ?> <?php echo esc_attr($atts['class']); ?>" id="<?php echo esc_attr($faq_id); ?>" 
          data-style="<?php echo esc_attr($atts['style']); ?>" 
          data-layout="<?php echo esc_attr($atts['layout']); ?>">
-        
-        <div class="faq-container-wrapper">
-            <div class="faq-inner-container">
-                <!-- FAQ Header -->
-                <?php if (!empty($atts['title']) || !empty($atts['subtitle'])): ?>
-                <div class="faq-header">
-                    <?php if (!empty($atts['title'])): ?>
-                        <h2 class="faq-title"><?php echo esc_html($atts['title']); ?></h2>
-                    <?php endif; ?>
-                    
-                    <?php if (!empty($atts['subtitle'])): ?>
-                        <p class="faq-subtitle"><?php echo esc_html($atts['subtitle']); ?></p>
-                    <?php endif; ?>
-                </div>
+        <div class="bg-[#FAF8F4] text-gray-900 dark:bg-gray-900 dark:text-gray-50">
+            <div class="max-w-7xl mx-auto px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-[80px]">
+                <?php if ($atts['layout'] === 'grid'): ?>
+                    <!-- Grid Layout -->
+                    <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" data-animation="<?php echo esc_attr($atts['animation']); ?>">
+                        <?php if (!empty($faq_items)): ?>
+                            <?php foreach ($faq_items as $index => $item): ?>
+                                <?php tov_render_faq_item($item, $index, $atts); ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="col-span-full text-center text-gray-500 dark:text-gray-400 italic py-10 px-5">No FAQ items found.</p>
+                        <?php endif; ?>
+                    </dl>
+                <?php else: ?>
+                    <!-- Accordion Layout -->
+                    <div class="grid grid-cols-1 gap-8 items-start lg:grid-cols-2 lg:gap-12">
+                        <!-- Left column -->
+                        <div class="lg:pr-28">
+                            <h6 class="text-[#0a4c5a] tracking-[0.2em]">FREQUENTLY ASKED QUESTIONS</h6>
+                            <h2 class="font-jakarta text-[40px] leading-[48px] font-semibold mb-8 sm:text-[40px] md:text-4xl">
+                                Get the answers you need about
+                                <span> our senior care</span>
+                            </h2>
+                            <p class="text-gray-600 dark:text-gray-400 opacity-90 mt-3 mb-5">Reach out today to learn more about our personalized services, schedule a free visit, or speak with a care specialist.</p>
+                            <a href="#contact" class="inline-flex items-center gap-2 bg-[#016A7C] text-white px-5 py-3 rounded-lg font-semibold opacity-867 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-colors">Contact Us Now</a>
+                        </div>
+                        <!-- Right column: FAQ accordion -->
+                        <div>
+                            <dl class="flex flex-col divide-y divide-gray-900/10 dark:divide-white/10" data-animation="<?php echo esc_attr($atts['animation']); ?>">
+                                <?php if (!empty($faq_items)): ?>
+                                    <?php foreach ($faq_items as $index => $item): ?>
+                                        <?php tov_render_faq_item($item, $index, $atts); ?>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <p class="text-center text-gray-500 dark:text-gray-400 italic py-10 px-5">No FAQ items found.</p>
+                                <?php endif; ?>
+                            </dl>
+                        </div>
+                    </div>
                 <?php endif; ?>
-                
-        <!-- FAQ Items Container -->
-        <dl class="faq-container" data-animation="<?php echo esc_attr($atts['animation']); ?>">
-            <?php if (!empty($faq_items)): ?>
-                <?php foreach ($faq_items as $index => $item): ?>
-                    <?php tov_render_faq_item($item, $index, $atts); ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="faq-no-items">No FAQ items found.</p>
-            <?php endif; ?>
-        </dl>
             </div>
         </div>
     </div>
     
-    <!-- FAQ Styles - Tailwind-inspired -->
-    <style>
-    .faq-section {
-        background: #ffffff;
-        color: #111827;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
+    <!-- Removed embedded styles; now using Tailwind utility classes -->
     
-    .faq-section.dark {
-        background: #111827;
-        color: #f9fafb;
-    }
-    
-    .faq-container-wrapper {
-        max-width: 80rem; /* 1280px */
-        margin: 0 auto;
-        padding: 1.5rem 1.5rem 6rem 1.5rem; /* px-6 py-24 */
-    }
-    
-    @media (min-width: 640px) {
-        .faq-container-wrapper {
-            padding: 2rem 1.5rem 8rem 1.5rem; /* sm:py-32 */
-        }
-    }
-    
-    @media (min-width: 1024px) {
-        .faq-container-wrapper {
-            padding: 2.5rem 2rem 10rem 2rem; /* lg:px-8 lg:py-40 */
-        }
-    }
-    
-    .faq-inner-container {
-        max-width: 64rem; /* 1024px */
-        margin: 0 auto;
-    }
-    
-    .faq-header {
-        margin-bottom: 4rem; /* mt-16 */
-    }
-    
-    .faq-title {
-        font-size: 2.25rem; /* text-4xl */
-        font-weight: 600; /* font-semibold */
-        letter-spacing: -0.025em; /* tracking-tight */
-        color: #111827; /* text-gray-900 */
-        margin: 0;
-        line-height: 1.1;
-    }
-    
-    .faq-section.dark .faq-title {
-        color: #ffffff; /* dark:text-white */
-    }
-    
-    @media (min-width: 640px) {
-        .faq-title {
-            font-size: 3rem; /* sm:text-5xl */
-        }
-    }
-    
-    .faq-subtitle {
-        font-size: 1.125rem;
-        color: #6b7280;
-        margin: 1rem 0 0 0;
-        line-height: 1.6;
-    }
-    
-    .faq-section.dark .faq-subtitle {
-        color: #d1d5db;
-    }
-    
-    .faq-container {
-        display: flex;
-        flex-direction: column;
-        border-top: 1px solid rgba(17, 24, 39, 0.1); /* divide-y divide-gray-900/10 */
-    }
-    
-    .faq-section.dark .faq-container {
-        border-top-color: rgba(255, 255, 255, 0.1); /* dark:divide-white/10 */
-    }
-    
-    .faq-item {
-        border-bottom: 1px solid rgba(17, 24, 39, 0.1); /* divide-y divide-gray-900/10 */
-        padding: 1.5rem 0; /* py-6 */
-    }
-    
-    .faq-section.dark .faq-item {
-        border-bottom-color: rgba(255, 255, 255, 0.1); /* dark:divide-white/10 */
-    }
-    
-    .faq-item:first-child {
-        padding-top: 0; /* first:pt-0 */
-    }
-    
-    .faq-item:last-child {
-        padding-bottom: 0; /* last:pb-0 */
-        border-bottom: none;
-    }
-    
-    .faq-question {
-        padding: 0;
-        cursor: pointer;
-        display: flex;
-        width: 100%;
-        align-items: flex-start;
-        justify-content: space-between;
-        text-align: left;
-        background: transparent;
-        border: none;
-        color: #111827; /* text-gray-900 */
-        transition: all 0.2s ease;
-    }
-    
-    .faq-section.dark .faq-question {
-        color: #ffffff; /* dark:text-white */
-    }
-    
-    .faq-question:hover {
-        color: #374151;
-    }
-    
-    .faq-section.dark .faq-question:hover {
-        color: #e5e7eb;
-    }
-    
-    .faq-question-text {
-        font-size: 1rem; /* text-base */
-        line-height: 1.43; /* /7 */
-        font-weight: 600; /* font-semibold */
-        flex: 1;
-    }
-    
-    .faq-icon-container {
-        margin-left: 1.5rem; /* ml-6 */
-        display: flex;
-        height: 1.75rem; /* h-7 */
-        align-items: center;
-        flex-shrink: 0;
-    }
-    
-    .faq-icon {
-        width: 1.5rem; /* size-6 */
-        height: 1.5rem; /* size-6 */
-        stroke: currentColor;
-        stroke-width: 1.5;
-        fill: none;
-        transition: all 0.2s ease;
-    }
-    
-    .faq-icon-plus {
-        display: block;
-    }
-    
-    .faq-icon-minus {
-        display: none;
-    }
-    
-    .faq-question[aria-expanded="true"] .faq-icon-plus {
-        display: none;
-    }
-    
-    .faq-question[aria-expanded="true"] .faq-icon-minus {
-        display: block;
-    }
-    
-    .faq-answer {
-        margin-top: 0.5rem; /* mt-2 */
-        padding-right: 3rem; /* pr-12 */
-        display: none;
-        transition: all 0.3s ease;
-    }
-    
-    .faq-answer.active {
-        display: block;
-        padding-top: 0.5rem;
-    }
-    
-    .faq-answer-content {
-        color: #4b5563; /* text-gray-600 */
-        font-size: 1rem; /* text-base */
-        line-height: 1.43; /* /7 */
-    }
-    
-    .faq-section.dark .faq-answer-content {
-        color: #9ca3af; /* dark:text-gray-400 */
-    }
-    
-    .faq-answer-content p {
-        margin: 0 0 1rem 0;
-    }
-    
-    .faq-answer-content p:last-child {
-        margin-bottom: 0;
-    }
-    
-    .faq-no-items {
-        text-align: center;
-        color: #6b7280;
-        font-style: italic;
-        padding: 2.5rem 1.25rem;
-    }
-    
-    /* Grid Layout */
-    .faq-section[data-layout="grid"] .faq-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 1.5rem;
-        border: none;
-    }
-    
-    .faq-section[data-layout="grid"] .faq-item {
-        border: 1px solid rgba(17, 24, 39, 0.1);
-        border-radius: 0.5rem;
-        padding: 1.5rem;
-        background: #ffffff;
-    }
-    
-    .faq-section.dark[data-layout="grid"] .faq-item {
-        border-color: rgba(255, 255, 255, 0.1);
-        background: #1f2937;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 640px) {
-        .faq-container-wrapper {
-            padding: 1rem 1rem 4rem 1rem;
-        }
-        
-        .faq-title {
-            font-size: 1.875rem;
-        }
-        
-        .faq-answer {
-            padding-right: 0;
-        }
-        
-        .faq-section[data-layout="grid"] .faq-container {
-            grid-template-columns: 1fr;
-        }
-    }
-    
-    /* Focus styles for accessibility */
-    .faq-question:focus {
-        outline: 2px solid #3b82f6;
-        outline-offset: 2px;
-        border-radius: 0.25rem;
-    }
-    
-    /* Smooth transitions */
-    .faq-item {
-        transition: all 0.2s ease;
-    }
-    
-    .faq-answer {
-        transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.3s ease, padding-top 0.3s ease;
-    }
-    
-    /* Ensure answers are visible when active */
-    .faq-answer.active .faq-answer-content {
-        display: block;
-        visibility: visible;
-    }
-    </style>
     
     <!-- FAQ JavaScript -->
     <script>
@@ -358,24 +111,30 @@ function tov_faq_section_shortcode($atts, $content = null) {
         
         faqQuestions.forEach((question) => {
             question.addEventListener('click', function() {
-                const faqItem = this.closest('.faq-item');
-                const answer = faqItem.querySelector('.faq-answer');
+                const answerId = this.getAttribute('aria-controls');
+                const answer = answerId ? faqSection.querySelector('#' + answerId) : null;
+                const plus = this.querySelector('.icon-plus');
+                const minus = this.querySelector('.icon-minus');
                 const isExpanded = this.getAttribute('aria-expanded') === 'true';
                 
                 // Toggle aria-expanded attribute
-                this.setAttribute('aria-expanded', !isExpanded);
+                const newExpanded = !isExpanded;
+                this.setAttribute('aria-expanded', newExpanded);
                 
-                // Toggle active class on answer
-                if (isExpanded) {
-                    answer.classList.remove('active');
-                } else {
-                    answer.classList.add('active');
+                // Show/Hide answer via Tailwind classes
+                if (answer) {
+                    answer.classList.toggle('hidden', !newExpanded);
+                }
+                // Swap icons
+                if (plus && minus) {
+                    plus.classList.toggle('hidden', newExpanded);
+                    minus.classList.toggle('hidden', !newExpanded);
                 }
                 
                 // Smooth scroll to FAQ item if it's opening
-                if (!isExpanded && faqSection.dataset.animation === 'true') {
+                if (newExpanded && faqSection.dataset.animation === 'true' && answer) {
                     setTimeout(() => {
-                        faqItem.scrollIntoView({ 
+                        answer.scrollIntoView({ 
                             behavior: 'smooth', 
                             block: 'center' 
                         });
@@ -411,7 +170,6 @@ function tov_faq_item_shortcode($atts, $content = null) {
     $atts = shortcode_atts(array(
         'question' => '',
         'answer' => '',
-        'icon' => 'plus', // plus, chevron, arrow
         'class' => '',
         'id' => ''
     ), $atts);
@@ -420,33 +178,30 @@ function tov_faq_item_shortcode($atts, $content = null) {
     $answer = !empty($content) ? trim($content) : $atts['answer'];
     
     if (empty($atts['question']) || empty($answer)) {
-        return '<p class="faq-error">FAQ item missing question or answer.</p>';
+        return '<p class="text-red-600 dark:text-red-400 p-4">FAQ item missing question or answer.</p>';
     }
     
     // Generate unique ID for the FAQ item
     $item_id = !empty($atts['id']) ? $atts['id'] : 'faq-item-' . uniqid();
     
-    // Get the icon HTML
-    $icon_html = tov_get_faq_icon($atts['icon']);
-    
     ob_start();
     ?>
-    <div class="faq-item <?php echo esc_attr($atts['class']); ?>" id="<?php echo esc_attr($item_id); ?>">
+    <div class="py-6 first:pt-0 last:pb-0 last:border-b-0 border-b border-gray-900/10 dark:border-white/10 <?php echo esc_attr($atts['class']); ?>" id="<?php echo esc_attr($item_id); ?>">
         <dt>
-            <button class="faq-question" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
-                <span class="faq-question-text"><?php echo esc_html($atts['question']); ?></span>
-                <span class="faq-icon-container">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="faq-icon faq-icon-plus" aria-hidden="true">
+            <button class="faq-question group flex w-full items-start justify-between text-left text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-colors" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
+                <span class="font-jakarta text-[20px] leading-[26px] font-semibold flex-1"><?php echo esc_html($atts['question']); ?></span>
+                <span class="ml-6 flex h-8 w-8 items-center justify-center shrink-0 rounded-full bg-[#E2A76F] transition-colors group-hover:bg-[#0f172a]">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.5" class="size-4 icon-plus transition-all" aria-hidden="true">
                         <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="faq-icon faq-icon-minus" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-minus hidden transition-all" aria-hidden="true">
                         <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </span>
             </button>
         </dt>
-        <dd class="faq-answer" id="<?php echo esc_attr($item_id); ?>-answer">
-            <div class="faq-answer-content">
+        <dd class="mt-2 pr-12 sm:pr-0 hidden" id="<?php echo esc_attr($item_id); ?>-answer">
+            <div class="font-lato text-[18px] leading-[26px] font-normal text-[#757575]">
                 <?php echo wpautop(do_shortcode($answer)); ?>
             </div>
         </dd>
@@ -512,26 +267,8 @@ function tov_extract_faq_items_from_raw($content) {
  * @return array Array of FAQ items
  */
 function tov_extract_faq_items($content) {
-    $faq_items = array();
-    
-    // Pattern to match [faq_item] shortcodes
-    $pattern = '/\[faq_item\s+([^\]]+)\]([^\[]*(?:\[[^\]]*\][^\[]*)*)\[\/faq_item\]/';
-    preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
-    
-    foreach ($matches as $match) {
-        $attributes = shortcode_parse_atts($match[1]);
-        $answer = $match[2];
-        
-        $faq_items[] = array(
-            'question' => isset($attributes['question']) ? $attributes['question'] : '',
-            'answer' => $answer,
-            'icon' => isset($attributes['icon']) ? $attributes['icon'] : 'plus',
-            'class' => isset($attributes['class']) ? $attributes['class'] : '',
-            'id' => isset($attributes['id']) ? $attributes['id'] : ''
-        );
-    }
-    
-    return $faq_items;
+    // Legacy function removed: no longer used
+    return array();
 }
 
 /**
@@ -544,29 +281,57 @@ function tov_extract_faq_items($content) {
  */
 function tov_render_faq_item($item, $index, $section_atts) {
     $item_id = !empty($item['id']) ? $item['id'] : 'faq-item-' . uniqid();
+    $layout = isset($section_atts['layout']) ? $section_atts['layout'] : 'accordion';
     
-    ?>
-    <div class="faq-item <?php echo esc_attr($item['class']); ?>" id="<?php echo esc_attr($item_id); ?>">
-        <dt>
-            <button class="faq-question" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
-                <span class="faq-question-text"><?php echo esc_html($item['question']); ?></span>
-                <span class="faq-icon-container">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="faq-icon faq-icon-plus" aria-hidden="true">
-                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="faq-icon faq-icon-minus" aria-hidden="true">
-                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </span>
-            </button>
-        </dt>
-        <dd class="faq-answer" id="<?php echo esc_attr($item_id); ?>-answer">
-            <div class="faq-answer-content">
-                <?php echo wpautop(do_shortcode($item['answer'])); ?>
-            </div>
-        </dd>
-    </div>
-    <?php
+    // Different styling for grid vs accordion layout
+    if ($layout === 'grid') {
+        ?>
+        <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 <?php echo esc_attr($item['class']); ?>" id="<?php echo esc_attr($item_id); ?>">
+            <dt>
+                <button class="faq-question group flex w-full items-start justify-between text-left text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-colors" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
+                    <span class="font-jakarta text-[20px] leading-[26px] font-semibold flex-1"><?php echo esc_html($item['question']); ?></span>
+                    <span class="ml-4 flex h-8 w-8 items-center justify-center shrink-0 rounded-full bg-[#222222]">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-plus transition-all" aria-hidden="true">
+                            <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-minus hidden transition-all" aria-hidden="true">
+                            <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </button>
+            </dt>
+            <dd class="mt-2 hidden" id="<?php echo esc_attr($item_id); ?>-answer">
+                <div class="font-lato text-[18px] leading-[26px] font-normal text-[#757575]">
+                    <?php echo wpautop(do_shortcode($item['answer'])); ?>
+                </div>
+            </dd>
+        </div>
+        <?php
+    } else {
+        // Accordion layout
+        ?>
+        <div class="py-6 first:pt-0 last:pb-0 last:border-b-0 border-b border-gray-900/10 dark:border-white/10 <?php echo esc_attr($item['class']); ?>" id="<?php echo esc_attr($item_id); ?>">
+            <dt>
+                <button class="faq-question group flex w-full items-start justify-between text-left text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-colors" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($item_id); ?>-answer">
+                    <span class="font-jakarta text-[20px] leading-[26px] font-semibold flex-1 "><?php echo esc_html($item['question']); ?></span>
+                    <span class="ml-6 flex h-8 w-8 items-center justify-center shrink-0 rounded-full bg-[#E2A76F]">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-plus transition-all" aria-hidden="true">
+                            <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" class="size-4 icon-minus hidden transition-all" aria-hidden="true">
+                            <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </button>
+            </dt>
+            <dd class="mt-2 pr-12 sm:pr-0 hidden" id="<?php echo esc_attr($item_id); ?>-answer">
+                <div class="font-lato text-[18px] leading-[26px] font-normal text-[#757575]">
+                    <?php echo wpautop(do_shortcode($item['answer'])); ?>
+                </div>
+            </dd>
+        </div>
+        <?php
+    }
 }
 
 /**
@@ -575,27 +340,7 @@ function tov_render_faq_item($item, $index, $section_atts) {
  * @param string $icon_type Icon type
  * @return string Icon HTML
  */
-function tov_get_faq_icon($icon_type = 'plus') {
-    switch ($icon_type) {
-        case 'chevron':
-            return '<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="6,9 12,15 18,9"></polyline>
-                    </svg>';
-        
-        case 'arrow':
-            return '<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12,5 19,12 12,19"></polyline>
-                    </svg>';
-        
-        case 'plus':
-        default:
-            return '<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>';
-    }
-}
+// Removed unused icon helper
 
 // Register shortcodes
 add_shortcode('faq_section', 'tov_faq_section_shortcode');
@@ -608,4 +353,6 @@ if (!function_exists('tov_load_faq_shortcodes')) {
         return true;
     }
 }
+
+// Removed demo [faq_block] shortcode and related code
 ?>

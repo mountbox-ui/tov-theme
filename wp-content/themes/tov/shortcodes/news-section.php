@@ -11,13 +11,23 @@ function tov_news_section_shortcode($atts) {
 
     // Convert show_past to boolean
     $show_past = filter_var($atts['show_past'], FILTER_VALIDATE_BOOLEAN);
-
-    // First, get manually selected homepage news
+    
+    // Always limit to maximum 3 for homepage
+    $display_limit = 3;
+    $today = date('Y-m-d');
+    
+    // First, get manually selected homepage news (only past news)
     $selected_args = array(
         'post_type' => 'news',
         'posts_per_page' => -1,
         'orderby' => 'date',
         'order' => 'DESC',
+        'date_query' => array(
+            array(
+                'before' => $today,
+                'inclusive' => true,
+            )
+        ),
         'meta_query' => array(
             array(
                 'key' => '_show_on_homepage',
@@ -27,13 +37,21 @@ function tov_news_section_shortcode($atts) {
         )
     );
     
-    $selected_news = new WP_Query($selected_args);
-    $selected_count = $selected_news->found_posts;
+    // Add category filter if specified
+    if (!empty($atts['category'])) {
+        $selected_args['tax_query'] = array(
+            array(
+                'taxonomy' => 'news_category',
+                'field' => 'slug',
+                'terms' => sanitize_text_field($atts['category']),
+            )
+        );
+    }
     
-    // Limit selected news to maximum 3
-    $display_limit = min(3, intval($atts['limit']));
+    $selected_news = new WP_Query($selected_args);
     $selected_posts = array();
     
+    // Get up to 3 selected homepage news
     if ($selected_news->have_posts()) {
         $count = 0;
         while ($selected_news->have_posts() && $count < $display_limit) {
@@ -44,7 +62,7 @@ function tov_news_section_shortcode($atts) {
         wp_reset_postdata();
     }
     
-    // If we need more posts to reach the limit, get latest news
+    // If we need more posts to reach 3, get latest past news (excluding already selected)
     $remaining_needed = $display_limit - count($selected_posts);
     $all_posts = $selected_posts;
     
@@ -55,7 +73,24 @@ function tov_news_section_shortcode($atts) {
             'orderby' => 'date',
             'order' => 'DESC',
             'post__not_in' => $selected_posts, // Exclude already selected posts
+            'date_query' => array(
+                array(
+                    'before' => $today,
+                    'inclusive' => true,
+                )
+            ),
         );
+        
+        // Add category filter if specified
+        if (!empty($atts['category'])) {
+            $latest_args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'news_category',
+                    'field' => 'slug',
+                    'terms' => sanitize_text_field($atts['category']),
+                )
+            );
+        }
         
         $latest_news = new WP_Query($latest_args);
         if ($latest_news->have_posts()) {
@@ -67,12 +102,18 @@ function tov_news_section_shortcode($atts) {
         }
     }
     
-    // Create final query with the selected post IDs
+    // Create final query with the selected post IDs (only past news)
     $args = array(
         'post_type' => 'news',
-        'post__in' => $all_posts,
+        'post__in' => !empty($all_posts) ? $all_posts : array(0), // Use array(0) to return no results if empty
         'orderby' => 'post__in', // Maintain the order we created
         'posts_per_page' => count($all_posts),
+        'date_query' => array(
+            array(
+                'before' => $today,
+                'inclusive' => true,
+            )
+        ),
     );
 
     // Add category if specified
@@ -82,16 +123,6 @@ function tov_news_section_shortcode($atts) {
                 'taxonomy' => 'news_category',
                 'field' => 'slug',
                 'terms' => sanitize_text_field($atts['category']),
-            )
-        );
-    }
-
-    // Filter past news if show_past is false (show only recent news)
-    if (!$show_past) {
-        $args['date_query'] = array(
-            array(
-                'after' => date('Y-m-d', strtotime('-30 days')), // Show news from last 30 days
-                'inclusive' => true,
             )
         );
     }

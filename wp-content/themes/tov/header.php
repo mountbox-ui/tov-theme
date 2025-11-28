@@ -9,8 +9,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Plus+Jakarta+Sans:ital,wght@0,700;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
 
@@ -20,7 +19,7 @@
 <div id="page" class="site min-h-screen flex flex-col">
     <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854]'; ?> fixed top-0 pt-4 w-full z-50">
         <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px]">
-            <div class="flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between lg:justify-center py-4">
+            <div class="flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between lg:justify-center p-4">
                 <!-- Site Logo -->
                 <div class="site-branding flex justify-start">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center">

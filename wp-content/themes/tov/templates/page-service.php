@@ -6,11 +6,33 @@
 
 get_header(); ?>
 
+<?php while (have_posts()) : the_post(); ?>
 <div class="bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900">
-  <div class="mx-auto max-w-2xl text-center">
-    <h2 class="text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl dark:text-white">Service template</h2>
-    <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8 dark:text-gray-400">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat.</p>
+  <div class="mx-auto max-w-4xl">
+    <!-- Page Title -->
+    <header class="mb-12 text-center">
+      <h1 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white">
+        <?php the_title(); ?>
+      </h1>
+    </header>
+    
+    <!-- Page Content -->
+    <div class="prose prose-lg max-w-none dark:prose-invert">
+      <?php 
+      // Display the page content
+      the_content();
+      
+      // Display pagination for multi-page content
+      wp_link_pages(array(
+          'before' => '<div class="page-links"><span class="page-links-title">' . __('Pages:', 'tov') . '</span>',
+          'after' => '</div>',
+          'link_before' => '<span>',
+          'link_after' => '</span>',
+      ));
+      ?>
+    </div>
   </div>
 </div>
+<?php endwhile; ?>
 
 <?php get_footer(); ?>
