@@ -27,6 +27,10 @@ $shortcode_files = array(
     'aboutus-home.php',
     'services-home.php',
     'fecilities-home.php',
+    'amenities-home.php',
+    'day-in-tov-home.php',
+    'how-to-start-home.php',
+    'inclusive-home.php',
 );
 
 // Load each shortcode file
