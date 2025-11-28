@@ -120,3 +120,4 @@ function tov_facilities_home_shortcode($atts) {
 }
 add_shortcode('facilities_home', 'tov_facilities_home_shortcode');
 add_shortcode('fecilities_home', 'tov_facilities_home_shortcode');
+
