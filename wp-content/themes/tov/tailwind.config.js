@@ -41,6 +41,7 @@ module.exports = {
         'lora': ['Lora', 'serif'],
         'lato': ['Lato', 'sans-serif'],
         'inter': ['Inter', 'sans-serif'],
+        'din': ['"Barlow Condensed"', '"DIN Condensed"', 'sans-serif'],
       },
       spacing: {
         '18': '4.5rem',
