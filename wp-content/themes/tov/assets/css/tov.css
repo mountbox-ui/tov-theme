@@ -2478,6 +2478,11 @@ nav a:hover {
   margin-right: auto;
 }
 
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .mb-0 {
   margin-bottom: 0px;
 }
@@ -3119,6 +3124,10 @@ nav a:hover {
 
 .gap-\[48px\] {
   gap: 48px;
+}
+
+.gap-16 {
+  gap: 4rem;
 }
 
 .gap-x-10 {
