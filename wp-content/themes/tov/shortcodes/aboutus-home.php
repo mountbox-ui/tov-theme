@@ -31,32 +31,76 @@ function tov_aboutus_home_shortcode($atts) {
                         </h2>
 
                         <!-- Content Paragraphs -->
-                        <div class="text-[#757575] font-lato text-[18px] font-normal leading-[26px] space-y-6 mb-10">
-                            <p>
-                                At The Old Vicarage, we believe later life should be lived with purpose, comfort, and dignity. Established and managed by Neways Healthcare in the picturesque village of Otterton - near Budleigh Salterton, Exmouth, and Sidmouth - our family-run care home is part of a proud legacy of providing exceptional care across East Devon.
-                            </p>
-                            <p>
-                                With roots grounded in compassion and respect, we specialise in Residential, Respite, and Dementia Care, including support for those living with Parkinson's and requiring End of Life Care. Since our beginnings, our mission has remained unchanged:
-                            </p>
+                        <div class="relative mb-6">
+                            <div class="text-[#757575] font-lato text-[18px] font-normal leading-[26px] space-y-6">
+                                <p>
+                                    At The Old Vicarage, we believe later life should be lived with purpose, comfort, and dignity. Established and managed by Neways Healthcare in the picturesque village of Otterton - near Budleigh Salterton, Exmouth, and Sidmouth - our family-run care home is part of a proud legacy of providing exceptional care across East Devon.
+                                </p>
+                                <p>
+                                    With roots grounded in compassion and respect, we specialise in Residential, Respite, and Dementia Care, including support for those living with Parkinson's and requiring End of Life Care. Since our beginnings, our mission has remained unchanged:
+                                </p>
+                            
+                                <!-- Expandable Content -->
+                                <div id="aboutUsExpandable" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
+                                    <div class="space-y-6 pt-6">
+                                        <p>
+                                            Our beautifully appointed rooms, award-winning gardens, and vibrant wellbeing calendar are designed to foster joy, independence, and connection. Every detail - from freshly prepared meals with home-grown ingredients, personalised care, and a warm, luxurious environment where individuality is celebrated.
+                                        </p>
+                                        <p>
+                                            From the moment you walk through our doors, you'll be treated like a friend - because that's exactly who you are. And with tools like the Nourish App to keep families close, and free experience days for prospective residents, everything we do is centred around building trust, comfort, and lasting relationships.
+                                        </p>
+                                        <p>
+                                            The Old Vicarage isn't just a place to live—it's a place to belong, to laugh again and to thrive.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Gradient Overlay (visible when collapsed) -->
+                            <div id="aboutUsGradient" class="pointer-events-none transition-opacity duration-500" 
+                                 style="position: absolute; right: 16px; bottom: 23px; width: 562px; height: 150px; background: linear-gradient(180deg, rgba(250, 248, 244, 0.00) 5.04%, #FAF8F4 100%);">
+                            </div>
                         </div>
                         
-                        <!-- Link Button -->
-                        <a href="<?php echo esc_url($atts['button_url']); ?>" class="inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 group">
-                            Learn more 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <!-- Read More Button -->
+                        <button 
+                            id="aboutUsToggle" 
+                            onclick="toggleAboutUs()"
+                            class="inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 group cursor-pointer border-none bg-transparent p-0">
+                            <span id="aboutUsToggleText">Read more</span>
+                            <svg id="aboutUsArrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
-                        </a>
+                        </button>
+
+                        <script>
+                        function toggleAboutUs() {
+                            const expandable = document.getElementById('aboutUsExpandable');
+                            const toggleText = document.getElementById('aboutUsToggleText');
+                            const arrow = document.getElementById('aboutUsArrow');
+                            const gradient = document.getElementById('aboutUsGradient');
+                            
+                            if (expandable.style.maxHeight === '0px' || expandable.style.maxHeight === '') {
+                                // Expand
+                                expandable.style.maxHeight = expandable.scrollHeight + 'px';
+                                toggleText.textContent = 'Read less';
+                                arrow.style.transform = 'rotate(90deg)';
+                                gradient.style.opacity = '0';
+                            } else {
+                                // Collapse
+                                expandable.style.maxHeight = '0px';
+                                toggleText.textContent = 'Read more';
+                                arrow.style.transform = 'rotate(0deg)';
+                                gradient.style.opacity = '1';
+                            }
+                        }
+                        </script>
                     </div>
                 </div>
 
                 <!-- Image Column -->
                 <div class="w-full md:w-1/2">
                     <div class="relative flex justify-center">
-                        <!-- Custom blurred background effect -->
-                        <!-- <div class="absolute -z-10 hidden md:block w-[105%] h-[105%] -left-[2%] -bottom-[15%]" 
-                             style="background: url('<?php echo esc_url($atts['image_url_bg']); ?>') center/cover no-repeat; filter: blur(25px); opacity: 0.6; border-radius: 20px;">
-                        </div> -->
                         <div>
                             <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[-30px] left-[0px] blur-[15px] w-[600px] h-[395px]">
                         </div>
@@ -64,7 +108,6 @@ function tov_aboutus_home_shortcode($atts) {
                         <div class="relative rounded-2xl overflow-hidden shadow-sm">
                             <img src="<?php echo esc_url($atts['image_url']); ?>" alt="The Old Vicarage Exterior" class="w-full h-auto object-cover rounded-2xl w-[412px] h-[460px] ">
                         </div>
-                        
                     </div>
                 </div>
             </div>

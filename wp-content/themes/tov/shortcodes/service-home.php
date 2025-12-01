@@ -87,7 +87,7 @@ function tov_services_home_shortcode($atts) {
                                 <?php echo esc_html($service['desc']); ?>
                             </p>
                             <a href="<?php echo esc_url($service['link']); ?>" 
-                               class="inline-flex items-center text-[#016A7C] font-lato text-[14px] font-medium hover:underline">
+                               class="inline-flex items-center text-[#016A7C] font-lato text-[14px] font-normal hover:underline">
                                 Learn more
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
