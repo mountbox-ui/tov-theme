@@ -133,11 +133,20 @@
         }
 
         .main-navigation li:hover>.sub-menu {
-            @apply block;
+            @apply block px-0 py-0;
         }
 
         .main-navigation .sub-menu a {
-            @apply block px-4 py-3 rounded-lg hover:bg-[#E6F0F3] hover:text-[#016A7C] text-gray-600 font-medium text-base !important;
+            @apply block py-3 px-4 rounded-lg text-gray-600 font-normal text-base transition-all duration-200 !important;
+        }
+
+        .main-navigation .sub-menu li {
+            @apply block px-0 py-0;
+        }
+
+        /* Hover state - light cyan background like "Why The Old Vicarage" */
+        .main-navigation .sub-menu a:hover {
+            @apply bg-[#E6EEEF] text-[#016A7C] !important;
         }
 
         /* Add arrow to items with children */

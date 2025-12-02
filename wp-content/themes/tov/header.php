@@ -55,7 +55,7 @@
 
                     <!-- Contact Us Button (desktop) -->
                     <div>
-                        <a href="#contact" class="btn-primary hover:bg-teal-700 text-white font-normal px-6 py-3 rounded-lg transition-colors duration-200 tracking-wide">
+                        <a href="<?php echo home_url('/contact-us/'); ?>" class="btn-primary hover:bg-teal-700 text-white font-normal px-6 py-3 rounded-lg transition-colors duration-200 tracking-wide">
                             Contact Us
                         </a>
                     </div>
