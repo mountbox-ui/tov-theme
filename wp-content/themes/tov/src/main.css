@@ -38,11 +38,33 @@
 
 @layer components {
     nav a {
-        @apply font-lato text-white no-underline text-base leading-7 transition-colors duration-300 sm:text-lg;
+        @apply font-lato text-white no-underline text-base leading-7 transition-all duration-300 sm:text-lg;
     }
 
     nav a:hover {
-        @apply text-[#CDAC79] font-semibold;
+        @apply text-white;
+    }
+
+    /* Opacity Effect for Top Level Menu */
+    #primary-menu>li>a {
+        @apply relative;
+    }
+
+    #primary-menu>li>a::before {
+        content: '';
+        @apply absolute -inset-x-[18px] -inset-y-[8px] rounded-full bg-white/10 shadow-sm opacity-0 transition-opacity duration-300 -z-10;
+    }
+
+    #primary-menu:hover>li>a {
+        @apply opacity-70;
+    }
+
+    #primary-menu>li:hover>a {
+        @apply opacity-100;
+    }
+
+    #primary-menu>li:hover>a::before {
+        @apply opacity-100;
     }
 
     .main-navigation a {
@@ -107,7 +129,7 @@
         }
 
         .main-navigation .sub-menu {
-            @apply absolute left-0 top-full hidden bg-navy-800 text-white rounded-md shadow-lg p-2 space-y-1 min-w-[200px] z-50;
+            @apply absolute left-0 top-full hidden bg-white text-gray-800 rounded-xl shadow-xl p-2 space-y-1 min-w-[260px] z-50 border border-gray-100;
         }
 
         .main-navigation li:hover>.sub-menu {
@@ -115,7 +137,7 @@
         }
 
         .main-navigation .sub-menu a {
-            @apply block px-4 py-2 rounded-md hover:bg-navy-700;
+            @apply block px-4 py-3 rounded-lg hover:bg-[#E6F0F3] hover:text-[#016A7C] text-gray-600 font-medium text-base !important;
         }
 
         /* Add arrow to items with children */

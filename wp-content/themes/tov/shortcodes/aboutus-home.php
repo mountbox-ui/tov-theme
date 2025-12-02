@@ -15,7 +15,7 @@ function tov_aboutus_home_shortcode($atts) {
     ?>
     <section class="py-24 bg-[#FDFBF7]">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6">
-            <div class="flex flex-col md:flex-row items-center gap-20">
+            <div class="flex flex-col md:flex-row items-start gap-20">
                 <!-- Content Column -->
                 <div class="w-full md:w-1/2">
                     <div class="max-w-xl">
@@ -68,30 +68,27 @@ function tov_aboutus_home_shortcode($atts) {
                             onclick="toggleAboutUs()"
                             class="inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 group cursor-pointer border-none bg-transparent p-0">
                             <span id="aboutUsToggleText">Read more</span>
-                            <svg id="aboutUsArrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            <svg id="aboutUsArrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
 
                         <script>
                         function toggleAboutUs() {
                             const expandable = document.getElementById('aboutUsExpandable');
-                            const toggleText = document.getElementById('aboutUsToggleText');
+                            const button = document.getElementById('aboutUsToggle');
                             const arrow = document.getElementById('aboutUsArrow');
                             const gradient = document.getElementById('aboutUsGradient');
                             
                             if (expandable.style.maxHeight === '0px' || expandable.style.maxHeight === '') {
-                                // Expand
+                                // Expand only (no collapse)
                                 expandable.style.maxHeight = expandable.scrollHeight + 'px';
-                                toggleText.textContent = 'Read less';
-                                arrow.style.transform = 'rotate(90deg)';
+                                arrow.style.transform = 'rotate(180deg)';
                                 gradient.style.opacity = '0';
-                            } else {
-                                // Collapse
-                                expandable.style.maxHeight = '0px';
-                                toggleText.textContent = 'Read more';
-                                arrow.style.transform = 'rotate(0deg)';
-                                gradient.style.opacity = '1';
+                                // Hide button after expansion
+                                setTimeout(() => {
+                                    button.style.display = 'none';
+                                }, 300);
                             }
                         }
                         </script>

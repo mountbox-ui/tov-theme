@@ -90,10 +90,10 @@ function tov_facilities_home_shortcode($atts) {
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 mb-12 relative z-10">
                     <?php foreach ($facilities as $facility) : ?>
                     <div class="flex items-start gap-4 group">
-                        <div class="flex-shrink-0 w-12 h-12 bg-[#E6F0F2] rounded-lg flex items-center justify-center group-hover:bg-[#016A7C] transition-colors duration-300">
+                        <div class="flex-shrink-0 w-12 h-12 bg-[#E6F0F2] rounded-lg flex items-center justify-center ">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/Fecilities-Icons/<?php echo $facility['icon']; ?>" 
                                  alt="<?php echo esc_attr($facility['title']); ?>" 
-                                 class="h-6 w-6 group-hover:brightness-0 group-hover:invert transition-all duration-300">
+                                 class="h-6 w-6 transition-all duration-300">
                         </div>
                         <div>
                             <h3 class="font-lato font-normal text-[18px] leading-[26px] text-[#09090B] mb-1"><?php echo esc_html($facility['title']); ?></h3>
@@ -103,7 +103,6 @@ function tov_facilities_home_shortcode($atts) {
                     <?php endforeach; ?>
                 </div>
        
-
                 <!-- Button -->
                 <div class="relative rgba(1, 106, 124, 1) z-10">
                     <a href="<?php echo home_url('/facilities'); ?>" class="inline-flex font-lato font-normal items-center bg-[#016A7C] hover:bg-[#014854] text-white font-jakarta px-8 py-4 rounded-md transition-colors duration-300">
