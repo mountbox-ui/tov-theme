@@ -78,7 +78,7 @@ function tov_faq_section_shortcode($atts, $content = null) {
                                 <span> our senior care</span>
                             </h2>
                             <p class="text-gray-600 dark:text-gray-400 opacity-90 mt-3 mb-5">Reach out today to learn more about our personalized services, schedule a free visit, or speak with a care specialist.</p>
-                            <a href="#contact" class="inline-flex items-center gap-2 bg-[#016A7C] text-white px-5 py-3 rounded-lg font-semibold opacity-867 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-colors">Contact Us Now</a>
+                            <a href="<?php echo home_url('/contact-us/'); ?>" class="inline-flex items-center gap-2 bg-[#016A7C] text-white px-5 py-3 rounded-lg font-semibold opacity-867 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-colors">Contact Us Now</a>
                         </div>
                         <!-- Right column: FAQ accordion -->
                         <div>

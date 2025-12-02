@@ -2,7 +2,7 @@
 
     <footer id="colophon" class="site-footer bg-[#014854] text-white">
         <div class="container-custom max-w-[1280px] mx-auto py-10 lg:py-12 px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-white/20 pb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-white/20 pb-8">
                 <!-- Brand + Address -->
                 <div>
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center ">
@@ -16,7 +16,7 @@
                 </div>
 
                 <!-- About Us -->
-                <div>
+                <!-- <div>
                     <h4 class="text-sm font-semibold mb-4">About Us</h4>
                     <?php if (has_nav_menu('footer_about')) {
                         wp_nav_menu(array(
@@ -26,7 +26,7 @@
                             'depth' => 1,
                         ));
                     } ?>
-                </div>
+                </div> -->
 
                 <!-- Services -->
                 <div>
@@ -67,9 +67,9 @@
                     ));
                 } else { ?>
                     <ul class="flex items-center gap-6 text-xs text-white/80">
-                        <li><a href="#">Privacy policy</a></li>
-                        <li><a href="#">Terms &amp; conditions</a></li>
-                        <li><a href="#">Modern Slavery Act</a></li>
+                        <li><a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">Privacy policy</a></li>
+                        <li><a href="<?php echo esc_url(home_url('/terms-and-conditions/')); ?>">Terms &amp; conditions</a></li>
+                        <li><a href="<?php echo esc_url(home_url('/modern-slavery-act/')); ?>">Modern Slavery Act</a></li>
                     </ul>
                 <?php } ?>
             </div>
