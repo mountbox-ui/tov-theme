@@ -9,7 +9,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
 
@@ -17,15 +17,15 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site min-h-screen flex flex-col">
-    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854]'; ?> fixed top-0 pt-4 w-full z-50">
-        <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px]">
-            <div class="flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between lg:justify-center p-4">
+    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854] h-[80px] flex items-center'; ?> absolute top-0 w-full z-50">
+        <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px] w-full">
+            <div class="flex items-center justify-between <?php echo (is_front_page() || is_home()) ? 'p-4' : 'px-4'; ?>">
                 <!-- Site Logo -->
                 <div class="site-branding flex justify-start">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/tov-log-white.svg" 
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/The-Old-Vicarage-Otterton-Logo.svg" 
                              alt="<?php bloginfo('name'); ?>" 
-                             class="h-12 w-auto md:pt-4 md:h-16 md:w-auto lg:pt-0 lg:h-[91px] lg:w-[297px]">
+                             class="<?php echo (is_front_page() || is_home()) ? 'h-12 w-auto md:pt-4 md:h-16 md:w-auto lg:pt-0 lg:h-[75px] lg:w-[280px]' : 'h-[55px] w-[220px]'; ?>">
                     </a>
                 </div>
 
@@ -37,25 +37,28 @@
                     </svg>
                 </button>
 
-                <!-- Desktop Navigation -->
-                <nav id="site-navigation" class="main-navigation hidden lg:flex lg:items-center lg:gap-[20px] justify-center">
-                    <?php
-                    wp_nav_menu(array(
-                        'theme_location' => 'primary',
-                        'menu_id'        => 'primary-menu',
-                        'menu_class'     => 'flex gap-[20px]',
-                        'container'      => false,
-                        'fallback_cb'    => false,
-                        'depth'          => 2, // Allow submenus
-                    ));
-                    ?>
-                </nav>
+                <!-- Desktop Menu & Button Wrapper -->
+                <div class="hidden lg:flex items-center gap-8">
+                    <!-- Desktop Navigation -->
+                    <nav id="site-navigation" class="main-navigation flex items-center">
+                        <?php
+                        wp_nav_menu(array(
+                            'theme_location' => 'primary',
+                            'menu_id'        => 'primary-menu',
+                            'menu_class'     => 'flex gap-[20px]',
+                            'container'      => false,
+                            'fallback_cb'    => false,
+                            'depth'          => 2, // Allow submenus
+                        ));
+                        ?>
+                    </nav>
 
-                <!-- Contact Us Button (desktop) -->
-                <div class="hidden lg:flex justify-end">
-                    <a href="#contact" class="btn-primary hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200 uppercase tracking-wide">
-                        Contact Us
-                    </a>
+                    <!-- Contact Us Button (desktop) -->
+                    <div>
+                        <a href="<?php echo home_url('/contact-us/'); ?>" class="btn-primary hover:bg-teal-700 text-white font-normal px-6 py-3 rounded-lg transition-colors duration-200 tracking-wide">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
 
                 <?php // Search icon removed from navbar ?>
@@ -77,7 +80,7 @@
                     
                     <!-- Mobile Contact Us Button -->
                     <div class="pt-4">
-                        <a href="#contact" class="block btn-primary hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200 uppercase tracking-wide text-center">
+                        <a href="#contact" class="block btn-primary hover:bg-teal-700 text-white font-normal px-6 py-3 rounded-lg transition-colors duration-200 tracking-wide text-center">
                             Contact Us
                         </a>
                     </div>

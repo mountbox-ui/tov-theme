@@ -39,11 +39,44 @@ function hero_section_shortcode($atts, $content = null) {
         <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 to-black/0"></div>
         <div class="absolute inset-0 -z-10 bg-[linear-gradient(282deg,rgba(0,58,68,0.40)_5.65%,rgba(82,60,37,0.40)_97.18%)]"></div>
 
-        <div class="max-w-[1280px] mx-auto py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6">
+        <div class="max-w-[1280px] mx-auto py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 relative">
             <div class="max-w-3xl mt-[56px] lg:mx-0">
                 <?php echo do_shortcode($clean_content); ?>
             </div>
+            
+            <!-- Play Video Button - Absolutely positioned on right -->
+            <?php if (!empty($video_id)) : ?>
+            <div class="absolute right-8 md:right-12 lg:right-16 top-1/2 -translate-y-1/2 hidden md:flex">
+                <a href="#" id="hero-video-trigger" class="inline-flex flex-col items-center justify-center gap-2 text-white/90 hover:text-white text-xs sm:text-sm group">
+                    <div class="relative inline-flex items-center justify-center">
+                        <!-- Pulsing glow rings - positioned outside the circle -->
+                        <span class="absolute inline-flex rounded-full border-2 border-white opacity-25 animate-ping" style="width: 110px; height: 110px;"></span>
+                        <span class="absolute inline-flex rounded-full border-2 border-white opacity-15 animate-pulse" style="width: 100px; height: 100px;"></span>
+                        <!-- Play icon -->
+                        <span class="relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 55 55" fill="none" class="w-[82px] h-[82px]">
+                                <path d="M23.5742 35.8728C23.8561 35.8728 24.1094 35.7889 24.335 35.6198L24.3613 35.654L24.335 35.6189L24.3389 35.6169L35.0957 29.2321L35.0986 29.2312C35.3217 29.1196 35.4896 28.9382 35.6025 28.6843C35.7169 28.427 35.7744 28.1704 35.7744 27.9148C35.7744 27.6592 35.717 27.4182 35.6035 27.1911C35.4912 26.9665 35.3233 26.7986 35.0986 26.6862L35.0957 26.6843L24.3389 20.2126C24.1131 20.1003 23.8585 20.0437 23.5742 20.0437C23.2905 20.0437 23.0363 20.1145 22.8105 20.2556C22.5842 20.3971 22.3993 20.5958 22.2568 20.8523C22.1146 21.1083 22.0439 21.378 22.0439 21.6618V34.2546C22.0439 34.5383 22.1147 34.8082 22.2568 35.0642C22.3993 35.3207 22.5842 35.5194 22.8105 35.6609C23.0364 35.802 23.2904 35.8728 23.5742 35.8728Z" fill="white" fill-opacity="0.68" stroke="white" stroke-width="0.0874545"/>
+                                <circle cx="27.3165" cy="27.3165" r="25.644" stroke="white" stroke-width="3.34487"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <!-- <span class="text-white/90 group-hover:text-white transition-colors">Play video</span> -->
+                </a>
+            </div>
+            <?php endif; ?>
         </div>
+        
+        <style>
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+        .animate-ping {
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        </style>
     </section>
     <?php if (!empty($video_id)) : ?>
     <div id="hero-video-overlay" class="fixed inset-0 z-50 hidden bg-black/90">
@@ -127,15 +160,34 @@ function hero_section_buttons_shortcode($atts) {
 <circle cx="27.3165" cy="27.3165" r="25.644" stroke="white" stroke-width="3.34487"/>
 </svg>';
 
-    // Play icon with label underneath (stacked vertically)
-    $see = '<a href="#" id="hero-video-trigger" class="inline-flex flex-col items-center justify-center gap-1 text-white/90 hover:text-white text-xs sm:text-sm md:text-base">'
-         . $play_icon . '<span class="mt-1 text-white/90">' . esc_html($atts['see_text']) . '</span></a>';
+    // Play icon with label underneath and pulsing glow effect
+    $see = '<a href="#" id="hero-video-trigger" class="inline-flex flex-col items-center justify-center gap-1 text-white/90 hover:text-white text-xs sm:text-sm md:text-base group">
+        <div class="relative inline-flex items-center justify-center">
+            <!-- Pulsing glow rings -->
+            <span class="absolute inline-flex h-full w-full rounded-full bg-white opacity-30 animate-ping"></span>
+            <span class="absolute inline-flex h-full w-full rounded-full bg-white opacity-20 animate-pulse"></span>
+            <!-- Play icon -->
+            <span class="relative">' . $play_icon . '</span>
+        </div>
+        <span class="mt-1 text-white/90 group-hover:text-white transition-colors">Play video</span>
+    </a>
+    
+    <style>
+    @keyframes ping {
+        75%, 100% {
+            transform: scale(1.3);
+            opacity: 0;
+        }
+    }
+    .animate-ping {
+        animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    </style>';
 
-    // Left buttons (primary + phone) and right-aligned play link (kept on same row on large screens)
+    // Left buttons (primary + phone) - play button is now absolutely positioned in hero section
     $left  = '<div class="flex flex-col min-[600px]:flex-row min-[600px]:items-center gap-3 sm:gap-4 w-full sm:w-auto">' . $primary . $phone . '</div>';
-    $right = '<div class="mt-4 sm:mt-0 sm:ml-auto shrink-0">' . $see . '</div>';
 
-    return '<div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 w-full max-w-[1200px]">' . $left . $right . '</div>';
+    return '<div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 w-full max-w-[1200px]">' . $left . '</div>';
 }
 add_shortcode('hero_buttons', 'hero_section_buttons_shortcode');
 
