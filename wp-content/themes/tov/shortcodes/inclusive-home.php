@@ -14,20 +14,20 @@ function tov_inclusive_home_shortcode($atts) {
     ?>
     
     <section class="py-20 bg-white relative overflow-hidden">
-        <!-- Background Glow Effect -->
-        <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute top-[60px] right-[1016px] blur-[15px] w-[220px] h-[196px]">
-
-        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             
             <!-- Section Header -->
+        <div>
+            <!-- Background Glow Effect -->
+            <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[390px] left-[330px] blur-[15px] w-[220px] h-[196px]">
             <div class="mb-12">
                 <h2 class="text-[#1C2321]">
                     <?php echo esc_html($atts['title']); ?><br><span class="text-[#1C2321]">
                     <?php echo esc_html($atts['subtitle']); ?>
                 </span>
                 </h2>
-                
             </div>
+        </div>
 
             <!-- Three Column Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[48px]">

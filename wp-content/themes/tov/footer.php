@@ -1,7 +1,7 @@
     </div><!-- #content -->
 
     <footer id="colophon" class="site-footer bg-[#014854] text-white">
-        <div class="container-custom max-w-[1280px] mx-auto py-10 lg:py-12 px-4">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10 py-10 lg:py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-white/20 pb-8">
                 <!-- Brand + Address -->
                 <div>

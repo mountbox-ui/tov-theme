@@ -51,7 +51,7 @@ function tov_events_section_shortcode($atts) {
 	ob_start();
 	?>
 	<section class="py-24 sm:py-[80px]" style="background-color: #E2F5F8;">
-		<div class="mx-auto max-w-6xl">
+		<div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
 			<div class="flex flex-wrap items-center gap-6 justify-between w-full">
 				<div class="flex-1 min-w-[220px]">
 					<h2 class="text-[#000] leading-[1.2] letter-spacing-[-0.5px]">
