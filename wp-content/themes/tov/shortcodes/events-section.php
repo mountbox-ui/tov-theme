@@ -50,27 +50,25 @@ function tov_events_section_shortcode($atts) {
 	
 	ob_start();
 	?>
-	<section class="py-24 sm:py-32" style="background-color: #E8F6FF;">
-		<div class="mx-auto max-w-6xl px-6 lg:px-8">
+	<section class="py-24 sm:py-[80px]" style="background-color: #E2F5F8;">
+		<div class="mx-auto max-w-6xl">
 			<div class="flex flex-wrap items-center gap-6 justify-between w-full">
 				<div class="flex-1 min-w-[220px]">
-					<h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+					<h2 class="text-[#000] leading-[1.2] letter-spacing-[-0.5px]">
 						<?php echo esc_html__('Upcoming events', 'tov'); ?>
 					</h2>
-					<p class="mt-2 text-base text-gray-600">
-						<?php echo esc_html__('Join us at our upcoming events and be part of our community.', 'tov'); ?>
-					</p>
+					
 				</div>
-				<a href="<?php echo esc_url(home_url('/eventtest/')); ?>" class="inline-flex items-center justify-center rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-900 hover:bg-white transition ml-auto">
+				<a href="<?php echo esc_url(home_url('/eventtest/')); ?>" class="inline-flex items-center justify-center rounded-md border border-[#227D8C] px-4 py-2 text-sm font-semibold text-[#227D8C] hover:bg-white transition ml-auto">
 					<?php echo esc_html__('See all events', 'tov'); ?>
-					<svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-						<path d="M7 5l5 5-5 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" class="ml-2.5 pt-1" fill="none">
+  <path d="M11.5375 16.8374L17.1437 11.3937C17.4146 11.177 17.55 10.8791 17.55 10.4999C17.55 10.1207 17.4146 9.82282 17.1437 9.60615L11.5375 4.1624C11.3208 3.89157 11.0365 3.75615 10.6844 3.75615C10.3323 3.75615 10.0344 3.87803 9.79062 4.12178C9.54688 4.36553 9.425 4.67699 9.425 5.05615C9.425 5.43532 9.56042 5.73324 9.83125 5.9499L13.1625 9.1999H4.46875C4.14375 9.1999 3.85938 9.32178 3.61562 9.56553C3.37187 9.80928 3.25 10.1207 3.25 10.4999C3.25 10.8791 3.37187 11.1905 3.61562 11.4343C3.85938 11.678 4.14375 11.7999 4.46875 11.7999H13.1625L9.83125 15.0499C9.56042 15.2666 9.425 15.5645 9.425 15.9437C9.425 16.3228 9.54688 16.6343 9.79062 16.878C10.0344 17.1218 10.3323 17.2437 10.6844 17.2437C11.0365 17.2437 11.3208 17.1082 11.5375 16.8374Z" fill="#016A7C"/>
+</svg>
 				</a>
 			</div>
 
 			<?php if ($events_query->have_posts()) : ?>
-				<div class="mt-12 grid gap-8 md:grid-cols-2">
+				<div class="mt-12 grid gap-[90px] md:grid-cols-2">
 					<?php while ($events_query->have_posts()) : $events_query->the_post(); 
 						// Get event details from ACF fields
 						$event_date = '';
@@ -112,10 +110,10 @@ function tov_events_section_shortcode($atts) {
 							$time_display = date_i18n('g:i a', strtotime($event_time));
 						}
 						?>
-						<article class="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 mx-auto" style="max-width: 600px; width: 100%;">
-							<div class="relative w-full" style="height: 300px;">
+						<article class="flex flex-col overflow-hidden rounded-2xl bg-white  mx-auto" style="height: 484px;">
+							<div class="relative w-full" >
 								<?php if (has_post_thumbnail()) : ?>
-									<?php the_post_thumbnail('large', array('class' => 'h-full w-full object-cover')); ?>
+									<?php the_post_thumbnail('large', array('class' => 'h-[338px]  object-cover rounded-lg')); ?>
 								<?php else : ?>
 									<div class="flex h-full w-full items-center justify-center bg-gray-100 text-gray-400">
 										<?php echo esc_html__('No image available', 'tov'); ?>
@@ -123,12 +121,12 @@ function tov_events_section_shortcode($atts) {
 								<?php endif; ?>
 							</div>
 							<div class="flex flex-1 flex-col pb-6 pt-5">
-								<h3 class="text-xl font-semibold text-gray-900 mb-4">
+								<h3 >
 									<?php the_title(); ?>
 								</h3>
 								
 								<?php if ($date_display || $time_display || $event_location) : ?>
-									<p class="text-sm text-gray-600">
+									<p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px]">
 										<?php if ($date_display) : ?>
 											<?php echo esc_html($date_display); ?>
 										<?php endif; ?>
@@ -142,6 +140,20 @@ function tov_events_section_shortcode($atts) {
 										<?php endif; ?>
 									</p>
 								<?php endif; ?>
+
+								<div class="mt-4">
+									<!-- <a href="<?php the_permalink(); ?>"
+									   class="inline-flex items-center text-sm font-semibold text-[#227D8C] hover:text-[#014854]">
+										<?php esc_html_e('Read more', 'tov'); ?>
+										<span aria-hidden="true" class="ml-1">→</span>
+									</a> -->
+									<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-[#227D8C] font-bold text-sm hover:text-[#016A7C] transition-colors">
+                        Learn more
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
+  <path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="#016A7C"/>
+</svg>
+                    </a>
+								</div>
 							</div>
 						</article>
 					<?php endwhile; ?>
@@ -296,6 +308,14 @@ function tov_upcoming_events_shortcode($atts) {
 								<?php the_title(); ?>
 							</a>
 						</h3>
+
+						<div class="mt-4">
+							<a href="<?php the_permalink(); ?>"
+							   class="inline-flex items-center text-sm font-semibold text-white hover:text-gray-200">
+								<?php esc_html_e('Read more', 'tov'); ?>
+								<span aria-hidden="true" class="ml-1">→</span>
+							</a>
+						</div>
 						<?php
 							// Get event categories
 							$event_categories = get_the_terms(get_the_ID(), 'event_category');
@@ -453,6 +473,14 @@ function tov_past_events_shortcode($atts) {
 								<?php the_title(); ?>
 							</a>
 						</h3>
+
+						<div class="mt-4">
+							<a href="<?php the_permalink(); ?>"
+							   class="inline-flex items-center text-sm font-semibold text-white hover:text-gray-200">
+								<?php esc_html_e('Read more', 'tov'); ?>
+								<span aria-hidden="true" class="ml-1">→</span>
+							</a>
+						</div>
 						<?php
 							// Get event categories
 							$event_categories = get_the_terms(get_the_ID(), 'event_category');

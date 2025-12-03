@@ -20,10 +20,16 @@ $shortcode_files = array(
     'events-section.php',
     'hero-section.php',
     'news-section.php',
-    'blog-section.php',
     'team-section.php',
     'awards-section.php',
     'why-tov.php',
+    'aboutus-home.php',
+    'services-home.php',
+    'fecilities-home.php',
+    'amenities-home.php',
+    'day-in-tov-home.php',
+    'how-to-start-home.php',
+    'inclusive-home.php',
 );
 
 // Load each shortcode file

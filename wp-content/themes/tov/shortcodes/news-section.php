@@ -128,7 +128,20 @@ function tov_news_section_shortcode($atts) {
     }
 
     $news_query = new WP_Query($args);
-    
+
+    // Try to find a dedicated News page for the "Read all news" link
+    $news_page_url = '';
+    $news_page = get_page_by_path('news');
+    if ($news_page) {
+        $news_page_url = get_permalink($news_page->ID);
+    } else {
+        // Fallback to the news archive if enabled
+        $archive_link = get_post_type_archive_link('news');
+        if ($archive_link && !is_wp_error($archive_link)) {
+            $news_page_url = $archive_link;
+        }
+    }
+
     // Debug mode
     $debug_mode = filter_var($atts['debug'], FILTER_VALIDATE_BOOLEAN);
     if ($debug_mode && current_user_can('manage_options')) {
@@ -154,24 +167,44 @@ function tov_news_section_shortcode($atts) {
     ob_start();
     ?>
 
-    <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
+    <div class="bg-white py-24 sm:py-[66px] dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:max-w-4xl">
-          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">From the news</h2>
-          <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">Stay informed with our latest news and updates.</p>
-          <div class="mt-16 space-y-20 lg:mt-20">
-            <?php if ($news_query->have_posts()) : ?>
-              <?php while ($news_query->have_posts()) : $news_query->the_post();
-                  tov_render_horizontal_news_card(get_the_ID());
-              endwhile; ?>
-            <?php else : ?>
-              <div class="text-center text-gray-600 dark:text-gray-400 py-12">
-                <?php echo esc_html__('No news available at the moment.', 'tov'); ?>
-              </div>
-            <?php endif; ?>
-            <?php wp_reset_postdata(); ?>
-          </div>
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-[#000] leading-[1.2] letter-spacing-[-0.5px]">
+            <?php esc_html_e('Latest news', 'tov-theme'); ?>
+          </h2>
+          <?php if (!empty($news_page_url)) : ?>
+            
+            <a href="<?php echo esc_url($news_page_url); ?>" class="inline-flex items-center justify-center rounded-md border border-[#227D8C] px-4 py-2 text-sm font-semibold text-[#227D8C] hover:bg-white transition ml-auto">
+					<?php echo esc_html__('Read all news', 'tov-theme'); ?>
+					<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" class="ml-2.5 pt-1" fill="none">
+  <path d="M11.5375 16.8374L17.1437 11.3937C17.4146 11.177 17.55 10.8791 17.55 10.4999C17.55 10.1207 17.4146 9.82282 17.1437 9.60615L11.5375 4.1624C11.3208 3.89157 11.0365 3.75615 10.6844 3.75615C10.3323 3.75615 10.0344 3.87803 9.79062 4.12178C9.54688 4.36553 9.425 4.67699 9.425 5.05615C9.425 5.43532 9.56042 5.73324 9.83125 5.9499L13.1625 9.1999H4.46875C4.14375 9.1999 3.85938 9.32178 3.61562 9.56553C3.37187 9.80928 3.25 10.1207 3.25 10.4999C3.25 10.8791 3.37187 11.1905 3.61562 11.4343C3.85938 11.678 4.14375 11.7999 4.46875 11.7999H13.1625L9.83125 15.0499C9.56042 15.2666 9.425 15.5645 9.425 15.9437C9.425 16.3228 9.54688 16.6343 9.79062 16.878C10.0344 17.1218 10.3323 17.2437 10.6844 17.2437C11.0365 17.2437 11.3208 17.1082 11.5375 16.8374Z" fill="#016A7C"/>
+</svg>
+				</a>
+          <?php endif; ?>
         </div>
+
+        <?php if ($news_query->have_posts()) : ?>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <?php while ($news_query->have_posts()) : $news_query->the_post();
+              $news_date = get_the_date('Y-m-d', get_the_ID());
+              // For shortcode, hide author/reporter/avatar meta and apply custom date + heading styles
+              tov_render_news_card(
+                  get_the_ID(),
+                  $news_date,
+                  false,
+                  'text-[rgba(28,35,33,0.9)] font-lato text-sm font-semibold leading-[20.124px] tracking-[0.385px] uppercase',
+                  'mt-3 text-black font-plusjakarta text-[20px] font-bold leading-[25.993px]',
+                  'mt-3 text-[#757575] font-lato text-[18px] font-normal leading-[26px]'
+              );
+            endwhile; ?>
+          </div>
+          <?php wp_reset_postdata(); ?>
+        <?php else : ?>
+          <div class="text-center text-gray-600 dark:text-gray-400 py-12">
+            <?php echo esc_html__('No news available at the moment.', 'tov-theme'); ?>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
 
@@ -224,7 +257,7 @@ function tov_latest_news_shortcode($atts) {
     <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-4xl">
-          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Latest News</h2>
+          <h2 class="text-[#000] leading-[1.2] letter-spacing-[-0.5px]">Latest News</h2>
           <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">Stay updated with our latest news and announcements.</p>
           <div class="mt-16 space-y-20 lg:mt-20">
             <?php if ($news_query->have_posts()) : ?>

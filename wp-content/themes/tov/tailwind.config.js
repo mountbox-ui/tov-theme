@@ -8,6 +8,7 @@ module.exports = {
     './assets/js/*.js',
     './*.html',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -35,15 +36,12 @@ module.exports = {
         }
       },
       fontFamily: {
-        // 'sans': ['Inter', 'system-ui', 'sans-serif'],
-        // 'serif': ['Merriweather', 'serif'],
-        // 'poppins': ['Poppins', 'sans-serif'],
-        // 'roboto': ['Roboto', 'sans-serif'],
-        // 'inter': ['Inter', 'sans-serif'],
         'merriweather': ['Merriweather', 'serif'],
         'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
         'lora': ['Lora', 'serif'],
         'lato': ['Lato', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
+        'din': ['"Barlow Condensed"', '"DIN Condensed"', 'sans-serif'],
       },
       spacing: {
         '18': '4.5rem',

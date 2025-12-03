@@ -224,8 +224,15 @@ add_action('wp_head', 'tov_debug_news_post');
 
 /**
  * Custom function to render news card (similar to events)
+ *
+ * @param int    $post_id          News post ID.
+ * @param string $news_date        Optional precomputed date.
+ * @param bool   $show_author_meta Whether to show author / reporter / avatar block.
+ * @param string $date_class       Optional CSS classes for the date element.
+ * @param string $title_class      Optional CSS classes for the title element.
+ * @param string $excerpt_class    Optional CSS classes for the excerpt paragraph.
  */
-function tov_render_news_card($post_id, $news_date = null) {
+function tov_render_news_card($post_id, $news_date = null, $show_author_meta = true, $date_class = '', $title_class = '', $excerpt_class = '') {
     $categories = get_the_terms($post_id, 'news_category');
     $author_id = get_post_field('post_author', $post_id);
     $author_name = get_the_author_meta('display_name', $author_id);
@@ -257,24 +264,34 @@ function tov_render_news_card($post_id, $news_date = null) {
         
         <div class="flex max-w-xl grow flex-col justify-between">
             <div class="mt-8 flex items-center gap-x-4 text-xs">
-                <time datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>" class="text-gray-500 dark:text-gray-400">
+                <time datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>" class="<?php echo esc_attr($date_class ?: 'text-gray-500 dark:text-gray-400'); ?>">
                     <?php echo esc_html(get_the_date('M j, Y', $post_id)); ?>
                 </time>
             </div>
             
             <div class="group relative grow">
-                <h3 class="mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
+                <h3 class="<?php echo esc_attr($title_class ?: 'mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300'); ?>">
                     <a href="<?php echo get_permalink($post_id); ?>">
                         <span class="absolute inset-0"></span>
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                <p class="<?php echo esc_attr($excerpt_class ?: 'mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400'); ?>">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
-                
+
+                <div class="mt-4">
+                    
+                    <a href="<?php echo get_permalink($post_id); ?>" class="inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors">
+                    <?php esc_html_e('Read more', 'tov-theme'); ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-            
+
+            <?php if ($show_author_meta) : ?>
             <div class="relative mt-8 flex items-center gap-x-4 justify-self-end">
                 <?php 
                 // Try ACF field for author avatar first, then fallback to WordPress avatar
@@ -333,6 +350,7 @@ function tov_render_news_card($post_id, $news_date = null) {
                     <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </article>
     <?php
@@ -463,6 +481,14 @@ function tov_render_horizontal_news_card($post_id) {
                 <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
+
+                <div class="mt-4">
+                    <a href="<?php echo get_permalink($post_id); ?>"
+                       class="inline-flex items-center text-sm font-semibold text-orange-600 hover:text-orange-700">
+                        <?php esc_html_e('Read more', 'tov-theme'); ?>
+                        <span aria-hidden="true" class="ml-1">→</span>
+                    </a>
+                </div>
             </div>
             <div class="mt-6 flex border-t border-gray-900/5 pt-6 dark:border-white/10">
                 <div class="relative flex items-center gap-x-4">
