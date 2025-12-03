@@ -93,25 +93,6 @@ add_filter('nav_menu_css_class', 'tov_theme_nav_menu_css_class', 10, 3);
  */
 require_once get_template_directory() . '/shortcodes/loader.php';
 
-// Force clear caches for blog updates
-function tov_force_clear_blog_cache() {
-    if (current_user_can('manage_options') && isset($_GET['clear_blog_cache'])) {
-        // Clear WordPress object cache
-        wp_cache_flush();
-        
-        // Clear any plugin caches
-        if (function_exists('wp_cache_clear_cache')) {
-            wp_cache_clear_cache();
-        }
-        
-        // Clear rewrite rules
-        flush_rewrite_rules();
-        
-        wp_redirect(remove_query_arg('clear_blog_cache'));
-        exit;
-    }
-}
-add_action('init', 'tov_force_clear_blog_cache');
 
 /**
  * Load Custom Post Types
@@ -119,7 +100,6 @@ add_action('init', 'tov_force_clear_blog_cache');
 require_once get_template_directory() . '/inc/post-types/events.php';
 require_once get_template_directory() . '/inc/post-types/news.php';
 require_once get_template_directory() . '/inc/post-types/news-highlight-admin.php';
-require_once get_template_directory() . '/inc/post-types/blog.php';
 require_once get_template_directory() . '/inc/post-types/team.php';
 
 /**
@@ -167,60 +147,6 @@ require_once get_template_directory() . '/inc/post-types/services.php';
 require_once get_template_directory() . '/inc/post-types/locations.php';
 
 
-/**
- * Debug function to check if blog post type is working
- * Add ?debug_blog_system=1 to any URL
- */
-function tov_debug_blog_system() {
-    if (isset($_GET['debug_blog_system']) && current_user_can('manage_options')) {
-        echo '<div style="background: #fff; padding: 20px; margin: 20px; border: 1px solid #ccc; position: fixed; top: 0; left: 0; z-index: 9999; max-width: 600px;">';
-        echo '<h3>Blog System Debug</h3>';
-        
-        // Check if blog post type exists
-        $post_type_obj = get_post_type_object('blog');
-        if ($post_type_obj) {
-            echo '<p><strong>✅ Blog post type is registered</strong></p>';
-        } else {
-            echo '<p><strong>❌ Blog post type is NOT registered</strong></p>';
-        }
-        
-        // Check blog posts
-        $blog_posts = get_posts(array(
-            'post_type' => 'blog',
-            'numberposts' => 3,
-            'post_status' => 'publish'
-        ));
-        
-        if (!empty($blog_posts)) {
-            echo '<p><strong>Blog Posts Found:</strong></p>';
-            foreach ($blog_posts as $post) {
-                echo '<p>- ' . $post->post_title . ' (ID: ' . $post->ID . ')</p>';
-                echo '<p>  URL: <a href="' . get_permalink($post->ID) . '" target="_blank">' . get_permalink($post->ID) . '</a></p>';
-            }
-        } else {
-            echo '<p><strong>❌ No blog posts found</strong></p>';
-        }
-        
-        // Check blog page
-        $blog_page = get_page_by_path('blog');
-        if ($blog_page) {
-            echo '<p><strong>✅ Blog Page Found:</strong> ' . $blog_page->post_title . ' (ID: ' . $blog_page->ID . ')</p>';
-            echo '<p>URL: <a href="' . get_permalink($blog_page->ID) . '" target="_blank">' . get_permalink($blog_page->ID) . '</a></p>';
-        } else {
-            echo '<p><strong>❌ Blog Page Not Found</strong></p>';
-        }
-        
-        // Check if blog-section shortcode exists
-        if (shortcode_exists('blog_section')) {
-            echo '<p><strong>✅ Blog section shortcode exists</strong></p>';
-        } else {
-            echo '<p><strong>❌ Blog section shortcode does NOT exist</strong></p>';
-        }
-        
-        echo '</div>';
-    }
-}
-add_action('wp_head', 'tov_debug_blog_system');
 /**
  * Add templates folder to WordPress template hierarchy
  */
@@ -457,7 +383,8 @@ function tov_load_more_news() {
         while ($news_query->have_posts()) {
             $news_query->the_post();
             $news_date = get_the_date('Y-m-d', get_the_ID());
-            tov_render_news_card(get_the_ID(), $news_date);
+            // AJAX "load more news" is used on the template page, so keep meta
+            tov_render_news_card(get_the_ID(), $news_date, true);
         }
         wp_reset_postdata();
         
@@ -470,52 +397,6 @@ function tov_load_more_news() {
 add_action('wp_ajax_load_more_news', 'tov_load_more_news');
 add_action('wp_ajax_nopriv_load_more_news', 'tov_load_more_news');
 
-/**
- * AJAX handler for loading more blog posts
- */
-function tov_load_more_blog() {
-    // Verify nonce for security
-    if (!wp_verify_nonce($_POST['nonce'], 'tov_ajax_nonce')) {
-        wp_die('Security check failed');
-    }
-    
-    $page = intval($_POST['page']);
-    $today = date('Y-m-d');
-    
-    // Query older blog posts for the specific page
-    $args = array(
-        'post_type' => 'blog',
-        'posts_per_page' => 6,
-        'paged' => $page,
-        'orderby' => 'date',
-        'order' => 'DESC',
-        'date_query' => array(
-            array(
-                'before' => $today,
-                'inclusive' => true,
-            ),
-        ),
-    );
-    
-    $blog_query = new WP_Query($args);
-    
-    if ($blog_query->have_posts()) {
-        ob_start();
-        while ($blog_query->have_posts()) {
-            $blog_query->the_post();
-            $blog_date = get_the_date('Y-m-d', get_the_ID());
-            tov_render_blog_card(get_the_ID(), $blog_date);
-        }
-        wp_reset_postdata();
-        
-        $html = ob_get_clean();
-        wp_send_json_success(array('html' => $html));
-    } else {
-        wp_send_json_error('No more blog posts found');
-    }
-}
-add_action('wp_ajax_load_more_blog', 'tov_load_more_blog');
-add_action('wp_ajax_nopriv_load_more_blog', 'tov_load_more_blog');
 
 /**
  * Enqueue AJAX script with nonce

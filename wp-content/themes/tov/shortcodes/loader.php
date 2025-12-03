@@ -20,7 +20,6 @@ $shortcode_files = array(
     'events-section.php',
     'hero-section.php',
     'news-section.php',
-    'blog-section.php',
     'team-section.php',
     'awards-section.php',
     'why-tov.php',

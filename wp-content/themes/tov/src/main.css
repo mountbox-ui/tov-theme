@@ -12,11 +12,11 @@
     }
 
     h2 {
-        @apply font-jakarta font-semibold text-[40px] leading-[44px] sm:text-3xl md:text-4xl md:leading-snug;
+        @apply font-jakarta font-semibold text-[40px] leading-[44px] sm:text-3xl md:text-[40px] md:leading-snug;
     }
 
     h3 {
-        @apply font-lato font-semibold text-xl leading-snug sm:text-2xl;
+        @apply font-jakarta text-2xl font-bold leading-[normal] tracking-[-0.24px] text-[#1C2321];
     }
 
     h4 {
@@ -76,7 +76,7 @@
     }
 
     .site-header {
-        @apply transition-colors transition-shadow duration-200 ease-in-out;
+        @apply transition-colors transition-shadow duration-200 ease-in-out relative;
     }
 
     .site-header.header-solid {
@@ -234,7 +234,7 @@
     }
 
     .grid>article {
-        @apply bg-white border border-transparent rounded-lg transition duration-300 ease-in-out relative overflow-hidden p-3;
+        @apply bg-transparent border border-transparent rounded-lg transition duration-300 ease-in-out relative overflow-hidden p-3;
     }
 
     .grid>article::before {
