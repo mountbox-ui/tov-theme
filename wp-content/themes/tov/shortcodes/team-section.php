@@ -246,12 +246,12 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
         $image_url = get_the_post_thumbnail_url($post_id, 'large');
     }
     ?>
-    <div class="highlighted-team-card py-12 px-4 sm:px-6 lg:px-8 rounded-3xl">
+    <div class="highlighted-team-card py-12 rounded-3xl">
         <div class="flex flex-col lg:flex-row items-center gap-[118px] max-w-7xl mx-auto">
             <!-- Content Section -->
             <div class="lg:pr-8 text-left">
                 <h6 class="text-[#016A7C]">Meet the Team</h6>
-                <h2 class="w-[450px]">
+                <h2 class="w-[475px]">
                     Increase your <span>relationship potential.</span>
                 </h2>
                 
@@ -430,7 +430,7 @@ function tov_highlighted_team_member_shortcode($atts) {
     ob_start();
     ?>
     <div class="highlighted-team-member bg-[#F9F7F2] py-24 sm:py-24">
-        <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6">
             <!-- <?php if ($atts['show_title'] === 'true') : ?>
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">

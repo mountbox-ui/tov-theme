@@ -8,17 +8,21 @@ function tov_services_home_shortcode($atts) {
     ob_start();
     ?>
     <section class="py-24 bg-white relative overflow-hidden">
+        
         <!-- Glow Effect -->
-         <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[735px] left-[545px] blur-[15px] w-[138px] h-[155px]">
+         <!-- <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[735px] left-[545px] blur-[15px] w-[138px] h-[155px]"> -->
 
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             <!-- Header -->
+            <div>
+                <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[725px] left-[340px] blur-[15px] w-[138px] h-[155px]">
             <div class="max-w-3xl mb-16">
                 <h6 class="text-[#016A7C]">Our Care Services</h6>
                 <h2>
                     Compassionate care <br>
                     tailored to <span>every need</span>
                 </h2>
+            </div>
             </div>
 
             <!-- Services Grid -->

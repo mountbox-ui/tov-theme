@@ -2369,8 +2369,6 @@ nav a:hover {
 }
 
 .grid>article:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
   background-color: rgb(255 255 255 / 0.95);
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
@@ -2522,6 +2520,38 @@ nav a:hover {
 
 .top-\[60px\] {
   top: 60px;
+}
+
+.bottom-\[725px\] {
+  bottom: 725px;
+}
+
+.left-\[340px\] {
+  left: 340px;
+}
+
+.bottom-\[170px\] {
+  bottom: 170px;
+}
+
+.left-\[225px\] {
+  left: 225px;
+}
+
+.bottom-\[60px\] {
+  bottom: 60px;
+}
+
+.left-\[745px\] {
+  left: 745px;
+}
+
+.bottom-\[390px\] {
+  bottom: 390px;
+}
+
+.left-\[330px\] {
+  left: 330px;
 }
 
 .isolate {
@@ -2994,6 +3024,10 @@ nav a:hover {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[475px\] {
+  width: 475px;
 }
 
 .min-w-0 {
@@ -5359,11 +5393,6 @@ nav a:hover {
 
   .lg\:p-8 {
     padding: 2rem;
-  }
-
-  .lg\:px-16 {
-    padding-left: 4rem;
-    padding-right: 4rem;
   }
 
   .lg\:px-8 {

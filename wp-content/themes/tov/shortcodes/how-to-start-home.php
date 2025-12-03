@@ -13,16 +13,19 @@ function tov_how_to_start_home_shortcode($atts) {
     ?>
     
     <section class="py-20 bg-[#FDFBF7] relative overflow-hidden">
-        <!-- Background Glow Effect -->
-         <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[230px] left-[545px] blur-[15px] w-[220px] h-[196px]">
+        
 
-        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             
             <!-- Section Header -->
-            <div class="mb-8">
-                <h2 class="text-[#000] font-jakarta text-[40px] font-bold leading-[1.2]">
-                    <?php echo esc_html($atts['title']); ?>
-                </h2>
+            <div>
+                <!-- Background Glow Effect -->
+                <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[170px] left-[225px] blur-[15px] w-[220px] h-[196px]">
+                <div class="mb-8">
+                    <h2 class="text-[#000] font-jakarta text-[40px] font-bold leading-[1.2]">
+                        <?php echo esc_html($atts['title']); ?>
+                    </h2>
+                </div>
             </div>
 
             <!-- Steps Grid -->
