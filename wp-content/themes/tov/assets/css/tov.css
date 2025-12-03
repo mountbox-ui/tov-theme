@@ -3868,6 +3868,10 @@ nav a:hover {
   padding-bottom: 2rem;
 }
 
+.pb-24 {
+  padding-bottom: 6rem;
+}
+
 .pb-3 {
   padding-bottom: 0.75rem;
 }
@@ -3930,10 +3934,6 @@ nav a:hover {
 
 .pt-80 {
   padding-top: 20rem;
-}
-
-.pb-24 {
-  padding-bottom: 6rem;
 }
 
 .text-left {
