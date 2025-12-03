@@ -202,7 +202,7 @@ function tov_render_team_list_item($post_id, $use_acf = false) {
             <?php endif; ?>
             
             <?php if (!empty($message) && $message_visibility) : ?>
-                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 italic">
+                <p class="paragraph">
                     "<?php echo esc_html($message); ?>"
                 </p>
             <?php endif; ?>
@@ -236,76 +236,67 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
         $name = get_the_title($post_id);
     }
     
-    // Get departments
-    $departments = get_the_terms($post_id, 'team_department');
-    $department_names = array();
-    if ($departments && !is_wp_error($departments)) {
-        foreach ($departments as $dept) {
-            $department_names[] = $dept->name;
-        }
+    // Image URL logic
+    $image_url = '';
+    $image_alt = $name;
+    if (!empty($image) && is_array($image)) {
+        $image_url = $image['sizes']['large'] ?? $image['url'];
+        $image_alt = $image['alt'] ?? $name;
+    } elseif (has_post_thumbnail($post_id)) {
+        $image_url = get_the_post_thumbnail_url($post_id, 'large');
     }
     ?>
-    <div class="highlighted-team-card bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl shadow-xl border-2 border-yellow-200 dark:border-yellow-600 p-8 relative overflow-hidden">
-        <!-- Decorative background elements -->
-        <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-100 dark:bg-yellow-900 rounded-full -translate-y-16 translate-x-16 opacity-20"></div>
-        <div class="absolute bottom-0 left-0 w-24 h-24 bg-orange-100 dark:bg-orange-900 rounded-full translate-y-12 -translate-x-12 opacity-20"></div>
-        
-        <div class="relative z-10 flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-8">
-            <!-- Image Section -->
-            <div class="flex-shrink-0">
-                <div class="relative w-48 h-48 lg:w-56 lg:h-56">
-                    <?php 
-                    // Use ACF image if available, otherwise fallback to featured image
-                    if (!empty($image) && is_array($image)) {
-                        $image_url = $image['sizes']['large'] ?? $image['url'];
-                        $image_alt = $image['alt'] ?? $name;
-                        echo '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($image_alt) . '" class="w-full h-full rounded-2xl object-cover border-4 border-yellow-300 dark:border-yellow-500 shadow-lg" />';
-                    } elseif (has_post_thumbnail($post_id)) {
-                        echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-full rounded-2xl object-cover border-4 border-yellow-300 dark:border-yellow-500 shadow-lg'));
-                    } else {
-                        ?>
-                        <div class="w-full h-full rounded-2xl bg-gray-200 dark:bg-gray-600 flex items-center justify-center border-4 border-yellow-300 dark:border-yellow-500 shadow-lg">
-                            <svg class="w-24 h-24 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="highlighted-team-card py-12 px-4 sm:px-6 lg:px-8 rounded-3xl">
+        <div class="flex flex-col lg:flex-row items-center gap-[118px] max-w-7xl mx-auto">
+            <!-- Content Section -->
+            <div class="lg:pr-8 text-left">
+                <h6 class="text-[#016A7C]">Meet the Team</h6>
+                <h2 class="w-[450px]">
+                    Increase your <span>relationship potential.</span>
+                </h2>
+                
+                <?php if (!empty($message) && $message_visibility) : ?>
+                    <div class="font-lato text-[18px] text-[#757575] text-normal pt-[24px] pb-[40px] w-[600px]">
+                        <?php echo wp_kses_post($message); ?>
+                    </div>
+                <?php endif; ?>
+                <div class="mt-8">
+                    <h3 class="text-[16px] font-normal font-lato tracking-widest text-[#1C2321] uppercase"><?php echo esc_html($name); ?></h3>
+                    <?php if (!empty($designation)) : ?>
+                        <p class="font-lato text-[20px] font-normal text-[#6E7370] mt-1"><?php echo esc_html($designation); ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Image Section --> 
+            <div class="flex-shrink-0 relative flex flex-col items-center justify-center">
+                <!-- Blob Background (SVG) -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] -z-10">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[#F0ECE4] fill-current opacity-60">
+                        <path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-5.3C93.5,8.6,82.2,21.5,70.6,32.3C59,43.1,47.1,51.8,34.8,58.6C22.5,65.4,9.8,70.3,-1.9,73.6C-13.6,76.9,-24.3,78.6,-34.4,73.6C-44.5,68.6,-54,56.9,-61.8,44.2C-69.6,31.5,-75.7,17.8,-76.8,3.5C-77.9,-10.8,-74,-25.7,-65.3,-37.8C-56.6,-49.9,-43.1,-59.2,-29.6,-66.8C-16.1,-74.4,-2.6,-80.3,10.3,-78.8C23.2,-77.3,30.5,-91.1,44.7,-76.4Z" transform="translate(100 100)" />
+                    </svg>
+                </div>
+                
+                <!-- Image -->
+                <div class="relative w-[270px] h-[360px] md:w-[270px] rounded-full md:h-[360px] overflow-hidden border-4 border-white shadow-xl">
+                    <?php if (!empty($image_url)) : ?>
+                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" class="w-full h-full object-cover" />
+                    <?php else : ?>
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <?php
-                    }
-                    ?>
-                    
+                    <?php endif; ?>
                 </div>
-            </div>
-            
-            <!-- Content Section -->
-            <div class="flex-1 text-center lg:text-left">
-                <h3 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                    <?php echo esc_html($name); ?>
-                </h3>
-                
-                <?php if (!empty($designation)) : ?>
-                    <p class="text-xl text-yellow-600 dark:text-yellow-400 font-semibold mb-4">
-                        <?php echo esc_html($designation); ?>
-                    </p>
-                <?php endif; ?>
-                
-                <?php if (!empty($department_names)) : ?>
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
-                        <?php foreach ($department_names as $dept_name) : ?>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200">
-                                <?php echo esc_html($dept_name); ?>
-                            </span>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-                
-                <?php if (!empty($message) && $message_visibility) : ?>
-                    <div class="text-lg text-gray-700 dark:text-gray-300 mb-6 max-w-2xl mx-auto lg:mx-0">
-                        <blockquote class="border-l-4 border-yellow-400 pl-6 italic">
-                            "<?php echo esc_html($message); ?>"
-                        </blockquote>
-                    </div>
-                <?php endif; ?>
-                
+                <div class="mt-[80px]">
+                     <a href="/our-team" class="inline-flex items-center px-6 py-3 bg-[#2A7F85] text-white font-medium rounded hover:bg-[#236C70] transition-colors">
+                        Meet our team 
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                     </a>
+                </div>
             </div>
         </div>
     </div>
@@ -438,9 +429,9 @@ function tov_highlighted_team_member_shortcode($atts) {
     
     ob_start();
     ?>
-    <div class="highlighted-team-member bg-white dark:bg-gray-900 py-16 sm:py-24">
-        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <?php if ($atts['show_title'] === 'true') : ?>
+    <div class="highlighted-team-member bg-[#F9F7F2] py-24 sm:py-24">
+        <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <!-- <?php if ($atts['show_title'] === 'true') : ?>
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
                         <?php echo esc_html($atts['title']); ?>
@@ -451,7 +442,7 @@ function tov_highlighted_team_member_shortcode($atts) {
                         </p>
                     <?php endif; ?>
                 </div>
-            <?php endif; ?>
+            <?php endif; ?> -->
             
             
             <?php

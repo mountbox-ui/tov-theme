@@ -22,8 +22,8 @@ function tov_day_in_tov_home_shortcode($atts) {
             <!-- Section Header -->
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8">
                 <div class="max-w-2xl">
-                    <h2 class="text-[#000] font-jakarta text-[40px] font-semibold leading-[48px] tracking-[-0.5px] mb-[12px]">
-                        <?php echo esc_html($atts['title']); ?> <span class="text-[#000] font-lora text-[40px] italic font-medium leading-[48px] tracking-[-0.5px]"><?php echo esc_html($atts['highlight_text']); ?></span>
+                    <h2>
+                        <?php echo esc_html($atts['title']); ?> <span><?php echo esc_html($atts['highlight_text']); ?></span>
                     </h2>
                     <p class="text-[#757575] font-lato text-[18px] font-normal leading-[26px] mb-0">
                         <?php echo esc_html($atts['description']); ?>
