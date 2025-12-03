@@ -2696,8 +2696,15 @@ nav a:hover {
   margin-top: 80px;
 }
 
-.mb-10 {
-  margin-bottom: 2.5rem;
+.mt-auto {
+  margin-top: auto;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .block {
@@ -3903,10 +3910,6 @@ nav a:hover {
   font-family: Lora, serif;
 }
 
-.font-\[Lato\] {
-  font-family: Lato;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -4047,12 +4050,20 @@ nav a:hover {
   line-height: 16px;
 }
 
+.leading-\[20\.124px\] {
+  line-height: 20.124px;
+}
+
 .leading-\[20px\] {
   line-height: 20px;
 }
 
 .leading-\[24px\] {
   line-height: 24px;
+}
+
+.leading-\[25\.993px\] {
+  line-height: 25.993px;
 }
 
 .leading-\[26px\] {
@@ -4087,14 +4098,6 @@ nav a:hover {
   line-height: 1.25;
 }
 
-.leading-\[20\.124px\] {
-  line-height: 20.124px;
-}
-
-.leading-\[25\.993px\] {
-  line-height: 25.993px;
-}
-
 .tracking-\[-0\.15px\] {
   letter-spacing: -0.15px;
 }
@@ -4115,6 +4118,14 @@ nav a:hover {
   letter-spacing: 0.2em;
 }
 
+.tracking-\[0\.385px\] {
+  letter-spacing: 0.385px;
+}
+
+.tracking-\[0\.459px\] {
+  letter-spacing: 0.459px;
+}
+
 .tracking-tight {
   letter-spacing: -0.025em;
 }
@@ -4129,14 +4140,6 @@ nav a:hover {
 
 .tracking-widest {
   letter-spacing: 0.1em;
-}
-
-.tracking-\[0\.459px\] {
-  letter-spacing: 0.459px;
-}
-
-.tracking-\[0\.385px\] {
-  letter-spacing: 0.385px;
 }
 
 .text-\[\#000\] {
@@ -4208,8 +4211,17 @@ nav a:hover {
   color: rgb(240 236 228 / var(--tw-text-opacity, 1));
 }
 
+.text-\[rgba\(28\2c 35\2c 33\2c 0\.9\)\] {
+  color: rgba(28,35,33,0.9);
+}
+
 .text-\[rgba\(28\2c 35\2c 33\2c 0\.90\)\] {
   color: rgba(28,35,33,0.90);
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
 .text-blue-600 {
@@ -4292,15 +4304,6 @@ nav a:hover {
 
 .text-white\/90 {
   color: rgb(255 255 255 / 0.9);
-}
-
-.text-\[rgba\(28\2c 35\2c 33\2c 0\.9\)\] {
-  color: rgba(28,35,33,0.9);
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
 .underline {
@@ -4594,6 +4597,11 @@ nav a:hover {
   background-color: rgb(255 255 255 / 0.1);
 }
 
+.hover\:text-\[\#014854\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(1 72 84 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-\[\#016A7C\]:hover {
   --tw-text-opacity: 1;
   color: rgb(1 106 124 / var(--tw-text-opacity, 1));
@@ -4607,6 +4615,11 @@ nav a:hover {
 .hover\:text-blue-800:hover {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-gray-200:hover {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-gray-700:hover {
@@ -4627,16 +4640,6 @@ nav a:hover {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-\[\#014854\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(1 72 84 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-gray-200:hover {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity, 1));
 }
 
 .hover\:opacity-100:hover {
@@ -5026,14 +5029,14 @@ nav a:hover {
     padding-bottom: 1rem;
   }
 
-  .sm\:py-\[80px\] {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-
   .sm\:py-\[66px\] {
     padding-top: 66px;
     padding-bottom: 66px;
+  }
+
+  .sm\:py-\[80px\] {
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 
   .sm\:pr-0 {
