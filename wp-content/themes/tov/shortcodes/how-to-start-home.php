@@ -12,7 +12,7 @@ function tov_how_to_start_home_shortcode($atts) {
     ob_start();
     ?>
     
-    <section class="py-20 bg-white relative overflow-hidden">
+    <section class="py-20 bg-[#FDFBF7] relative overflow-hidden">
         <!-- Background Glow Effect -->
          <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[230px] left-[545px] blur-[15px] w-[220px] h-[196px]">
 
