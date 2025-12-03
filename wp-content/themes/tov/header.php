@@ -17,15 +17,15 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site min-h-screen flex flex-col">
-    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854]'; ?> absolute top-0 pt-4 w-full z-50">
-        <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px]">
-            <div class="flex items-center justify-between p-4">
+    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854] h-[80px] flex items-center'; ?> absolute top-0 w-full z-50">
+        <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px] w-full">
+            <div class="flex items-center justify-between <?php echo (is_front_page() || is_home()) ? 'p-4' : 'px-4'; ?>">
                 <!-- Site Logo -->
                 <div class="site-branding flex justify-start">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/tov-log-white.svg" 
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/The-Old-Vicarage-Otterton-Logo.svg" 
                              alt="<?php bloginfo('name'); ?>" 
-                             class="h-12 w-auto md:pt-4 md:h-16 md:w-auto lg:pt-0 lg:h-[91px] lg:w-[297px]">
+                             class="<?php echo (is_front_page() || is_home()) ? 'h-12 w-auto md:pt-4 md:h-16 md:w-auto lg:pt-0 lg:h-[75px] lg:w-[280px]' : 'h-[55px] w-[220px]'; ?>">
                     </a>
                 </div>
 

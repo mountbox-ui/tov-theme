@@ -137,25 +137,25 @@
         }
 
         .main-navigation li:hover>.sub-menu {
-            @apply block px-0 py-0;
+            @apply block px-0 py-[12px];
         }
 
         .main-navigation .sub-menu a {
-            @apply block py-3 px-4 rounded-lg text-gray-600 font-normal text-base transition-all duration-200;
+            @apply block py-3 px-4 text-gray-600 font-normal text-base transition-all duration-200;
         }
 
         .main-navigation .sub-menu li {
             @apply block px-0 py-0;
         }
 
-        /* Hover state - light cyan background like "Why The Old Vicarage" */
+        /* Hover state - light cyan background */
         .main-navigation .sub-menu a:hover {
             @apply bg-[#E6EEEF] text-[#016A7C];
         }
 
         /* Add arrow to items with children */
         .main-navigation .menu-item-has-children>a {
-            @apply flex items-center gap-1;
+            @apply flex items-center gap-[8px];
         }
 
         .main-navigation .menu-item-has-children>a::after {
