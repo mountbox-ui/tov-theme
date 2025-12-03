@@ -12,7 +12,7 @@
     }
 
     h2 {
-        @apply font-jakarta font-semibold text-2xl leading-snug sm:text-3xl md:text-4xl md:leading-snug;
+        @apply font-jakarta font-semibold text-[40px] leading-[44px] sm:text-3xl md:text-4xl md:leading-snug;
     }
 
     h3 {
@@ -28,11 +28,15 @@
     }
 
     h6 {
-        @apply font-lato font-normal text-xs leading-5 pb-4 uppercase tracking-widest sm:text-sm;
+        @apply font-lato font-medium text-xs leading-5 pb-4 uppercase tracking-widest sm:text-sm;
     }
 
     h2 span {
-        @apply font-lora italic font-medium text-2xl sm:text-3xl md:text-4xl;
+        @apply font-lora italic font-medium text-[40px] leading-[44px] sm:text-3xl md:text-4xl;
+    }
+
+    .paragraph {
+        @apply font-lato text-[#757575] font-normal font-[18px] leading-[26px];
     }
 }
 
@@ -137,7 +141,7 @@
         }
 
         .main-navigation .sub-menu a {
-            @apply block py-3 px-4 rounded-lg text-gray-600 font-normal text-base transition-all duration-200 !important;
+            @apply block py-3 px-4 rounded-lg text-gray-600 font-normal text-base transition-all duration-200;
         }
 
         .main-navigation .sub-menu li {
@@ -146,7 +150,7 @@
 
         /* Hover state - light cyan background like "Why The Old Vicarage" */
         .main-navigation .sub-menu a:hover {
-            @apply bg-[#E6EEEF] text-[#016A7C] !important;
+            @apply bg-[#E6EEEF] text-[#016A7C];
         }
 
         /* Add arrow to items with children */

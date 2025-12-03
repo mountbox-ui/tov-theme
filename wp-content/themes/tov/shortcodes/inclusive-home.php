@@ -21,12 +21,12 @@ function tov_inclusive_home_shortcode($atts) {
             
             <!-- Section Header -->
             <div class="mb-12">
-                <h2 class="text-[#1C2321] font-jakarta text-[40px] font-semibold leading-[1.2] mb-2">
-                    <?php echo esc_html($atts['title']); ?>
-                </h2>
-                <p class="text-[#1C2321] font-lora text-[40px] italic font-medium leading-[1.2]">
+                <h2 class="text-[#1C2321]">
+                    <?php echo esc_html($atts['title']); ?><br><span class="text-[#1C2321]">
                     <?php echo esc_html($atts['subtitle']); ?>
-                </p>
+                </span>
+                </h2>
+                
             </div>
 
             <!-- Three Column Grid -->

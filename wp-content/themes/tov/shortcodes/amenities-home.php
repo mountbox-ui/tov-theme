@@ -60,10 +60,10 @@ function tov_amenities_home_shortcode($atts) {
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                 <!-- Left Column: Content -->
                 <div class="text-white">
-                    <span class="text-[rgba(255, 255, 255, 0.57)] font-jakarta text-sm font-normal tracking-widest uppercase block mb-4">OUR AMENITIES</span>
+                    <h6 class="text-[rgba(255, 255, 255, 0.57)]">WHY TOV?</h6>
                     
-                    <h2 class="text-white font-jakarta text-[30px] font-normal leading-[36px] tracking-[-0.5px] mb-8]">
-                        Comforts of <span class="text-white block font-lora text-[30px] italic font-normal leading-[36px] tracking-[-0.5px]">home</span>
+                    <h2 class="text-white">
+                        Comforts of <span class="text-white">home</span>
                     </h2>
                     
                     <p class="my-8 max-w-md" style="color: rgba(255, 255, 255, 0.65); font-family: 'Lato', sans-serif; font-size: 16px; font-style: normal; font-weight: 400; line-height: 24px;">

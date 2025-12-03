@@ -14,10 +14,10 @@ function tov_services_home_shortcode($atts) {
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             <!-- Header -->
             <div class="max-w-3xl mb-16">
-                <span class="text-[#016A7C] font-jakarta text-sm font-normal tracking-widest uppercase block mb-4">Our Care Services</span>
-                <h2 class="text-[rgba(28,35,33,0.90)] font-jakarta text-[30px] font-normal leading-[36px] tracking-[-0.5px] mb-8]">
+                <h6 class="text-[#016A7C]">Our Care Services</h6>
+                <h2>
                     Compassionate care <br>
-                    tailored to <span class="text-[rgba(28,35,33,0.90)] font-lora text-[30px] italic font-normal leading-[36px] tracking-[-0.5px]">every need</span>
+                    tailored to <span>every need</span>
                 </h2>
             </div>
 

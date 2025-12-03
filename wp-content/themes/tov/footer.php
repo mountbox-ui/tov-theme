@@ -68,7 +68,7 @@
                 } else { ?>
                     <ul class="flex items-center gap-6 text-xs text-white/80">
                         <li><a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">Privacy policy</a></li>
-                        <li><a href="<?php echo esc_url(home_url('/terms-and-conditions/')); ?>">Terms &amp; conditions</a></li>
+                        <li><a href="<?php echo esc_url(home_url('/terms-conditions/')); ?>">Terms &amp; conditions</a></li>
                         <li><a href="<?php echo esc_url(home_url('/modern-slavery-act/')); ?>">Modern Slavery Act</a></li>
                     </ul>
                 <?php } ?>

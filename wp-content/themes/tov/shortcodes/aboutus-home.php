@@ -33,23 +33,23 @@ function tov_aboutus_home_shortcode($atts) {
                         <!-- Content Paragraphs -->
                         <div class="relative mb-6">
                             <div class="text-[#757575] font-lato text-[18px] font-normal leading-[26px] space-y-6">
-                                <p>
+                                <p class="paragraph">
                                     At The Old Vicarage, we believe later life should be lived with purpose, comfort, and dignity. Established and managed by Neways Healthcare in the picturesque village of Otterton - near Budleigh Salterton, Exmouth, and Sidmouth - our family-run care home is part of a proud legacy of providing exceptional care across East Devon.
                                 </p>
-                                <p>
+                                <p class="paragraph">
                                     With roots grounded in compassion and respect, we specialise in Residential, Respite, and Dementia Care, including support for those living with Parkinson's and requiring End of Life Care. Since our beginnings, our mission has remained unchanged:
                                 </p>
                             
                                 <!-- Expandable Content -->
                                 <div id="aboutUsExpandable" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
                                     <div class="space-y-6 pt-6">
-                                        <p>
+                                        <p class="paragraph">
                                             Our beautifully appointed rooms, award-winning gardens, and vibrant wellbeing calendar are designed to foster joy, independence, and connection. Every detail - from freshly prepared meals with home-grown ingredients, personalised care, and a warm, luxurious environment where individuality is celebrated.
                                         </p>
-                                        <p>
+                                        <p class="paragraph">
                                             From the moment you walk through our doors, you'll be treated like a friend - because that's exactly who you are. And with tools like the Nourish App to keep families close, and free experience days for prospective residents, everything we do is centred around building trust, comfort, and lasting relationships.
                                         </p>
-                                        <p>
+                                        <p class="paragraph">
                                             The Old Vicarage isn't just a place to live—it's a place to belong, to laugh again and to thrive.
                                         </p>
                                     </div>
