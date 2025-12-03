@@ -58,7 +58,7 @@ function tov_faq_section_shortcode($atts, $content = null) {
             <div class="max-w-4xl mx-auto px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-[80px]">
                 
                 <!-- Header -->
-                <div class="text-start mb-12">
+                <div class="text-start mb-[40px]">
                     <h2 class="font-jakarta text-[40px] leading-[48px] font-semibold mb-8 sm:text-[40px] md:text-5xl">FAQ</h2>
                 </div>
 

@@ -81,10 +81,7 @@ function tov_facilities_home_shortcode($atts) {
                 <!-- Header -->
                 <div class="mb-16 relative z-10 w-[400px]">
                     <h6 class="text-[#016A7C]">Our Homely Facilities</h6>
-                    <!-- <h2 class="text-[rgba(28,35,33,0.90)] w-[297px] font-jakarta text-[30px] font-semibold leading-[36px] tracking-[-0.5px] mb-8">
-                        Facilities that feel like home <span class="text-[rgba(28,35,33,0.90)] font-lora text-[30px] italic font-medium leading-[36px] tracking-[-0.5px]">only better</span>
-                    </h2> -->
-                    <h2 cl>
+                    <h2>
                         Facilities that feel like home <span>only better</span>
                     </h2>
                 </div>

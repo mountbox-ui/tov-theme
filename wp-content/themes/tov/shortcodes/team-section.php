@@ -437,7 +437,7 @@ function tov_highlighted_team_member_shortcode($atts) {
                         <?php echo esc_html($atts['title']); ?>
                     </h2>
                     <?php if ($atts['show_subtitle'] === 'true') : ?>
-                        <p class="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-400">
+                        <p class="text-blue-600">
                             <?php echo esc_html($atts['subtitle']); ?>
                         </p>
                     <?php endif; ?>

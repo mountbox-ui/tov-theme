@@ -228,7 +228,8 @@ if ($specific_news_id && $specific_news_id > 0) {
                                 continue;
                             }
                             $news_date = get_the_date('Y-m-d', get_the_ID());
-                            tov_render_news_card(get_the_ID(), $news_date);
+                            // In template, keep author / reporter meta visible
+                            tov_render_news_card(get_the_ID(), $news_date, true);
                         endwhile; ?>
                     </div>
                 <?php endif; ?>
@@ -290,7 +291,8 @@ if ($specific_news_id && $specific_news_id > 0) {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($older_news->have_posts()) : $older_news->the_post();
                     $news_date = get_the_date('Y-m-d', get_the_ID());
-                    tov_render_news_card(get_the_ID(), $news_date);
+                    // In template, keep author / reporter meta visible
+                    tov_render_news_card(get_the_ID(), $news_date, true);
                 endwhile; ?>
             </div>
 
