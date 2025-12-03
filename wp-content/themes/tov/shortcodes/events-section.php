@@ -110,23 +110,23 @@ function tov_events_section_shortcode($atts) {
 							$time_display = date_i18n('g:i a', strtotime($event_time));
 						}
 						?>
-						<article class="flex flex-col overflow-hidden rounded-2xl bg-white  mx-auto" style="height: 484px;">
+						<article class="flex flex-col overflow-hidden rounded-2xl bg-white mx-auto" style="height: 484px;">
 							<div class="relative w-full" >
 								<?php if (has_post_thumbnail()) : ?>
-									<?php the_post_thumbnail('large', array('class' => 'h-[338px]  object-cover rounded-lg')); ?>
+									<?php the_post_thumbnail('large', array('class' => 'h-[338px] object-cover rounded-lg w-full')); ?>
 								<?php else : ?>
-									<div class="flex h-full w-full items-center justify-center bg-gray-100 text-gray-400">
+									<div class="flex h-[338px] w-full items-center justify-center bg-gray-100 text-gray-400">
 										<?php echo esc_html__('No image available', 'tov'); ?>
 									</div>
 								<?php endif; ?>
 							</div>
-							<div class="flex flex-1 flex-col pb-6 pt-5">
-								<h3 >
+							<div class="flex flex-1 flex-col pb-6 pt-5 px-6">
+								<h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
 									<?php the_title(); ?>
 								</h3>
 								
 								<?php if ($date_display || $time_display || $event_location) : ?>
-									<p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px]">
+									<p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px] mb-2">
 										<?php if ($date_display) : ?>
 											<?php echo esc_html($date_display); ?>
 										<?php endif; ?>
@@ -141,7 +141,7 @@ function tov_events_section_shortcode($atts) {
 									</p>
 								<?php endif; ?>
 
-								<div class="mt-4">
+								<div class="mt-auto">
 									<!-- <a href="<?php the_permalink(); ?>"
 									   class="inline-flex items-center text-sm font-semibold text-[#227D8C] hover:text-[#014854]">
 										<?php esc_html_e('Read more', 'tov'); ?>
