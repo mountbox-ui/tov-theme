@@ -278,7 +278,7 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
                 </div>
                 
                 <!-- Image -->
-                <div class="relative w-[270px] h-[360px] md:w-[270px] rounded-full md:h-[360px] overflow-hidden border-4 border-white shadow-xl">
+                <div class="relative w-[270px] h-[360px] md:w-[270px] rounded-full md:h-[360px] overflow-hidden shadow-xl">
                     <?php if (!empty($image_url)) : ?>
                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" class="w-full h-full object-cover" />
                     <?php else : ?>
@@ -290,7 +290,7 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
                     <?php endif; ?>
                 </div>
                 <div class="mt-[80px]">
-                     <a href="/our-team" class="inline-flex items-center px-6 py-3 bg-[#2A7F85] text-white font-medium rounded hover:bg-[#236C70] transition-colors">
+                     <a href="<?php echo esc_url(get_post_type_archive_link('/teams/')) ?>" class="inline-flex items-center px-6 py-3 bg-[#2A7F85] text-white font-medium rounded hover:bg-[#236C70] transition-colors">
                         Meet our team 
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

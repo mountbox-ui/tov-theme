@@ -6,7 +6,7 @@
                 <!-- Brand + Address -->
                 <div>
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center ">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/tov-log-white.svg" alt="<?php bloginfo('name'); ?>" class="w-[260px] h-[72px]">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/The-Old-Vicarage-Otterton-Logo.svg" alt="<?php bloginfo('name'); ?>" class="w-[80%] h-auto">
                     </a>
                     <div class="mt-4 text-sm text-white leading-6">
                         <p>Ropers Lane, Otterton, Budleigh<br> Salterton East Devon, EX9 7JF</p>

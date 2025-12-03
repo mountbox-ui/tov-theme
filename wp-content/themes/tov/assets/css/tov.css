@@ -2035,13 +2035,12 @@ nav a:hover {
     display: block;
     padding-left: 0px;
     padding-right: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 
   .main-navigation .sub-menu a {
     display: block;
-    border-radius: 0.5rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-left: 1rem;
@@ -2064,7 +2063,7 @@ nav a:hover {
     padding-bottom: 0px;
   }
 
-  /* Hover state - light cyan background like "Why The Old Vicarage" */
+  /* Hover state - light cyan background */
 
   .main-navigation .sub-menu a:hover {
     --tw-bg-opacity: 1;
@@ -2078,7 +2077,7 @@ nav a:hover {
   .main-navigation .menu-item-has-children>a {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 8px;
   }
 
   .main-navigation .menu-item-has-children>a::after {
@@ -2608,10 +2607,6 @@ nav a:hover {
   margin-bottom: 2rem;
 }
 
-.mb-\[12px\] {
-  margin-bottom: 12px;
-}
-
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -2819,6 +2814,10 @@ nav a:hover {
   height: 280px;
 }
 
+.h-\[360px\] {
+  height: 360px;
+}
+
 .h-\[395px\] {
   height: 395px;
 }
@@ -2859,8 +2858,12 @@ nav a:hover {
   height: 1px;
 }
 
-.h-\[360px\] {
-  height: 360px;
+.h-\[55px\] {
+  height: 55px;
+}
+
+.h-\[80px\] {
+  height: 80px;
 }
 
 .min-h-\[320px\] {
@@ -2915,10 +2918,6 @@ nav a:hover {
   width: 1.5rem;
 }
 
-.w-64 {
-  width: 16rem;
-}
-
 .w-8 {
   width: 2rem;
 }
@@ -2951,6 +2950,10 @@ nav a:hover {
   width: 260px;
 }
 
+.w-\[270px\] {
+  width: 270px;
+}
+
 .w-\[297px\] {
   width: 297px;
 }
@@ -2965,6 +2968,10 @@ nav a:hover {
 
 .w-\[412px\] {
   width: 412px;
+}
+
+.w-\[450px\] {
+  width: 450px;
 }
 
 .w-\[600px\] {
@@ -2983,16 +2990,8 @@ nav a:hover {
   width: 100%;
 }
 
-.w-\[250px\] {
-  width: 250px;
-}
-
-.w-\[450px\] {
-  width: 450px;
-}
-
-.w-\[270px\] {
-  width: 270px;
+.w-\[80\%\] {
+  width: 80%;
 }
 
 .min-w-0 {
@@ -3224,16 +3223,16 @@ nav a:hover {
   gap: 2rem;
 }
 
+.gap-\[118px\] {
+  gap: 118px;
+}
+
 .gap-\[20px\] {
   gap: 20px;
 }
 
 .gap-\[48px\] {
   gap: 48px;
-}
-
-.gap-\[118px\] {
-  gap: 118px;
 }
 
 .gap-x-10 {
@@ -3404,10 +3403,6 @@ nav a:hover {
 
 .border-2 {
   border-width: 2px;
-}
-
-.border-4 {
-  border-width: 4px;
 }
 
 .border-b {
@@ -3853,6 +3848,10 @@ nav a:hover {
   padding-bottom: 2rem;
 }
 
+.pb-\[40px\] {
+  padding-bottom: 40px;
+}
+
 .pb-\[86px\] {
   padding-bottom: 86px;
 }
@@ -3897,12 +3896,12 @@ nav a:hover {
   padding-top: 20rem;
 }
 
-.pb-\[40px\] {
-  padding-bottom: 40px;
-}
-
 .pt-\[24px\] {
   padding-top: 24px;
+}
+
+.pt-1 {
+  padding-top: 0.25rem;
 }
 
 .text-left {
@@ -3915,6 +3914,10 @@ nav a:hover {
 
 .text-right {
   text-align: right;
+}
+
+.text-start {
+  text-align: start;
 }
 
 .font-din {
@@ -3954,6 +3957,10 @@ nav a:hover {
 
 .text-\[14px\] {
   font-size: 14px;
+}
+
+.text-\[16px\] {
+  font-size: 16px;
 }
 
 .text-\[18px\] {
@@ -4027,10 +4034,6 @@ nav a:hover {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-\[16px\] {
-  font-size: 16px;
 }
 
 .font-bold {
@@ -4202,6 +4205,11 @@ nav a:hover {
   color: rgb(106 114 130 / var(--tw-text-opacity, 1));
 }
 
+.text-\[\#6E7370\] {
+  --tw-text-opacity: 1;
+  color: rgb(110 115 112 / var(--tw-text-opacity, 1));
+}
+
 .text-\[\#757575\] {
   --tw-text-opacity: 1;
   color: rgb(117 117 117 / var(--tw-text-opacity, 1));
@@ -4308,11 +4316,6 @@ nav a:hover {
   color: rgb(255 255 255 / 0.9);
 }
 
-.text-\[\#6E7370\] {
-  --tw-text-opacity: 1;
-  color: rgb(110 115 112 / var(--tw-text-opacity, 1));
-}
-
 .underline {
   text-decoration-line: underline;
 }
@@ -4351,6 +4354,10 @@ nav a:hover {
 
 .opacity-\[0\.7983\] {
   opacity: 0.7983;
+}
+
+.opacity-0 {
+  opacity: 0;
 }
 
 .shadow-lg {
@@ -4619,6 +4626,11 @@ nav a:hover {
   background-color: rgb(255 255 255 / 0.1);
 }
 
+.hover\:bg-\[\#015a69\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 90 105 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:text-\[\#016A7C\]:hover {
   --tw-text-opacity: 1;
   color: rgb(1 106 124 / var(--tw-text-opacity, 1));
@@ -4776,6 +4788,29 @@ nav a:hover {
 .group:hover .group-hover\:text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:rotate-90 {
+  --tw-rotate: 90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:bg-\[\#0a4c5a\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 76 90 / var(--tw-bg-opacity, 1));
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:bg-\[\#273A29\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 58 41 / var(--tw-bg-opacity, 1));
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:opacity-0 {
+  opacity: 0;
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:opacity-100 {
+  opacity: 1;
 }
 
 .dark\:hidden:is(.dark *) {
@@ -5184,16 +5219,12 @@ nav a:hover {
     height: 4rem;
   }
 
-  .md\:h-80 {
-    height: 20rem;
+  .md\:h-\[360px\] {
+    height: 360px;
   }
 
   .md\:h-\[55px\] {
     height: 55px;
-  }
-
-  .md\:h-\[360px\] {
-    height: 360px;
   }
 
   .md\:min-h-\[720px\] {
@@ -5208,8 +5239,8 @@ nav a:hover {
     width: 80%;
   }
 
-  .md\:w-80 {
-    width: 20rem;
+  .md\:w-\[270px\] {
+    width: 270px;
   }
 
   .md\:w-\[28rem\] {
@@ -5222,10 +5253,6 @@ nav a:hover {
 
   .md\:w-auto {
     width: auto;
-  }
-
-  .md\:w-\[270px\] {
-    width: 270px;
   }
 
   .md\:max-w-\[440px\] {
@@ -5334,6 +5361,10 @@ nav a:hover {
     height: 100%;
   }
 
+  .lg\:h-\[75px\] {
+    height: 75px;
+  }
+
   .lg\:min-h-\[760px\] {
     min-height: 760px;
   }
@@ -5344,6 +5375,10 @@ nav a:hover {
 
   .lg\:w-\[297px\] {
     width: 297px;
+  }
+
+  .lg\:w-\[280px\] {
+    width: 280px;
   }
 
   .lg\:max-w-4xl {

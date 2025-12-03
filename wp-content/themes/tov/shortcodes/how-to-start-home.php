@@ -20,7 +20,7 @@ function tov_how_to_start_home_shortcode($atts) {
             
             <!-- Section Header -->
             <div class="mb-8">
-                <h2 class="text-[#1C2321] font-jakarta text-[40px] font-bold leading-[1.2]">
+                <h2 class="text-[#000] font-jakarta text-[40px] font-bold leading-[1.2]">
                     <?php echo esc_html($atts['title']); ?>
                 </h2>
             </div>
