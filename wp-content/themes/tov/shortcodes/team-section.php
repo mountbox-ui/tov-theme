@@ -299,7 +299,7 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
                 <?php endif; ?>
                 
                 <?php if (!empty($message) && $message_visibility) : ?>
-                    <div class="text-lg text-gray-700 dark:text-gray-300 mb-6 max-w-2xl mx-auto lg:mx-0">
+                    <div class="text-lg text-red-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto lg:mx-0">
                         <blockquote class="border-l-4 border-yellow-400 pl-6 italic">
                             "<?php echo esc_html($message); ?>"
                         </blockquote>
@@ -446,7 +446,7 @@ function tov_highlighted_team_member_shortcode($atts) {
                         <?php echo esc_html($atts['title']); ?>
                     </h2>
                     <?php if ($atts['show_subtitle'] === 'true') : ?>
-                        <p class="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-400">
+                        <p class="text-blue-600">
                             <?php echo esc_html($atts['subtitle']); ?>
                         </p>
                     <?php endif; ?>

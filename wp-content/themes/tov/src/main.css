@@ -54,7 +54,18 @@
     }
 
     .site-header {
-        @apply transition-colors transition-shadow duration-200 ease-in-out;
+        @apply transition-colors transition-shadow duration-200 ease-in-out relative;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+    }
+    
+    #masthead {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
     }
 
     .site-header.header-solid {

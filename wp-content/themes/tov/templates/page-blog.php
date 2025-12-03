@@ -248,12 +248,6 @@ get_header(); ?>
                 'posts_per_page' => 1,
                 'orderby' => 'date',
                 'order' => 'DESC',
-                'date_query' => array(
-                    array(
-                        'after' => date('Y-m-d', strtotime('-30 days')),
-                        'inclusive' => true,
-                    )
-                )
             );
             $latest_blog = new WP_Query($latest_args);
             ?>
@@ -305,11 +299,11 @@ get_header(); ?>
                                     <!-- Image on the left -->
                                     <div class="lg:w-1/2">
                                         <?php if (has_post_thumbnail($post_id)) : ?>
-                                            <a href="<?php echo get_permalink($post_id); ?>">
-                                                <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-64 lg:h-full object-cover')); ?>
+                                            <a href="<?php echo get_permalink($post_id); ?>" class="block">
+                                                <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-64  object-cover')); ?>
                                             </a>
                                         <?php else : ?>
-                                            <div class="w-full h-64 lg:h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                            <div class="w-full h-64 lg:h-80 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                                                 <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                                 </svg>

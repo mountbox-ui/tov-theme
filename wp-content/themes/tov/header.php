@@ -17,7 +17,7 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site min-h-screen flex flex-col">
-    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854]'; ?> fixed top-0 pt-4 w-full z-50">
+    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854]'; ?> relative pt-4 w-full z-50">
         <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px]">
             <div class="flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between lg:justify-center p-4">
                 <!-- Site Logo -->
