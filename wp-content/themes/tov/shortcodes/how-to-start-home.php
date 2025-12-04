@@ -19,10 +19,8 @@ function tov_how_to_start_home_shortcode($atts) {
             
             <!-- Section Header -->
             <div>
-                <!-- Background Glow Effect -->
-                <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[170px] left-[225px] blur-[15px] w-[220px] h-[196px]">
                 <div class="mb-8">
-                    <h2 class="text-[#000] font-jakarta text-[40px] font-bold leading-[1.2]">
+                    <h2 class="text-[#000] font-jakarta text-[40px] font-semibold leading-[1.2]">
                         <?php echo esc_html($atts['title']); ?>
                     </h2>
                 </div>
@@ -148,6 +146,8 @@ function tov_how_to_start_home_shortcode($atts) {
                 </div>
 
             </div>
+            <!-- Background Glow Effect -->
+            <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[170px] left-[225px] blur-[15px] w-[220px] h-[196px]">
         </div>
     </section>
 

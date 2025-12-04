@@ -243,7 +243,7 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
     // Check if this post is set to show on homepage
     $show_on_homepage = get_post_meta($post_id, '_show_on_homepage', true);
     
-    $card_classes = "flex flex-col items-start ";
+    $card_classes = "flex flex-col items-start justify-between";
     if ($is_highlighted) {
         $card_classes .= " bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border border-orange-200 dark:border-orange-700/50 rounded-2xl p-6 shadow-lg";
     }
@@ -282,9 +282,9 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
 
                 <div class="mt-4">
                     
-                    <a href="<?php echo get_permalink($post_id); ?>" class="inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors">
+                    <a href="<?php echo get_permalink($post_id); ?>" class="inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors hover:text-[#016A7C]">
                     <?php esc_html_e('Read more', 'tov-theme'); ?>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform duration-300 ease-in-out hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
@@ -488,6 +488,7 @@ function tov_render_horizontal_news_card($post_id) {
                         <?php esc_html_e('Read more', 'tov-theme'); ?>
                         <span aria-hidden="true" class="ml-1">→</span>
                     </a>
+                    
                 </div>
             </div>
             <div class="mt-6 flex border-t border-gray-900/5 pt-6 dark:border-white/10">

@@ -36,7 +36,11 @@
     }
 
     .paragraph {
-        @apply font-lato text-[#757575] font-normal font-[18px] leading-[26px];
+        @apply font-lato text-[#757575] font-normal text-[18px] leading-[26px];
+    }
+
+    .li-span {
+        @apply text-[#757575] font-lato text-[18px] font-normal leading-[26px];
     }
 }
 
@@ -84,16 +88,64 @@
     }
 
     /* Navigation Styles */
+    .bt-1 {
+        @apply px-[18px] py-[16px] justify-center transition-all duration-300 ease-in-out bg-[#016A7C];
+    }
+
+    .bt-1 svg {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .bt-1:hover {
+        @apply bg-[#018a9f];
+    }
+
+    .bt-1:hover svg {
+        @apply translate-x-1;
+    }
+
+    .bt-r {
+        @apply flex flex-row px-[15px] py-[6px] items-center justify-center rounded-md border border-[#227D8C] text-sm font-semibold text-[#227D8C];
+    }
+
+    .bt-r svg {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .bt-r:hover {
+        @apply bg-white;
+    }
+
+    .bt-r:hover svg {
+        @apply translate-x-1;
+    }
+
+    .bt-l {
+        @apply inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors;
+    }
+
+    .bt-l svg {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .bt-l:hover {
+        @apply text-[#016A7C];
+    }
+
+    .bt-l:hover svg {
+        @apply translate-x-1;
+    }
+
     .btn {
         @apply inline-flex items-center border border-transparent font-medium rounded-md shadow-sm transition duration-300 ease-in-out;
     }
 
     .btn-primary {
-        @apply font-lato justify-center text-white text-sm sm:text-base leading-snug tracking-wide flex items-center gap-3 px-5 py-3 sm:px-6 sm:py-4 bg-[#016A7C] opacity-90 transition duration-300 ease-in-out;
+        @apply font-lato justify-center text-white text-sm sm:text-base leading-snug tracking-wide flex items-center gap-[9px] px-[18px] py-[16px] bg-[#016A7C] opacity-90 transition duration-300 ease-in-out;
     }
 
     .btn-secondary {
-        @apply font-lato text-white text-base sm:text-lg leading-snug tracking-wide flex items-center gap-2 px-6 sm:px-7 py-4 sm:py-5 rounded-md bg-[#016A7C] opacity-90 w-full sm:w-auto min-w-[180px] sm:min-w-[235px] justify-center;
+        @apply font-lato text-white text-base sm:text-lg leading-snug tracking-wide flex items-center gap-2 px-[18px] py-[16px] rounded-md bg-[#016A7C] opacity-90 w-full sm:w-auto min-w-[180px] sm:min-w-[235px] justify-center;
     }
 
     .btn-white {
