@@ -113,7 +113,7 @@ function tov_events_section_shortcode($atts) {
 						<article class="flex flex-col overflow-hidden rounded-2xl bg-white mx-auto" style="height: 484px;">
 							<div class="relative w-full" >
 								<?php if (has_post_thumbnail()) : ?>
-									<?php the_post_thumbnail('large', array('class' => 'h-[338px] object-cover rounded-lg w-full')); ?>
+									<?php the_post_thumbnail('large', array('class' => 'h-[338px] object-cover rounded-lg w-[555px]')); ?>
 								<?php else : ?>
 									<div class="flex h-[338px] w-full items-center justify-center bg-gray-100 text-gray-400">
 										<?php echo esc_html__('No image available', 'tov'); ?>
