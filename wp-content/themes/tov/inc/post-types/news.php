@@ -243,7 +243,7 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
     // Check if this post is set to show on homepage
     $show_on_homepage = get_post_meta($post_id, '_show_on_homepage', true);
     
-    $card_classes = "flex flex-col items-start justify-between";
+    $card_classes = "flex flex-col items-start ";
     if ($is_highlighted) {
         $card_classes .= " bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border border-orange-200 dark:border-orange-700/50 rounded-2xl p-6 shadow-lg";
     }

@@ -2040,13 +2040,12 @@ nav a:hover {
     display: block;
     padding-left: 0px;
     padding-right: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 
   .main-navigation .sub-menu a {
     display: block;
-    border-radius: 0.5rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-left: 1rem;
@@ -2069,7 +2068,7 @@ nav a:hover {
     padding-bottom: 0px;
   }
 
-  /* Hover state - light cyan background like "Why The Old Vicarage" */
+  /* Hover state - light cyan background */
 
   .main-navigation .sub-menu a:hover {
     --tw-bg-opacity: 1;
@@ -2083,7 +2082,7 @@ nav a:hover {
   .main-navigation .menu-item-has-children>a {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 8px;
   }
 
   .main-navigation .menu-item-has-children>a::after {
@@ -2545,10 +2544,6 @@ nav a:hover {
   z-index: 50;
 }
 
-.col-span-full {
-  grid-column: 1 / -1;
-}
-
 .m-0 {
   margin: 0px;
 }
@@ -2600,16 +2595,16 @@ nav a:hover {
   margin-bottom: 1rem;
 }
 
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
-
 .mb-6 {
   margin-bottom: 1.5rem;
 }
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.mb-\[40px\] {
+  margin-bottom: 40px;
 }
 
 .ml-1 {
@@ -2853,8 +2848,12 @@ nav a:hover {
   height: 460px;
 }
 
-.h-\[72px\] {
-  height: 72px;
+.h-\[55px\] {
+  height: 55px;
+}
+
+.h-\[80px\] {
+  height: 80px;
 }
 
 .h-\[82px\] {
@@ -2957,10 +2956,6 @@ nav a:hover {
   width: 246px;
 }
 
-.w-\[260px\] {
-  width: 260px;
-}
-
 .w-\[270px\] {
   width: 270px;
 }
@@ -2983,6 +2978,10 @@ nav a:hover {
 
 .w-\[600px\] {
   width: 600px;
+}
+
+.w-\[80\%\] {
+  width: 80%;
 }
 
 .w-\[82px\] {
@@ -3397,10 +3396,6 @@ nav a:hover {
 
 .border-2 {
   border-width: 2px;
-}
-
-.border-4 {
-  border-width: 4px;
 }
 
 .border-b {
@@ -3890,6 +3885,10 @@ nav a:hover {
   text-align: right;
 }
 
+.text-start {
+  text-align: start;
+}
+
 .font-din {
   font-family: "Barlow Condensed", "DIN Condensed", sans-serif;
 }
@@ -4157,11 +4156,6 @@ nav a:hover {
   color: rgb(9 9 11 / var(--tw-text-opacity, 1));
 }
 
-.text-\[\#0a4c5a\] {
-  --tw-text-opacity: 1;
-  color: rgb(10 76 90 / var(--tw-text-opacity, 1));
-}
-
 .text-\[\#1C2321\] {
   --tw-text-opacity: 1;
   color: rgb(28 35 33 / var(--tw-text-opacity, 1));
@@ -4308,6 +4302,10 @@ nav a:hover {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.opacity-0 {
+  opacity: 0;
 }
 
 .opacity-15 {
@@ -4533,6 +4531,11 @@ nav a:hover {
   background-color: rgb(1 72 84 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-\[\#015a69\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 90 105 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-\[\#018a9f\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(1 138 159 / var(--tw-bg-opacity, 1));
@@ -4709,10 +4712,6 @@ nav a:hover {
   outline-color: #3b82f6;
 }
 
-.focus-visible\:outline-teal-600:focus-visible {
-  outline-color: #0d9488;
-}
-
 .disabled\:cursor-not-allowed:disabled {
   cursor: not-allowed;
 }
@@ -4741,6 +4740,24 @@ nav a:hover {
 .group:hover .group-hover\:text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:rotate-90 {
+  --tw-rotate: 90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:bg-\[\#273A29\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 58 41 / var(--tw-bg-opacity, 1));
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:opacity-0 {
+  opacity: 0;
+}
+
+.group[aria-expanded="true"] .group-aria-expanded\:opacity-100 {
+  opacity: 1;
 }
 
 .dark\:hidden:is(.dark *) {
@@ -5258,8 +5275,8 @@ nav a:hover {
     height: 24rem;
   }
 
-  .lg\:h-\[91px\] {
-    height: 91px;
+  .lg\:h-\[75px\] {
+    height: 75px;
   }
 
   .lg\:h-full {
@@ -5274,8 +5291,8 @@ nav a:hover {
     width: 50%;
   }
 
-  .lg\:w-\[297px\] {
-    width: 297px;
+  .lg\:w-\[280px\] {
+    width: 280px;
   }
 
   .lg\:max-w-4xl {
@@ -5308,10 +5325,6 @@ nav a:hover {
 
   .lg\:items-end {
     align-items: flex-end;
-  }
-
-  .lg\:gap-12 {
-    gap: 3rem;
   }
 
   .lg\:gap-16 {
@@ -5381,10 +5394,6 @@ nav a:hover {
   .lg\:py-\[80px\] {
     padding-top: 80px;
     padding-bottom: 80px;
-  }
-
-  .lg\:pr-28 {
-    padding-right: 7rem;
   }
 
   .lg\:pr-8 {
