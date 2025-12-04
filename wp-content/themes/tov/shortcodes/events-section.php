@@ -147,11 +147,7 @@ function tov_events_section_shortcode($atts) {
 										<?php esc_html_e('Read more', 'tov'); ?>
 										<span aria-hidden="true" class="ml-1">→</span>
 									</a> -->
-<<<<<<< HEAD
-									<a href="<?php the_permalink(); ?>" class="bt-l">
-=======
 									<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-[#227D8C] font-bold text-sm hover:text-[#016A7C] transition-colors hover:pb-2">
->>>>>>> master
                         Learn more
                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
   <path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="#016A7C"/>
