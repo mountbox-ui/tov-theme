@@ -110,7 +110,7 @@ function tov_events_section_shortcode($atts) {
 							$time_display = date_i18n('g:i a', strtotime($event_time));
 						}
 						?>
-						<article class="flex flex-col overflow-hidden rounded-2xl bg-white mx-auto" style="height: 484px;">
+						<article class="flex flex-col overflow-hidden rounded-2xl bg-white mx-auto" style="height: 498px;">
 							<div class="relative w-full" >
 								<?php if (has_post_thumbnail()) : ?>
 									<?php the_post_thumbnail('large', array('class' => 'h-[338px] object-cover rounded-lg w-[555px]')); ?>
@@ -121,12 +121,12 @@ function tov_events_section_shortcode($atts) {
 								<?php endif; ?>
 							</div>
 							<div class="flex flex-1 flex-col pb-6 pt-5 ">
-								<h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+								<h3 class="mb-3 line-clamp-2">
 									<?php the_title(); ?>
 								</h3>
 								
 								<?php if ($date_display || $time_display || $event_location) : ?>
-									<p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px] mb-2">
+									<p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px] mb-6">
 										<?php if ($date_display) : ?>
 											<?php echo esc_html($date_display); ?>
 										<?php endif; ?>
@@ -147,7 +147,7 @@ function tov_events_section_shortcode($atts) {
 										<?php esc_html_e('Read more', 'tov'); ?>
 										<span aria-hidden="true" class="ml-1">→</span>
 									</a> -->
-									<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-[#227D8C] font-bold text-sm hover:text-[#016A7C] transition-colors">
+									<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-[#227D8C] font-bold text-sm hover:text-[#016A7C] transition-colors hover:pb-2">
                         Learn more
                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
   <path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="#016A7C"/>

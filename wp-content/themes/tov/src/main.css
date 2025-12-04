@@ -84,6 +84,11 @@
     }
 
     /* Navigation Styles */
+
+    .btn-outline {
+        @apply text-red-500 border border-red-500 bg-white;
+    }
+
     .btn {
         @apply inline-flex items-center border border-transparent font-medium rounded-md shadow-sm transition duration-300 ease-in-out;
     }
