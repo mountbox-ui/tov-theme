@@ -252,7 +252,7 @@
     }
 
     .grid>article:hover {
-        @apply border-[#d1d5db] shadow-lg bg-white/95;
+        @apply shadow-lg bg-white/95;
     }
 
     .grid>article:hover::before {

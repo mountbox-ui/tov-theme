@@ -17,7 +17,7 @@ function tov_day_in_tov_home_shortcode($atts) {
     ?>
     
     <section class="py-20 bg-[#F9F7F2] relative">
-        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-16">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             
             <!-- Section Header -->
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8">

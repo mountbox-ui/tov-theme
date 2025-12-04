@@ -2369,8 +2369,6 @@ nav a:hover {
 }
 
 .grid>article:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
   background-color: rgb(255 255 255 / 0.95);
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
@@ -2452,12 +2450,20 @@ nav a:hover {
   bottom: -30px;
 }
 
-.bottom-\[230px\] {
-  bottom: 230px;
+.bottom-\[170px\] {
+  bottom: 170px;
+}
+
+.bottom-\[390px\] {
+  bottom: 390px;
 }
 
 .bottom-\[510px\] {
   bottom: 510px;
+}
+
+.bottom-\[725px\] {
+  bottom: 725px;
 }
 
 .bottom-\[735px\] {
@@ -2480,8 +2486,20 @@ nav a:hover {
   left: 0px;
 }
 
+.left-\[225px\] {
+  left: 225px;
+}
+
 .left-\[270px\] {
   left: 270px;
+}
+
+.left-\[330px\] {
+  left: 330px;
+}
+
+.left-\[340px\] {
+  left: 340px;
 }
 
 .left-\[545px\] {
@@ -2500,10 +2518,6 @@ nav a:hover {
   right: 2rem;
 }
 
-.right-\[1016px\] {
-  right: 1016px;
-}
-
 .top-0 {
   top: 0px;
 }
@@ -2518,10 +2532,6 @@ nav a:hover {
 
 .top-4 {
   top: 1rem;
-}
-
-.top-\[60px\] {
-  top: 60px;
 }
 
 .isolate {
@@ -2972,8 +2982,8 @@ nav a:hover {
   width: 412px;
 }
 
-.w-\[450px\] {
-  width: 450px;
+.w-\[475px\] {
+  width: 475px;
 }
 
 .w-\[600px\] {
@@ -3014,10 +3024,6 @@ nav a:hover {
 
 .max-w-4xl {
   max-width: 56rem;
-}
-
-.max-w-6xl {
-  max-width: 72rem;
 }
 
 .max-w-7xl {
@@ -5359,11 +5365,6 @@ nav a:hover {
 
   .lg\:p-8 {
     padding: 2rem;
-  }
-
-  .lg\:px-16 {
-    padding-left: 4rem;
-    padding-right: 4rem;
   }
 
   .lg\:px-8 {
