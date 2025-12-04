@@ -22,11 +22,11 @@ function hero_section_shortcode($atts, $content = null) {
 
     ob_start();
     ?>
-    <section id="support-center" class="container-full relative isolate overflow-hidden dark:bg-gray-900 min-h-[640px] sm:min-h-[680px] md:min-h-[720px] lg:min-h-[760px]"<?php echo !empty($video_id) ? ' data-video-id="' . esc_attr($video_id) . '"' : ''; ?>>
+    <section id="support-center" class="container-full relative isolate overflow-hidden dark:bg-gray-900 h-[600px] sm:h-[680px] md:h-[720px] lg:h-[600px]"<?php echo !empty($video_id) ? ' data-video-id="' . esc_attr($video_id) . '"' : ''; ?>>
         <?php
         // Prefer YouTube background if provided
         if ($video_id): ?>
-            <div class="absolute inset-0 -z-20 overflow-hidden">
+            <div class="absolute inset-0 -z-20 overflow-hidden h-[600px] sm:h-[680px] md:h-[720px] lg:h-[600px]">
                 <iframe class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                         style="width: max(100vw, calc(100vh * 16 / 9)); height: max(100vh, calc(100vw * 9 / 16));"
                         src="https://www.youtube.com/embed/<?php echo esc_attr($video_id); ?>?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=<?php echo esc_attr($video_id); ?>&modestbranding=1&rel=0"
@@ -52,11 +52,15 @@ function hero_section_shortcode($atts, $content = null) {
                         <!-- Pulsing glow rings - positioned outside the circle -->
                         <span class="absolute inline-flex rounded-full border-2 border-white opacity-25 animate-ping" style="width: 110px; height: 110px;"></span>
                         <span class="absolute inline-flex rounded-full border-2 border-white opacity-15 animate-pulse" style="width: 100px; height: 100px;"></span>
+                        <!-- Glassy effect overlay on hover -->
+                        <span class="absolute inset-0 rounded-full bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" style="width: 82px; height: 82px; margin: auto;"></span>
+                        <!-- Shine effect on hover -->
+                        <span class="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" style="width: 82px; height: 82px; margin: auto; clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);"></span>
                         <!-- Play icon -->
-                        <span class="relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 55 55" fill="none" class="w-[82px] h-[82px]">
-                                <path d="M23.5742 35.8728C23.8561 35.8728 24.1094 35.7889 24.335 35.6198L24.3613 35.654L24.335 35.6189L24.3389 35.6169L35.0957 29.2321L35.0986 29.2312C35.3217 29.1196 35.4896 28.9382 35.6025 28.6843C35.7169 28.427 35.7744 28.1704 35.7744 27.9148C35.7744 27.6592 35.717 27.4182 35.6035 27.1911C35.4912 26.9665 35.3233 26.7986 35.0986 26.6862L35.0957 26.6843L24.3389 20.2126C24.1131 20.1003 23.8585 20.0437 23.5742 20.0437C23.2905 20.0437 23.0363 20.1145 22.8105 20.2556C22.5842 20.3971 22.3993 20.5958 22.2568 20.8523C22.1146 21.1083 22.0439 21.378 22.0439 21.6618V34.2546C22.0439 34.5383 22.1147 34.8082 22.2568 35.0642C22.3993 35.3207 22.5842 35.5194 22.8105 35.6609C23.0364 35.802 23.2904 35.8728 23.5742 35.8728Z" fill="white" fill-opacity="0.68" stroke="white" stroke-width="0.0874545"/>
-                                <circle cx="27.3165" cy="27.3165" r="25.644" stroke="white" stroke-width="3.34487"/>
+                        <span class="relative z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 55 55" fill="none" class="w-[82px] h-[82px] transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                                <path d="M23.5742 35.8728C23.8561 35.8728 24.1094 35.7889 24.335 35.6198L24.3613 35.654L24.335 35.6189L24.3389 35.6169L35.0957 29.2321L35.0986 29.2312C35.3217 29.1196 35.4896 28.9382 35.6025 28.6843C35.7169 28.427 35.7744 28.1704 35.7744 27.9148C35.7744 27.6592 35.717 27.4182 35.6035 27.1911C35.4912 26.9665 35.3233 26.7986 35.0986 26.6862L35.0957 26.6843L24.3389 20.2126C24.1131 20.1003 23.8585 20.0437 23.5742 20.0437C23.2905 20.0437 23.0363 20.1145 22.8105 20.2556C22.5842 20.3971 22.3993 20.5958 22.2568 20.8523C22.1146 21.1083 22.0439 21.378 22.0439 21.6618V34.2546C22.0439 34.5383 22.1147 34.8082 22.2568 35.0642C22.3993 35.3207 22.5842 35.5194 22.8105 35.6609C23.0364 35.802 23.2904 35.8728 23.5742 35.8728Z" fill="white" fill-opacity="0.68" stroke="white" stroke-width="0.0874545" class="transition-all duration-300 group-hover:fill-opacity-90"/>
+                                <circle cx="27.3165" cy="27.3165" r="25.644" stroke="white" stroke-width="3.34487" class="transition-all duration-300"/>
                             </svg>
                         </span>
                     </div>
@@ -155,9 +159,9 @@ function hero_section_buttons_shortcode($atts) {
     $phone = '<a href="' . esc_url($atts['phone_url']) . '" class="inline-flex w-[152px] items-center justify-center gap-1.5 sm:gap-2 rounded-md border border-white/30 text-white  sm:px-6 sm:py-4 bg-[rgba(28, 35, 33, 0.20)] opacity-[0.7983] text-base sm:text-lg hover:bg-white/10 transition-colors whitespace-nowrap sm:w-auto">'
            . $phone_icon . '<span>' . esc_html($atts['phone_text']) . '</span></a>';
 
-    $play_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55" fill="none" class="w-10 h-10 sm:w-12 sm:h-12 md:w-[55px] md:h-[55px]">
-<path d="M23.5742 35.8728C23.8561 35.8728 24.1094 35.7889 24.335 35.6198L24.3613 35.654L24.335 35.6189L24.3389 35.6169L35.0957 29.2321L35.0986 29.2312C35.3217 29.1196 35.4896 28.9382 35.6025 28.6843C35.7169 28.427 35.7744 28.1704 35.7744 27.9148C35.7744 27.6592 35.717 27.4182 35.6035 27.1911C35.4912 26.9665 35.3233 26.7986 35.0986 26.6862L35.0957 26.6843L24.3389 20.2126C24.1131 20.1003 23.8585 20.0437 23.5742 20.0437C23.2905 20.0437 23.0363 20.1145 22.8105 20.2556C22.5842 20.3971 22.3993 20.5958 22.2568 20.8523C22.1146 21.1083 22.0439 21.378 22.0439 21.6618V34.2546C22.0439 34.5383 22.1147 34.8082 22.2568 35.0642C22.3993 35.3207 22.5842 35.5194 22.8105 35.6609C23.0364 35.802 23.2904 35.8728 23.5742 35.8728Z" fill="white" fill-opacity="0.68" stroke="white" stroke-width="0.0874545"/>
-<circle cx="27.3165" cy="27.3165" r="25.644" stroke="white" stroke-width="3.34487"/>
+    $play_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55" fill="none" class="w-10 h-10 sm:w-12 sm:h-12 md:w-[55px] md:h-[55px] transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]">
+<path d="M23.5742 35.8728C23.8561 35.8728 24.1094 35.7889 24.335 35.6198L24.3613 35.654L24.335 35.6189L24.3389 35.6169L35.0957 29.2321L35.0986 29.2312C35.3217 29.1196 35.4896 28.9382 35.6025 28.6843C35.7169 28.427 35.7744 28.1704 35.7744 27.9148C35.7744 27.6592 35.717 27.4182 35.6035 27.1911C35.4912 26.9665 35.3233 26.7986 35.0986 26.6862L35.0957 26.6843L24.3389 20.2126C24.1131 20.1003 23.8585 20.0437 23.5742 20.0437C23.2905 20.0437 23.0363 20.1145 22.8105 20.2556C22.5842 20.3971 22.3993 20.5958 22.2568 20.8523C22.1146 21.1083 22.0439 21.378 22.0439 21.6618V34.2546C22.0439 34.5383 22.1147 34.8082 22.2568 35.0642C22.3993 35.3207 22.5842 35.5194 22.8105 35.6609C23.0364 35.802 23.2904 35.8728 23.5742 35.8728Z" fill="white" fill-opacity="0.68" stroke="white" stroke-width="0.0874545" class="transition-all duration-300 group-hover:fill-opacity-90"/>
+<circle cx="27.3165" cy="27.3165" r="25.644" stroke="white" stroke-width="3.34487" class="transition-all duration-300"/>
 </svg>';
 
     // Play icon with label underneath and pulsing glow effect
@@ -166,8 +170,12 @@ function hero_section_buttons_shortcode($atts) {
             <!-- Pulsing glow rings -->
             <span class="absolute inline-flex h-full w-full rounded-full bg-white opacity-30 animate-ping"></span>
             <span class="absolute inline-flex h-full w-full rounded-full bg-white opacity-20 animate-pulse"></span>
+            <!-- Glassy effect overlay on hover -->
+            <span class="absolute inset-0 rounded-full bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out h-full w-full"></span>
+            <!-- Shine effect on hover -->
+            <span class="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out h-full w-full" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);"></span>
             <!-- Play icon -->
-            <span class="relative">' . $play_icon . '</span>
+            <span class="relative z-10">' . $play_icon . '</span>
         </div>
         <span class="mt-1 text-white/90 group-hover:text-white transition-colors">Play video</span>
     </a>

@@ -34,7 +34,7 @@ if ($specific_news_id && $specific_news_id > 0) {
                 </a>
             </div>
             
-            <h1 class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
+            <h1 class="font-jakarta text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
                 <?php echo esc_html($specific_news->post_title); ?>
             </h1>
         </header>
@@ -68,15 +68,8 @@ if ($specific_news_id && $specific_news_id > 0) {
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <?php echo esc_html(get_the_date('F j, Y', $specific_news->ID)); ?>
+                        <?php echo esc_html(strtoupper(get_the_date('F j, Y', $specific_news->ID))); ?>
                     </time>
-                    
-                    <span class="flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                        <?php echo get_the_author_meta('display_name', $specific_news->post_author); ?>
-                    </span>
                     
                     <?php 
                     $categories = get_the_terms($specific_news->ID, 'news_category'); 
@@ -89,31 +82,6 @@ if ($specific_news_id && $specific_news_id > 0) {
                         </span>
                     <?php endif; ?>
                 </div>
-
-                <!-- News Meta Information -->
-                <?php 
-                $news_source = get_post_meta($specific_news->ID, '_news_source', true);
-                $news_reporter = get_post_meta($specific_news->ID, '_news_reporter', true);
-                ?>
-                <?php if ($news_source || $news_reporter) : ?>
-                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6">
-                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">News Details</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <?php if ($news_source) : ?>
-                                <div>
-                                    <span class="font-medium text-gray-700 dark:text-gray-300">Source:</span>
-                                    <span class="text-gray-600 dark:text-gray-400"><?php echo esc_html($news_source); ?></span>
-                                </div>
-                            <?php endif; ?>
-                            <?php if ($news_reporter) : ?>
-                                <div>
-                                    <span class="font-medium text-gray-700 dark:text-gray-300">Reporter:</span>
-                                    <span class="text-gray-600 dark:text-gray-400"><?php echo esc_html($news_reporter); ?></span>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
 
                 <!-- Post Content -->
                 <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
@@ -203,8 +171,19 @@ if ($specific_news_id && $specific_news_id > 0) {
                                         </a>
                                     </h3>
                                     <time datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>" class="highlighted-news-date">
-                                        <?php echo esc_html(get_the_date('F j, Y', $post_id)); ?>
+                                        <?php echo esc_html(strtoupper(get_the_date('F j, Y', $post_id))); ?>
                                     </time>
+                                    <p class="highlighted-news-excerpt mt-5 text-[16px] leading-6 text-gray-600 dark:text-gray-400">
+                                        <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="<?php echo get_permalink($post_id); ?>" class="inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors">
+                                            <?php esc_html_e('Read more', 'tov-theme'); ?>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </article>
@@ -228,8 +207,8 @@ if ($specific_news_id && $specific_news_id > 0) {
                                 continue;
                             }
                             $news_date = get_the_date('Y-m-d', get_the_ID());
-                            // In template, keep author / reporter meta visible
-                            tov_render_news_card(get_the_ID(), $news_date, true);
+                            // Hide author / reporter meta and image
+                            tov_render_news_card(get_the_ID(), $news_date, false);
                         endwhile; ?>
                     </div>
                 <?php endif; ?>
@@ -291,8 +270,8 @@ if ($specific_news_id && $specific_news_id > 0) {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($older_news->have_posts()) : $older_news->the_post();
                     $news_date = get_the_date('Y-m-d', get_the_ID());
-                    // In template, keep author / reporter meta visible
-                    tov_render_news_card(get_the_ID(), $news_date, true);
+                    // Hide author / reporter meta and image
+                    tov_render_news_card(get_the_ID(), $news_date, false);
                 endwhile; ?>
             </div>
 
