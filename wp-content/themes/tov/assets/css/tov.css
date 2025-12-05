@@ -2171,8 +2171,7 @@ nav a:hover {
   display: block;
   height: auto;
   width: 100%;
-  border-radius: 0.75rem;
-  border-width: 1px;
+  border-radius: 0.5rem;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -2368,6 +2367,7 @@ nav a:hover {
 
 .grid>article:hover {
   background-color: rgb(255 255 255 / 0.95);
+  padding: 0.75rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -2468,6 +2468,10 @@ nav a:hover {
   bottom: 735px;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .left-1\/2 {
   left: 50%;
 }
@@ -2542,6 +2546,10 @@ nav a:hover {
 
 .-z-20 {
   z-index: -20;
+}
+
+.z-0 {
+  z-index: 0;
 }
 
 .z-10 {
@@ -2656,10 +2664,6 @@ nav a:hover {
   margin-right: 0.75rem;
 }
 
-.mr-8 {
-  margin-right: 2rem;
-}
-
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -2769,11 +2773,6 @@ nav a:hover {
   height: 1.25rem;
 }
 
-.size-full {
-  width: 100%;
-  height: 100%;
-}
-
 .h-10 {
   height: 2.5rem;
 }
@@ -2836,6 +2835,10 @@ nav a:hover {
 
 .h-\[196px\] {
   height: 196px;
+}
+
+.h-\[200px\] {
+  height: 200px;
 }
 
 .h-\[240px\] {
@@ -3134,6 +3137,11 @@ nav a:hover {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.scale-x-\[1\] {
+  --tw-scale-x: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -3167,10 +3175,6 @@ nav a:hover {
   resize: both;
 }
 
-.auto-rows-fr {
-  grid-auto-rows: minmax(0, 1fr);
-}
-
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -3201,10 +3205,6 @@ nav a:hover {
 
 .justify-start {
   justify-content: flex-start;
-}
-
-.justify-end {
-  justify-content: flex-end;
 }
 
 .justify-center {
@@ -3295,10 +3295,6 @@ nav a:hover {
        column-gap: 2rem;
 }
 
-.gap-y-1 {
-  row-gap: 0.25rem;
-}
-
 .gap-y-10 {
   row-gap: 2.5rem;
 }
@@ -3379,6 +3375,10 @@ nav a:hover {
   overflow: hidden;
 }
 
+.overflow-visible {
+  overflow: visible;
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3415,6 +3415,10 @@ nav a:hover {
 
 .rounded-\[32px\] {
   border-radius: 32px;
+}
+
+.rounded-\[8px\] {
+  border-radius: 8px;
 }
 
 .rounded-full {
@@ -3587,10 +3591,6 @@ nav a:hover {
   background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
 }
 
-.bg-blue-600\/80 {
-  background-color: rgb(37 99 235 / 0.8);
-}
-
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
@@ -3609,15 +3609,6 @@ nav a:hover {
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
-}
-
-.bg-gray-600\/80 {
-  background-color: rgb(75 85 99 / 0.8);
-}
-
-.bg-gray-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
 }
 
 .bg-green-600 {
@@ -3674,19 +3665,9 @@ nav a:hover {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
 
-.bg-gradient-to-t {
-  background-image: linear-gradient(to top, var(--tw-gradient-stops));
-}
-
 .from-black\/50 {
   --tw-gradient-from: rgb(0 0 0 / 0.5) var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-gray-900 {
-  --tw-gradient-from: #111827 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(17 24 39 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -3694,11 +3675,6 @@ nav a:hover {
   --tw-gradient-from: rgb(255 255 255 / 0.2) var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.via-gray-900\/40 {
-  --tw-gradient-to: rgb(17 24 39 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), rgb(17 24 39 / 0.4) var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
 .via-white\/5 {
@@ -3738,6 +3714,11 @@ nav a:hover {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.object-bottom {
+  -o-object-position: bottom;
+     object-position: bottom;
 }
 
 .p-0 {
@@ -3863,6 +3844,14 @@ nav a:hover {
   padding-bottom: 2rem;
 }
 
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+
+.pb-16 {
+  padding-bottom: 4rem;
+}
+
 .pb-24 {
   padding-bottom: 6rem;
 }
@@ -3873,6 +3862,10 @@ nav a:hover {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
 }
 
 .pb-6 {
@@ -3911,6 +3904,14 @@ nav a:hover {
   padding-top: 0.25rem;
 }
 
+.pt-12 {
+  padding-top: 3rem;
+}
+
+.pt-16 {
+  padding-top: 4rem;
+}
+
 .pt-2 {
   padding-top: 0.5rem;
 }
@@ -3929,10 +3930,6 @@ nav a:hover {
 
 .pt-8 {
   padding-top: 2rem;
-}
-
-.pt-80 {
-  padding-top: 20rem;
 }
 
 .pt-\[24px\] {
@@ -4041,11 +4038,6 @@ nav a:hover {
   line-height: 1.75rem;
 }
 
-.text-lg\/6 {
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-}
-
 .text-lg\/8 {
   font-size: 1.125rem;
   line-height: 2rem;
@@ -4054,11 +4046,6 @@ nav a:hover {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-sm\/6 {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
 }
 
 .text-xl {
@@ -4266,6 +4253,11 @@ nav a:hover {
   color: rgb(117 117 117 / var(--tw-text-opacity, 1));
 }
 
+.text-\[\#E2A76F\] {
+  --tw-text-opacity: 1;
+  color: rgb(226 167 111 / var(--tw-text-opacity, 1));
+}
+
 .text-\[\#F0ECE4\] {
   --tw-text-opacity: 1;
   color: rgb(240 236 228 / var(--tw-text-opacity, 1));
@@ -4442,20 +4434,6 @@ nav a:hover {
 
 .outline-black\/5 {
   outline-color: rgb(0 0 0 / 0.05);
-}
-
-.ring-1 {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.ring-inset {
-  --tw-ring-inset: inset;
-}
-
-.ring-gray-900\/10 {
-  --tw-ring-color: rgb(17 24 39 / 0.1);
 }
 
 .blur {
@@ -4670,6 +4648,11 @@ nav a:hover {
   padding-bottom: 0.5rem;
 }
 
+.hover\:text-\[\#000\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-\[\#014854\]:hover {
   --tw-text-opacity: 1;
   color: rgb(1 72 84 / var(--tw-text-opacity, 1));
@@ -4688,11 +4671,6 @@ nav a:hover {
 .hover\:text-blue-800:hover {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-gray-200:hover {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-gray-500:hover {
@@ -4727,6 +4705,12 @@ nav a:hover {
 .hover\:shadow-md:hover {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:shadow-sm:hover {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -4812,6 +4796,11 @@ nav a:hover {
   background-color: rgb(15 23 42 / var(--tw-bg-opacity, 1));
 }
 
+.group:hover .group-hover\:text-\[\#E2A76F\] {
+  --tw-text-opacity: 1;
+  color: rgb(226 167 111 / var(--tw-text-opacity, 1));
+}
+
 .group:hover .group-hover\:text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -4871,6 +4860,11 @@ nav a:hover {
   border-color: rgb(255 255 255 / 0.1);
 }
 
+.dark\:bg-\[\#FAF8F4\]:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 248 244 / var(--tw-bg-opacity, 1));
+}
+
 .dark\:bg-blue-900:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(30 58 138 / var(--tw-bg-opacity, 1));
@@ -4891,15 +4885,9 @@ nav a:hover {
   background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
 }
 
-.dark\:from-black\/80:is(.dark *) {
-  --tw-gradient-from: rgb(0 0 0 / 0.8) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.dark\:via-black\/40:is(.dark *) {
-  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), rgb(0 0 0 / 0.4) var(--tw-gradient-via-position), var(--tw-gradient-to);
+.dark\:text-\[\#000\]:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
 .dark\:text-blue-200:is(.dark *) {
@@ -4951,13 +4939,19 @@ nav a:hover {
   outline-color: rgb(255 255 255 / 0.1);
 }
 
-.dark\:ring-white\/10:is(.dark *) {
-  --tw-ring-color: rgb(255 255 255 / 0.1);
+.dark\:hover\:text-\[\#000\]:hover:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
 .dark\:hover\:text-blue-300:hover:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(147 197 253 / var(--tw-text-opacity, 1));
+}
+
+.dark\:hover\:text-blue-400:hover:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity, 1));
 }
 
 .dark\:hover\:text-gray-200:hover:is(.dark *) {
@@ -4997,10 +4991,6 @@ nav a:hover {
     margin-bottom: 24px;
   }
 
-  .sm\:mt-20 {
-    margin-top: 5rem;
-  }
-
   .sm\:h-12 {
     height: 3rem;
   }
@@ -5017,6 +5007,10 @@ nav a:hover {
     height: 680px;
   }
 
+  .sm\:h-auto {
+    height: auto;
+  }
+
   .sm\:w-12 {
     width: 3rem;
   }
@@ -5031,6 +5025,10 @@ nav a:hover {
 
   .sm\:w-48 {
     width: 12rem;
+  }
+
+  .sm\:w-64 {
+    width: 16rem;
   }
 
   .sm\:w-auto {
@@ -5147,10 +5145,6 @@ nav a:hover {
 
   .sm\:pr-0 {
     padding-right: 0px;
-  }
-
-  .sm\:pt-48 {
-    padding-top: 12rem;
   }
 
   .sm\:text-2xl {
@@ -5486,10 +5480,6 @@ nav a:hover {
 
   .lg\:pt-0 {
     padding-top: 0px;
-  }
-
-  .lg\:pt-80 {
-    padding-top: 20rem;
   }
 
   .lg\:text-left {

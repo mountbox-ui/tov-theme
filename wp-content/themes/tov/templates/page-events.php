@@ -8,9 +8,13 @@ if (!defined('ABSPATH')) exit;
 get_header(); ?>
 
 <main class="bg-white dark:bg-gray-900">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-12 lg:py-16">
-        <header class="mb-8">
-            <h1 class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl dark:text-white"><?php esc_html_e('Events & webinars', 'tov'); ?></h1>
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-16 pb-1 overflow-visible ">
+         <!-- Full Width Background Image -->
+         <div class="absolute inset-0 top-0 left-0 w-full h-full z-0">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/About Us H1 bg gr.png" alt="" class="w-full h-full object-cover object-bottom opacity-30 scale-x-[1]">
+            </div>
+        <header class="mb-2">
+            <h1 class="text-3xl font-jakarta font-bold tracking-tight text-[#E2A76F] sm:text-2xl dark:text-white"><?php esc_html_e('Events', 'tov'); ?></h1>
         </header>
 
 
@@ -60,7 +64,7 @@ get_header(); ?>
             <article class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <?php if (has_post_thumbnail($post_id)) : ?>
                     <div class="relative h-48 overflow-hidden">
-                        <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-full object-cover')); ?>
+                        <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'w-full h-full object-cover rounded-lg')); ?>
                         <div class="absolute top-3 left-3">
                             <span class="<?php echo $badge_color; ?> text-white px-2 py-1 text-xs font-semibold rounded"><?php echo esc_html($badge_text); ?></span>
                         </div>
@@ -173,21 +177,29 @@ get_header(); ?>
         $upcoming_events = new WP_Query($upcoming_args);
         
         ?>
+    </div>
 
         <?php if ($upcoming_events->have_posts()) : ?>
         <!-- Upcoming Events Section -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6"><?php esc_html_e('Upcoming', 'tov'); ?></h2>
+        <section class="relative w-full mb-12  pb-16 overflow-hidden">
+            <!-- Full Width Background Image
+            <div class="absolute inset-0 top-0 left-0 w-full h-full z-0">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/About Us H1 bg gr.png" alt="" class="w-full h-full object-cover object-bottom opacity-30 scale-x-[1]">
+            </div> -->
+            <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+                <h2 class="text-2xl font-jakarta font-bold text-gray-900 dark:text-white mb-6"><?php esc_html_e('Upcoming', 'tov'); ?></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php while ($upcoming_events->have_posts()) : $upcoming_events->the_post();
                     // Get event details from ACF fields first
                     $event_date = '';
                     $event_end_date = '';
+                    $event_time = '';
                     $event_location = '';
                     
                     if (function_exists('get_field')) {
                         $event_date = get_field('event_start_date', get_the_ID());
                         $event_end_date = get_field('event_end_date', get_the_ID());
+                        $event_time = get_field('event_time', get_the_ID());
                         $event_location = get_field('event_location', get_the_ID());
                     }
                     
@@ -198,15 +210,76 @@ get_header(); ?>
                     if (empty($event_end_date)) {
                         $event_end_date = get_post_meta(get_the_ID(), '_event_end_date', true);
                     }
+                    if (empty($event_time)) {
+                        $event_time = get_post_meta(get_the_ID(), '_event_time', true);
+                    }
                     if (empty($event_location)) {
                         $event_location = get_post_meta(get_the_ID(), '_event_location', true);
                     }
                     
-                    tov_render_event_card(get_the_ID(), $event_date, $event_end_date, $event_location);
-                endwhile; ?>
+                    // Format date/time string (matching shortcode style)
+                    $start_ts = $event_date ? strtotime($event_date) : null;
+                    $time_display = '';
+                    $date_display = '';
+
+                    if ($start_ts) {
+                        $date_display = date_i18n('l jS F Y', $start_ts);
+                    }
+
+                    if ($event_time) {
+                        $time_display = date_i18n('g:i a', strtotime($event_time));
+                    }
+                    
+                    // Get event categories for label
+                    $event_categories = get_the_terms(get_the_ID(), 'event_category');
+                    $category_label = 'EVENT';
+                    if ($event_categories && !is_wp_error($event_categories) && !empty($event_categories)) {
+                        $category_label = strtoupper($event_categories[0]->name);
+                    }
+                    ?>
+                    <article class="bg-white rounded-lg overflow-hidden  hover:shadow-sm transition-shadow duration-300 dark:bg-gray-800">
+                        <?php if (has_post_thumbnail(get_the_ID())) : ?>
+                            <div class="relative w-full h-48 overflow-hidden">
+                                <a href="<?php echo get_permalink(get_the_ID()); ?>">
+                                    <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-full object-cover rounded-lg')); ?>
+                                </a>
+                                <div class="absolute top-3 left-3">
+                                    <span class="inline-flex items-center rounded bg-[#E2A76F] text-white px-2 py-1 text-xs font-semibold">
+                                        <?php echo esc_html($category_label); ?>
+                                    </span>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <div class="pt-1">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                <a href="<?php echo get_permalink(get_the_ID()); ?>" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                                    <?php echo get_the_title(get_the_ID()); ?>
+                                </a>
+                            </h3>
+                            <?php if ($date_display || $time_display || $event_location) : ?>
+                                <p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px] mb-6">
+                                    <?php if ($date_display) : ?>
+                                        <?php echo esc_html($date_display); ?>
+                                    <?php endif; ?>
+                                    <?php if ($time_display) : ?>
+                                        <?php if ($date_display) : ?><span class="mx-1 text-gray-400">|</span><?php endif; ?>
+                                        <?php echo esc_html($time_display); ?>
+                                    <?php endif; ?>
+                                    <?php if ($event_location) : ?>
+                                        <?php if ($date_display || $time_display) : ?><span class="mx-1 text-gray-400">|</span><?php endif; ?>
+                                        <?php echo esc_html($event_location); ?>
+                                    <?php endif; ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
+                    </article>
+                <?php endwhile; ?>
+            </div>
             </div>
         </section>
         <?php endif; wp_reset_postdata(); ?>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
 
         <?php
         // Create query for past events (show all, no pagination)
@@ -236,12 +309,17 @@ get_header(); ?>
         // echo 'Events showing in past section: ' . $past_events->found_posts;
         // echo '</div>';
         ?>
+    </div>
 
         <?php if ($past_events->have_posts()) : ?>
         <!-- Past Events Section -->
-        <section>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6"><?php esc_html_e('Past', 'tov'); ?></h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section class="relative w-full mt-12 pt-12 pb-16 overflow-hidden">
+            <!-- Gradient Background -->
+            <div class="absolute inset-0 bg-[#FAF8F4] dark:bg-[#FAF8F4]"></div>
+            
+            <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+                <h2 class="text-2xl font-jakarta font-bold text-gray-900 dark:text-white mb-6"><?php esc_html_e('Past', 'tov'); ?></h2>
+                <div class="space-y-6">
                 <?php while ($past_events->have_posts()) : $past_events->the_post();
                     // Get event details from ACF fields
                     $event_date = '';
@@ -265,13 +343,50 @@ get_header(); ?>
                         $event_location = get_post_meta(get_the_ID(), '_event_location', true);
                     }
                     
-                    tov_render_event_card(get_the_ID(), $event_date, $event_end_date, $event_location);
-                endwhile; ?>
+                    // Format date
+                    $date_display = tov_format_event_range($event_date, $event_end_date);
+                    ?>
+                    <a href="<?php echo get_permalink(get_the_ID()); ?>" class="block group">
+                        <article class="flex flex-col sm:flex-row gap-6 rounded-lg overflow-hidden p-3 hover:shadow-sm transition-shadow duration-300 hover:bg-white cursor-pointer">
+                            <div class="flex-shrink-0 w-full sm:w-64 h-48 sm:h-auto flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg">
+                                <?php if (has_post_thumbnail(get_the_ID())) : ?>
+                                    <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-[200px] object-cover rounded-lg')); ?>
+                                <?php else : ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                <?php endif; ?>
+                            </div>
+                            <div class="flex-1 p-6 flex flex-col justify-center">
+                                <div class="text-sm text-gray-600 dark:text-gray-400 mb-2  transition-colors duration-200">
+                                    <?php if ($date_display) : ?>
+                                        <span><?php echo esc_html(strtoupper($date_display)); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-[#E2A76F] transition-colors duration-200">
+                                    <?php echo get_the_title(get_the_ID()); ?>
+                                </h3>
+                                <?php if ($event_location) : ?>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4  transition-colors duration-200">
+                                        <?php echo esc_html($event_location); ?>
+                                    </p>
+                                <?php endif; ?>
+                                <span class="inline-flex items-center text-sm font-semibold text-[#000] dark:text-[#000]  transition-colors duration-200">
+                                    <?php esc_html_e('Read more', 'tov'); ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </article>
+                    </a>
+                <?php endwhile; ?>
+                </div>
             </div>
-            
         </section>
         <?php endif; wp_reset_postdata(); ?>
 
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <?php if (!$upcoming_events->have_posts() && !$past_events->have_posts()) : ?>
         <div class="text-center py-12">
             <p class="text-gray-600 dark:text-gray-400"><?php esc_html_e('No events found.', 'tov'); ?></p>

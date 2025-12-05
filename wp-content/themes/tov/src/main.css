@@ -203,7 +203,7 @@
     }
 
     .highlighted-news-img {
-        @apply w-full h-auto md:w-[480px] md:h-[312px] lg:w-[548px] lg:h-[356px] object-cover border rounded-xl block;
+        @apply w-full h-auto md:w-[480px] md:h-[312px] lg:w-[548px] lg:h-[356px] object-cover rounded-lg block;
     }
 
     .highlighted-news-img-placeholder {
@@ -257,7 +257,7 @@
     }
 
     .grid>article:hover {
-        @apply shadow-lg bg-white/95;
+        @apply shadow-lg bg-white/95 p-3;
     }
 
     .grid>article:hover::before {

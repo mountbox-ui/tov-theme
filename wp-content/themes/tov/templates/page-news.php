@@ -173,7 +173,7 @@ if ($specific_news_id && $specific_news_id > 0) {
                                     <time datetime="<?php echo esc_attr(get_the_date('c', $post_id)); ?>" class="highlighted-news-date">
                                         <?php echo esc_html(strtoupper(get_the_date('F j, Y', $post_id))); ?>
                                     </time>
-                                    <p class="highlighted-news-excerpt mt-5 text-[16px] leading-6 text-gray-600 dark:text-gray-400">
+                                    <p class="highlighted-news-excerpt paragraph mt-2">
                                         <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                                     </p>
                                     <div class="mt-4">

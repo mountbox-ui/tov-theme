@@ -115,7 +115,7 @@ function hero_section_heading_shortcode($atts) {
         'text' => 'Default Heading',
     ), $atts, 'hero_heading');
 
-    return '<h1 class="text-white pb-4">'
+    return '<h1 class="text-white pb-1">'
             . esc_html($atts['text']) . '</h1>';
 }
 add_shortcode('hero_heading', 'hero_section_heading_shortcode');
@@ -127,7 +127,7 @@ function hero_section_paragraph_shortcode($atts) {
         'text' => 'Default paragraph goes here...',
     ), $atts, 'hero_paragraph');
 
-    return '<p class="hero-section-text sm:text-sm md:text-xl lg:text-xl opacity-80 pb-6 leading-[1.15] sm:leading-[1.15] md:leading-[1.2] lg:leading-[1.25]" >'
+    return '<p class="hero-section-text sm:text-sm md:text-xl lg:text-xl opacity-80 pb-5 leading-[1.15] sm:leading-[1.15] md:leading-[1.2] lg:leading-[1.25]" >'
             . esc_html($atts['text']) . '</p>';
 }
 add_shortcode('hero_paragraph', 'hero_section_paragraph_shortcode');
