@@ -10,8 +10,8 @@
                     </a>
                     <div class="mt-4 text-sm text-white leading-6">
                         <p>Ropers Lane, Otterton, Budleigh<br> Salterton East Devon, EX9 7JF</p>
-                        <p class="mt-3">01395 568208</p>
-                        <p>enquiries@theoldvicarageotterton.com</p>
+                        <a href="tel:01395568208" class="mt-3">01395 568208</a><br>
+                        <a href="mailto:enquiries@theoldvicarageotterton.com">enquiries@theoldvicarageotterton.com</a>
                     </div>
                 </div>
 
@@ -61,15 +61,15 @@
                 <?php if (has_nav_menu('footer_legal')) {
                     wp_nav_menu(array(
                         'theme_location' => 'footer_legal',
-                        'menu_class' => 'flex items-center gap-6 text-xs text-white/80',
+                        'menu_class' => 'flex items-center gap-6 text-xs text-white/80 hover:text-white',
                         'container' => false,
                         'depth' => 1,
                     ));
                 } else { ?>
                     <ul class="flex items-center gap-6 text-xs text-white/80">
-                        <li><a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">Privacy policy</a></li>
-                        <li><a href="<?php echo esc_url(home_url('/terms-conditions/')); ?>">Terms &amp; conditions</a></li>
-                        <li><a href="<?php echo esc_url(home_url('/modern-slavery-act/')); ?>">Modern Slavery Act</a></li>
+                        <li class="hover:text-white"><a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">Privacy policy</a></li>
+                        <li class="hover:text-white"><a href="<?php echo esc_url(home_url('/terms-conditions/')); ?>">Terms &amp; conditions</a></li>
+                        <li class="hover:text-white"><a href="<?php echo esc_url(home_url('/modern-slavery-act/')); ?>">Modern Slavery Act</a></li>
                     </ul>
                 <?php } ?>
             </div>

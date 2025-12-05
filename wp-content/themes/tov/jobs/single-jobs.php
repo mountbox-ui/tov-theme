@@ -41,7 +41,7 @@ if ($job_status === 'inactive') {
 
 
 <div class="min-h-screen bg-white py-8 lg:py-24">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
+    <div class="max-w-[1280px] mx-auto px-4 py-16 sm:px-6 relative z-10">
         <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <!-- Left Column - Job Details (2/3) -->
             <div class="lg:w-2/3">
@@ -59,25 +59,26 @@ if ($job_status === 'inactive') {
                     <div class="space-y-2 mb-8">
                         <?php if ($category) : ?>
                             <div class="flex items-start">
-                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Category :</span>
-                                <span class="text-gray-600 font-inter text-sm"><?php echo esc_html($category); ?></span>
+                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Category</span>
+                                <span class="text-gray-600 font-inter text-sm"><span class="pl-2">:</span> <?php echo esc_html($category); ?></span>
                             </div>
                         <?php endif; ?>
                         
                         <?php if ($job_type) : ?>
                             <div class="flex items-start">
-                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Type :</span>
-                                <span class="text-gray-600 font-inter text-sm"><?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
+                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Type</span>
+                                <span class="text-gray-600 font-inter text-sm"><span class="pl-2">:</span> <?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
                             </div>
                         <?php endif; ?>
                         
                         <?php if ($location) : ?>
                             <div class="flex items-start">
-                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Location :</span>
-                                <span class="text-gray-600 font-inter text-sm"><?php echo esc_html($location); ?></span>
+                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Location</span>
+                                <span class="text-gray-600 font-inter text-sm"><span class="pl-2">:</span> <?php echo esc_html($location); ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
+                    <div class="border-b border-gray-200 my-6"></div>
                     
                     <!-- Job Description -->
                     <div class="job-content prose prose-sm lg:prose-base max-w-none text-gray-700 leading-relaxed">
