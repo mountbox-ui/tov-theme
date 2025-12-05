@@ -10,15 +10,15 @@ get_header(); ?>
 <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-pretty font-jakarta text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Our team</h2>
-            <p class="mt-6 text-lg/8 font-lato text-gray-600 dark:text-gray-400">We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.</p>
+            <h2>Our team</h2>
+            <p class="paragraph">We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.</p>
         </div>
         
         <div class="flex flex-col gap-10 py-12 first:pt-0 last:pb-0 sm:flex-row">
             <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="" class="aspect-[4/5] w-[350px] flex-none rounded-2xl object-cover outline outline-1 -outline-offset-1 outline-black/5" />
             
             <div class="max-w-xl flex-auto">
-                <p class="mt-6 text-base/7 font-lato text-gray-600">Sinto is our Director & CQC Nominated Individual who is responsible for the quality of service and business operations. He has 20+ years of experience in various capacities such as Consultant and Business owner in various areas such as Local Councils, Adult Social Care, Banking and Charity. Sinto has been actively involved in the home care and care home area for the last 8 years. Sinto has worked with various local community groups such as Director, Weymouth Carnival and several other charity groups. He has developed various community engagement programmes such as Community Bingos, Coffee morning, etc.</p>
+                <p class="paragraph">Sinto is our Director & CQC Nominated Individual who is responsible for the quality of service and business operations. He has 20+ years of experience in various capacities such as Consultant and Business owner in various areas such as Local Councils, Adult Social Care, Banking and Charity. Sinto has been actively involved in the home care and care home area for the last 8 years. Sinto has worked with various local community groups such as Director, Weymouth Carnival and several other charity groups. He has developed various community engagement programmes such as Community Bingos, Coffee morning, etc.</p>
                 <p class="my-6 text-base/7 font-lato italic text-gray-600">"At our care home, we provide compassionate, safe, personalized support so every resident feels valued, respected, and genuinely cared for."</p>
 
                 <h3>Sinto Antony</h3>

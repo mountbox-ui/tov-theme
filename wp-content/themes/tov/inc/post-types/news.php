@@ -259,7 +259,7 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
                     <span class="text-gray-400 dark:text-gray-500">No Image</span>
                 </div>
             <?php endif; ?>
-            <div class="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
         </div>
         
         <div class="flex max-w-xl grow flex-col justify-between">
@@ -270,13 +270,13 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
             </div>
             
             <div class="group relative grow">
-                <h3 class="<?php echo esc_attr($title_class ?: 'font-jakarta mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300'); ?>">
+                <h3 class="<?php echo esc_attr($title_class ?: 'font-jakarta mt-1 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300'); ?>">
                     <a href="<?php echo get_permalink($post_id); ?>">
                         <span class="absolute inset-0"></span>
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="<?php echo esc_attr($excerpt_class ?: 'font-lato mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400'); ?>">
+                <p class="<?php echo esc_attr($excerpt_class ?: 'paragraph'); ?>">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
 
@@ -463,7 +463,7 @@ function tov_render_horizontal_news_card($post_id) {
                     <span class="text-gray-400 dark:text-gray-500 text-xs">No Image</span>
                 </div>
             <?php endif; ?>
-            <div class="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
         </div>
         <div>
             <div class="flex items-center gap-x-4 text-xs">
@@ -478,7 +478,7 @@ function tov_render_horizontal_news_card($post_id) {
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="font-lato mt-5 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                <p class="font-lato mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
 
