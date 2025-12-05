@@ -2692,10 +2692,6 @@ nav a:hover {
   margin-top: 1rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -3391,10 +3387,6 @@ nav a:hover {
 
 .text-balance {
   text-wrap: balance;
-}
-
-.text-pretty {
-  text-wrap: pretty;
 }
 
 .break-words {
