@@ -59,7 +59,7 @@ function tov_events_section_shortcode($atts) {
 					</h2>
 					
 				</div>
-				<a href="<?php echo esc_url(home_url('/eventtest/')); ?>" class="bt-r">
+				<a href="<?php echo esc_url(home_url('/event/')); ?>" class="bt-r">
 					<?php echo esc_html__('See all events', 'tov'); ?>
 					<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" class="ml-2.5 p-[2px]" fill="none">
   <path d="M11.5375 16.8374L17.1437 11.3937C17.4146 11.177 17.55 10.8791 17.55 10.4999C17.55 10.1207 17.4146 9.82282 17.1437 9.60615L11.5375 4.1624C11.3208 3.89157 11.0365 3.75615 10.6844 3.75615C10.3323 3.75615 10.0344 3.87803 9.79062 4.12178C9.54688 4.36553 9.425 4.67699 9.425 5.05615C9.425 5.43532 9.56042 5.73324 9.83125 5.9499L13.1625 9.1999H4.46875C4.14375 9.1999 3.85938 9.32178 3.61562 9.56553C3.37187 9.80928 3.25 10.1207 3.25 10.4999C3.25 10.8791 3.37187 11.1905 3.61562 11.4343C3.85938 11.678 4.14375 11.7999 4.46875 11.7999H13.1625L9.83125 15.0499C9.56042 15.2666 9.425 15.5645 9.425 15.9437C9.425 16.3228 9.54688 16.6343 9.79062 16.878C10.0344 17.1218 10.3323 17.2437 10.6844 17.2437C11.0365 17.2437 11.3208 17.1082 11.5375 16.8374Z" fill="#016A7C"/>
@@ -110,7 +110,7 @@ function tov_events_section_shortcode($atts) {
 							$time_display = date_i18n('g:i a', strtotime($event_time));
 						}
 						?>
-						<article class="flex flex-col overflow-hidden rounded-2xl bg-white mx-auto" style="height: 498px;">
+						<article class="flex flex-col overflow-hidden rounded-2xl bg-white cursor-pointer" style="height: 498px;" onclick="window.location.href='<?php the_permalink(); ?>'">
 							<div class="relative w-full" >
 								<?php if (has_post_thumbnail()) : ?>
 									<?php the_post_thumbnail('large', array('class' => 'h-[338px] object-cover rounded-[8px] w-[555px]')); ?>
@@ -147,12 +147,12 @@ function tov_events_section_shortcode($atts) {
 										<?php esc_html_e('Read more', 'tov'); ?>
 										<span aria-hidden="true" class="ml-1">→</span>
 									</a> -->
-									<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-[#227D8C] font-bold text-sm hover:text-[#016A7C] transition-colors hover:pb-2">
-                        Learn more
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
-  <path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="#016A7C"/>
-</svg>
-                    </a>
+									<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-[#227D8C] font-bold text-sm hover:text-[#016A7C] transition-colors relative z-10" onclick="event.stopPropagation();">
+                        			Learn more
+                        			<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
+										<path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="#016A7C"/>
+									</svg>
+									</a>
 								</div>
 							</div>
 						</article>
