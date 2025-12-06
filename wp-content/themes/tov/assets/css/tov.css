@@ -2823,10 +2823,6 @@ nav a:hover {
   display: grid;
 }
 
-.contents {
-  display: contents;
-}
-
 .hidden {
   display: none;
 }
@@ -4125,6 +4121,10 @@ nav a:hover {
   padding-top: 2px;
 }
 
+.pt-28 {
+  padding-top: 7rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -4897,9 +4897,8 @@ nav a:hover {
   background-color: rgb(255 255 255 / 0.1);
 }
 
-.hover\:text-\[\#000\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+.hover\:pb-2:hover {
+  padding-bottom: 0.5rem;
 }
 
 .hover\:text-\[\#000\]:hover {

@@ -4,11 +4,10 @@
  */
 
 if (!defined('ABSPATH')) exit;
-
 get_header(); ?>
 
 <main class="bg-white dark:bg-gray-900">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-16 pb-1 overflow-visible ">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-28 pb-1 overflow-visible ">
          <!-- Full Width Background Image -->
          <div class="absolute inset-0 top-0 left-0 w-full h-full z-0">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/About Us H1 bg gr.png" alt="" class="w-full h-full object-cover object-bottom opacity-30 scale-x-[1]">
