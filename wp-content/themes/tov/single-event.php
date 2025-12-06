@@ -126,7 +126,7 @@ get_header(); ?>
                 <?php endif; ?>
                 
                 <!-- Event Content -->
-                <div class="prose prose-lg max-w-none dark:prose-invert">
+                <div class="prose prose-lg max-w-none dark:prose-invert paragraph">
                     <?php the_content(); ?>
                 </div>
                 

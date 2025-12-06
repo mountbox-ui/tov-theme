@@ -42,7 +42,7 @@ if ($job_status === 'inactive') {
 
 <div class="min-h-screen bg-white py-8 lg:py-24">
     <div class="max-w-[1280px] mx-auto px-4 py-16 sm:px-6 relative z-10">
-        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+        <div class="flex flex-col lg:flex-row gap-12 lg:gap-24">
             <!-- Left Column - Job Details (2/3) -->
             <div class="lg:w-2/3">
                 <?php while (have_posts()) : the_post(); ?>
