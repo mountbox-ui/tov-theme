@@ -84,7 +84,7 @@ if ($specific_news_id && $specific_news_id > 0) {
                 </div>
 
                 <!-- Post Content -->
-                <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
+                <div class="paragraph prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
                     <?php echo apply_filters('the_content', $specific_news->post_content); ?>
                 </div>
 
