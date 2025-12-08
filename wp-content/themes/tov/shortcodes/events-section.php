@@ -68,7 +68,7 @@ function tov_events_section_shortcode($atts) {
 			</div>
 
 			<?php if ($events_query->have_posts()) : ?>
-				<div class="mt-12 grid gap-[90px] md:grid-cols-2">
+				<div class="mt-12 grid gap-[40px] lg:gap-[90px] md:gap-[40px] md:grid-cols-2">
 					<?php while ($events_query->have_posts()) : $events_query->the_post(); 
 						// Get event details from ACF fields
 						$event_date = '';
@@ -113,9 +113,9 @@ function tov_events_section_shortcode($atts) {
 						<article class="flex flex-col overflow-hidden rounded-2xl bg-white cursor-pointer" style="height: 498px;" onclick="window.location.href='<?php the_permalink(); ?>'">
 							<div class="relative w-full" >
 								<?php if (has_post_thumbnail()) : ?>
-									<?php the_post_thumbnail('large', array('class' => 'h-[338px] object-cover rounded-[8px] w-[555px]')); ?>
+									<?php the_post_thumbnail('large', array('class' => 'h-[280px] lg:h-[338px] sm:h-[280px] object-cover rounded-[8px] w-[555px]')); ?>
 								<?php else : ?>
-									<div class="flex h-[338px] w-full items-center justify-center bg-gray-100 text-gray-400">
+									<div class="flex h-[280px] lg:h-[338px] sm:h-[280px] w-full items-center justify-center bg-gray-100 text-gray-400">
 										<?php echo esc_html__('No image available', 'tov'); ?>
 									</div>
 								<?php endif; ?>
