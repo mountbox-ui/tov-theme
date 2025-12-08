@@ -11,9 +11,15 @@ get_header(); ?>
   <div>
     <!-- Page Title -->
     <div class="text-left mb-16 mx-auto max-w-2xl lg:mx-0">
-        <h2>Why The Old Vicarage Care Home? A sanctuary of care in East Devon</h2>
-        <p class="paragraph">
+        <!-- <h2 class="font-bold">Why The Old Vicarage Care Home? <span>A sanctuary of care in East Devon</span></h2>
+        <p class="paragraph mt-6">
             The Old Vicarage, an award-winning residential and dementia care facility, offers more than just care; it offers a vibrant, supportive community set in one of East Devon's most picturesque locations. Here's a breakdown of why it stands out as an outstanding choice.
+        </p> -->
+        <h2>
+            Why The Old Vicarage Care Home? <span>A sanctuary of care in East Devon</span>
+        </h2>
+        <p class="paragraph mt-6">
+            The Old Vicarage Care Home is a sanctuary of care in East Devon, offering more than just care; it offers a vibrant, supportive community set in one of East Devon's most picturesque locations. Here's a breakdown of why it stands out as an outstanding choice.
         </p>
     </div>
     

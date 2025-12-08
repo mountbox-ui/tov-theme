@@ -148,10 +148,13 @@ if ($specific_news_id && $specific_news_id > 0) {
                         <article class="highlighted-news-horizontal mb-8">
                             <div class="highlighted-news-container">
                                 <?php if (has_post_thumbnail($post_id)) : ?>
+                                    <div>
+                                        <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[200px] left-[230px] blur-[15px] w-[750px] h-[500px] z-[1]">
+                                    </div>
                                     <div class="highlighted-news-image">
                                         <a href="<?php echo get_permalink($post_id); ?>">
-                                            <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'highlighted-news-img')); ?>
-                                        </a>
+                                            <?php echo get_the_post_thumbnail($post_id, 'large', array('class' => 'z-[2] highlighted-news-img relative')); ?>
+                                        </a>    
                                     </div>
                                 <?php else : ?>
                                     <div class="highlighted-news-image">

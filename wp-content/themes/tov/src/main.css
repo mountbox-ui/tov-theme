@@ -122,7 +122,7 @@
     }
 
     .bt-l {
-        @apply inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors;
+        @apply inline-flex items-center text-[#1C2321] font-lato font-medium text-sm hover:text-[#016A7C] transition-colors;
     }
 
     .bt-l svg {

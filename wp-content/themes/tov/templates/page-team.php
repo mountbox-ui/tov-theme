@@ -10,7 +10,7 @@ get_header(); ?>
 <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-pretty font-jakarta text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Our team</h2>
+            <h2 class="text-pretty font-jakarta text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Our team</h2>
             <p class="mt-6 text-lg/8 font-lato text-gray-600 dark:text-gray-400">We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.</p>
         </div>
         
