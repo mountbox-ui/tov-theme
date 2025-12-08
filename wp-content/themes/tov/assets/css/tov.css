@@ -3411,6 +3411,10 @@ nav a:hover {
   gap: 90px;
 }
 
+.gap-\[40px\] {
+  gap: 40px;
+}
+
 .gap-x-10 {
   -moz-column-gap: 2.5rem;
        column-gap: 2.5rem;
@@ -5321,6 +5325,10 @@ nav a:hover {
     height: 100vh;
   }
 
+  .sm\:h-\[280px\] {
+    height: 280px;
+  }
+
   .sm\:w-12 {
     width: 3rem;
   }
@@ -5347,6 +5355,10 @@ nav a:hover {
 
   .sm\:w-full {
     width: 100%;
+  }
+
+  .sm\:w-\[350px\] {
+    width: 350px;
   }
 
   .sm\:max-w-\[400px\] {
@@ -5467,6 +5479,10 @@ nav a:hover {
     padding-top: 8rem;
   }
 
+  .sm\:pr-4 {
+    padding-right: 1rem;
+  }
+
   .sm\:align-middle {
     vertical-align: middle;
   }
@@ -5556,6 +5572,10 @@ nav a:hover {
     height: 720px;
   }
 
+  .md\:h-\[338px\] {
+    height: 338px;
+  }
+
   .md\:w-1\/2 {
     width: 50%;
   }
@@ -5576,6 +5596,10 @@ nav a:hover {
     width: auto;
   }
 
+  .md\:w-\[600px\] {
+    width: 600px;
+  }
+
   .md\:max-w-\[440px\] {
     max-width: 440px;
   }
@@ -5594,6 +5618,10 @@ nav a:hover {
 
   .md\:items-start {
     align-items: flex-start;
+  }
+
+  .md\:gap-\[40px\] {
+    gap: 40px;
   }
 
   .md\:gap-x-14 {
@@ -5693,6 +5721,10 @@ nav a:hover {
     height: 100%;
   }
 
+  .lg\:h-\[338px\] {
+    height: 338px;
+  }
+
   .lg\:w-\[280px\] {
     width: 280px;
   }
@@ -5703,6 +5735,14 @@ nav a:hover {
 
   .lg\:w-\[60\%\] {
     width: 60%;
+  }
+
+  .lg\:w-\[475px\] {
+    width: 475px;
+  }
+
+  .lg\:w-\[600px\] {
+    width: 600px;
   }
 
   .lg\:max-w-4xl {
@@ -5743,6 +5783,10 @@ nav a:hover {
 
   .lg\:gap-16 {
     gap: 4rem;
+  }
+
+  .lg\:gap-\[90px\] {
+    gap: 90px;
   }
 
   .lg\:gap-x-16 {
