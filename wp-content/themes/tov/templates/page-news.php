@@ -64,7 +64,7 @@ if ($specific_news_id && $specific_news_id > 0) {
 
                 <!-- Post Meta -->
                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
-                    <time datetime="<?php echo esc_attr(get_the_date('c', $specific_news->ID)); ?>" class="flex items-center gap-2">
+                    <time datetime="<?php echo esc_attr(get_the_date('c', $specific_news->ID)); ?>" class="flex items-center gap-2 text-gray-500">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
@@ -165,9 +165,9 @@ if ($specific_news_id && $specific_news_id > 0) {
                                 <?php endif; ?>
                                 
                                 <div class="highlighted-news-content">
-                                    <h2 class="highlighted-news-section-label">
+                                    <h6 class="text-[#016A7C]">
                                         <?php esc_html_e('HIGHLIGHTED NEWS', 'tov'); ?>
-                                    </h2>
+                                    </h6>
                                     <h3 class="highlighted-news-title">
                                         <a href="<?php echo get_permalink($post_id); ?>">
                                             <?php echo get_the_title($post_id); ?>
@@ -180,11 +180,11 @@ if ($specific_news_id && $specific_news_id > 0) {
                                         <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                                     </p>
                                     <div class="mt-4">
-                                        <a href="<?php echo get_permalink($post_id); ?>" class="inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors">
+                                        <a href="<?php echo get_permalink($post_id); ?>" class="btn-readmore">
                                             <?php esc_html_e('Read more', 'tov-theme'); ?>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
+										<path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="rgba(0, 0, 0, 0.8)"/>
+									</svg>
                                         </a>
                                     </div>
                                 </div>

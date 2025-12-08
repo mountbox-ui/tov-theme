@@ -136,7 +136,7 @@
     .bt-l:hover svg {
         @apply translate-x-1;
     }
-
+        /* button styling  */
 
     .btn-outline {
         @apply text-red-500 border border-red-500 bg-white;
@@ -157,6 +157,41 @@
     .btn-white {
         @apply inline-flex items-center bg-white hover:bg-gray-100 text-[#2C5F6F] font-lato font-normal px-6 py-3 rounded-md transition-colors duration-300;
     }
+
+
+    .btn-resources {
+        @apply px-[18px] py-[10px] justify-center transition-all duration-300 ease-in-out bg-[#016A7C];
+    }
+
+    .btn-resources svg {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .btn-resources:hover {
+        @apply bg-[#018a9f];
+    }
+
+    .btn-resources:hover svg {
+        @apply translate-x-1;
+    }
+
+
+    .btn-readmore {
+        @apply inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 cursor-pointer border-none bg-transparent p-0 relative z-10;
+    }
+    
+    .btn-readmore svg {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+    
+    .btn-readmore:hover svg {
+        @apply translate-x-1;
+    }
+    
+    .btn-readmore:hover svg path {
+        fill: #016A7C;
+    } 
+     /* button styling ------- */
 
     .bg-primary {
         @apply bg-[#014854];
@@ -282,9 +317,22 @@
     .highlighted-news-title a:hover {
         @apply text-[#016A7C];
     }
+    
+    /* News card hover effect - change heading color on card hover */
+    .grid > article:hover .group h3,
+    .grid > article:hover .group h3 a {
+        @apply text-[#016A7C] transition-colors duration-300;
+    }
+    
+    article.group:hover h3,
+    article.group:hover h3 a,
+    .group:hover h3,
+    .group:hover h3 a {
+        @apply text-[#016A7C] transition-colors duration-300;
+    }
 
     .highlighted-news-date {
-        @apply font-jakarta text-sm sm:text-base font-normal text-[#6b7280] block;
+        @apply font-jakarta text-sm sm:text-base font-normal text-gray-500 block;
     }
 
     .highlighted-news-separator {
