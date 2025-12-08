@@ -54,7 +54,7 @@ function tov_image_section_shortcode($atts, $content = null) {
     ob_start();
     ?>
     <div class="overflow-hidden bg-white">
-        <div class="max-w-[1280px] mx-auto  relative z-10">
+        <div class="max-w-[1280px] mx-auto mt-14 relative z-10">
             <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-10">
                 <?php if ($swap_order) : ?>
                     <!-- Image on LEFT when position="right" (60% width) -->
@@ -139,17 +139,21 @@ function tov_image_section_feature_shortcode($atts, $content = null) {
     ob_start();
     ?>
     <div class="relative pl-9">
-        <dt class="inline font-semibold text-gray-900">
-            <?php if ($icon_svg) : ?>
-                <span class="absolute left-1 top-1">
-                    <?php echo $icon_svg; ?>
-                </span>
-            <?php endif; ?>
-            <?php echo esc_html($atts['title']); ?>
-        </dt>
-        <?php if (!empty($content)) : ?>
-            <dd class="inline"><?php echo wp_kses_post(trim($content)); ?></dd>
+        <?php if ($icon_svg) : ?>
+            <span class="absolute left-0 top-[6px]">
+                <?php echo $icon_svg; ?>
+            </span>
         <?php endif; ?>
+        <div>
+            <?php if (!empty($atts['title'])) : ?>
+                <dt class="font-semibold text-[#016A7C] mb-1">
+                    <?php echo esc_html($atts['title']); ?>
+                </dt>
+            <?php endif; ?>
+            <?php if (!empty($content)) : ?>
+                <dd class="text-gray-600"><?php echo wp_kses_post(trim($content)); ?></dd>
+            <?php endif; ?>
+        </div>
     </div>
     <?php
     return ob_get_clean();

@@ -2682,6 +2682,10 @@ article.group:hover h3,
   top: 0.25rem;
 }
 
+.top-\[6px\] {
+  top: 6px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -2879,6 +2883,14 @@ article.group:hover h3,
 
 .mt-auto {
   margin-top: auto;
+}
+
+.mt-32 {
+  margin-top: 8rem;
+}
+
+.mt-14 {
+  margin-top: 3.5rem;
 }
 
 .line-clamp-2 {

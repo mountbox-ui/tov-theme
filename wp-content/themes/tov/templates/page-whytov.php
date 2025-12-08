@@ -18,7 +18,7 @@ get_header(); ?>
     </div>
     
     <!-- Page Content -->
-    <div class="prose prose-lg max-w-none dark:prose-invert">
+    <div class=" max-w-none dark:prose-invert">
       <?php 
       // Display the page content
       the_content();
