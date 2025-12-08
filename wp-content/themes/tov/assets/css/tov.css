@@ -4908,14 +4908,14 @@ nav a:hover {
   color: rgb(1 106 124 / var(--tw-text-opacity, 1));
 }
 
+.hover\:text-\[\#E2A76F\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(226 167 111 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-\[\#fff\]:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-blue-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-blue-800:hover {
@@ -4956,11 +4956,6 @@ nav a:hover {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-\[\#E2A76F\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(226 167 111 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover {
