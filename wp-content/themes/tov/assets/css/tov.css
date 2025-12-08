@@ -2974,6 +2974,13 @@ article.group:hover h3,
 
 .h-\[32rem\] {
   height: 32rem;
+<<<<<<< HEAD
+=======
+}
+
+.h-\[338px\] {
+  height: 338px;
+>>>>>>> branch-alisha
 }
 
 .h-\[360px\] {
@@ -5762,6 +5769,7 @@ article.group:hover h3,
     width: 280px;
   }
 
+<<<<<<< HEAD
   .lg\:w-\[475px\] {
     width: 475px;
   }
@@ -5770,6 +5778,8 @@ article.group:hover h3,
     width: 600px;
   }
 
+=======
+>>>>>>> branch-alisha
   .lg\:max-w-4xl {
     max-width: 56rem;
   }
