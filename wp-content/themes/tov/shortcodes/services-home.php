@@ -31,7 +31,7 @@ function tov_services_home_shortcode($atts) {
                     <div class="rounded-2xl overflow-hidden mb-6 h-[240px]">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/residential-care.png" alt="Residential Care" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     </div>
-                    <h3 class="text-[#1C2321] font-jakarta text-2xl font-bold mb-3">Residential care</h3>
+                    <h3 class="text-[#1C2321] font-jakarta text-2xl font-bold mb-3 hover:text-[#016A7C]">Residential care</h3>
                     <p class="mb-4" style="color: var(--Body-Text-Color, #757575); font-family: 'Lato', sans-serif; font-size: 18px; font-style: normal; font-weight: 400; line-height: 26px; align-self: stretch;">
                         As a residential care home we offer assistance with personal care, such as washing, dressing, bathing or showering. We can assist with getting up in the morning and going to bed at night, at a time which suits you. We can help with continence care, medical issues, medication administration and meal times.
                     </p>
@@ -50,7 +50,7 @@ function tov_services_home_shortcode($atts) {
                     <div class="rounded-2xl overflow-hidden mb-6 h-[240px]">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/respite-care.png" alt="Respite Care" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     </div>
-                    <h3 class="text-[#1C2321] font-jakarta text-2xl font-bold mb-3">Respite care</h3>
+                    <h3 class="text-[#1C2321] font-jakarta text-2xl font-bold mb-3 hover:text-[#016A7C]">Respite care</h3>
                     <p class="mb-4" style="color: var(--Body-Text-Color, #757575); font-family: 'Lato', sans-serif; font-size: 18px; font-style: normal; font-weight: 400; line-height: 26px; align-self: stretch;">
                         Respite Care involves coming to stay with us for a short holiday, allowing your carer or loved ones to have a break and recharge their batteries, with peace of mind that you will be well looked after by us.
                     </p>
@@ -69,7 +69,7 @@ function tov_services_home_shortcode($atts) {
                     <div class="rounded-2xl overflow-hidden mb-6 h-[240px]">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/dementia-care.png" alt="Dementia Care" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     </div>
-                    <h3 class="text-[#1C2321] font-jakarta text-2xl font-bold mb-3">Dementia care</h3>
+                    <h3 class="text-[#1C2321] font-jakarta text-2xl font-bold mb-3 hover:text-[#016A7C]">Dementia care</h3>
                     <p class="mb-4" style="color: var(--Body-Text-Color, #757575); font-family: 'Lato', sans-serif; font-size: 18px; font-style: normal; font-weight: 400; line-height: 26px; align-self: stretch;">
                         Our approach to dementia care is of compassion, kindness and sensitivity, where residents are supported to live meaningful lives full of happiness, acceptance and contentment, irrespective of the type of dementia they live with and their symptoms at any given time.
                     </p>

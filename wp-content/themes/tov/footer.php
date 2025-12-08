@@ -8,10 +8,16 @@
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center ">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/The-Old-Vicarage-Otterton-Logo.svg" alt="<?php bloginfo('name'); ?>" class="w-[80%] h-auto">
                     </a>
-                    <div class="mt-4 text-sm text-white leading-6">
+                    <div class="mt-4 text-sm text-white/80 leading-6">
                         <p>Ropers Lane, Otterton, Budleigh<br> Salterton East Devon, EX9 7JF</p>
-                        <a href="tel:01395568208" class="mt-3">01395 568208</a><br>
-                        <a href="mailto:enquiries@theoldvicarageotterton.com">enquiries@theoldvicarageotterton.com</a>
+                        <div class="flex items-center gap-[15px] mt-3">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/call-icon.svg" alt="">
+                            <a href="tel:01395568208" class="hover:text-white">01395 568208</a><br>
+                        </div>
+                        <div class="flex items-center gap-[15px] mt-3">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/mail-icon.svg" alt="">
+                            <a href="mailto:enquiries@theoldvicarageotterton.com" class="hover:text-white">enquiries@theoldvicarageotterton.com</a>
+                        </div>
                     </div>
                 </div>
 

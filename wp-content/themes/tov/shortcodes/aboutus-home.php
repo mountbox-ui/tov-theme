@@ -42,7 +42,7 @@ function tov_aboutus_home_shortcode($atts) {
                             
                                 <!-- Expandable Content -->
                                 <div id="aboutUsExpandable" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
-                                    <div class="space-y-6 pt-6">
+                                    <div class="space-y-6">
                                         <p class="paragraph">
                                             Our beautifully appointed rooms, award-winning gardens, and vibrant wellbeing calendar are designed to foster joy, independence, and connection. Every detail - from freshly prepared meals with home-grown ingredients, personalised care, and a warm, luxurious environment where individuality is celebrated.
                                         </p>

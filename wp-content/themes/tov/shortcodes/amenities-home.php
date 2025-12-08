@@ -52,7 +52,7 @@ function tov_amenities_home_shortcode($atts) {
     ?>
     <section class="py-20 bg-[#014854] relative">
         <!-- Background Image -->
-        <div class="absolute inset-0 opacity-30">
+        <div class="absolute inset-0">
             <img src="<?php echo get_template_directory_uri() . '/assets/images/amenities-bg-2.png'; ?>" alt="" class="w-full h-full object-cover">
         </div>
 
@@ -85,13 +85,15 @@ function tov_amenities_home_shortcode($atts) {
                             <div class="text-white/90 flex-shrink-0">
                                 <?php echo $amenity['icon']; ?>
                             </div>
-                            <h3 class="text-white font-jakarta text-xl font-normal leading-tight">
-                                <?php echo esc_html($amenity['title']); ?>
-                            </h3>
+                            <div>
+                                <h3 class="text-white font-jakarta text-xl font-normal leading-tight">
+                                    <?php echo esc_html($amenity['title']); ?>
+                                </h3>
+                                <p class="paragraph text-[#fff]/60 pt-2">
+                                    <?php echo esc_html($amenity['desc']); ?>
+                                </p>
+                            </div>
                         </div>
-                        <p class="paragraph text-[#fff]/60 ml-[60px]">
-                            <?php echo esc_html($amenity['desc']); ?>
-                        </p>
                     </div>
                     <?php endforeach; ?>
                 </div>
