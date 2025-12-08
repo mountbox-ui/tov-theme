@@ -12,8 +12,15 @@
 get_header(); ?>
 
 <div class="min-h-screen py-10 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="mb-8">Available Jobs</h1>
+    <div class="max-w-[1280px] mx-auto px-4 py-16 sm:px-6 relative z-10">
+        <div class="text-left mb-16 mx-auto max-w-2xl lg:mx-0">
+                <h2>
+                    Available Jobs
+                </h2>
+                <p class="paragraph">
+                    Explore current openings at TOV and find a role that matches your skills. Join us and be part of a growing, creative, and collaborative team.
+                </p>
+            </div>
         
         <?php
         // Get all published jobs (only active ones)
@@ -62,7 +69,7 @@ get_header(); ?>
         
         if ($jobs_query->have_posts()) : ?>
             <!-- Filters -->
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 bg-gray-50 rounded-lg">
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 rounded-lg">
                 <?php 
                 // Get unique categories, locations, and job types from actual job posts
                 $used_categories = array();
@@ -94,21 +101,21 @@ get_header(); ?>
                 sort($used_locations);
                 sort($used_job_types);
                 ?>
-                <select id="category-filter" class="flex-1 px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
+                <select id="category-filter" class="w-[400px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
                     <option value="">All Job Category</option>
                     <?php foreach ($used_categories as $category) : ?>
                         <option value="<?php echo esc_attr(sanitize_title($category)); ?>"><?php echo esc_html($category); ?></option>
                     <?php endforeach; ?>
                 </select>
                 
-                <select id="type-filter" class="flex-1 px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
+                <select id="type-filter" class="w-[400px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
                     <option value="">All Job Type</option>
                     <?php foreach ($used_job_types as $job_type) : ?>
                         <option value="<?php echo esc_attr($job_type); ?>"><?php echo esc_html(ucfirst(str_replace('-', ' ', $job_type))); ?></option>
                     <?php endforeach; ?>
                 </select>
                 
-                <select id="location-filter" class="flex-1 px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
+                <select id="location-filter" class="w-[400px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
                     <option value="">All Job Location</option>
                     <?php foreach ($used_locations as $location) : ?>
                         <option value="<?php echo esc_attr($location); ?>"><?php echo esc_html($location); ?></option>
@@ -136,29 +143,29 @@ get_header(); ?>
                          data-location="<?php echo esc_attr($location); ?>">
                         <div class="min-w-0 flex-1">
                             <div class="mb-2">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-0"><?php the_title(); ?></h3>
+                                <h3><?php the_title(); ?></h3>
                             </div>
                             
                             <?php if (!empty($short_description)) : ?>
-                                <p class="mt-2 text-sm text-gray-600 line-clamp-2 mb-3"><?php echo esc_html($short_description); ?></p>
+                                <p class="paragraph pb-[12px]" style="width: 715px; max-width: 100%;"><?php echo esc_html($short_description); ?></p>
                             <?php endif; ?>
                             
-                            <div class="flex flex-wrap items-center gap-2">
+                            <div class="flex flex-wrap items-center gap-2 mt-[12px]">
                                 <?php if ($category) : ?>
-                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"><?php echo esc_html($category); ?></span>
+                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-4 py-2 text-[16px] font-medium text-blue-700 ring-1 ring-inset"><?php echo esc_html($category); ?></span>
                                 <?php endif; ?>
                                 
                                 <?php if ($job_type) : ?>
-                                    <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"><?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
+                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-4 py-2 text-[16px] font-medium text-blue-700 ring-1 ring-inset"><?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
                                 <?php endif; ?>
                                 
                                 <?php if ($location) : ?>
-                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">📍 <?php echo esc_html($location); ?></span>
+                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-4 py-2 text-[16px] font-medium text-blue-700 ring-1 ring-inset"><?php echo esc_html($location); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
                         <div class="flex-shrink-0">
-                            <a href="<?php the_permalink(); ?>" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+                            <a href="<?php the_permalink(); ?>" class="bt-r px-4 py-2">
                                 View Details
                             </a>
                         </div>

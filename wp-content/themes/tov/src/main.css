@@ -345,3 +345,37 @@
         text-shadow: none;
     }
 }
+
+
+
+/* Footer Menu Hover Effect */
+.site-footer ul.space-y-2 {
+    transition: all 0.3s;
+}
+
+.site-footer ul.space-y-2:hover li a {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.site-footer ul.space-y-2 li:hover a {
+    opacity: 1;
+    color: #ffffff !important;
+    transition: all 0.3s;
+}
+
+/* Bottom footer menu hover */
+.site-footer ul.flex {
+    transition: all 0.3s;
+}
+
+.site-footer ul.flex:hover li a {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.site-footer ul.flex li:hover a {
+    opacity: 1;
+    color: #ffffff !important;
+    transition: all 0.3s;
+}

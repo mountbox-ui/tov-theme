@@ -40,33 +40,33 @@ function tov_amenities_home_shortcode($atts) {
         ],
         [
             'icon' => '<img src="' . get_template_directory_uri() . '/assets/images/Amenities-Icons/En-Suite Rooms.svg" alt="Private En-Suite Rooms" class="w-12 h-12">',
-            'title' => 'Private En-Suite Rooms',
+            'title' => 'Relationship Centered',
             'desc' => 'Comfortable, private rooms with modern amenities.'
         ],
         [
             'icon' => '<img src="' . get_template_directory_uri() . '/assets/images/Amenities-Icons/Programme.svg" alt="Varied Activities Programme" class="w-12 h-12">',
-            'title' => 'Varied Activities Programme',
+            'title' => 'Loved By Residents',
             'desc' => 'Engaging activities tailored to interests.'
         ],
     ];
     ?>
-    <section class="py-20 bg-[#014854] relative overflow-hidden">
+    <section class="py-20 bg-[#014854] relative">
         <!-- Background Image -->
         <div class="absolute inset-0 opacity-30">
             <img src="<?php echo get_template_directory_uri() . '/assets/images/amenities-bg-2.png'; ?>" alt="" class="w-full h-full object-cover">
         </div>
 
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-start">
                 <!-- Left Column: Content -->
-                <div class="text-white sticky top-0">
+                <div class="text-white lg:sticky top-12">
                     <h6 class="text-[rgba(255, 255, 255, 0.57)]">WHY TOV?</h6>
                     
                     <h2 class="text-white">
                         Comforts of <span class="text-white">home</span>
                     </h2>
                     
-                    <p class="my-8 max-w-md" style="color: rgba(255, 255, 255, 0.65); font-family: 'Lato', sans-serif; font-size: 16px; font-style: normal; font-weight: 400; line-height: 24px;">
+                    <p class="mb-8 mt-[12px] max-w-md paragraph text-[#fff]/60">
                         Discover a warm, welcoming environment designed with your loved ones in mind. Our care home offers thoughtfully crafted amenities that prioritize comfort, safety, and a sense of belonging.
                     </p>
                     

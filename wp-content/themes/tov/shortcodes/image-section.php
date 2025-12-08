@@ -31,19 +31,16 @@ function tov_image_section_shortcode($atts, $content = null) {
     
     ob_start();
     ?>
-    <section class="bg-navy-900 py-8 sm:py-12 md:py-16">
-        <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col gap-8 sm:gap-12 lg:gap-16 <?php echo $atts['position'] === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'; ?> items-center justify-between">
+    <section class="max-w-[1280px] mx-auto relative z-10 py-[60px]">
+        <div>
+            <div class="flex flex-col gap-8 sm:gap-12 lg:gap-16 <?php echo $atts['position'] === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'; ?> items-center">
                 <!-- Text Content -->
-                <div class="w-full md:w-4/5 lg:w-1/2 text-center lg:text-left">
+                <div class="w-full lg:w-[35%] text-left">
                     <?php echo $text_content; ?>
                 </div>
                 <!-- Image Content -->
-                <div class="w-full md:w-4/5 lg:w-1/2">
-                    <div class="bg-white rounded-lg p-4 sm:p-6 shadow-lg">
-                        <?php echo $image_content; ?>
-                    </div>
-                </div>
+                <div class="w-full lg:w-[60%]">
+                    <?php echo $image_content; ?>
             </div>
         </div>
     </section>
@@ -57,7 +54,7 @@ function tov_image_section_image_shortcode($atts, $content = null) {
     if (empty($src)) return '';
     
     return sprintf(
-        '<img src="%s" alt="%s" class="w-full h-auto rounded-lg">',
+        '<img src="%s" alt="%s" class="w-full h-auto rounded-[30px]">',
         esc_url($src),
         esc_attr($atts['alt'])
     );
@@ -74,21 +71,21 @@ function tov_image_section_content_shortcode($atts, $content = null) {
     ?>
     <div class="content-container">
         <?php if (!empty($atts['title'])) : ?>
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 md:mb-8">
-                <?php echo esc_html($atts['title']); ?>
+            <h2>
+                <?php echo wp_kses_post($atts['title']); ?>
             </h2>
         <?php endif; ?>
         
-        <div class="text-base sm:text-lg text-navy-200 leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0">
+        <div class="paragraph text-base lg:text-lg leading-relaxed mb-4">
             <?php echo wp_kses_post($content); ?>
         </div>
         
-        <?php if (!empty($atts['button_text']) && !empty($atts['button_url'])) : ?>
+        <!-- <?php if (!empty($atts['button_text']) && !empty($atts['button_url'])) : ?>
             <a href="<?php echo esc_url($atts['button_url']); ?>" 
-               class="inline-block bg-blue-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-md text-base sm:text-lg font-medium hover:bg-blue-700 transition-colors duration-200">
+               class="inline-block text-[#8B6F47] font-medium hover:underline">
                 <?php echo esc_html($atts['button_text']); ?>
             </a>
-        <?php endif; ?>
+        <?php endif; ?> -->
     </div>
     <?php
     return ob_get_clean();
