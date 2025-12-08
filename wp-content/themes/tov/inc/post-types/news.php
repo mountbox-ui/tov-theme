@@ -243,7 +243,7 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
     // Check if this post is set to show on homepage
     $show_on_homepage = get_post_meta($post_id, '_show_on_homepage', true);
     
-    $card_classes = "flex flex-col items-start justify-between";
+    $card_classes = "group flex flex-col items-start ";
     if ($is_highlighted) {
         $card_classes .= " bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border border-orange-200 dark:border-orange-700/50 rounded-2xl p-6 shadow-lg";
     }
@@ -259,7 +259,7 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
                     <span class="text-gray-400 dark:text-gray-500">No Image</span>
                 </div>
             <?php endif; ?>
-            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
+            <div class="absolute inset-0 rounded-lg  ring-inset ring-gray-900/10 dark:ring-white/10"></div>
         </div>
         
         <div class="flex max-w-xl grow flex-col justify-between">
@@ -269,24 +269,24 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
                 </time>
             </div>
             
-            <div class="group relative grow">
-                <h3 class="<?php echo esc_attr($title_class ?: 'font-jakarta mt-1 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300'); ?>">
+            <div class="relative grow">
+                <h3 class="<?php echo esc_attr($title_class ?: 'font-jakarta mt-3 text-lg font-semibold text-gray-900 group-hover:text-[#016A7C] dark:text-white dark:group-hover:text-[#016A7C] transition-colors duration-300'); ?>">
                     <a href="<?php echo get_permalink($post_id); ?>">
                         <span class="absolute inset-0"></span>
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="<?php echo esc_attr($excerpt_class ?: 'paragraph'); ?>">
+                <p class="<?php echo esc_attr($excerpt_class ?: 'paragraph mt-3'); ?>">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
 
                 <div class="mt-4">
                     
-                    <a href="<?php echo get_permalink($post_id); ?>" class="inline-flex items-center text-[#1C2321] font-bold text-sm hover:text-[#016A7C] transition-colors hover:text-[#016A7C]">
+                    <a href="<?php echo get_permalink($post_id); ?>" class="btn-readmore">
                     <?php esc_html_e('Read more', 'tov-theme'); ?>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform duration-300 ease-in-out hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
+										<path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="rgba(0, 0, 0, 0.8)"/>
+									</svg>
                     </a>
                 </div>
             </div>
@@ -343,7 +343,7 @@ function tov_render_news_card($post_id, $news_date = null, $show_author_meta = t
                     $dynamic_tag = function_exists('get_field') ? get_field('news_tag', $post_id) : '';
                     if (!empty($dynamic_tag)) : ?>
                         <div class="mt-2">
-                            <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-200 dark:ring-blue-700/30">
+                            <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700  ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-200 dark:ring-blue-700/30">
                                 <?php echo esc_html($dynamic_tag); ?>
                             </span>
                         </div>
@@ -447,7 +447,7 @@ function tov_render_horizontal_news_card($post_id) {
     // Check if this post is highlighted using the meta field (consistent with admin system)
     $is_highlighted = get_post_meta($post_id, '_is_highlighted', true) === '1';
     
-    $card_classes = "relative isolate flex flex-col gap-8 lg:flex-row";
+    $card_classes = "group relative isolate flex flex-col gap-8 lg:flex-row";
     if ($is_highlighted) {
         $card_classes .= " bg-gray-50 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-2xl p-6 shadow-lg";
     }
@@ -463,7 +463,7 @@ function tov_render_horizontal_news_card($post_id) {
                     <span class="text-gray-400 dark:text-gray-500 text-xs">No Image</span>
                 </div>
             <?php endif; ?>
-            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10 dark:ring-white/10"></div>
+            <div class="absolute inset-0 rounded-lg  ring-inset ring-gray-900/10 dark:ring-white/10"></div>
         </div>
         <div>
             <div class="flex items-center gap-x-4 text-xs">
@@ -471,14 +471,14 @@ function tov_render_horizontal_news_card($post_id) {
                     <?php echo esc_html(get_the_date('M j, Y', $post_id)); ?>
                 </time>
             </div>
-            <div class="group relative max-w-xl">
-                <h3 class="font-jakarta mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300">
+            <div class="relative max-w-xl">
+                <h3 class="font-jakarta mt-3 text-lg font-semibold text-gray-900 group-hover:text-[#016A7C] dark:text-white dark:group-hover:text-[#016A7C] transition-colors duration-300">
                     <a href="<?php echo get_permalink($post_id); ?>">
                         <span class="absolute inset-0"></span>
                         <?php echo get_the_title($post_id); ?>
                     </a>
                 </h3>
-                <p class="font-lato mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                <p class="paragraph">
                     <?php echo wp_trim_words(get_the_excerpt($post_id), 25, '...'); ?>
                 </p>
 
@@ -543,7 +543,7 @@ function tov_render_horizontal_news_card($post_id) {
                         $dynamic_tag = function_exists('get_field') ? get_field('news_tag', $post_id) : '';
                         if (!empty($dynamic_tag)) : ?>
                             <div class="mt-2">
-                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-200 dark:ring-blue-700/30">
+                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700  ring-inset ring-blue-700/10 dark:bg-blue-900/20 dark:text-blue-200 dark:ring-blue-700/30">
                                     <?php echo esc_html($dynamic_tag); ?>
                                 </span>
                             </div>

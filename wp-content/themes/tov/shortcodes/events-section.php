@@ -7,6 +7,24 @@
 if (!defined('ABSPATH')) exit;
 
 function tov_events_section_shortcode($atts) {
+	// Function to format event date range (if not already defined)
+	if (!function_exists('tov_format_event_range')) {
+		function tov_format_event_range($start, $end) {
+			$s = $start ? strtotime($start) : null;
+			$e = $end ? strtotime($end) : null;
+			if ($s && $e) {
+				if (date('Y-m', $s) === date('Y-m', $e)) {
+					return date_i18n('M j', $s) . ' - ' . date_i18n('j, Y', $e);
+				} elseif (date('Y', $s) === date('Y', $e)) {
+					return date_i18n('M j', $s) . ' - ' . date_i18n('M j, Y', $e);
+				}
+				return date_i18n('M j, Y', $s) . ' - ' . date_i18n('M j, Y', $e);
+			}
+			if ($s) return date_i18n('M j, Y', $s);
+			return '';
+		}
+	}
+	
 	$atts = shortcode_atts(array(
 		'limit' => 2,
 		'category' => '',
@@ -59,11 +77,11 @@ function tov_events_section_shortcode($atts) {
 					</h2>
 					
 				</div>
-				<a href="<?php echo esc_url(home_url('/event/')); ?>" class="bt-r">
+				<a href="<?php echo esc_url(home_url('/event/')); ?>" class="btn btn-primary btn-resources">
 					<?php echo esc_html__('See all events', 'tov'); ?>
-					<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" class="ml-2.5 p-[2px]" fill="none">
-						<path d="M11.5375 16.8374L17.1437 11.3937C17.4146 11.177 17.55 10.8791 17.55 10.4999C17.55 10.1207 17.4146 9.82282 17.1437 9.60615L11.5375 4.1624C11.3208 3.89157 11.0365 3.75615 10.6844 3.75615C10.3323 3.75615 10.0344 3.87803 9.79062 4.12178C9.54688 4.36553 9.425 4.67699 9.425 5.05615C9.425 5.43532 9.56042 5.73324 9.83125 5.9499L13.1625 9.1999H4.46875C4.14375 9.1999 3.85938 9.32178 3.61562 9.56553C3.37187 9.80928 3.25 10.1207 3.25 10.4999C3.25 10.8791 3.37187 11.1905 3.61562 11.4343C3.85938 11.678 4.14375 11.7999 4.46875 11.7999H13.1625L9.83125 15.0499C9.56042 15.2666 9.425 15.5645 9.425 15.9437C9.425 16.3228 9.54688 16.6343 9.79062 16.878C10.0344 17.1218 10.3323 17.2437 10.6844 17.2437C11.0365 17.2437 11.3208 17.1082 11.5375 16.8374Z" fill="#016A7C"/>
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                        <path d="M12.6014 18.39L18.7246 12.4443C19.0204 12.2076 19.1683 11.8823 19.1683 11.4681C19.1683 11.054 19.0204 10.7286 18.7246 10.492L12.6014 4.54629C12.3648 4.25048 12.0542 4.10258 11.6697 4.10258C11.2851 4.10258 10.9597 4.23569 10.6935 4.50192C10.4273 4.76814 10.2942 5.10832 10.2942 5.52245C10.2942 5.93657 10.4421 6.26196 10.7379 6.4986L14.3763 10.0483H4.88093C4.52596 10.0483 4.21537 10.1814 3.94914 10.4476C3.68292 10.7138 3.5498 11.054 3.5498 11.4681C3.5498 11.8823 3.68292 12.2224 3.94914 12.4887C4.21537 12.7549 4.52596 12.888 4.88093 12.888H14.3763L10.7379 16.4377C10.4421 16.6743 10.2942 16.9997 10.2942 17.4138C10.2942 17.8279 10.4273 18.1681 10.6935 18.4343C10.9597 18.7006 11.2851 18.8337 11.6697 18.8337C12.0542 18.8337 12.3648 18.6858 12.6014 18.39Z" fill="white"/>
+                    </svg>
 				</a>
 			</div>
 
@@ -97,20 +115,15 @@ function tov_events_section_shortcode($atts) {
 							$event_location = get_post_meta(get_the_ID(), '_event_location', true);
 						}
 						
-						// Format date/time string
-						$start_ts = $event_date ? strtotime($event_date) : null;
+						// Format date using the same function as templates
+						$date_display = tov_format_event_range($event_date, $event_end_date);
 						$time_display = '';
-						$date_display = '';
-
-						if ($start_ts) {
-							$date_display = date_i18n('l jS F Y', $start_ts);
-						}
-
+						
 						if ($event_time) {
 							$time_display = date_i18n('g:i a', strtotime($event_time));
 						}
 						?>
-						<article class="flex flex-col overflow-hidden rounded-2xl bg-white cursor-pointer" style="height: 498px;" onclick="window.location.href='<?php the_permalink(); ?>'">
+						<article class="group flex flex-col overflow-hidden rounded-2xl bg-white cursor-pointer" style="height: 498px;" onclick="window.location.href='<?php the_permalink(); ?>'">
 							<div class="relative w-full" >
 								<?php if (has_post_thumbnail()) : ?>
 									<?php the_post_thumbnail('large', array('class' => 'h-[338px] object-cover rounded-[8px] w-[555px]')); ?>
@@ -121,14 +134,14 @@ function tov_events_section_shortcode($atts) {
 								<?php endif; ?>
 							</div>
 							<div class="flex flex-1 flex-col pb-6 pt-5 ">
-								<h3 class="mb-3 line-clamp-2">
+								<h3 class="mb-3 line-clamp-2 group-hover:text-[#016A7C] transition-colors duration-300">
 									<?php the_title(); ?>
 								</h3>
 								
 								<?php if ($date_display || $time_display || $event_location) : ?>
 									<p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px] mb-6">
 										<?php if ($date_display) : ?>
-											<?php echo esc_html($date_display); ?>
+											<span class="uppercase"><?php echo esc_html($date_display); ?></span>
 										<?php endif; ?>
 										<?php if ($time_display) : ?>
 											<?php if ($date_display) : ?><span class="mx-1 text-gray-400">|</span><?php endif; ?>
@@ -147,10 +160,10 @@ function tov_events_section_shortcode($atts) {
 										<?php esc_html_e('Read more', 'tov'); ?>
 										<span aria-hidden="true" class="ml-1">→</span>
 									</a> -->
-									<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-[#227D8C] font-bold text-sm hover:text-[#016A7C] transition-colors relative z-10" onclick="event.stopPropagation();">
+									<a href="<?php the_permalink(); ?>" class="btn-readmore group" onclick="event.stopPropagation();">
                         			Learn more
                         			<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
-										<path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="#016A7C"/>
+										<path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="rgba(0, 0, 0, 0.8)"/>
 									</svg>
 									</a>
 								</div>
@@ -290,7 +303,7 @@ function tov_upcoming_events_shortcode($atts) {
 						$category_label = strtoupper($event_categories[0]->name);
 					}
 					?>
-					<article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 dark:bg-gray-800">
+					<article class="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 dark:bg-gray-800">
 						<?php if (has_post_thumbnail()) : ?>
 							<div class="relative w-full h-48 overflow-hidden">
 								<a href="<?php the_permalink(); ?>">
@@ -304,8 +317,8 @@ function tov_upcoming_events_shortcode($atts) {
 							</div>
 						<?php endif; ?>
 						<div class="p-6">
-							<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-								<a href="<?php the_permalink(); ?>" class="hover:text-[#E2A76F] dark:hover:text-blue-400 transition-colors duration-200">
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-[#016A7C] dark:group-hover:text-[#016A7C] transition-colors duration-300">
+								<a href="<?php the_permalink(); ?>" class="transition-colors duration-300">
 									<?php the_title(); ?>
 								</a>
 							</h3>
@@ -439,7 +452,7 @@ function tov_past_events_shortcode($atts) {
 						$date_display = date_i18n('M j, Y', $start_ts);
 					}
 					?>
-					<article class="flex flex-col sm:flex-row gap-6 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 dark:bg-gray-800">
+					<article class="group flex flex-col sm:flex-row gap-6 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 dark:bg-gray-800">
 						<?php if (has_post_thumbnail()) : ?>
 							<div class="flex-shrink-0 w-full sm:w-64 h-48 sm:h-auto">
 								<a href="<?php the_permalink(); ?>">
@@ -453,8 +466,8 @@ function tov_past_events_shortcode($atts) {
 									<span><?php echo esc_html(strtoupper($date_display)); ?></span>
 								<?php endif; ?>
 							</div>
-							<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-								<a href="<?php the_permalink(); ?>" class="hover:text-[#E2A76F] dark:hover:text-blue-400 transition-colors duration-200">
+							<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-[#016A7C] dark:group-hover:text-[#016A7C] transition-colors duration-300">
+								<a href="<?php the_permalink(); ?>" class="transition-colors duration-300">
 									<?php the_title(); ?>
 								</a>
 							</h3>
@@ -463,7 +476,7 @@ function tov_past_events_shortcode($atts) {
 									<?php echo esc_html($event_location); ?>
 								</p>
 							<?php endif; ?>
-							<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-sm font-semibold text-[#000] hover:text-[#000] dark:text-[#000] dark:hover:text-[#000] transition-colors">
+							<a href="<?php the_permalink(); ?>" class="inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 group cursor-pointer border-none bg-transparent p-0">
 								<?php esc_html_e('Read more', 'tov'); ?>
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

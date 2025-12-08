@@ -4,16 +4,15 @@
  */
 
 if (!defined('ABSPATH')) exit;
+
 get_header(); ?>
 
-<main class="bg-white dark:bg-gray-900">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-28 pb-1 overflow-visible ">
-         <!-- Full Width Background Image -->
-         <div class="absolute inset-0 top-0 left-0 w-full h-full z-0">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/About Us H1 bg gr.png" alt="" class="w-full h-full object-cover object-bottom opacity-30 scale-x-[1]">
-            </div>
-        <header class="mb-2">
-            <h1 class="text-3xl font-jakarta font-bold tracking-tight text-[#E2A76F] sm:text-2xl dark:text-white"><?php esc_html_e('Events', 'tov'); ?></h1>
+<main class="bg-white dark:bg-gray-900 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8  pb-1 overflow-visible ">
+         
+        <header class="mb-12 mx-auto max-w-2xl lg:mx-0">
+            <h2><?php esc_html_e('Events', 'tov'); ?></h2>
+            <p class="paragraph">We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.</p>
         </header>
 
 
@@ -71,7 +70,7 @@ get_header(); ?>
                 <?php endif; ?>
                 <div class="p-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        <a href="<?php echo get_permalink($post_id); ?>" class="hover:text-[#E2A76F] transition-colors duration-200"><?php echo get_the_title($post_id); ?></a>
+                        <a href="<?php echo get_permalink($post_id); ?>" class="hover:text-blue-600 transition-colors duration-200"><?php echo get_the_title($post_id); ?></a>
                     </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         <?php echo esc_html($range); ?>
@@ -216,15 +215,10 @@ get_header(); ?>
                         $event_location = get_post_meta(get_the_ID(), '_event_location', true);
                     }
                     
-                    // Format date/time string (matching shortcode style)
-                    $start_ts = $event_date ? strtotime($event_date) : null;
+                    // Format date using the same function as past events
+                    $date_display = tov_format_event_range($event_date, $event_end_date);
                     $time_display = '';
-                    $date_display = '';
-
-                    if ($start_ts) {
-                        $date_display = date_i18n('l jS F Y', $start_ts);
-                    }
-
+                    
                     if ($event_time) {
                         $time_display = date_i18n('g:i a', strtotime($event_time));
                     }
@@ -236,29 +230,29 @@ get_header(); ?>
                         $category_label = strtoupper($event_categories[0]->name);
                     }
                     ?>
-                    <article class="bg-white rounded-lg overflow-hidden  hover:shadow-sm transition-shadow duration-300 dark:bg-gray-800">
+                    <article class="group bg-white rounded-lg overflow-hidden hover:shadow-sm transition-shadow duration-300 dark:bg-gray-800">
                         <?php if (has_post_thumbnail(get_the_ID())) : ?>
                             <div class="relative w-full h-48 overflow-hidden">
                                 <a href="<?php echo get_permalink(get_the_ID()); ?>">
                                     <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-full object-cover rounded-lg')); ?>
                                 </a>
                                 <div class="absolute top-3 left-3">
-                                    <span class="inline-flex items-center rounded bg-[#E2A76F] text-white px-2 py-1 text-xs font-semibold">
+                                    <span class="inline-flex items-center rounded bg-[#006778a1] text-white px-2 py-1 text-xs font-semibold">
                                         <?php echo esc_html($category_label); ?>
                                     </span>
                                 </div>
                             </div>
                         <?php endif; ?>
-                        <div class="pt-1">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                <a href="<?php echo get_permalink(get_the_ID()); ?>" class="hover:text-[#E2A76F] dark:hover:text-blue-400 transition-colors duration-200">
+                        <div class="py-6">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-[#016A7C] dark:group-hover:text-[#016A7C] transition-colors duration-300">
+                                <a href="<?php echo get_permalink(get_the_ID()); ?>" class="transition-colors duration-300">
                                     <?php echo get_the_title(get_the_ID()); ?>
                                 </a>
                             </h3>
                             <?php if ($date_display || $time_display || $event_location) : ?>
                                 <p class="text-[rgba(28,35,33,0.9)] font-lato text-base font-normal leading-[24px] tracking-[0.459px] mb-6">
                                     <?php if ($date_display) : ?>
-                                        <?php echo esc_html($date_display); ?>
+                                        <span class="uppercase"><?php echo esc_html($date_display); ?></span>
                                     <?php endif; ?>
                                     <?php if ($time_display) : ?>
                                         <?php if ($date_display) : ?><span class="mx-1 text-gray-400">|</span><?php endif; ?>
@@ -270,6 +264,14 @@ get_header(); ?>
                                     <?php endif; ?>
                                 </p>
                             <?php endif; ?>
+                            <div class="mt-4">
+                                <a href="<?php echo get_permalink(get_the_ID()); ?>" class="btn-readmore group">
+                                    <?php esc_html_e('Read more', 'tov'); ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
+                                        <path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="rgba(0, 0, 0, 0.8)"/>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </article>
                 <?php endwhile; ?>
@@ -318,7 +320,7 @@ get_header(); ?>
             
             <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                 <h2 class="text-2xl font-jakarta font-bold text-gray-900 dark:text-white mb-6"><?php esc_html_e('Past', 'tov'); ?></h2>
-                <div class="space-y-6">
+                <div class="space-y-6 max-w-[800px]">
                 <?php while ($past_events->have_posts()) : $past_events->the_post();
                     // Get event details from ACF fields
                     $event_date = '';
@@ -346,10 +348,10 @@ get_header(); ?>
                     $date_display = tov_format_event_range($event_date, $event_end_date);
                     ?>
                     <a href="<?php echo get_permalink(get_the_ID()); ?>" class="block group">
-                        <article class="flex flex-col sm:flex-row gap-6 rounded-lg overflow-hidden p-3 hover:shadow-sm transition-shadow duration-300 hover:bg-white cursor-pointer">
+                        <article class="group flex flex-col sm:flex-row gap-6 rounded-lg overflow-hidden p-3 hover:shadow-sm transition-shadow duration-300 hover:bg-white cursor-pointer">
                             <div class="flex-shrink-0 w-full sm:w-64 h-48 sm:h-auto flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg">
                                 <?php if (has_post_thumbnail(get_the_ID())) : ?>
-                                    <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-[200px] object-cover rounded-lg')); ?>
+                                    <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-[130px] object-cover rounded-lg')); ?>
                                 <?php else : ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -357,23 +359,24 @@ get_header(); ?>
                                 <?php endif; ?>
                             </div>
                             <div class="flex-1 p-6 flex flex-col justify-center">
-                                <div class="text-sm text-gray-600 dark:text-gray-400 mb-2  transition-colors duration-200">
-                                    <?php if ($date_display) : ?>
-                                        <span><?php echo esc_html(strtoupper($date_display)); ?></span>
-                                    <?php endif; ?>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-[#E2A76F] transition-colors duration-200">
+                                <?php if ($date_display || $event_location) : ?>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-2 transition-colors duration-200">
+                                        <?php if ($date_display) : ?>
+                                            <span><?php echo esc_html(strtoupper($date_display)); ?></span>
+                                        <?php endif; ?>
+                                        <?php if ($event_location) : ?>
+                                            <?php if ($date_display) : ?><span class="mx-1 text-gray-400">|</span><?php endif; ?>
+                                            <span><?php echo esc_html($event_location); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-[#016A7C] dark:group-hover:text-[#016A7C] transition-colors duration-300">
                                     <?php echo get_the_title(get_the_ID()); ?>
                                 </h3>
-                                <?php if ($event_location) : ?>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4  transition-colors duration-200">
-                                        <?php echo esc_html($event_location); ?>
-                                    </p>
-                                <?php endif; ?>
-                                <span class="inline-flex items-center text-sm font-semibold text-[#000] dark:text-[#000]  transition-colors duration-200">
+                                <span class="btn-readmore group">
                                     <?php esc_html_e('Read more', 'tov'); ?>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" class="pt-1" viewBox="0 0 21 21" fill="none">
+                                        <path d="M11.5246 10.4999L7.19336 6.16861L8.43148 4.93136L14 10.4999L8.43149 16.0684L7.19424 14.8311L11.5246 10.4999Z" fill="rgba(0, 0, 0, 0.8)"/>
                                     </svg>
                                 </span>
                             </div>
