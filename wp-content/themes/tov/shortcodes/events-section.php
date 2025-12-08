@@ -305,7 +305,7 @@ function tov_upcoming_events_shortcode($atts) {
 						<?php endif; ?>
 						<div class="p-6">
 							<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-								<a href="<?php the_permalink(); ?>" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+								<a href="<?php the_permalink(); ?>" class="hover:text-[#E2A76F] dark:hover:text-blue-400 transition-colors duration-200">
 									<?php the_title(); ?>
 								</a>
 							</h3>
@@ -454,7 +454,7 @@ function tov_past_events_shortcode($atts) {
 								<?php endif; ?>
 							</div>
 							<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-								<a href="<?php the_permalink(); ?>" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+								<a href="<?php the_permalink(); ?>" class="hover:text-[#E2A76F] dark:hover:text-blue-400 transition-colors duration-200">
 									<?php the_title(); ?>
 								</a>
 							</h3>

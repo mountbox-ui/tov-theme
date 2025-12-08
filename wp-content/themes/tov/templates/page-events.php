@@ -71,7 +71,7 @@ get_header(); ?>
                 <?php endif; ?>
                 <div class="p-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        <a href="<?php echo get_permalink($post_id); ?>" class="hover:text-blue-600 transition-colors duration-200"><?php echo get_the_title($post_id); ?></a>
+                        <a href="<?php echo get_permalink($post_id); ?>" class="hover:text-[#E2A76F] transition-colors duration-200"><?php echo get_the_title($post_id); ?></a>
                     </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         <?php echo esc_html($range); ?>
@@ -251,7 +251,7 @@ get_header(); ?>
                         <?php endif; ?>
                         <div class="pt-1">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                <a href="<?php echo get_permalink(get_the_ID()); ?>" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                                <a href="<?php echo get_permalink(get_the_ID()); ?>" class="hover:text-[#E2A76F] dark:hover:text-blue-400 transition-colors duration-200">
                                     <?php echo get_the_title(get_the_ID()); ?>
                                 </a>
                             </h3>
