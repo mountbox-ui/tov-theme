@@ -55,7 +55,7 @@
 
                     <!-- Contact Us Button (desktop) -->
                     <div>
-                        <a href="<?php echo home_url('/contact-us/'); ?>" class="btn btn-primary bt-1 h-[50px] w-[120px]">
+                        <a href="<?php echo home_url('/book-a-tour/'); ?>" class="btn btn-primary bt-1 h-[50px] w-[120px]">
                             Contact Us
                         </a>
                     </div>

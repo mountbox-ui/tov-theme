@@ -55,7 +55,7 @@ function tov_aboutus_home_shortcode($atts) {
                                     </div>
                                 </div>
                             </div>
-                            
+                 
                             <!-- Gradient Overlay (visible when collapsed) -->
                             <div id="aboutUsGradient" class="pointer-events-none transition-opacity duration-500" 
                                  style="position: absolute; right: 16px; bottom: 23px; width: 562px; height: 150px; background: linear-gradient(180deg, rgba(250, 248, 244, 0.00) 5.04%, #FAF8F4 100%);">
