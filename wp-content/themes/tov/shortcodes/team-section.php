@@ -251,7 +251,7 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
             <!-- Content Section -->
             <div class="lg:pr-8 sm:pr-4 text-left">
                 <h6 class="text-[#016A7C]">Meet the Team</h6>
-                <h2 class="w-[350px] lg:w-[475px] md:w[475px] sm:w-[350px] ">
+                <h2 class="w-[350px] lg:w-[600px] md:w-[600px] sm:w-[350px] ">
                     Increase your <span>relationship potential.</span>
                 </h2>
                 
@@ -269,14 +269,7 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
             </div>
 
             <!-- Image Section --> 
-            <div class="flex-shrink-0 relative flex flex-col items-center justify-center">
-                <!-- Blob Background (SVG) -->
-                <!-- <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] -z-10">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[#F0ECE4] fill-current opacity-60">
-                        <path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-5.3C93.5,8.6,82.2,21.5,70.6,32.3C59,43.1,47.1,51.8,34.8,58.6C22.5,65.4,9.8,70.3,-1.9,73.6C-13.6,76.9,-24.3,78.6,-34.4,73.6C-44.5,68.6,-54,56.9,-61.8,44.2C-69.6,31.5,-75.7,17.8,-76.8,3.5C-77.9,-10.8,-74,-25.7,-65.3,-37.8C-56.6,-49.9,-43.1,-59.2,-29.6,-66.8C-16.1,-74.4,-2.6,-80.3,10.3,-78.8C23.2,-77.3,30.5,-91.1,44.7,-76.4Z" transform="translate(100 100)" />
-                    </svg>
-                </div> -->
-                
+            <div class="flex-shrink-0 relative flex flex-col items-center justify-center">                
                 <!-- Image -->
                 <div class="relative w-[270px] h-[360px] md:w-[270px] rounded-full md:h-[360px] overflow-hidden shadow-xl">
                     <?php if (!empty($image_url)) : ?>
