@@ -42,36 +42,39 @@ if ($job_status === 'inactive') {
 <div class="min-h-screen bg-white py-8 lg:py-24">
     <div class="max-w-[1280px] mx-auto px-4 py-16 sm:px-6 relative z-10">
         <div class="flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <!-- Left Column - Job Details -->
-            <div class="flex-1 min-w-0">
+            <!-- Left Column - Job Details (2/3) -->
+            <div class="lg:w-2/3">
                 <?php while (have_posts()) : the_post(); ?>
                     <?php 
                     $category = get_post_meta(get_the_ID(), '_job_category', true);
                     $job_type = get_post_meta(get_the_ID(), '_job_type', true);
                     $location = get_post_meta(get_the_ID(), '_job_location', true);
-                    $short_description = get_post_meta(get_the_ID(), '_job_short_description', true);
                     ?>
                     
                     <!-- Job Title -->
-                    <h1 class="text-[#00455E] font-poppins text-3xl md:text-4xl font-semibold mb-4 leading-tight"><?php the_title(); ?></h1>
+                    <h1 class="text-[#00455E] font-poppins text-3xl md:text-4xl font-semibold mb-6 leading-tight"><?php the_title(); ?></h1>
                     
-                    <!-- Short Description -->
-                    <?php if ($short_description) : ?>
-                        <p class="paragraph text-gray-600 mb-6 max-w-3xl"><?php echo esc_html($short_description); ?></p>
-                    <?php endif; ?>
-                    
-                    <!-- Job Metadata Badges -->
-                    <div class="flex flex-wrap items-center gap-2 mb-8">
+                    <!-- Job Metadata -->
+                    <div class="space-y-2 mb-8">
                         <?php if ($category) : ?>
-                            <span class="flex-none rounded-full bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"><?php echo esc_html($category); ?></span>
+                            <div class="flex items-start">
+                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Category</span>
+                                <span class="text-gray-600 font-inter text-sm"><span class="pl-2">:</span> <?php echo esc_html($category); ?></span>
+                            </div>
                         <?php endif; ?>
                         
                         <?php if ($job_type) : ?>
-                            <span class="flex-none rounded-full bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"><?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
+                            <div class="flex items-start">
+                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Type</span>
+                                <span class="text-gray-600 font-inter text-sm"><span class="pl-2">:</span> <?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
+                            </div>
                         <?php endif; ?>
                         
                         <?php if ($location) : ?>
-                            <span class="flex-none rounded-full bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"><?php echo esc_html($location); ?></span>
+                            <div class="flex items-start">
+                                <span class="text-[#00455E] font-inter text-sm font-medium min-w-[110px]">Job Location</span>
+                                <span class="text-gray-600 font-inter text-sm"><span class="pl-2">:</span> <?php echo esc_html($location); ?></span>
+                            </div>
                         <?php endif; ?>
                     </div>
                     <div class="border-b border-gray-200 my-6"></div>
@@ -84,9 +87,9 @@ if ($job_status === 'inactive') {
                 <?php endwhile; ?>
             </div>
             
-            <!-- Right Column - Apply Form -->
-            <div class="w-full lg:flex-none right-column-fixed">
-                <div class="bg-gray-50 rounded-lg p-6 lg:p-8 border border-gray-200 lg:sticky lg:top-6 w-full">
+            <!-- Right Column - Apply Form (1/3) -->
+            <div class="w-full lg:w-1/3 lg:flex-shrink-0">
+                <div class="bg-gray-50 rounded-lg p-6 lg:p-8 border border-gray-200 lg:sticky lg:top-6">
                     <h2 class="text-xl lg:text-2xl font-bold text-gray-900 mb-6">Apply Now</h2>
                     
                     <form id="job-application-form" method="post" enctype="multipart/form-data" class="space-y-4">
@@ -130,86 +133,37 @@ if ($job_status === 'inactive') {
     </div>
 </div>
 
-<style>
-/* Custom width for the right column to ensure 422px on large screens */
-@media (min-width: 1024px) {
-    .right-column-fixed {
-        width: 422px !important;
-        flex: none !important;
-    }
-}
-</style>
-
 
 <!-- Thank You Modal -->
-<!-- Thank You Modal -->
-<div id="thankYouModal" class="hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-  <!-- Background backdrop -->
-  <div class="modal-backdrop"></div>
-
-  <div class="modal-flex-container">
-    <!-- Modal panel -->
-    <div class="modal-panel">
-      <div>
-        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 mb-4">
-          <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-          </svg>
+<div id="thankYouModal" class="fixed inset-0 w-full h-full bg-black/50 backdrop-blur-sm flex justify-center items-center z-[10000] hidden">
+    <div class="bg-white rounded-2xl p-10 text-center max-w-md w-11/12 shadow-2xl animate-[modalSlideIn_0.3s_ease-out]">
+        <div class="mb-6">
+            <div class="w-20 h-20 rounded-full border-2 border-white flex justify-center items-center mx-auto bg-[#00323F]">
+                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12L11 14L15 10" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
         </div>
-        <div class="mt-3 text-center sm:mt-5">
-          <h3 class="text-xl font-semibold leading-6 text-gray-900 mb-2" id="modal-title">Application Received</h3>
-          <div class="mt-2">
-            <p class="text-sm text-gray-500">Your application has been successfully submitted. We will review your information and get back to you shortly.</p>
-          </div>
-        </div>
-      </div>
-      <div class="mt-6">
-        <button type="button" class="btn btn-primary bt-1 w-full" onclick="closeThankYouModal()" href="/home">Back to Home</button>
-      </div>
+        <h2 class="font-jakarta text-3xl font-bold text-gray-800 mb-4">Thank you</h2>
+        <p class="font-lato text-base text-gray-600 leading-relaxed mb-8">your message has been received,<br>we will update you shortly.</p>
+        <button class="bg-[#00323F] text-white border-none py-3.5 px-8 rounded-xl font-lato text-base font-medium cursor-pointer transition-all hover:bg-[#00323F] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(61,213,243,0.3)] active:translate-y-0 min-w-[140px]" onclick="closeThankYouModal()">Go further</button>
     </div>
-  </div>
 </div>
 
 <style>
-/* Robust Modal Styles */
-#thankYouModal {
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-    overflow-y: auto;
-}
-#thankYouModal.hidden {
-    display: none !important;
-}
-
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(107, 114, 128, 0.75);
-    backdrop-filter: blur(4px);
+/* Keyframe animation for modal */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.modal-flex-container {
-    display: flex;
-    min-height: 100%;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    text-align: center;
-    position: relative;
-}
-
-.modal-panel {
-    position: relative;
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    width: 100%;
-    max-width: 24rem; /* 384px */
-    margin: 2rem auto;
-}/* Legacy WordPress content styles - keep for backward compatibility */
+/* Legacy WordPress content styles - keep for backward compatibility */
 .job-content ul {
     list-style: none;
     padding: 0;
@@ -272,21 +226,19 @@ if ($job_status === 'inactive') {
 <script>
 // Modal functions
 function showThankYouModal() {
-    const modal = document.getElementById('thankYouModal');
-    modal.classList.remove('hidden');
+    document.getElementById('thankYouModal').style.display = 'flex';
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
 function closeThankYouModal() {
-    const modal = document.getElementById('thankYouModal');
-    modal.classList.add('hidden');
+    document.getElementById('thankYouModal').style.display = 'none';
     document.body.style.overflow = 'auto'; // Restore scrolling
 }
 
 // Close modal when clicking outside
 document.addEventListener('click', function(event) {
-    const modalContainer = document.querySelector('.modal-flex-container');
-    if (event.target === modalContainer) {
+    const modal = document.getElementById('thankYouModal');
+    if (event.target === modal) {
         closeThankYouModal();
     }
 });

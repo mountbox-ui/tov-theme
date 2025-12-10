@@ -1915,6 +1915,8 @@ nav a:hover {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+/* button styling ------- */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1979,6 +1981,75 @@ nav a:hover {
     line-height: 1.5rem;
   }
 }
+
+.btn-resources {
+  justify-content: center;
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 106 124 / var(--tw-bg-opacity, 1));
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-resources svg {
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-resources:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 138 159 / var(--tw-bg-opacity, 1));
+}
+
+.btn-resources:hover svg {
+  --tw-translate-x: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.btn-readmore {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  border-style: none;
+  background-color: transparent;
+  padding: 0px;
+  font-family: Lato, sans-serif;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.btn-readmore:hover {
+  --tw-text-opacity: 1;
+  color: rgb(1 106 124 / var(--tw-text-opacity, 1));
+}
+
+.btn-readmore svg {
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-readmore:hover svg {
+  --tw-translate-x: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.btn-readmore:hover svg path {
+  fill: #016A7C;
+}
+
+/* button styling ------- */
 
 .hero-section-text {
   font-family: Lato, sans-serif;
@@ -2826,10 +2897,6 @@ nav a:hover {
 
 .grid {
   display: grid;
-}
-
-.contents {
-  display: contents;
 }
 
 .hidden {
@@ -3916,10 +3983,6 @@ nav a:hover {
   padding: 32px;
 }
 
-.p-\[50px\] {
-  padding: 50px;
-}
-
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -4008,11 +4071,6 @@ nav a:hover {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.py-\[10px\] {
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .pb-1 {

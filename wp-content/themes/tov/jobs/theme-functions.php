@@ -688,8 +688,8 @@ function tov_handle_job_application() {
         $applicant_name = sanitize_text_field($_POST['applicant_name']);
         $applicant_email = sanitize_email($_POST['applicant_email']);
         $applicant_phone = sanitize_text_field($_POST['applicant_phone']);
-        $applicant_location = isset($_POST['applicant_location']) ? sanitize_text_field($_POST['applicant_location']) : '';
-        $applicant_experience = isset($_POST['applicant_experience']) ? sanitize_text_field($_POST['applicant_experience']) : '';
+        $applicant_location = sanitize_text_field($_POST['applicant_location']);
+        $applicant_experience = sanitize_text_field($_POST['applicant_experience']);
         $cover_letter = sanitize_textarea_field($_POST['cover_letter']);
         
         // Handle file upload
