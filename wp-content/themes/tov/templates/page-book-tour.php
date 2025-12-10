@@ -27,7 +27,7 @@ get_header(); ?>
                                 <path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </dt>
-                        <dd>545 Mavis Island<br />Chicago, IL 99191</dd>
+                        <dd>Ropers Lane, Otterton, Budleigh<br />Salterton East Devon, EX9 7JF</dd>
                     </div>
                     <div class="flex gap-x-4">
                         <dt class="flex-none">
@@ -36,7 +36,7 @@ get_header(); ?>
                                 <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </dt>
-                        <dd><a href="tel:+1 (555) 234-5678" class="hover:text-gray-900 transition-colors">+1 (555) 234-5678</a></dd>
+                        <dd><a href="tel:01395568208" class="hover:text-gray-900 transition-colors">01395 568208</a></dd>
                     </div>
                     <div class="flex gap-x-4">
                         <dt class="flex-none">
@@ -45,9 +45,23 @@ get_header(); ?>
                                 <path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </dt>
-                        <dd><a href="mailto:hello@example.com" class="hover:text-gray-900 transition-colors">hello@example.com</a></dd>
+                        <dd><a href="mailto:enquiries@theoldvicarageotterton.com" class="hover:text-gray-900 transition-colors">enquiries@theoldvicarageotterton.com</a></dd>
                     </div>
                 </dl>
+                
+                <!-- Map -->
+                <div class="mt-10 h-[380px] w-full rounded-lg overflow-hidden shadow-lg" style="height: 380px;">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        id="gmap_canvas" 
+                        src="https://maps.google.com/maps?q=Ropers%20Lane%2C%20Otterton%2C%20Budleigh%20Salterton%20East%20Devon%2C%20EX9%207JF&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                        frameborder="0" 
+                        scrolling="no" 
+                        marginheight="0" 
+                        marginwidth="0">
+                    </iframe>
+                </div>
             </div>
         </div>
         

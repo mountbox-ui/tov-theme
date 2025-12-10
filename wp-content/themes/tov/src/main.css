@@ -122,7 +122,7 @@
     }
 
     .bt-l {
-        @apply inline-flex items-center text-[#1C2321] font-lato font-medium text-sm hover:text-[#016A7C] transition-colors;
+        @apply inline-flex items-center text-[#1C2321] font-lato font-medium text-[16px] hover:text-[#016A7C] transition-colors;
     }
 
     .bt-l svg {
@@ -184,19 +184,20 @@
     .btn-readmore {
         @apply inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 cursor-pointer border-none bg-transparent p-0 relative z-10;
     }
-    
+
     .btn-readmore svg {
         @apply transition-transform duration-300 ease-in-out;
     }
-    
+
     .btn-readmore:hover svg {
         @apply translate-x-1;
     }
-    
+
     .btn-readmore:hover svg path {
         fill: #016A7C;
-    } 
-     /* button styling ------- */
+    }
+
+    /* button styling ------- */
 
     .hero-section-text {
         @apply text-white/90 font-lato font-normal;
