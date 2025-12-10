@@ -3988,11 +3988,6 @@ nav a:hover {
   padding-bottom: 60px;
 }
 
-.py-28 {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -4053,12 +4048,8 @@ nav a:hover {
   padding-top: 0.5rem;
 }
 
-.pt-20 {
-  padding-top: 5rem;
-}
-
-.pt-24 {
-  padding-top: 6rem;
+.pt-28 {
+  padding-top: 7rem;
 }
 
 .pt-4 {
@@ -4091,14 +4082,6 @@ nav a:hover {
 
 .pt-\[2px\] {
   padding-top: 2px;
-}
-
-.pt-12 {
-  padding-top: 3rem;
-}
-
-.pt-28 {
-  padding-top: 7rem;
 }
 
 .text-left {
@@ -5768,11 +5751,6 @@ nav a:hover {
   .lg\:py-32 {
     padding-top: 8rem;
     padding-bottom: 8rem;
-  }
-
-  .lg\:py-48 {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
   }
 
   .lg\:py-\[80px\] {
