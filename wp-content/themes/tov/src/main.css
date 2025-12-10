@@ -137,6 +137,8 @@
         @apply translate-x-1;
     }
 
+    /* button styling ------- */
+
 
     .btn-outline {
         @apply text-red-500 border border-red-500 bg-white;
@@ -161,6 +163,40 @@
     .bg-primary {
         @apply bg-[#014854];
     }
+
+    .btn-resources {
+        @apply px-[18px] py-[10px] justify-center transition-all duration-300 ease-in-out bg-[#016A7C];
+    }
+
+    .btn-resources svg {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .btn-resources:hover {
+        @apply bg-[#018a9f];
+    }
+
+    .btn-resources:hover svg {
+        @apply translate-x-1;
+    }
+
+
+    .btn-readmore {
+        @apply inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 cursor-pointer border-none bg-transparent p-0 relative z-10;
+    }
+    
+    .btn-readmore svg {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+    
+    .btn-readmore:hover svg {
+        @apply translate-x-1;
+    }
+    
+    .btn-readmore:hover svg path {
+        fill: #016A7C;
+    } 
+     /* button styling ------- */
 
     .hero-section-text {
         @apply text-white/90 font-lato font-normal;
