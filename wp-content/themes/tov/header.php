@@ -55,7 +55,7 @@
 
                     <!-- Contact Us Button (desktop) -->
                     <div>
-                        <a href="<?php echo home_url('/book-a-tour/'); ?>" class="btn btn-primary bt-1 h-[50px] w-[120px]">
+                        <a href="<?php echo home_url('/book-a-tour/?form=contact'); ?>" class="btn btn-primary bt-1 h-[50px] w-[120px]">
                             Contact Us
                         </a>
                     </div>
@@ -80,7 +80,7 @@
                     
                     <!-- Mobile Contact Us Button -->
                     <div class="pt-4">
-                        <a href="#contact" class="block btn-primary hover:bg-teal-700 text-white font-normal px-6 py-3 rounded-lg transition-colors duration-200 tracking-wide text-center">
+                        <a href="<?php echo home_url('/book-a-tour/?form=contact'); ?>" class="block btn-primary hover:bg-teal-700 text-white font-normal px-6 py-3 rounded-lg transition-colors duration-200 tracking-wide text-center">
                             Contact Us
                         </a>
                     </div>

@@ -7,11 +7,11 @@
 
 get_header(); ?>
 
-<div class="relative isolate bg-white min-h-screen py-10 px-6 lg:px-8">
+<div class="relative isolate bg-white min-h-screen py-24 px-6 lg:px-8">
     <div class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         
         <!-- Left Content Section -->
-        <div class="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
+        <div class="relative px-6 pb-20 pt-28 sm:pt-32 lg:static lg:px-8 lg:py-12">
             <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
                 
                 <!-- Content -->
@@ -52,8 +52,8 @@ get_header(); ?>
         </div>
         
         <!-- Right Form Section -->
-        <div class="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48">
-            <form id="book-tour-form" method="post" action="" class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
+        <div class="px-6 pb-24 pt-28 sm:pb-32 lg:px-8 lg:py-12">
+            <form id="book-tour-form" method="post" action="" class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg bg-[#00455E]/5 rounded-[12px] p-[50px]">
                 <?php wp_nonce_field('book_tour_nonce', 'book_tour_nonce_field'); ?>
                 
                 <!-- Tour Type Selection -->
@@ -61,16 +61,16 @@ get_header(); ?>
                     <label class="block text-sm font-semibold leading-6 text-gray-900 mb-3">PLEASE SELECT TOUR TYPE: (REQUIRED)</label>
                     <div class="flex flex-wrap gap-4">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="tour_type" value="general" required class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600">
-                            <span class="text-sm text-gray-900">General Tour</span>
+                            <input type="radio" name="tour_type" value="brochure" required class="w-4 h-4 text-[#014854] border-gray-300 focus:ring-indigo-600">
+                            <span class="text-sm text-gray-900">Download Brochure</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="tour_type" value="private" required class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600">
-                            <span class="text-sm text-gray-900">Private Tour</span>
+                            <input type="radio" name="tour_type" value="visit" required class="w-4 h-4 text-[#014854] border-gray-300 focus:ring-indigo-600">
+                            <span class="text-sm text-gray-900">Book a Visit</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="tour_type" value="virtual" required checked class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600">
-                            <span class="text-sm text-gray-900">Virtual Tour</span>
+                            <input type="radio" name="tour_type" value="contact" required class="w-4 h-4 text-[#014854] border-gray-300 focus:ring-indigo-600">
+                            <span class="text-sm text-gray-900">Contact Us</span>
                         </label>
                     </div>
                     <p class="mt-2 text-sm text-gray-600">Experience our facility through an immersive virtual tour from the comfort of your home.</p>
@@ -101,11 +101,14 @@ get_header(); ?>
                         </div>
                     </div>
                     
-                    <!-- Care Home Selection -->
-                    <div class="sm:col-span-2">
-                        <label for="care_home" class="block text-sm font-semibold leading-6 text-gray-900">CARE HOME (REQUIRED)</label>
-                        <div class="mt-2.5">
-                            <select id="care_home" name="care_home" required class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-200">
+
+                    <!-- Visit Specific Fields -->
+                    <div id="visit-fields" class="contents">
+                        <!-- Care Home Selection -->
+                        <div class="sm:col-span-2">
+                            <label for="care_home" class="block text-sm font-semibold leading-6 text-gray-900">CARE HOME (REQUIRED)</label>
+                            <div class="mt-2.5">
+                                <select id="care_home" name="care_home" required class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-200">
                                 <option value="">Select a care home</option>
                                 <option value="otterton">Otterton</option>
                                 <option value="exmouth">Exmouth</option>
@@ -137,14 +140,15 @@ get_header(); ?>
                             </select>
                         </div>
                     </div>
-                    
-                    <!-- Message -->
-                    <div class="sm:col-span-2">
-                        <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">MESSAGE</label>
-                        <div class="mt-2.5">
-                            <textarea name="message" id="message" rows="4" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-200 resize-none"></textarea>
-                        </div>
+                
+                <!-- Message Field -->
+                <div id="message-field" class="sm:col-span-2">
+                    <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">MESSAGE</label>
+                    <div class="mt-2.5">
+                        <textarea name="message" id="message" rows="4" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-200 resize-none"></textarea>
                     </div>
+                </div>
+                </div>
                 </div>
                 
                 <!-- Checkboxes -->
@@ -166,7 +170,7 @@ get_header(); ?>
                 
                 <!-- Submit Button -->
                 <div class="mt-8 flex justify-end">
-                    <button type="submit" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-200 transform hover:scale-105">Book Tour</button>
+                    <button type="submit" class="btn btn-primary bt-1 w-full">Book Tour</button>
                 </div>
                 
                 <!-- Footer Text -->
@@ -229,6 +233,66 @@ get_header(); ?>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('book-tour-form');
     const submitButton = form.querySelector('button[type="submit"]');
+    const radioButtons = form.querySelectorAll('input[name="tour_type"]');
+
+    // Field Groups
+    const visitFields = document.getElementById('visit-fields');
+    const messageField = document.getElementById('message-field');
+    const visitInputs = visitFields ? visitFields.querySelectorAll('select, input') : [];
+    
+    let currentType = 'contact'; // Default
+
+    // State Management Function
+    function updateFormState(type) {
+        currentType = type;
+        
+        // Reset visibility
+        if(visitFields) {
+            visitFields.classList.add('hidden');
+            visitFields.classList.remove('contents');
+        }
+        if(messageField) {
+            messageField.classList.add('hidden');
+        }
+        
+        // Reset required attributes
+        if(visitInputs.length) {
+            visitInputs.forEach(input => input.required = false);
+        }
+        
+        // Update Submit Button Text
+        let btnText = 'Submit';
+        
+        if (type === 'brochure') {
+            btnText = 'Download Brochure';
+        } else if (type === 'visit') {
+            btnText = 'Book Tour';
+            if(visitFields) {
+                visitFields.classList.remove('hidden');
+                visitFields.classList.add('contents');
+            }
+            if(messageField) {
+                messageField.classList.remove('hidden');
+            }
+            
+            // Re-enable required for visit fields
+            const careHome = document.getElementById('care_home');
+            if(careHome) careHome.required = true;
+            
+        } else if (type === 'contact') {
+            btnText = 'Send Message';
+            if(messageField) {
+                messageField.classList.remove('hidden');
+            }
+        }
+        
+        submitButton.textContent = btnText;
+        
+        // Update Radio Button UI
+        radioButtons.forEach(radio => {
+            if (radio.value === type) radio.checked = true;
+        });
+    }
     
     // Form submission handling
     form.addEventListener('submit', function(e) {
@@ -236,14 +300,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show loading state
         submitButton.disabled = true;
+        const previousText = submitButton.textContent;
         submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sending...';
+
+        // Store selected type before reset
+        const selectedType = form.querySelector('input[name="tour_type"]:checked')?.value || 'contact';
         
         // Simulate form submission
         setTimeout(function() {
             // Reset form
             form.reset();
             
-            // Reset button
+            // Restore Selection and State
+            updateFormState(selectedType);
+            
+            // Reset button state (handled by updateFormState text, but need to enable)
             submitButton.disabled = false;
             submitButton.textContent = 'Send message';
             
@@ -251,6 +322,8 @@ document.addEventListener('DOMContentLoaded', function() {
             showSuccessModal();
         }, 1500);
     });
+
+    
     
     // Add focus animations to inputs
     const inputs = form.querySelectorAll('input, textarea');
@@ -263,6 +336,23 @@ document.addEventListener('DOMContentLoaded', function() {
             this.parentElement.classList.remove('scale-[1.01]');
         });
     });
+    // Handle Radio Changes
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            updateFormState(e.target.value);
+        });
+    });
+    
+    // Initialize from URL Param
+    const urlParams = new URLSearchParams(window.location.search);
+    const formType = urlParams.get('form');
+    
+    if (formType && ['brochure', 'visit', 'contact'].includes(formType)) {
+        updateFormState(formType);
+    } else {
+        // Default to Contact
+        updateFormState('contact');
+    }
 });
 
 function showSuccessModal() {
