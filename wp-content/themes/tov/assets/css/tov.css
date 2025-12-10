@@ -2910,10 +2910,6 @@ nav a:hover {
   height: 130px;
 }
 
-.h-\[140\%\] {
-  height: 140%;
-}
-
 .h-\[155px\] {
   height: 155px;
 }
@@ -3060,10 +3056,6 @@ nav a:hover {
 
 .w-\[138px\] {
   width: 138px;
-}
-
-.w-\[140\%\] {
-  width: 140%;
 }
 
 .w-\[152px\] {
@@ -3576,6 +3568,10 @@ nav a:hover {
   border-radius: 1.5rem;
 }
 
+.rounded-\[12px\] {
+  border-radius: 12px;
+}
+
 .rounded-\[32px\] {
   border-radius: 32px;
 }
@@ -3598,10 +3594,6 @@ nav a:hover {
 
 .rounded-xl {
   border-radius: 0.75rem;
-}
-
-.rounded-\[12px\] {
-  border-radius: 12px;
 }
 
 .border {
@@ -3658,6 +3650,10 @@ nav a:hover {
 
 .border-white\/30 {
   border-color: rgb(255 255 255 / 0.3);
+}
+
+.bg-\[\#00455E\]\/5 {
+  background-color: rgb(0 69 94 / 0.05);
 }
 
 .bg-\[\#006778a1\] {
@@ -3824,10 +3820,6 @@ nav a:hover {
   background-color: rgb(255 255 255 / 0.15);
 }
 
-.bg-\[\#00455E\]\/5 {
-  background-color: rgb(0 69 94 / 0.05);
-}
-
 .bg-opacity-75 {
   --tw-bg-opacity: 0.75;
 }
@@ -3879,10 +3871,6 @@ nav a:hover {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
-}
-
-.fill-current {
-  fill: currentColor;
 }
 
 .object-contain {
@@ -3997,11 +3985,6 @@ nav a:hover {
   padding-bottom: 0.5rem;
 }
 
-.py-2\.5 {
-  padding-top: 0.625rem;
-  padding-bottom: 0.625rem;
-}
-
 .py-20 {
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -4112,12 +4095,8 @@ nav a:hover {
   padding-top: 0.5rem;
 }
 
-.pt-20 {
-  padding-top: 5rem;
-}
-
-.pt-24 {
-  padding-top: 6rem;
+.pt-28 {
+  padding-top: 7rem;
 }
 
 .pt-4 {
@@ -4150,10 +4129,6 @@ nav a:hover {
 
 .pt-\[2px\] {
   padding-top: 2px;
-}
-
-.pt-28 {
-  padding-top: 7rem;
 }
 
 .text-left {
@@ -4427,6 +4402,11 @@ nav a:hover {
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
 
+.text-\[\#014854\] {
+  --tw-text-opacity: 1;
+  color: rgb(1 72 84 / var(--tw-text-opacity, 1));
+}
+
 .text-\[\#016A7C\] {
   --tw-text-opacity: 1;
   color: rgb(1 106 124 / var(--tw-text-opacity, 1));
@@ -4479,11 +4459,6 @@ nav a:hover {
 .text-\[\#757575\] {
   --tw-text-opacity: 1;
   color: rgb(117 117 117 / var(--tw-text-opacity, 1));
-}
-
-.text-\[\#F0ECE4\] {
-  --tw-text-opacity: 1;
-  color: rgb(240 236 228 / var(--tw-text-opacity, 1));
 }
 
 .text-\[\#fff\] {
@@ -4600,11 +4575,6 @@ nav a:hover {
   color: rgb(255 255 255 / 0.9);
 }
 
-.text-\[\#014854\] {
-  --tw-text-opacity: 1;
-  color: rgb(1 72 84 / var(--tw-text-opacity, 1));
-}
-
 .underline {
   text-decoration-line: underline;
 }
@@ -4627,10 +4597,6 @@ nav a:hover {
 
 .opacity-30 {
   opacity: 0.3;
-}
-
-.opacity-60 {
-  opacity: 0.6;
 }
 
 .opacity-70 {
@@ -5750,10 +5716,6 @@ nav a:hover {
     width: 280px;
   }
 
-  .lg\:w-\[475px\] {
-    width: 475px;
-  }
-
   .lg\:w-\[600px\] {
     width: 600px;
   }
@@ -5851,11 +5813,6 @@ nav a:hover {
   .lg\:py-32 {
     padding-top: 8rem;
     padding-bottom: 8rem;
-  }
-
-  .lg\:py-48 {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
   }
 
   .lg\:py-\[80px\] {
