@@ -10,11 +10,7 @@ get_header(); ?>
 <div class="max-w-[1280px] mx-auto  pt-[110px] pb-[110px] sm:px-6 relative z-10">
   <div>
     <!-- Page Title -->
-    <div class="text-left mb-16 mx-auto max-w-2xl lg:mx-0">
-        <!-- <h2 class="font-bold">Why The Old Vicarage Care Home? <span>A sanctuary of care in East Devon</span></h2>
-        <p class="paragraph mt-6">
-            The Old Vicarage, an award-winning residential and dementia care facility, offers more than just care; it offers a vibrant, supportive community set in one of East Devon's most picturesque locations. Here's a breakdown of why it stands out as an outstanding choice.
-        </p> -->
+    <div class="text-left mb-4 mx-auto max-w-2xl lg:mx-0">
         <h2>
             Why The Old Vicarage Care Home? <span>A sanctuary of care in East Devon</span>
         </h2>
@@ -50,8 +46,6 @@ get_header(); ?>
         [/image_section_content]
       [/image_section]'); ?>
       
-      
-
       <?php echo do_shortcode('[image_section position="right"]
         [image_section_image src="' . get_template_directory_uri() . '/assets/images/TOV 63.jpg" alt="The Old Vicarage"]
         [image_section_content title="Day Filled with Activities - Famileo App" description="Daily life is enriched with a diverse and engaging program that fosters connection, creativity and purpose."]

@@ -69,7 +69,7 @@ get_header(); ?>
         
         if ($jobs_query->have_posts()) : ?>
             <!-- Filters -->
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 rounded-lg">
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 rounded-lg w-[600px]">
                 <?php 
                 // Get unique categories, locations, and job types from actual job posts
                 $used_categories = array();
@@ -101,21 +101,21 @@ get_header(); ?>
                 sort($used_locations);
                 sort($used_job_types);
                 ?>
-                <select id="category-filter" class="w-[400px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
+                <select id="category-filter" class="w-full sm:w-[250px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
                     <option value="">All Job Category</option>
                     <?php foreach ($used_categories as $category) : ?>
                         <option value="<?php echo esc_attr(sanitize_title($category)); ?>"><?php echo esc_html($category); ?></option>
                     <?php endforeach; ?>
                 </select>
                 
-                <select id="type-filter" class="w-[400px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
+                <select id="type-filter" class="w-full sm:w-[250px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
                     <option value="">All Job Type</option>
                     <?php foreach ($used_job_types as $job_type) : ?>
                         <option value="<?php echo esc_attr($job_type); ?>"><?php echo esc_html(ucfirst(str_replace('-', ' ', $job_type))); ?></option>
                     <?php endforeach; ?>
                 </select>
                 
-                <select id="location-filter" class="w-[400px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
+                <select id="location-filter" class="w-full sm:w-[250px] px-4 py-3 border border-gray-300 rounded-md bg-white font-lato text-base focus:outline-none focus:ring-2 focus:ring-[#016A7C] focus:border-transparent transition-all">
                     <option value="">All Job Location</option>
                     <?php foreach ($used_locations as $location) : ?>
                         <option value="<?php echo esc_attr($location); ?>"><?php echo esc_html($location); ?></option>
@@ -152,20 +152,20 @@ get_header(); ?>
                             
                             <div class="flex flex-wrap items-center gap-2 mt-[12px]">
                                 <?php if ($category) : ?>
-                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-4 py-2 text-[16px] font-medium text-blue-700 ring-1 ring-inset"><?php echo esc_html($category); ?></span>
+                                    <span class="flex-none rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-black/80 "><?php echo esc_html($category); ?></span>
                                 <?php endif; ?>
                                 
                                 <?php if ($job_type) : ?>
-                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-4 py-2 text-[16px] font-medium text-blue-700 ring-1 ring-inset"><?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
+                                    <span class="flex-none rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-black/80 "><?php echo ucfirst(str_replace('-', ' ', $job_type)); ?></span>
                                 <?php endif; ?>
                                 
                                 <?php if ($location) : ?>
-                                    <span class="inline-flex items-center rounded-md bg-gray-50 px-4 py-2 text-[16px] font-medium text-blue-700 ring-1 ring-inset"><?php echo esc_html($location); ?></span>
+                                    <span class="flex-none rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-black/80 "><?php echo esc_html($location); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
                         <div class="flex-shrink-0">
-                            <a href="<?php the_permalink(); ?>" class="bt-r px-4 py-2">
+                            <a href="<?php the_permalink(); ?>" class="btn btn-primary bt-1 px-4 py-2">
                                 View Details
                             </a>
                         </div>
