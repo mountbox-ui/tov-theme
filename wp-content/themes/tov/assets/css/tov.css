@@ -3249,8 +3249,8 @@ nav a:hover {
   width: 270px;
 }
 
-.w-\[315px\] {
-  width: 315px;
+.w-\[300px\] {
+  width: 300px;
 }
 
 .w-\[350px\] {
@@ -3291,10 +3291,6 @@ nav a:hover {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[300px\] {
-  width: 300px;
 }
 
 .min-w-0 {
@@ -5643,16 +5639,16 @@ nav a:hover {
     width: 16rem;
   }
 
+  .sm\:w-\[315px\] {
+    width: 315px;
+  }
+
   .sm\:w-auto {
     width: auto;
   }
 
   .sm\:w-full {
     width: 100%;
-  }
-
-  .sm\:w-\[315px\] {
-    width: 315px;
   }
 
   .sm\:max-w-\[400px\] {
