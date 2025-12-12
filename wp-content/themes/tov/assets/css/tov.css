@@ -5894,6 +5894,10 @@ nav a:hover {
     width: auto;
   }
 
+  .md\:w-\[500px\] {
+    width: 500px;
+  }
+
   .md\:max-w-\[440px\] {
     max-width: 440px;
   }
@@ -6054,6 +6058,10 @@ nav a:hover {
 
   .lg\:w-\[600px\] {
     width: 600px;
+  }
+
+  .lg\:w-\[500px\] {
+    width: 500px;
   }
 
   .lg\:max-w-4xl {
