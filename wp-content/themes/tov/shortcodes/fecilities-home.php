@@ -104,7 +104,7 @@ function tov_facilities_home_shortcode($atts) {
                 </div>
        
                 <!-- Button -->
-                <div class="relative rgba(1, 106, 124, 1) z-10 w-[315px]">
+                <div class="relative rgba(1, 106, 124, 1) z-10 w-[300px] sm:w-[315px]">
                     <a href="<?php echo home_url('/facilities'); ?>" class="btn btn-primary bt-1">
                         View more for Rooms & Facilities
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
