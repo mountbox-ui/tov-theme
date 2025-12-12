@@ -30,6 +30,8 @@ $shortcode_files = array(
     'day-in-tov-home.php',
     'how-to-start-home.php',
     'inclusive-home.php',
+    'testimonials-home.php',
+    'reg-home.php',
 );
 
 // Load each shortcode file

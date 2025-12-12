@@ -251,12 +251,12 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
             <!-- Content Section -->
             <div class="lg:pr-8 sm:pr-4 text-left">
                 <h6 class="text-[#016A7C]">Meet the Team</h6>
-                <h2 class="w-[350px] lg:w-[475px] md:w[475px] sm:w-[350px] ">
+                <h2 class="w-auto lg:w-[600px] md:w-[600px] sm:w-auto">
                     Increase your <span>relationship potential.</span>
                 </h2>
                 
                 <?php if (!empty($message) && $message_visibility) : ?>
-                    <div class="paragraph pt-[24px] pb-[40px] w-[350px] lg:w-[600px] md:w-[600px] sm:w-[350px]">
+                    <div class="paragraph pt-[24px] pb-[40px] w-auto lg:w-[600px] sm:w-auto">
                         <?php echo wp_kses_post($message); ?>
                     </div>
                 <?php endif; ?>
@@ -270,13 +270,6 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
 
             <!-- Image Section --> 
             <div class="flex-shrink-0 relative flex flex-col items-center justify-center">
-                <!-- Blob Background (SVG) -->
-                <!-- <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] -z-10">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[#F0ECE4] fill-current opacity-60">
-                        <path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-5.3C93.5,8.6,82.2,21.5,70.6,32.3C59,43.1,47.1,51.8,34.8,58.6C22.5,65.4,9.8,70.3,-1.9,73.6C-13.6,76.9,-24.3,78.6,-34.4,73.6C-44.5,68.6,-54,56.9,-61.8,44.2C-69.6,31.5,-75.7,17.8,-76.8,3.5C-77.9,-10.8,-74,-25.7,-65.3,-37.8C-56.6,-49.9,-43.1,-59.2,-29.6,-66.8C-16.1,-74.4,-2.6,-80.3,10.3,-78.8C23.2,-77.3,30.5,-91.1,44.7,-76.4Z" transform="translate(100 100)" />
-                    </svg>
-                </div> -->
-                
                 <!-- Image -->
                 <div class="relative w-[270px] h-[360px] md:w-[270px] rounded-full md:h-[360px] overflow-hidden shadow-xl">
                     <?php if (!empty($image_url)) : ?>
@@ -290,7 +283,7 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
                     <?php endif; ?>
                 </div>
                 <div class="mt-[80px]">
-                     <a href="<?php echo esc_url(get_post_type_archive_link('/teams/')) ?>" class="btn btn-primary bt-1 w-[216px]">
+                     <a href="<?php echo esc_url(get_post_type_archive_link('/teams/')) ?>" class="btn btn-primary bt-1">
                         Meet our team 
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                             <path d="M12.6014 18.39L18.7246 12.4443C19.0204 12.2076 19.1683 11.8823 19.1683 11.4681C19.1683 11.054 19.0204 10.7286 18.7246 10.492L12.6014 4.54629C12.3648 4.25048 12.0542 4.10258 11.6697 4.10258C11.2851 4.10258 10.9597 4.23569 10.6935 4.50192C10.4273 4.76814 10.2942 5.10832 10.2942 5.52245C10.2942 5.93657 10.4421 6.26196 10.7379 6.4986L14.3763 10.0483H4.88093C4.52596 10.0483 4.21537 10.1814 3.94914 10.4476C3.68292 10.7138 3.5498 11.054 3.5498 11.4681C3.5498 11.8823 3.68292 12.2224 3.94914 12.4887C4.21537 12.7549 4.52596 12.888 4.88093 12.888H14.3763L10.7379 16.4377C10.4421 16.6743 10.2942 16.9997 10.2942 17.4138C10.2942 17.8279 10.4273 18.1681 10.6935 18.4343C10.9597 18.7006 11.2851 18.8337 11.6697 18.8337C12.0542 18.8337 12.3648 18.6858 12.6014 18.39Z" fill="white"/>

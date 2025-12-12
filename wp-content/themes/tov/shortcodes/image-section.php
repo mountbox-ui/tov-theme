@@ -53,7 +53,7 @@ function tov_image_section_shortcode($atts, $content = null) {
     
     ob_start();
     ?>
-    <div class="overflow-hidden bg-white">
+    <div class="overflow-hidden bg-white mb-24">
         <div class="max-w-[1280px] mx-auto mt-14 relative z-10">
             <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-10">
                 <?php if ($swap_order) : ?>
@@ -116,7 +116,7 @@ function tov_image_section_content_shortcode($atts, $content = null) {
         <?php endif; ?>
         
         <?php if (!empty($features)) : ?>
-            <dl class="mt-2 max-w-xl space-y-3 text-base/7 text-gray-600 lg:max-w-none font-lato">
+            <dl class="mt-2 paragraph">
                 <?php foreach ($features as $feature) : ?>
                     <?php echo $feature; ?>
                 <?php endforeach; ?>
@@ -146,12 +146,12 @@ function tov_image_section_feature_shortcode($atts, $content = null) {
         <?php endif; ?>
         <div>
             <?php if (!empty($atts['title'])) : ?>
-                <dt class="font-semibold text-[#016A7C] mb-1">
+                <dt class="font-semibold text-[#016A7C]  paragraph">
                     <?php echo esc_html($atts['title']); ?>
                 </dt>
             <?php endif; ?>
             <?php if (!empty($content)) : ?>
-                <dd class="text-gray-600"><?php echo wp_kses_post(trim($content)); ?></dd>
+                <dd class="paragraph mb-2"><?php echo wp_kses_post(trim($content)); ?></dd>
             <?php endif; ?>
         </div>
     </div>
