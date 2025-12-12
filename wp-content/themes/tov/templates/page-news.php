@@ -146,10 +146,10 @@ if ($specific_news_id && $specific_news_id > 0) {
                         $author_name = get_the_author_meta('display_name', $author_id);
                         ?>
                         <article class="highlighted-news-horizontal mb-8">
-                            <div class="highlighted-news-container">
+                            <div class="highlighted-news-container relative flex justify-center">
                                 <?php if (has_post_thumbnail($post_id)) : ?>
                                     <div>
-                                        <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[200px] left-[230px] blur-[15px] w-[750px] h-[500px] z-[1]">
+                                        <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[-130px] left-[-88px] blur-[15px] w-[750px] h-[500px] z-[1]">
                                     </div>
                                     <div class="highlighted-news-image">
                                         <a href="<?php echo get_permalink($post_id); ?>">

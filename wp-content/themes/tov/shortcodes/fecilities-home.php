@@ -79,7 +79,7 @@ function tov_facilities_home_shortcode($atts) {
                  <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[510px] left-[270px] blur-[15px] w-[138px] h-[155px]">
 
                 <!-- Header -->
-                <div class="mb-16 relative z-10 w-[400px]">
+                <div class="mb-16 relative z-10">
                     <h6 class="text-[#016A7C]">Our Homely Facilities</h6>
                     <h2>
                         Facilities that feel like home <span>only better</span>
