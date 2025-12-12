@@ -251,12 +251,12 @@ function tov_render_highlighted_team_card($post_id, $use_acf = false) {
             <!-- Content Section -->
             <div class="lg:pr-8 sm:pr-4 text-left">
                 <h6 class="text-[#016A7C]">Meet the Team</h6>
-                <h2 class="w-[350px] lg:w-[600px] md:w-[600px] sm:w-[350px] ">
+                <h2 class="w-auto lg:w-[600px] md:w-[600px] sm:w-auto">
                     Increase your <span>relationship potential.</span>
                 </h2>
                 
                 <?php if (!empty($message) && $message_visibility) : ?>
-                    <div class="paragraph pt-[24px] pb-[40px] w-[350px] lg:w-[600px] md:w-[600px] sm:w-[350px]">
+                    <div class="paragraph pt-[24px] pb-[40px] w-auto lg:w-[600px] sm:w-auto">
                         <?php echo wp_kses_post($message); ?>
                     </div>
                 <?php endif; ?>

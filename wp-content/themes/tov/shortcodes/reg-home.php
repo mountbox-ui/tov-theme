@@ -14,30 +14,33 @@ function tov_reg_home_shortcode($atts) {
                 
                 <!-- CQC Rating -->
                 <div class="w-full flex justify-center">
-                   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 items-center justify-center flex hover:shadow-md transition-shadow duration-300 min-h-[250px] w-full max-w-[350px]">
+                   <div class="bg-white shadow-sm p-6 border border-gray-100 flex flex-col hover:shadow-md transition-shadow duration-300 min-h-[250px] w-full max-w-[350px]">
                        <!-- CQC Widget Code -->
-                       <div class="cqc-container">
+                       <div class="cqc-container w-full">
                             <div class="cqc-widget-header">
-                                <a href="https://www.cqc.org.uk?referer=widget3" target="_blank" alt="CQC Logo" title="CQC Logo">
-                                    <img src="https://www.cqc.org.uk/_dp/build/widget/asset_cqclogo_update.png" alt="CQC logo" class="mb-4">
+                                <a href="https://www.cqc.org.uk?referer=widget3" target="_blank" alt="CQC Logo" title="CQC Logo" class="block mb-4">
+                                    <img src="https://www.cqc.org.uk/_dp/build/widget/asset_cqclogo_update.png" alt="CQC logo" class="h-8">
                                 </a>
 
-                                <div class="cqc-widget-inner font-jakarta text-left">
-                                    <div class="cqc-service-name text-lg font-bold text-[#1C2321] mb-1">
-                                        The Old Vicarage
-                                    </div>
+                                <div class="cqc-service-name whitespace-nowrap text-lg font-bold text-[#1C2321] mb-4">
+                                    The Old Vicarage
+                                </div>
+                                
+                                <div class="bg-[#F9F9F7] p-4 rounded-lg w-full">
                                     <div class="inherited-facility"></div>
                                     <div class="cqc-widget-normal">
-                                        <div class="cqc-widget-new-style-margin-2 text-sm text-gray-600 mb-2">
-                                            <strong>CQC overall rating</strong>
+                                        <div class="cqc-widget-new-style-margin-2 text-sm font-bold text-gray-800 mb-2">
+                                            CQC overall rating
                                         </div>
                                         <div class="flex items-center gap-2 mb-3">
                                             <span class="cqc-widget-overall good text-[#006400] font-bold text-xl">Good</span>
                                             <span class="w-3 h-3 rounded-full bg-[#006400]"></span>
                                         </div>
-                                        <div class="cqc-widget-footer cqc-widget-date text-xs text-gray-500 mb-3">11 December 2018</div>
+                                        <div class="cqc-widget-footer cqc-widget-date text-sm text-gray-500 mb-4">11 December 2018</div>
                                         <div class="widget-button-wrapper cqc-widget-footer-new-style">
-                                            <a class="widget-button-new-style text-primary hover:text-primary-dark underline font-semibold text-sm" title="See full report (opens in new window)" alt="See full report (opens in new window)" target="_blank" href="https://www.cqc.org.uk/location/1-1599281127?referer=widget3">See the report &gt;</a>
+                                            <a class="bg-white border border-[#6e2a5d] text-[#6e2a5d] hover:bg-gray-50 font-semibold text-sm px-4 py-2 rounded inline-flex items-center transition-colors" title="See full report (opens in new window)" alt="See full report (opens in new window)" target="_blank" href="https://www.cqc.org.uk/location/1-1599281127?referer=widget3">
+                                                See the report &gt;
+                                            </a>
                                         </div>
                                     </div>
                                     <br class="cqc-widget-clear">

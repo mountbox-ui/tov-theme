@@ -79,9 +79,9 @@ function tov_facilities_home_shortcode($atts) {
                  <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[510px] left-[270px] blur-[15px] w-[138px] h-[155px]">
 
                 <!-- Header -->
-                <div class="mb-16 relative z-10 w-[400px]">
+                <div class="mb-16 relative z-10">
                     <h6 class="text-[#016A7C]">Our Homely Facilities</h6>
-                    <h2>
+                    <h2 class="w-auto md:w-[500px]">
                         Facilities that feel like home <span>only better</span>
                     </h2>
                 </div>
@@ -104,7 +104,7 @@ function tov_facilities_home_shortcode($atts) {
                 </div>
        
                 <!-- Button -->
-                <div class="relative rgba(1, 106, 124, 1) z-10 w-[315px]">
+                <div class="relative rgba(1, 106, 124, 1) z-10 w-[300px] sm:w-[315px]">
                     <a href="<?php echo home_url('/facilities'); ?>" class="btn btn-primary bt-1">
                         View more for Rooms & Facilities
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">

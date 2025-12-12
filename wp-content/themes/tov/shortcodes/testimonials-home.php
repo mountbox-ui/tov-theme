@@ -9,23 +9,23 @@ function tov_testimonials_home_shortcode($atts) {
     $testimonials = [
         [
             'text' => 'The feeling I get at the Old Vicarage is that everyone, staff and residents alike, enjoy a sense of community, and staff feel motivated to contribute their very best to ensure a uniformly high level of support and comfort.',
-            'author' => 'QUOTE FROM A RESIDENT'
+            'author' => 'Daughter of Resident'
         ],
         [
-            'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            'author' => 'FAMILY MEMBER'
+            'text' => 'I enjoy having the freedom to come and go as I please. I love going outside for a walk and it’s easy to make friends here.',
+            'author' => 'Quote from a resident'
         ],
         [
-            'text' => 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.',
-            'author' => 'VISITOR'
+            'text' => 'It is heart-warming to read the report of the latest Residents’ forum.',
+            'author' => 'Email from a relative'
         ],
         [
-            'text' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.',
-            'author' => 'QUOTE FROM A RESIDENT'
+            'text' => 'You would have to go a long way to find a care home as good as The Old Vicarage.',
+            'author' => 'Quote from a resident'
         ],
         [
-            'text' => 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-            'author' => 'LONG-TERM RESIDENT'
+            'text' => 'There is a wonderful, welcoming and cheerful atmosphere at The Old Vicarage.',
+            'author' => 'Letter from a relative'
         ]
     ];
     
@@ -61,7 +61,7 @@ function tov_testimonials_home_shortcode($atts) {
                             <div class="w-full flex-shrink-0 px-4">
                                 <figure class="flex flex-col items-center">
                                     <blockquote class="text-center text-lg md:text-xl lg:text-2xl leading-relaxed text-gray-600 font-serif max-w-3xl mx-auto">
-                                        <p><?php echo esc_html($item['text']); ?></p>
+                                        <p class="paragraph"><?php echo esc_html($item['text']); ?></p>
                                     </blockquote>
                                     <figcaption class="mt-8 text-center">
                                         <div class="text-xs font-bold tracking-widest text-[#5B9CA1] uppercase">
@@ -85,13 +85,13 @@ function tov_testimonials_home_shortcode($atts) {
             <!-- Progress Bar -->
             <div class="mt-16 flex flex-col items-center">
                 <div class="flex items-center gap-6 text-sm font-medium text-gray-900">
-                    <span class="current-slide font-serif text-lg">01</span>
+                    <span class="current-slide font-lato text-lg">01</span>
                     <!-- Bar container -->
                     <div class="w-64 h-[2px] bg-gray-200 relative rounded-full overflow-hidden">
                         <!-- Moving part -->
                         <div class="progress-fill absolute left-0 top-0 h-full bg-black transition-all duration-300 ease-out" style="width: <?php echo (1 / $total_slides) * 100; ?>%"></div>
                     </div>
-                    <span class="total-slides font-serif text-lg"><?php echo str_pad($total_slides, 2, '0', STR_PAD_LEFT); ?></span>
+                    <span class="total-slides font-lato text-lg"><?php echo str_pad($total_slides, 2, '0', STR_PAD_LEFT); ?></span>
                 </div>
             </div>
 
