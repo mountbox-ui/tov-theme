@@ -73,7 +73,7 @@ function tov_facilities_home_shortcode($atts) {
     <section class="pb-24 bg-[#FDFBF7] relative overflow-hidden">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             <!-- White Container -->
-            <div class="bg-white rounded-[32px] p-8 sm:p-12 lg:p-16 shadow-sm relative overflow-hidden">
+            <div class="bg-white rounded-[32px] p-8 sm:p-12 lg:p-12 shadow-sm relative overflow-hidden">
                 <!-- Glow Effect -->
                 <!-- <div class="absolute top-0 left-1/3 w-96 h-96 bg-[#CDAC79] opacity-20 blur-[100px] rounded-full pointer-events-none transform -translate-y-1/2"></div> -->
                  <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[510px] left-[270px] blur-[15px] w-[138px] h-[155px]">

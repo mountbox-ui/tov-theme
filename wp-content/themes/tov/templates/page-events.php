@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 get_header(); ?>
 
-<main class="bg-white dark:bg-gray-900 py-24 sm:py-32">
+<main class="bg-white dark:bg-gray-900 pt-24 sm:pt-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8  pb-1 overflow-visible ">
          
         <header class="mb-12 mx-auto max-w-2xl lg:mx-0">
@@ -348,10 +348,10 @@ get_header(); ?>
                     $date_display = tov_format_event_range($event_date, $event_end_date);
                     ?>
                     <a href="<?php echo get_permalink(get_the_ID()); ?>" class="block group">
-                        <article class="group flex flex-col sm:flex-row gap-6 rounded-lg overflow-hidden p-3 hover:shadow-sm transition-shadow duration-300 hover:bg-white cursor-pointer">
+                        <article class="group flex flex-col sm:flex-row gap-6 rounded-lg overflow-hidden p-3 hover:shadow-sm transition-shadow duration-300 hover:bg-white cursor-pointer h-[200px]">
                             <div class="flex-shrink-0 w-full sm:w-64 h-48 sm:h-auto flex items-center justify-center">
                                 <?php if (has_post_thumbnail(get_the_ID())) : ?>
-                                    <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-[130px] object-cover rounded-lg')); ?>
+                                    <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-[170px] object-cover rounded-lg')); ?>
                                 <?php else : ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

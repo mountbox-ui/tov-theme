@@ -750,6 +750,7 @@ select {
 }
 
 body {
+  overflow-x: hidden;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -1868,8 +1869,9 @@ nav a:hover {
   padding-right: 18px;
   padding-top: 16px;
   padding-bottom: 16px;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-family: Lato, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   opacity: 0.7983;
@@ -1890,8 +1892,6 @@ nav a:hover {
     padding-right: 1.5rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 }
 
@@ -3061,16 +3061,20 @@ nav a:hover {
   height: 24rem;
 }
 
-.h-\[130px\] {
-  height: 130px;
-}
-
 .h-\[155px\] {
   height: 155px;
 }
 
+.h-\[170px\] {
+  height: 170px;
+}
+
 .h-\[196px\] {
   height: 196px;
+}
+
+.h-\[200px\] {
+  height: 200px;
 }
 
 .h-\[240px\] {
@@ -4333,6 +4337,10 @@ nav a:hover {
   padding-top: 0.5rem;
 }
 
+.pt-24 {
+  padding-top: 6rem;
+}
+
 .pt-28 {
   padding-top: 7rem;
 }
@@ -4818,11 +4826,6 @@ nav a:hover {
   color: rgb(22 163 74 / var(--tw-text-opacity, 1));
 }
 
-.text-indigo-600 {
-  --tw-text-opacity: 1;
-  color: rgb(79 70 229 / var(--tw-text-opacity, 1));
-}
-
 .text-navy-200 {
   --tw-text-opacity: 1;
   color: rgb(199 210 254 / var(--tw-text-opacity, 1));
@@ -5255,11 +5258,6 @@ nav a:hover {
   color: rgb(21 128 61 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-indigo-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(99 102 241 / var(--tw-text-opacity, 1));
-}
-
 .hover\:text-navy-200:hover {
   --tw-text-opacity: 1;
   color: rgb(199 210 254 / var(--tw-text-opacity, 1));
@@ -5335,6 +5333,11 @@ nav a:hover {
 
 .focus\:ring-inset:focus {
   --tw-ring-inset: inset;
+}
+
+.focus\:ring-\[\#016A7C\]:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(1 106 124 / var(--tw-ring-opacity, 1));
 }
 
 .focus\:ring-blue-500:focus {
@@ -5910,6 +5913,10 @@ nav a:hover {
     align-items: flex-start;
   }
 
+  .md\:items-end {
+    align-items: flex-end;
+  }
+
   .md\:gap-12 {
     gap: 3rem;
   }
@@ -6114,8 +6121,8 @@ nav a:hover {
     border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
   }
 
-  .lg\:p-16 {
-    padding: 4rem;
+  .lg\:p-12 {
+    padding: 3rem;
   }
 
   .lg\:p-8 {

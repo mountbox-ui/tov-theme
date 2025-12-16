@@ -51,19 +51,19 @@ function tov_reg_home_shortcode($atts) {
                 </div>
 
                 <!-- Carehome.co.uk Rating -->
-                <div class="w-full flex justify-center">
-                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition-shadow duration-300 min-h-[250px] w-full max-w-[350px]">
+                <!-- <div class="w-full flex justify-center">
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition-shadow duration-300 min-h-[250px] w-full max-w-[350px]"> -->
                          <!-- Logo Placeholder -->
-                         <div class="flex items-center gap-2 mb-4">
+                         <!-- <div class="flex items-center gap-2 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
                             <span class="text-xl font-bold text-[#101038]">carehome.co.uk</span>
                          </div>
                          
                          <div class="text-center w-full border-t pt-4">
                              <div class="text-5xl font-bold text-[#101038] mb-1">9.8</div>
-                             <div class="flex justify-center gap-1 mb-2">
+                             <div class="flex justify-center gap-1 mb-2"> -->
                                  <!-- Stars -->
-                                 <svg class="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                 <!-- <svg class="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                                  <svg class="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                                  <svg class="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                                  <svg class="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -73,10 +73,10 @@ function tov_reg_home_shortcode($atts) {
                              <a href="#" class="inline-block bg-[#101038] text-white text-sm font-semibold px-6 py-2 rounded shadow hover:bg-blue-900 transition-colors">Write a Review</a>
                          </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Food Hygiene Rating -->
-                <div class="w-full flex justify-center">
+                <!-- <div class="w-full flex justify-center">
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition-shadow duration-300 min-h-[250px] w-full max-w-[350px]">
                         <div class="flex items-center gap-2 mb-4">
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#badd11]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -99,7 +99,7 @@ function tov_reg_home_shortcode($atts) {
                             <div class="text-[#badd11] text-sm font-bold uppercase tracking-widest mt-1">Very Good</div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>

@@ -143,7 +143,7 @@ get_header(); ?>
                          data-location="<?php echo esc_attr($location); ?>">
                         <div class="min-w-0 flex-1">
                             <div class="mb-2">
-                                <h3><?php the_title(); ?></h3>
+                                <h4><?php the_title(); ?></h4>
                             </div>
                             
                             <?php if (!empty($short_description)) : ?>

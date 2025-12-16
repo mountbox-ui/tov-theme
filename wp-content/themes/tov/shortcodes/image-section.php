@@ -116,7 +116,7 @@ function tov_image_section_content_shortcode($atts, $content = null) {
         <?php endif; ?>
         
         <?php if (!empty($features)) : ?>
-            <dl class="mt-2 paragraph">
+            <dl class="mt-6 paragraph">
                 <?php foreach ($features as $feature) : ?>
                     <?php echo $feature; ?>
                 <?php endforeach; ?>

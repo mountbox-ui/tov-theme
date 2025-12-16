@@ -9,7 +9,7 @@ function tov_day_in_tov_home_shortcode($atts) {
         'title' => 'A day in the life of the',
         'highlight_text' => 'Old Vicarage',
         'description' => 'Wake up to the birdsinging and countryside views in the peaceful village of Otterton, just moments from Budleigh Salterton, Exmouth, and Sidmouth.',
-        'button_text' => 'View more',
+        'button_text' => 'View More',
         'button_link' => '/life-at-tov',
         'button_text_2' => 'Book A Visit',
         'button_link_2' => '/book-a-tour/?form=visit',
@@ -46,7 +46,7 @@ function tov_day_in_tov_home_shortcode($atts) {
                     </svg>
                 </a>
                 </div>
-            </div>
+            </div> 
 
             <!-- Bento Grid Layout -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

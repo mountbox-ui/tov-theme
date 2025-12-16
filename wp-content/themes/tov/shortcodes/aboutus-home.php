@@ -67,7 +67,7 @@ function tov_aboutus_home_shortcode($atts) {
                             id="aboutUsToggle" 
                             onclick="toggleAboutUs()"
                             class="inline-flex font-lato items-center text-gray-800 font-medium hover:text-[#016A7C] transition-colors duration-300 group cursor-pointer border-none bg-transparent p-0">
-                            <span id="aboutUsToggleText">Read more</span>
+                            <span id="aboutUsToggleText">Read More</span>
                             <svg id="aboutUsArrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>

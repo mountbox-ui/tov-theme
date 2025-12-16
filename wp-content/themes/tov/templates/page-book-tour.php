@@ -168,14 +168,14 @@ get_header(); ?>
                 <!-- Checkboxes -->
                 <div class="mt-6 space-y-4">
                     <label class="flex items-start gap-3 cursor-pointer group">
-                        <input type="checkbox" name="privacy_notice" required class="mt-1 w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600">
+                        <input type="checkbox" name="privacy_notice" required class="mt-1 w-4 h-4 text-[#016A7C] border-gray-300 rounded focus:ring-[#016A7C]">
                         <span class="text-sm text-gray-600">
-                            I confirm I have read the <a href="#" class="text-indigo-600 hover:text-indigo-500 underline">privacy notice</a> (Required)
+                            I confirm I have read the <a href="#" class="text-[#016A7C] hover:text-[#016A7C] underline">privacy notice</a> (Required)
                         </span>
                     </label>
                     
                     <label class="flex items-start gap-3 cursor-pointer group">
-                        <input type="checkbox" name="newsletter" class="mt-1 w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600">
+                        <input type="checkbox" name="newsletter" class="mt-1 w-4 h-4 text-[#016A7C] border-gray-300 rounded focus:ring-[#016A7C]">
                         <span class="text-sm text-gray-600">
                             I would like to be kept up-to-date with news from our homes, future offers and services
                         </span>
@@ -191,8 +191,8 @@ get_header(); ?>
                 <div class="mt-6">
                     <p class="text-xs text-gray-500 leading-relaxed">
                         This site is protected by reCAPTCHA and the Google 
-                        <a href="#" class="text-indigo-600 hover:text-indigo-500 underline">Privacy Policy</a> and 
-                        <a href="#" class="text-indigo-600 hover:text-indigo-500 underline">Terms of Service</a> apply. 
+                        <a href="#" class="text-[#016A7C] hover:text-[#016A7C] underline">Privacy Policy</a> and 
+                        <a href="#" class="text-[#016A7C] hover:text-[#016A7C] underline">Terms of Service</a> apply. 
                         We use an application to understand the nature of your enquiry, this maybe retained for 30 days.
                     </p>
                 </div>
