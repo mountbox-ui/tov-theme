@@ -147,7 +147,7 @@ function tov_how_to_start_home_shortcode($atts) {
 
             </div>
             <!-- Background Glow Effect -->
-            <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[170px] left-[225px] blur-[15px] w-[220px] h-[196px]">
+            <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute z-[-1] bottom-[170px] left-[225px] blur-[15px] w-[220px] h-[196px]">
         </div>
     </section>
 

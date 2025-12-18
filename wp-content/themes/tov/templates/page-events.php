@@ -348,7 +348,7 @@ get_header(); ?>
                     $date_display = tov_format_event_range($event_date, $event_end_date);
                     ?>
                     <a href="<?php echo get_permalink(get_the_ID()); ?>" class="block group">
-                        <article class="group flex flex-col sm:flex-row gap-6 rounded-lg overflow-hidden p-3 hover:shadow-sm transition-shadow duration-300 hover:bg-white cursor-pointer h-[200px]">
+                        <article class="group flex flex-col sm:flex-row gap-6 rounded-lg overflow-hidden p-3 hover:shadow-sm transition-shadow duration-300 hover:bg-white cursor-pointer h-[0] md:h-[200px]">
                             <div class="flex-shrink-0 w-full sm:w-64 h-48 sm:h-auto flex items-center justify-center">
                                 <?php if (has_post_thumbnail(get_the_ID())) : ?>
                                     <?php echo get_the_post_thumbnail(get_the_ID(), 'medium', array('class' => 'w-full h-[170px] object-cover rounded-lg')); ?>

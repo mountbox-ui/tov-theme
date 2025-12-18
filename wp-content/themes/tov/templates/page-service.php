@@ -7,13 +7,13 @@
 get_header(); ?>
 
 <?php while (have_posts()) : the_post(); ?>
-<div class="bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900">
-  <div class="mx-auto max-w-4xl">
+<div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <!-- Page Title -->
     <header class="mb-12 text-center">
-      <h1 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white">
+      <h2 class="text-left">
         <?php the_title(); ?>
-      </h1>
+      </h2>
     </header>
     
     <!-- Page Content -->
