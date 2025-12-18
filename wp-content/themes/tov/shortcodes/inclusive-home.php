@@ -26,7 +26,7 @@ function tov_inclusive_home_shortcode($atts) {
                 </h2>
             </div>
             <!-- Background Glow Effect -->
-            <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[390px] left-[330px] blur-[15px] w-[220px] h-[196px]">
+            <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute z-[-1] bottom-[390px] left-[330px] blur-[15px] w-[220px] h-[196px]">
         </div>
 
             <!-- Three Column Grid -->

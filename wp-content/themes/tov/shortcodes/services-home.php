@@ -20,7 +20,7 @@ function tov_services_home_shortcode($atts) {
                         tailored to <span>every need</span>
                     </h2>
                 </div>
-                <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute bottom-[725px] left-[340px] blur-[15px] w-[138px] h-[155px]">
+                <img src="<?php echo get_template_directory_uri() . "/assets/images/About Us H1 bg gr.png"; ?>" alt="" class="absolute z-[-1] bottom-[725px] left-[340px] blur-[15px] w-[138px] h-[155px]">
             </div>
 
             <!-- Services Grid -->
