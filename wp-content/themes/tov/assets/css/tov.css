@@ -3163,6 +3163,10 @@ nav a:hover {
   height: 1px;
 }
 
+.h-\[200px\] {
+  height: 200px;
+}
+
 .min-h-\[250px\] {
   min-height: 250px;
 }
@@ -3293,6 +3297,10 @@ nav a:hover {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[190px\] {
+  width: 190px;
 }
 
 .min-w-0 {
