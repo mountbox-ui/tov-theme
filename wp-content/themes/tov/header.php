@@ -17,9 +17,9 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site min-h-screen flex flex-col">
-    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854] h-[80px] flex items-center'; ?> absolute top-0 w-full z-50">
+    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854]'; ?> absolute top-0 w-full z-50">
         <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px] w-full">
-            <div class="flex items-center justify-between <?php echo (is_front_page() || is_home()) ? 'p-4' : 'px-4'; ?>">
+            <div class="flex items-center justify-between <?php echo (is_front_page() || is_home()) ? 'p-4' : 'px-4 py-3 lg:h-[80px]'; ?>">
                 <!-- Site Logo -->
                 <div class="site-branding flex justify-start">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center">
@@ -30,7 +30,7 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-navy-200 hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-navy-400 ml-4" aria-expanded="false">
+                <button id="mobile-menu-button" class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-navy-200 hover:bg-[#016A7C] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-navy-400 ml-4" aria-expanded="false">
                     <span class="sr-only"><?php esc_html_e('Open main menu', 'tov-theme'); ?></span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
