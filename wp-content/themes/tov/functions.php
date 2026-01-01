@@ -404,10 +404,88 @@ add_action('wp_ajax_nopriv_load_more_news', 'tov_load_more_news');
 function tov_enqueue_ajax_script() {
     wp_localize_script('tov-theme-script', 'ajax_object', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'ajax_nonce' => wp_create_nonce('tov_ajax_nonce')
+        'ajax_nonce' => wp_create_nonce('tov_ajax_nonce'),
+        'contact_form_nonce' => wp_create_nonce('tov_contact_form_nonce')
     ));
 }
 add_action('wp_enqueue_scripts', 'tov_enqueue_ajax_script');
+
+/**
+ * Handle contact form submission with email
+ */
+function tov_handle_contact_form() {
+    // Verify nonce for security
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'tov_contact_form_nonce')) {
+        wp_send_json_error('Security check failed');
+    }
+    
+    // Sanitize form data
+    $form_type = sanitize_text_field($_POST['form_type']);
+    $full_name = sanitize_text_field($_POST['full_name']);
+    $phone_number = sanitize_text_field($_POST['phone_number']);
+    $email_address = sanitize_email($_POST['email_address']);
+    $message = sanitize_textarea_field($_POST['message'] ?? '');
+    $request_callback = isset($_POST['request_callback']) ? 'Yes' : 'No';
+    
+    // Visit specific fields
+    $care_home = sanitize_text_field($_POST['care_home'] ?? '');
+    $preferred_date = sanitize_text_field($_POST['preferred_date'] ?? '');
+    $preferred_time = sanitize_text_field($_POST['preferred_time'] ?? '');
+    
+    // Admin email
+    $admin_email = get_option('admin_email');
+    
+    // Email subject based on form type
+    $subject_map = array(
+        'contact' => 'New Contact Form Submission',
+        'visit' => 'New Tour Booking Request',
+        'brochure' => 'New Brochure Download Request'
+    );
+    $subject = $subject_map[$form_type] ?? 'New Form Submission';
+    
+    // Build email message
+    $email_message = "You have received a new {$form_type} form submission.\n\n";
+    $email_message .= "Name: {$full_name}\n";
+    $email_message .= "Phone: {$phone_number}\n";
+    $email_message .= "Email: {$email_address}\n";
+    
+    if ($form_type === 'visit') {
+        $email_message .= "Care Home: {$care_home}\n";
+        $email_message .= "Preferred Date: {$preferred_date}\n";
+        $email_message .= "Preferred Time: {$preferred_time}\n";
+    }
+    
+    if (!empty($message)) {
+        $email_message .= "\nMessage:\n{$message}\n";
+    }
+    
+    if ($form_type === 'contact') {
+        $email_message .= "\nRequest Callback: {$request_callback}\n";
+    }
+    
+    // Headers
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    
+    // Send email to admin
+    $admin_sent = wp_mail($admin_email, $subject, nl2br($email_message), $headers);
+    
+    // Send confirmation email to user
+    $user_subject = "Thank you for contacting The Old Vicarage";
+    $user_message = "Dear {$full_name},\n\n";
+    $user_message .= "Thank you for your submission. We have received your request and will get back to you shortly.\n\n";
+    $user_message .= "Best regards,\n";
+    $user_message .= "The Old Vicarage Team";
+    
+    $user_sent = wp_mail($email_address, $user_subject, nl2br($user_message), $headers);
+    
+    if ($admin_sent) {
+        wp_send_json_success('Form submitted successfully');
+    } else {
+        wp_send_json_error('Failed to send email');
+    }
+}
+add_action('wp_ajax_tov_contact_form', 'tov_handle_contact_form');
+add_action('wp_ajax_nopriv_tov_contact_form', 'tov_handle_contact_form');
 
 // template for jobs
 require_once get_template_directory() . '/jobs/theme-functions.php';

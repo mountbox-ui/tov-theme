@@ -115,6 +115,16 @@ get_header(); ?>
                         </div>
                     </div>
                     
+                    <!-- Contact Specific Fields -->
+                    <div id="contact-fields" class="contents">
+                        <!-- Message Field -->
+                        <div class="sm:col-span-2">
+                            <label for="contact_message" class="block text-sm font-semibold leading-6 text-gray-900">MESSAGE</label>
+                            <div class="mt-2.5">
+                                <textarea name="contact_message" id="contact_message" rows="4" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-200 resize-none"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Visit Specific Fields -->
                     <div id="visit-fields" class="contents">
@@ -155,18 +165,21 @@ get_header(); ?>
                         </div>
                     </div>
                 
-                <!-- Message Field -->
-                <div id="message-field" class="sm:col-span-2">
-                    <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">MESSAGE</label>
-                    <div class="mt-2.5">
-                        <textarea name="message" id="message" rows="4" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-200 resize-none"></textarea>
-                    </div>
-                </div>
                 </div>
                 </div>
                 
                 <!-- Checkboxes -->
                 <div class="mt-6 space-y-4">
+                    <!-- Request Call Back Checkbox (Contact Only) -->
+                    <div id="callback-checkbox" class="hidden">
+                        <label class="flex items-start gap-3 cursor-pointer group">
+                            <input type="checkbox" name="request_callback" class="mt-1 w-4 h-4 text-[#016A7C] border-gray-300 rounded focus:ring-[#016A7C]">
+                            <span class="text-sm text-gray-600">
+                                Request a call back
+                            </span>
+                        </label>
+                    </div>
+                    
                     <label class="flex items-start gap-3 cursor-pointer group">
                         <input type="checkbox" name="privacy_notice" required class="mt-1 w-4 h-4 text-[#016A7C] border-gray-300 rounded focus:ring-[#016A7C]">
                         <span class="text-sm text-gray-600">
@@ -251,10 +264,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Field Groups
     const visitFields = document.getElementById('visit-fields');
-    const messageField = document.getElementById('message-field');
+    const contactFields = document.getElementById('contact-fields');
+    const callbackCheckbox = document.getElementById('callback-checkbox');
     const visitInputs = visitFields ? visitFields.querySelectorAll('select, input') : [];
     
     let currentType = 'contact'; // Default
+
+    // Check URL parameters for initial state
+    const urlParams = new URLSearchParams(window.location.search);
+    const formType = urlParams.get('form') || 'contact';
+    const shouldCheckCallback = urlParams.get('callback') === '1';
 
     // State Management Function
     function updateFormState(type) {
@@ -265,8 +284,12 @@ document.addEventListener('DOMContentLoaded', function() {
             visitFields.classList.add('hidden');
             visitFields.classList.remove('contents');
         }
-        if(messageField) {
-            messageField.classList.add('hidden');
+        if(contactFields) {
+            contactFields.classList.add('hidden');
+            contactFields.classList.remove('contents');
+        }
+        if(callbackCheckbox) {
+            callbackCheckbox.classList.add('hidden');
         }
         
         // Reset required attributes
@@ -285,9 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 visitFields.classList.remove('hidden');
                 visitFields.classList.add('contents');
             }
-            if(messageField) {
-                messageField.classList.remove('hidden');
-            }
             
             // Re-enable required for visit fields
             const careHome = document.getElementById('care_home');
@@ -295,8 +315,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
         } else if (type === 'contact') {
             btnText = 'Send Message';
-            if(messageField) {
-                messageField.classList.remove('hidden');
+            if(contactFields) {
+                contactFields.classList.remove('hidden');
+                contactFields.classList.add('contents');
+            }
+            if(callbackCheckbox) {
+                callbackCheckbox.classList.remove('hidden');
             }
         }
         
@@ -320,21 +344,41 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store selected type before reset
         const selectedType = form.querySelector('input[name="tour_type"]:checked')?.value || 'contact';
         
-        // Simulate form submission
-        setTimeout(function() {
+        // Collect form data
+        const formData = new FormData(form);
+        formData.append('action', 'tov_contact_form');
+        formData.append('nonce', ajax_object.contact_form_nonce);
+        formData.append('form_type', selectedType);
+        
+        // Send AJAX request
+        fetch(ajax_object.ajax_url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
             // Reset form
             form.reset();
             
             // Restore Selection and State
             updateFormState(selectedType);
             
-            // Reset button state (handled by updateFormState text, but need to enable)
+            // Reset button state
             submitButton.disabled = false;
-            submitButton.textContent = 'Send message';
+            submitButton.textContent = previousText;
             
             // Show success modal
             showSuccessModal();
-        }, 1500);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = previousText;
+            
+            alert('There was an error submitting the form. Please try again.');
+        });
     });
 
     
@@ -358,14 +402,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Initialize from URL Param
-    const urlParams = new URLSearchParams(window.location.search);
-    const formType = urlParams.get('form');
-    
     if (formType && ['brochure', 'visit', 'contact'].includes(formType)) {
         updateFormState(formType);
     } else {
         // Default to Contact
         updateFormState('contact');
+    }
+
+    // Check the callback checkbox if callback parameter is present
+    if (shouldCheckCallback && formType === 'contact') {
+        const callbackInput = document.querySelector('input[name="request_callback"]');
+        if (callbackInput) {
+            callbackInput.checked = true;
+        }
     }
 });
 
