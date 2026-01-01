@@ -32,6 +32,9 @@ $shortcode_files = array(
     'inclusive-home.php',
     'testimonials-home.php',
     'reg-home.php',
+    'rooms-facilities-hero.php',
+    'resident-comfort.php',
+    'culinary-spaces.php',
 );
 
 // Load each shortcode file

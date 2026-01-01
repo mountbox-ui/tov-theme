@@ -285,6 +285,56 @@
         .main-navigation .menu-item-has-children:hover>a::after {
             @apply rotate-180;
         }
+
+        /* Contact Us Dropdown - Matching Navigation Menu Style */
+        .contact-us-menu-item {
+            @apply relative;
+        }
+
+        .contact-us-menu-item button {
+            pointer-events: auto;
+        }
+
+        .contact-us-submenu {
+            @apply absolute right-0 top-full bg-white text-gray-800 rounded-xl shadow-xl p-2 space-y-1 min-w-[260px] z-50 border border-gray-100;
+            display: none !important;
+            margin-top: 4px;
+            pointer-events: auto;
+        }
+
+        .contact-us-menu-item:hover .contact-us-submenu {
+            display: block !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+        }
+
+        .contact-us-submenu:hover {
+            display: block !important;
+        }
+
+        .contact-us-submenu li {
+            @apply block px-0 py-0;
+        }
+
+        .contact-us-submenu a {
+            @apply block py-3 px-4 text-gray-600 font-normal text-base transition-all duration-200;
+        }
+
+        .contact-us-submenu a:hover {
+            @apply bg-[#E6EEEF] text-[#016A7C];
+        }
+
+        .contact-us-menu-item:hover .contact-us-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Us Dropdown Links Hover - Ensure background color works */
+        .group:hover .absolute.right-0 a:hover {
+            background-color: #E6EEEF !important;
+            color: #016A7C !important;
+        }
     }
 
     /* Mobile submenu: hidden by default, open when parent has .submenu-open */
@@ -318,7 +368,7 @@
 
     .highlighted-news-content {
         @apply flex flex-1 flex-col justify-start pt-4 md:pt-0 md:pl-6 lg:pl-8;
-    }
+    }gi
 
     .highlighted-news-section-label {
         @apply font-jakarta text-xs sm:text-sm font-bold tracking-widest uppercase text-[#E2A76F] mb-3 sm:mb-4;

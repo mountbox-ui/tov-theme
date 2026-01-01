@@ -53,11 +53,28 @@
                         ?>
                     </nav>
 
-                    <!-- Contact Us Button (desktop) -->
-                    <div>
-                        <a href="<?php echo home_url('/book-a-tour/?form=contact'); ?>" class="btn btn-primary bt-1 h-[50px] w-[120px]">
+                    <!-- Contact Us Button with Dropdown (desktop) -->
+                    <div class="relative group">
+                        <a href="<?php echo home_url('/contact/'); ?>" class="btn btn-primary bt-1 h-[50px] w-[150px] flex items-center justify-center gap-1">
                             Contact Us
+                            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
                         </a>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-gray-200">
+                            <div class="py-2">
+                                <a href="<?php echo home_url('/contact/?callback=1'); ?>" class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#E6EEEF] hover:text-[#016A7C] transition-colors duration-200">
+                                    Request a callback
+                                </a>
+                                <a href="<?php echo home_url('/contact/?form=brochure'); ?>" class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#E6EEEF] hover:text-[#016A7C] transition-colors duration-200">
+                                    Download brochure
+                                </a>
+                                <a href="<?php echo home_url('/contact/?form=visit'); ?>" class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#E6EEEF] hover:text-[#016A7C] transition-colors duration-200">
+                                    Book a visit
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
