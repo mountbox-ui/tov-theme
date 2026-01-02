@@ -69,7 +69,7 @@ get_header(); ?>
         
         if ($jobs_query->have_posts()) : ?>
             <!-- Filters -->
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 rounded-lg w-[600px]">
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 rounded-lg w-auto md:w-[600px]">
                 <?php 
                 // Get unique categories, locations, and job types from actual job posts
                 $used_categories = array();
