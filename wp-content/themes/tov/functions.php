@@ -414,6 +414,22 @@ add_action('wp_enqueue_scripts', 'tov_enqueue_ajax_script');
  * Handle contact form submission with email
  */
 /**
+ * Customize WordPress email sender name
+ */
+function tov_custom_email_from_name($original_email_from) {
+    return 'The Old Vicarage';
+}
+add_filter('wp_mail_from_name', 'tov_custom_email_from_name');
+
+/**
+ * Customize WordPress email sender address
+ */
+function tov_custom_email_from($original_email_address) {
+    return 'enquiries@theoldvicarageotterton.com';
+}
+add_filter('wp_mail_from', 'tov_custom_email_from');
+
+/**
  * Generate HTML email template
  */
 function tov_get_email_template($logo_url, $title, $greeting, $intro_text, $details, $button_html, $footer_text) {
@@ -474,7 +490,7 @@ function tov_get_email_template($logo_url, $title, $greeting, $intro_text, $deta
                                     <tr>
                                         <td>
                                             <p style="margin: 0 0 15px 0; color: #014854; font-size: 16px; font-weight: 600;">
-                                                Application Details:
+                                                Details:
                                             </p>';
     
     foreach ($details as $detail) {
@@ -625,7 +641,7 @@ function tov_handle_contact_form() {
         
         $user_message = tov_get_email_template(
             $logo_url,
-            "Thank you for your application!",
+            "Thank you for your brochure request!",
             "Dear {$full_name},",
             "Thank you for your interest in <strong>The Old Vicarage</strong>! We have received your brochure request and our team will contact you soon with further details.",
             array(
@@ -643,7 +659,7 @@ function tov_handle_contact_form() {
         
         $user_message = tov_get_email_template(
             $logo_url,
-            "Thank you for your application!",
+            "Thank you for your contact request!",
             "Dear {$full_name},",
             "Thank you for contacting <strong>The Old Vicarage</strong>. We have received your message and will get back to you as soon as possible.",
             array(
@@ -661,7 +677,7 @@ function tov_handle_contact_form() {
         
         $user_message = tov_get_email_template(
             $logo_url,
-            "Thank you for your application!",
+            "Thank you for your book a tour booking request!",
             "Dear {$full_name},",
             "Thank you for requesting a tour of <strong>The Old Vicarage</strong>! We have received your booking request and our team will contact you soon with further details.",
             array(
@@ -672,7 +688,7 @@ function tov_handle_contact_form() {
                 array('label' => 'Preferred Time', 'value' => $preferred_time),
             ),
             "",
-            "We will review your application and get back to you within 2-3 business days."
+            "We will review your request and get back to you within 2-3 business days."
         );
     }
     
