@@ -35,6 +35,7 @@ $shortcode_files = array(
     'rooms-facilities-hero.php',
     'resident-comfort.php',
     'culinary-spaces.php',
+    'icons-right.php',
 );
 
 // Load each shortcode file

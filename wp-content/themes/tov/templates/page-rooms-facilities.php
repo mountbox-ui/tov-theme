@@ -32,6 +32,16 @@ get_header(); ?>
         [space_item title="Lounges" description="Step into our comfortable relaxation areas. These tastefully decorated lounges are the perfect spots for afternoon tea, card games or simply relaxing by the fireplace." image="/wp-content/themes/tov/assets/images/TOV 63.jpg"]
     [/culinary_spaces]');
     
+    // Display icons right section
+    echo do_shortcode('[icons_right heading="Resident <span>comfort & support</span>" description="We are dedicated to providing a comfortable and supportive environment for all residents, with a focus on privacy and convenience. Ensuring a refreshing and dignified start to the day is a priority, with specialized equipment and accessible facilities." button_text="Create account" button_url="#" icons_heading="Our Partners"]
+        [icon_item image="" alt="Tuple" width="105" height="48" heading="Tuple"]
+        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/reform-logo-gray-900.svg" alt="Reform" width="104" height="48" heading="Reform"]
+        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-gray-900.svg" alt="SavvyCal" width="140" height="48" heading="SavvyCal"]
+        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/laravel-logo-gray-900.svg" alt="Laravel" width="136" height="48" heading="Laravel"]
+        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/transistor-logo-gray-900.svg" alt="Transistor" width="158" height="48" heading="Transistor"]
+        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/statamic-logo-gray-900.svg" alt="Statamic" width="147" height="48" heading="Statamic"]
+    [/icons_right]');
+    
     // Display pagination for multi-page content
     wp_link_pages(array(
         'before' => '<div class="page-links"><span class="page-links-title">' . __('Pages:', 'tov') . '</span>',
