@@ -53,7 +53,7 @@ function tov_image_section_shortcode($atts, $content = null) {
     
     ob_start();
     ?>
-    <div class="overflow-hidden bg-white mb-24">
+    <div class="overflow-hidden bg-white mb-0 md:mb-24">
         <div class="max-w-[1280px] mx-auto mt-14 relative z-10">
             <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-10">
                 <?php if ($swap_order) : ?>
