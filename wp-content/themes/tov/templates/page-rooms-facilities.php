@@ -16,14 +16,8 @@ get_header(); ?>
     // Display the page content (which contains shortcodes)
     the_content();
     
-    // Display resident comfort section
-    echo do_shortcode('[resident_comfort heading="Resident <span>comfort & support</span>" subheading="We are dedicated to providing a comfortable and supportive environment for all residents, with a focus on privacy and convenience. Ensuring a refreshing and dignified start to the day is a priority, with specialized equipment and accessible facilities."]
-        [comfort_item image="/wp-content/themes/tov/assets/images/TOV 63.jpg" title="Private rooms" description="Our private en-suite rooms are thoughtfully designed with resident comfort and sensory needs in mind." link="/link-to-page"]
-        [comfort_item image="/wp-content/themes/tov/assets/images/TOV 63.jpg" title="Modern amenities" description="Each room is equipped with a modern call bell system, Wi-Fi, TV, and a direct telephone line for convenience and connectivity." link="/link-to-page"]
-        [comfort_item image="/wp-content/themes/tov/assets/images/TOV 63.jpg" title="En-suite bathrooms" description="Selected rooms feature easily accessible walk-in showers." link="/link-to-page"]
-        [comfort_item image="/wp-content/themes/tov/assets/images/TOV 63.jpg" title="Specialised bathing" description="Residents have access to assisted hi-lo baths and spacious wet room showers designed for maximum safety and ease of use." link="/link-to-page"]
-        [comfort_item image="/wp-content/themes/tov/assets/images/TOV 63.jpg" title="Scenic location" description="Residents can enjoy beautiful country views directly from their rooms and all shared communal spaces, promoting calm and well-being." link="/link-to-page"]
-    [/resident_comfort]');
+   
+    
     
     // Display culinary spaces section
     echo do_shortcode('[culinary_spaces heading="Culinary delights and social spaces" subheading="We understand that food and good company are central to a happy life. Our amenities are designed to bring people together, whether for a quick catch-up or an elegant meal."]
@@ -32,15 +26,6 @@ get_header(); ?>
         [space_item title="Lounges" description="Step into our comfortable relaxation areas. These tastefully decorated lounges are the perfect spots for afternoon tea, card games or simply relaxing by the fireplace." image="/wp-content/themes/tov/assets/images/TOV 63.jpg"]
     [/culinary_spaces]');
     
-    // Display icons right section
-    echo do_shortcode('[icons_right heading="Resident <span>comfort & support</span>" description="We are dedicated to providing a comfortable and supportive environment for all residents, with a focus on privacy and convenience. Ensuring a refreshing and dignified start to the day is a priority, with specialized equipment and accessible facilities." button_text="Create account" button_url="#" icons_heading="Our Partners"]
-        [icon_item image="" alt="Tuple" width="105" height="48" heading="Tuple"]
-        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/reform-logo-gray-900.svg" alt="Reform" width="104" height="48" heading="Reform"]
-        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-gray-900.svg" alt="SavvyCal" width="140" height="48" heading="SavvyCal"]
-        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/laravel-logo-gray-900.svg" alt="Laravel" width="136" height="48" heading="Laravel"]
-        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/transistor-logo-gray-900.svg" alt="Transistor" width="158" height="48" heading="Transistor"]
-        [icon_item image="https://tailwindcss.com/plus-assets/img/logos/statamic-logo-gray-900.svg" alt="Statamic" width="147" height="48" heading="Statamic"]
-    [/icons_right]');
     
     // Display pagination for multi-page content
     wp_link_pages(array(

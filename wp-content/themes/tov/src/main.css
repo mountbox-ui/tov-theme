@@ -395,7 +395,7 @@
     }
 
     .grid>article {
-        @apply bg-transparent border border-transparent rounded-lg transition duration-300 ease-in-out relative overflow-hidden p-3;
+        @apply bg-transparent border border-transparent rounded-lg transition duration-300 ease-in-out relative overflow-hidden  p-0 md:p-3;
     }
 
     .grid>article::before {

@@ -2692,12 +2692,18 @@ nav a:hover {
   border-width: 1px;
   border-color: transparent;
   background-color: transparent;
-  padding: 0.75rem;
+  padding: 0px;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .grid>article {
+    padding: 0.75rem;
+  }
 }
 
 .grid>article::before {
