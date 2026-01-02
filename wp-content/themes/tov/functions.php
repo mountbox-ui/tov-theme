@@ -606,7 +606,7 @@ function tov_handle_contact_form() {
     }
     
     // Logo URL for email
-    $logo_url = get_template_directory_uri() . '/assets/images/The-Old-Vicarage-Otterton-Logo.svg';
+    $logo_url = get_template_directory_uri() . '/assets/images/logo.png';
     
     // Build admin email message
     $form_type_text = ucfirst($form_type);
