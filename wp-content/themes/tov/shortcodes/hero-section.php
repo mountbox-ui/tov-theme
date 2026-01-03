@@ -137,7 +137,7 @@ add_shortcode('hero_paragraph', 'hero_section_paragraph_shortcode');
 function hero_section_buttons_shortcode($atts) {
     $atts = shortcode_atts(array(
         'primary_text' => 'Get In Touch',
-        'primary_url'  => '/contat-us',
+        'primary_url'  => '/contat-us/form=contact',
         'phone_text'   => '01395 542808',
         'phone_url'    => 'tel:01395542808',
         'see_text'     => 'See how we work',
