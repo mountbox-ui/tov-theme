@@ -13,7 +13,7 @@ function tov_aboutus_home_shortcode($atts) {
 
     ob_start();
     ?>
-    <section class="py-24 bg-[#FDFBF7]">
+    <section class="py-16 md:py-24 bg-[#FDFBF7]">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6">
             <div class="flex flex-col md:flex-row items-start gap-20">
                 <!-- Content Column -->

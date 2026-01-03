@@ -422,7 +422,7 @@ function tov_highlighted_team_member_shortcode($atts) {
     
     ob_start();
     ?>
-    <div class="highlighted-team-member bg-[#F9F7F2] py-24 sm:py-24">
+    <div class="highlighted-team-member bg-[#F9F7F2] py-16 md:py-24">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6">
             <!-- <?php if ($atts['show_title'] === 'true') : ?>
                 <div class="text-center mb-12">

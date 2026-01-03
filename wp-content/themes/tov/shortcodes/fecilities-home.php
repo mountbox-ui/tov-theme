@@ -70,7 +70,7 @@ function tov_facilities_home_shortcode($atts) {
         ],
     ];
     ?>
-    <section class="pb-24 bg-[#FDFBF7] relative overflow-hidden">
+    <section class="pb-16 md:pb-24 bg-[#FDFBF7] relative overflow-hidden">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             <!-- White Container -->
             <div class="bg-white rounded-[32px] p-8 sm:p-12 lg:p-12 shadow-sm relative overflow-hidden">

@@ -451,7 +451,7 @@ function tov_get_email_template($logo_url, $title, $greeting, $intro_text, $deta
                         
                         <!-- Logo Section -->
                         <tr>
-                            <td align="center" style="padding: 40px 40px 20px 40px; border-bottom: 3px solid #014854;">
+                            <td align="left" style="padding: 40px 40px 20px 40px; border-bottom: 3px solid #014854;">
                                 <img src="' . esc_url($logo_url) . '" alt="The Old Vicarage" style="max-width: 200px; height: auto;">
                             </td>
                         </tr>
@@ -627,7 +627,7 @@ function tov_handle_contact_form() {
     $admin_sent = wp_mail($admin_email, $subject, $admin_message, $headers);
     
     // Logo URL for email
-    $logo_url = get_template_directory_uri() . '/assets/images/The-Old-Vicarage-Otterton-Logo.svg';
+    $logo_url = get_template_directory_uri() . '/assets/images/logo.png';
     $site_url = get_site_url();
     
     // Send confirmation email to user based on form type

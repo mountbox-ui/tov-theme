@@ -3,9 +3,9 @@
  * Icons Right Section Shortcode
  * 
  * Usage:
- * [icons_right heading="..." description="..." button_text="..." button_url="..." button_text_2="..." button_url_2="..."]
- *     [icon_item image="..." alt="..." width="105" height="48"]
- *     [icon_item image="..." alt="..." width="104" height="48"]
+ * [icons_right heading="..." description="..." button_text="..." button_url="..." icons_heading="..."]
+ *     [icon_item image="..." alt="..." width="105" height="48" heading="Item Title"]
+ *     [icon_item image="..." alt="..." width="104" height="48" heading="Item Title"]
  * [/icons_right]
  */
 
@@ -22,8 +22,7 @@ function tov_icons_right_shortcode($atts, $content = null) {
         'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam sed. Quam a scelerisque amet ullamcorper eu enim et fermentum, augue.',
         'button_text' => 'Create account',
         'button_url' => '#',
-        'button_text_2' => 'Contact us',
-        'button_url_2' => '#',
+        'icons_heading' => '',
     ), $atts);
     
     $content = $content ?? '';
@@ -51,17 +50,19 @@ function tov_icons_right_shortcode($atts, $content = null) {
                                 <?php echo esc_html($atts['button_text']); ?>
                             </a>
                         <?php endif; ?>
-                        
-                        <?php if (!empty($atts['button_text_2']) && !empty($atts['button_url_2'])) : ?>
-                            <a href="<?php echo esc_url($atts['button_url_2']); ?>" class="text-sm font-semibold text-gray-900 hover:text-gray-700">
-                                <?php echo esc_html($atts['button_text_2']); ?> <span aria-hidden="true">&rarr;</span>
-                            </a>
-                        <?php endif; ?>
                     </div>
                 </div>
                 
                 <!-- Right Column - Icons/Logos Grid -->
                 <div class="mx-auto grid w-full max-w-xl grid-cols-2 items-center gap-y-12 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:pl-8">
+                    <?php if (!empty($atts['icons_heading'])) : ?>
+                        <div class="col-span-2 mb-4">
+                            <h3 class="text-2xl font-semibold text-gray-900">
+                                <?php echo wp_kses_post($atts['icons_heading']); ?>
+                            </h3>
+                        </div>
+                    <?php endif; ?>
+                    
                     <?php echo $clean_content; ?>
                 </div>
                 
@@ -82,18 +83,25 @@ function tov_icon_item_shortcode($atts) {
         'alt' => '',
         'width' => '105',
         'height' => '48',
+        'heading' => '',
     ), $atts);
     
     ob_start();
     ?>
-    <img width="<?php echo esc_attr($atts['width']); ?>" 
-         height="<?php echo esc_attr($atts['height']); ?>" 
-         src="<?php echo esc_url($atts['image']); ?>" 
-         alt="<?php echo esc_attr($atts['alt']); ?>" 
-         class="max-h-12 w-full object-contain object-left" />
+    <div class="flex flex-col gap-4">
+        <?php if (!empty($atts['heading'])) : ?>
+            <h4 class="text-lg font-semibold text-gray-900">
+                <?php echo esc_html($atts['heading']); ?>
+            </h4>
+        <?php endif; ?>
+        
+        <img width="<?php echo esc_attr($atts['width']); ?>" 
+             height="<?php echo esc_attr($atts['height']); ?>" 
+             src="<?php echo esc_url($atts['image']); ?>" 
+             alt="<?php echo esc_attr($atts['alt']); ?>" 
+             class="max-h-12 w-full object-contain object-left" />
+    </div>
     <?php
     return ob_get_clean();
 }
 add_shortcode('icon_item', 'tov_icon_item_shortcode');
-
-
