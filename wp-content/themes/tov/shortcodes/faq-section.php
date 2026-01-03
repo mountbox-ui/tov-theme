@@ -55,7 +55,7 @@ function tov_faq_section_shortcode($atts, $content = null) {
          data-style="<?php echo esc_attr($atts['style']); ?>" 
          data-layout="<?php echo esc_attr($atts['layout']); ?>">
         <div class="bg-[#FAF8F4] text-gray-900 dark:bg-gray-900 dark:text-gray-50">
-            <div class="max-w-4xl mx-auto px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-[80px]">
+            <div class="max-w-4xl mx-auto px-6 py-16 md:py-24 sm:px-6 lg:px-8">
                 
                 <!-- Header -->
                 <div class="text-start mb-[40px]">
