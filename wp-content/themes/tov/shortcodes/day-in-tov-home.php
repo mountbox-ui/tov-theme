@@ -10,15 +10,15 @@ function tov_day_in_tov_home_shortcode($atts) {
         'highlight_text' => 'Old Vicarage',
         'description' => 'Wake up to the birdsinging and countryside views in the peaceful village of Otterton, just moments from Budleigh Salterton, Exmouth, and Sidmouth.',
         'button_text' => 'View More',
-        'button_link' => '/life-at-tov',
+        'button_link' => '/a-day-at-the-old-vicarage',
         'button_text_2' => 'Book A Visit',
-        'button_link_2' => '/book-a-tour/?form=visit',
+        'button_link_2' => '/contact-us/?form=visit',
     ), $atts);
 
     ob_start();
     ?>
     
-    <section class="py-20 bg-[#F9F7F2] relative">
+    <section class="py-16 md:py-20 bg-[#F9F7F2] relative">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             
             <!-- Section Header -->
