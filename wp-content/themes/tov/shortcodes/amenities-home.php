@@ -41,12 +41,12 @@ function tov_amenities_home_shortcode($atts) {
         [
             'icon' => '<img src="' . get_template_directory_uri() . '/assets/images/Amenities-Icons/Relationship Centered.svg" alt="Relationship Centered" class="w-12 h-12">',
             'title' => 'Relationship Centered',
-            'desc' => 'Comfortable, private rooms with modern amenities.'
+            'desc' => 'supporting the whole person, not just the need.'
         ],
         [
             'icon' => '<img src="' . get_template_directory_uri() . '/assets/images/Amenities-Icons/Loved-By-Residents.svg" alt="Loved By Residents" class="w-12 h-12">',
-            'title' => 'Loved By Residents',
-            'desc' => 'Engaging activities tailored to interests.'
+            'title' => 'Loved by residents',
+            'desc' => 'Loved by residents for our warmth, compassion, and consistency '
         ],
     ];
     ?>

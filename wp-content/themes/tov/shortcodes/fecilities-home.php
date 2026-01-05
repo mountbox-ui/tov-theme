@@ -9,43 +9,42 @@ function tov_facilities_home_shortcode($atts) {
     
     $facilities = [
         [
-            'icon' => 'BBQ Areas.svg',
-            'title' => 'BBQ Area',
-            'desc' => 'Outdoor grilling spaces'
+            'icon' => 'Couple Rooms.svg',
+            'title' => 'Private rooms',
+            'desc' => 'Private intimate spaces'
         ],
         [
-            'icon' => 'Salon.svg',
-            'title' => 'Hair Salon',
-            'desc' => 'Professional styling services'
+            'icon' => 'BBQ Areas.svg',
+            'title' => 'Modern amenities',
+            'desc' => 'Smart Living Amenities'
+        [
+            'icon' => 'private-rooms.svg',
+            'title' => 'En-suite bathrooms',
+            'desc' => 'Easy-Access Showers'
+        ],
+        [
+            'icon' => 'Dining Rooms.svg',
+            'title' => 'Dining rooms',
+            'desc' => 'Elegant dining experiences'
         ],
         [
             'icon' => 'Cafe.svg',
-            'title' => 'Café',
+            'title' => 'Café on the wheels ',
             'desc' => 'Premium coffee & snacks'
-        ],
-        [
-            'icon' => 'Landscaped Gardens.svg',
-            'title' => 'Landscaped Gardens',
-            'desc' => 'Beautiful outdoor spaces'
-        ],
-        [
-            'icon' => 'Cinema Room.svg',
-            'title' => 'Cinema Room',
-            'desc' => 'Private movie screenings'
-        ],
-        [
-            'icon' => 'Library.svg',
-            'title' => 'Library',
-            'desc' => 'Quiet reading sanctuary'
-        ],
-        [
-            'icon' => 'Couple Rooms.svg',
-            'title' => 'Couples Rooms',
-            'desc' => 'Private intimate spaces'
         ],
         [
             'icon' => 'Lounges.svg',
             'title' => 'Lounges',
+            'desc' => 'Quiet reading sanctuary'
+        ],
+        [
+            'icon' => 'Salon.svg',
+            'title' => 'Hair salon',
+            'desc' => 'Private intimate spaces'
+        ],
+        [
+            'icon' => 'Cinema Room.svg',
+            'title' => 'Cinema room',
             'desc' => 'Comfortable relaxation areas'
         ],
         [
@@ -54,18 +53,18 @@ function tov_facilities_home_shortcode($atts) {
             'desc' => 'Creative workshop space'
         ],
         [
-            'icon' => 'Pets Welcome.svg',
-            'title' => 'Pets Welcome',
+            'icon' => 'Library.svg',
+            'title' => 'Library',
             'desc' => 'Pet-friendly facilities'
         ],
         [
-            'icon' => 'Dining Rooms.svg',
-            'title' => 'Dining Rooms',
+            'icon' => 'Landscaped Gardens.svg',
+            'title' => 'Landscaped gardens ',
             'desc' => 'Elegant dining experiences'
         ],
         [
             'icon' => 'Therapy.svg',
-            'title' => 'Therapy Room',
+            'title' => 'Dementia lounge',
             'desc' => 'Wellness & relaxation'
         ],
     ];

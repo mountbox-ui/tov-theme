@@ -2958,6 +2958,10 @@ nav a:hover {
   order: -9999;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .m-0 {
   margin: 0px;
 }
@@ -2981,6 +2985,10 @@ nav a:hover {
   margin-left: -0.25rem;
 }
 
+.mb-0 {
+  margin-bottom: 0px;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -2999,10 +3007,6 @@ nav a:hover {
 
 .mb-20 {
   margin-bottom: 5rem;
-}
-
-.mb-24 {
-  margin-bottom: 6rem;
 }
 
 .mb-3 {
@@ -3154,6 +3158,10 @@ nav a:hover {
 
 .inline-flex {
   display: inline-flex;
+}
+
+.table {
+  display: table;
 }
 
 .grid {
@@ -3836,6 +3844,10 @@ nav a:hover {
 
 .gap-y-6 {
   row-gap: 1.5rem;
+}
+
+.gap-y-8 {
+  row-gap: 2rem;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -6025,11 +6037,6 @@ nav a:hover {
     padding-bottom: 1rem;
   }
 
-  .sm\:py-\[66px\] {
-    padding-top: 66px;
-    padding-bottom: 66px;
-  }
-
   .sm\:py-\[80px\] {
     padding-top: 80px;
     padding-bottom: 80px;
@@ -6246,6 +6253,10 @@ nav a:hover {
     row-gap: 2.5rem;
   }
 
+  .md\:gap-y-20 {
+    row-gap: 5rem;
+  }
+
   .md\:px-0 {
     padding-left: 0px;
     padding-right: 0px;
@@ -6261,8 +6272,17 @@ nav a:hover {
     padding-bottom: 0px;
   }
 
+  .md\:py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
   .md\:py-24 {
     padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .md\:pb-24 {
     padding-bottom: 6rem;
   }
 
@@ -6339,6 +6359,10 @@ nav a:hover {
   .lg\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
+  }
+
+  .lg\:mb-24 {
+    margin-bottom: 6rem;
   }
 
   .lg\:mr-0 {
@@ -6495,11 +6519,6 @@ nav a:hover {
   .lg\:py-32 {
     padding-top: 8rem;
     padding-bottom: 8rem;
-  }
-
-  .lg\:py-\[80px\] {
-    padding-top: 80px;
-    padding-bottom: 80px;
   }
 
   .lg\:pl-8 {
