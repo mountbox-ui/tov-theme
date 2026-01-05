@@ -17,6 +17,7 @@ function tov_facilities_home_shortcode($atts) {
             'icon' => 'BBQ Areas.svg',
             'title' => 'Modern amenities',
             'desc' => 'Smart Living Amenities'
+        ],
         [
             'icon' => 'private-rooms.svg',
             'title' => 'En-suite bathrooms',
@@ -35,17 +36,17 @@ function tov_facilities_home_shortcode($atts) {
         [
             'icon' => 'Lounges.svg',
             'title' => 'Lounges',
-            'desc' => 'Quiet reading sanctuary'
+            'desc' => 'Comfortable relaxation areas'
         ],
         [
             'icon' => 'Salon.svg',
             'title' => 'Hair salon',
-            'desc' => 'Private intimate spaces'
+            'desc' => 'Professional styling services'
         ],
         [
             'icon' => 'Cinema Room.svg',
             'title' => 'Cinema room',
-            'desc' => 'Comfortable relaxation areas'
+            'desc' => 'Professional styling services'
         ],
         [
             'icon' => 'Craft Rooms.svg',
@@ -55,12 +56,12 @@ function tov_facilities_home_shortcode($atts) {
         [
             'icon' => 'Library.svg',
             'title' => 'Library',
-            'desc' => 'Pet-friendly facilities'
+            'desc' => 'Quiet reading sanctuary'
         ],
         [
             'icon' => 'Landscaped Gardens.svg',
             'title' => 'Landscaped gardens ',
-            'desc' => 'Elegant dining experiences'
+            'desc' => 'Beautiful outdoor spaces'
         ],
         [
             'icon' => 'Therapy.svg',
