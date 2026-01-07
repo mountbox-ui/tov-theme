@@ -443,8 +443,8 @@ function tov_get_email_template($logo_url, $title, $greeting, $intro_text, $deta
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>' . esc_html($title) . '</title>
     </head>
-    <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 0;">
+    <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f7f3;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9f7f3; padding: 40px 0;">
             <tr>
                 <td align="center">
                     <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -606,7 +606,7 @@ function tov_handle_contact_form() {
     }
     
     // Logo URL for email
-    $logo_url = get_template_directory_uri() . '/assets/images/logo.png';
+    $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
     
     // Build admin email message
     $form_type_text = ucfirst($form_type);
@@ -627,30 +627,39 @@ function tov_handle_contact_form() {
     $admin_sent = wp_mail($admin_email, $subject, $admin_message, $headers);
     
     // Logo URL for email
-    $logo_url = get_template_directory_uri() . '/assets/images/logo.png';
+    $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
     $site_url = get_site_url();
     
     // Send confirmation email to user based on form type
     $user_subject = '';
     $user_message = '';
+    $attachments = array(); // Initialize attachments array
     
     if ($form_type === 'brochure') {
-        // Brochure download confirmation with link
+        // Brochure download confirmation with attachment
         $user_subject = "Your Brochure from The Old Vicarage";
         $brochure_url = get_template_directory_uri() . '/assets/brochure/tov-brochure.pdf';
+        
+        // Get the full server path to the brochure PDF file
+        $brochure_path = get_template_directory() . '/assets/brochure/tov-brochure.pdf';
+        
+        // Prepare attachment array if file exists
+        if (file_exists($brochure_path)) {
+            $attachments[] = $brochure_path;
+        }
         
         $user_message = tov_get_email_template(
             $logo_url,
             "Thank you for your brochure request!",
             "Dear {$full_name},",
-            "Thank you for your interest in <strong>The Old Vicarage</strong>! We have received your brochure request and our team will contact you soon with further details.",
+            "Thank you for your interest in <strong>The Old Vicarage</strong>! Please find your brochure attached to this email. Our team will contact you soon with further details.",
             array(
                 array('label' => 'Name', 'value' => $full_name),
                 array('label' => 'Email', 'value' => $email_address),
                 array('label' => 'Phone', 'value' => $phone_number),
             ),
             "<a href='{$brochure_url}' style='display: inline-block; background-color: #014854; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 20px 0;'>Download Brochure</a>",
-            "If you have any questions, please don't hesitate to contact us."
+            "The brochure is also attached to this email for your convenience."
         );
         
     } elseif ($form_type === 'contact') {
@@ -692,7 +701,12 @@ function tov_handle_contact_form() {
         );
     }
     
-    $user_sent = wp_mail($email_address, $user_subject, $user_message, $headers);
+    // Send email with attachment for brochure
+    if ($form_type === 'brochure' && !empty($attachments)) {
+        $user_sent = wp_mail($email_address, $user_subject, $user_message, $headers, $attachments);
+    } else {
+        $user_sent = wp_mail($email_address, $user_subject, $user_message, $headers);
+    }
     
     if ($admin_sent) {
         wp_send_json_success('Form submitted successfully');

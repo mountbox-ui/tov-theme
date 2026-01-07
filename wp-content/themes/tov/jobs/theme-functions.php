@@ -705,39 +705,56 @@ function tov_handle_job_application() {
         // Send email notification to admin
         $admin_email = get_option('admin_email');
         $admin_subject = 'New Job Application: ' . get_the_title($job_id);
+        $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
         $admin_message = "
         <html>
-        <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
-            <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
-                <h2 style='color: #2d3748; border-bottom: 2px solid #4a90e2; padding-bottom: 10px;'>New Job Application Received</h2>
+        <body style='margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f7f3;'>
+            <table width='100%' cellpadding='0' cellspacing='0' style='background-color: #f9f7f3; padding: 40px 0;'>
+                <tr>
+                    <td align='center'>
+                        <table width='600' cellpadding='0' cellspacing='0' style='background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
+                            <!-- Logo Section -->
+                            <tr>
+                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 3px solid #014854;'>
+                                    <img src='{$logo_url}' alt='The Old Vicarage' style='max-width: 200px; height: auto;'>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 30px 40px 20px 40px;'>
+                                    <h2 style='margin: 0; color: #2d3748; border-bottom: 2px solid #4a90e2; padding-bottom: 10px;'>New Job Application Received</h2>
                 
-                <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Job Details</h3>
-                    <p><strong>Position:</strong> " . get_the_title($job_id) . "</p>
-                    <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
-                </div>
+                                    <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Job Details</h3>
+                                        <p><strong>Position:</strong> " . get_the_title($job_id) . "</p>
+                                        <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
+                                    </div>
+                                    
+                                    <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Applicant Information</h3>
+                                        <p><strong>Name:</strong> $applicant_name</p>
+                                        <p><strong>Email:</strong> $applicant_email</p>
+                                        <p><strong>Phone:</strong> " . ($applicant_phone ? $applicant_phone : 'Not provided') . "</p>
+                                        <p><strong>Location:</strong> " . ($applicant_location ? $applicant_location : 'Not provided') . "</p>
+                                        <p><strong>Experience:</strong> " . ($applicant_experience ? $applicant_experience : 'Not specified') . "</p>
+                                        <p><strong>Resume:</strong> " . (isset($resume_url) ? '<a href="' . $resume_url . '">Download Resume</a>' : 'No resume uploaded') . "</p>
+                                    </div>
+                                    
+                                    " . ($cover_letter ? "
+                                    <div style='background: #fff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #4a90e2;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Cover Letter</h3>
+                                        <p style='white-space: pre-wrap;'>$cover_letter</p>
+                                    </div>
+                                    " : "") . "
                 
-                <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Applicant Information</h3>
-                    <p><strong>Name:</strong> $applicant_name</p>
-                    <p><strong>Email:</strong> $applicant_email</p>
-                    <p><strong>Phone:</strong> " . ($applicant_phone ? $applicant_phone : 'Not provided') . "</p>
-                    <p><strong>Location:</strong> " . ($applicant_location ? $applicant_location : 'Not provided') . "</p>
-                    <p><strong>Experience:</strong> " . ($applicant_experience ? $applicant_experience : 'Not specified') . "</p>
-                    <p><strong>Resume:</strong> " . (isset($resume_url) ? '<a href="' . $resume_url . '">Download Resume</a>' : 'No resume uploaded') . "</p>
-                </div>
-                
-                " . ($cover_letter ? "
-                <div style='background: #fff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #4a90e2;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Cover Letter</h3>
-                    <p style='white-space: pre-wrap;'>$cover_letter</p>
-                </div>
-                " : "") . "
-                
-                <div style='margin-top: 30px; padding: 15px; background: #d4edda; border-radius: 8px; border-left: 4px solid #28a745;'>
-                    <p style='margin: 0; color: #155724;'><strong>Next Steps:</strong> Review the application and contact the candidate if they meet your requirements.</p>
-                </div>
-            </div>
+                                    <div style='margin-top: 30px; padding: 15px; background: #d4edda; border-radius: 8px; border-left: 4px solid #28a745;'>
+                                        <p style='margin: 0; color: #155724;'><strong>Next Steps:</strong> Review the application and contact the candidate if they meet your requirements.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>
         ";
@@ -757,44 +774,61 @@ function tov_handle_job_application() {
         
         // Send confirmation email to applicant
         $applicant_subject = 'Application Submitted Successfully - ' . get_the_title($job_id);
+        $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
         $applicant_message = "
         <html>
-        <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
-            <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
-                <h2 style='color: #2d3748; text-align: center;'>Application Submitted Successfully!</h2>
+        <body style='margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f7f3;'>
+            <table width='100%' cellpadding='0' cellspacing='0' style='background-color: #f9f7f3; padding: 40px 0;'>
+                <tr>
+                    <td align='center'>
+                        <table width='600' cellpadding='0' cellspacing='0' style='background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
+                            <!-- Logo Section -->
+                            <tr>
+                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 3px solid #014854;'>
+                                    <img src='{$logo_url}' alt='The Old Vicarage' style='max-width: 200px; height: auto;'>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 30px 40px 20px 40px;'>
+                                    <h2 style='margin: 0; color: #2d3748; text-align: center;'>Application Submitted Successfully!</h2>
                 
-                <div style='background: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;'>
-                    <h3 style='color: #155724; margin-top: 0;'>✅ Thank You for Your Application</h3>
-                    <p style='color: #155724; margin-bottom: 0;'>Your application has been received and is being reviewed by our team.</p>
-                </div>
-                
-                <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Application Details</h3>
-                    <p><strong>Position Applied For:</strong> " . get_the_title($job_id) . "</p>
-                    <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
-                    <p><strong>Applicant Name:</strong> $applicant_name</p>
-                </div>
-                
-                <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>What Happens Next?</h3>
-                    <ul style='color: #4a5568; padding-left: 20px;'>
-                        <li>Our team will review your application and resume</li>
-                        <li>If you are shortlisted, we will contact you within 5-7 business days</li>
-                        <li>We may reach out for additional information or to schedule an interview</li>
-                        <li>If you don't hear from us within 2 weeks, please feel free to follow up</li>
-                    </ul>
-                </div>
-                
-                <div style='background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;'>
-                    <h3 style='color: #856404; margin-top: 0;'>Important Note</h3>
-                    <p style='color: #856404; margin-bottom: 0;'>If you are shortlisted, our team will contact you directly. Please ensure your contact information is up to date.</p>
-                </div>
-                
-                <div style='text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;'>
-                    <p style='color: #6c757d; margin: 0;'>Thank you for your interest in joining our team!</p>
-                    <p style='color: #6c757d; margin: 5px 0 0 0;'>Best regards,<br>Hiring Team</p>
-                </div>
-            </div>
+                                    <div style='background: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;'>
+                                        <h3 style='color: #155724; margin-top: 0;'>✅ Thank You for Your Application</h3>
+                                        <p style='color: #155724; margin-bottom: 0;'>Your application has been received and is being reviewed by our team.</p>
+                                    </div>
+                                    
+                                    <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Application Details</h3>
+                                        <p><strong>Position Applied For:</strong> " . get_the_title($job_id) . "</p>
+                                        <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
+                                        <p><strong>Applicant Name:</strong> $applicant_name</p>
+                                    </div>
+                                    
+                                    <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>What Happens Next?</h3>
+                                        <ul style='color: #4a5568; padding-left: 20px;'>
+                                            <li>Our team will review your application and resume</li>
+                                            <li>If you are shortlisted, we will contact you within 5-7 business days</li>
+                                            <li>We may reach out for additional information or to schedule an interview</li>
+                                            <li>If you don't hear from us within 2 weeks, please feel free to follow up</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div style='background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;'>
+                                        <h3 style='color: #856404; margin-top: 0;'>Important Note</h3>
+                                        <p style='color: #856404; margin-bottom: 0;'>If you are shortlisted, our team will contact you directly. Please ensure your contact information is up to date.</p>
+                                    </div>
+                                    
+                                    <div style='text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;'>
+                                        <p style='color: #6c757d; margin: 0;'>Thank you for your interest in joining our team!</p>
+                                        <p style='color: #6c757d; margin: 5px 0 0 0;'>Best regards,<br>Hiring Team</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>
         ";
