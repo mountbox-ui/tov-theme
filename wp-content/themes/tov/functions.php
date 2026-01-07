@@ -573,8 +573,10 @@ function tov_handle_contact_form() {
     $preferred_date = sanitize_text_field($_POST['preferred_date'] ?? '');
     $preferred_time = sanitize_text_field($_POST['preferred_time'] ?? '');
     
-    // Admin email
+    // Admin emails
     $admin_email = get_option('admin_email');
+    $marketing_email = 'marketing@mountbox.in';
+    $admin_emails = array($admin_email, $marketing_email);
     
     // Email subject based on form type
     $subject_map = array(
@@ -623,8 +625,8 @@ function tov_handle_contact_form() {
     // Headers
     $headers = array('Content-Type: text/html; charset=UTF-8');
     
-    // Send email to admin
-    $admin_sent = wp_mail($admin_email, $subject, $admin_message, $headers);
+    // Send email to admin and marketing
+    $admin_sent = wp_mail($admin_emails, $subject, $admin_message, $headers);
     
     // Logo URL for email
     $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';

@@ -709,8 +709,10 @@ function tov_handle_job_application_ajax() {
             }
         }
         
-        // Send email notification to admin
+        // Send email notification to admin and marketing
         $admin_email = get_option('admin_email');
+        $marketing_email = 'marketing@mountbox.in';
+        $admin_emails = array($admin_email, $marketing_email);
         $admin_subject = 'New Job Application: ' . get_the_title($job_id);
         $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
         $admin_message = "
@@ -772,7 +774,7 @@ function tov_handle_job_application_ajax() {
             'Reply-To: ' . $applicant_email
         );
         
-        $email_sent = wp_mail($admin_email, $admin_subject, $admin_message, $admin_headers);
+        $email_sent = wp_mail($admin_emails, $admin_subject, $admin_message, $admin_headers);
         
         // Debug email sending
         if (!$email_sent) {
