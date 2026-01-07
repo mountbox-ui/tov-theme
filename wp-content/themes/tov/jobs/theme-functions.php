@@ -715,7 +715,7 @@ function tov_handle_job_application() {
                         <table width='600' cellpadding='0' cellspacing='0' style='background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
                             <!-- Logo Section -->
                             <tr>
-                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 3px solid #014854;'>
+                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 1px solid #014854;'>
                                     <img src='{$logo_url}' alt='The Old Vicarage' style='max-width: 200px; height: auto;'>
                                 </td>
                             </tr>
@@ -784,7 +784,7 @@ function tov_handle_job_application() {
                         <table width='600' cellpadding='0' cellspacing='0' style='background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
                             <!-- Logo Section -->
                             <tr>
-                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 3px solid #014854;'>
+                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 1px solid #014854;'>
                                     <img src='{$logo_url}' alt='The Old Vicarage' style='max-width: 200px; height: auto;'>
                                 </td>
                             </tr>

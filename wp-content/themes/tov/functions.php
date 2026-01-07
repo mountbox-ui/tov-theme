@@ -451,7 +451,7 @@ function tov_get_email_template($logo_url, $title, $greeting, $intro_text, $deta
                         
                         <!-- Logo Section -->
                         <tr>
-                            <td align="left" style="padding: 40px 40px 20px 40px; border-bottom: 3px solid #014854;">
+                            <td align="left" style="padding: 40px 40px 20px 40px; border-bottom: 1px solid #014854;">
                                 <img src="' . esc_url($logo_url) . '" alt="The Old Vicarage" style="max-width: 200px; height: auto;">
                             </td>
                         </tr>
@@ -508,7 +508,7 @@ function tov_get_email_template($logo_url, $title, $greeting, $intro_text, $deta
                         </tr>
                         
                         <!-- Button Section -->
-                        ' . (!empty($button_html) ? '<tr><td align="center" style="padding: 0 40px 20px 40px;">' . $button_html . '</td></tr>' : '') . '
+                        ' . (!empty($button_html) ? '<tr><td align="left" style="padding: 0 40px 20px 40px;">' . $button_html . '</td></tr>' : '') . '
                         
                         <!-- Footer Text -->
                         <tr>
