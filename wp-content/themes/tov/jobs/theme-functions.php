@@ -681,9 +681,16 @@ function jobs_display_shortcode($atts) {
 }
 add_shortcode('jobs_listing', 'jobs_display_shortcode');
 
-// Handle job application form submission
-function tov_handle_job_application() {
-    if (isset($_POST['job_application_nonce_field']) && wp_verify_nonce($_POST['job_application_nonce_field'], 'job_application_nonce')) {
+// Handle job application form submission via AJAX
+function tov_handle_job_application_ajax() {
+    // Verify nonce
+    if (!isset($_POST['job_application_nonce_field']) || !wp_verify_nonce($_POST['job_application_nonce_field'], 'job_application_nonce')) {
+        wp_send_json_error(array('message' => 'Security check failed. Please refresh the page and try again.'));
+        return;
+    }
+    
+    // Process the form
+    if (isset($_POST['job_id'])) {
         $job_id = intval($_POST['job_id']);
         $applicant_name = sanitize_text_field($_POST['applicant_name']);
         $applicant_email = sanitize_email($_POST['applicant_email']);
@@ -865,19 +872,16 @@ function tov_handle_job_application() {
         $applications[] = $new_application;
         update_option('job_applications', $applications);
         
-        // Show success modal instead of popup
-        add_action('wp_footer', function() {
-            echo '<script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    if (typeof showThankYouModal === "function") {
-                        showThankYouModal();
-                    }
-                });
-            </script>';
-        });
+        // Return success response for AJAX
+        wp_send_json_success(array('message' => 'Application submitted successfully!'));
+        return;
+    } else {
+        wp_send_json_error(array('message' => 'Job ID is missing. Please try again.'));
+        return;
     }
 }
-add_action('init', 'tov_handle_job_application');
+add_action('wp_ajax_tov_job_application_ajax', 'tov_handle_job_application_ajax');
+add_action('wp_ajax_nopriv_tov_job_application_ajax', 'tov_handle_job_application_ajax');
 
 // Add some basic styling
 function jobs_admin_styles() {
