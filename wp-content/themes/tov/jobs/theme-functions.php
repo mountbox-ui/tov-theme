@@ -1080,8 +1080,8 @@ function tov_jobs_overview_page() {
         }
     }
     
-    // Get recent applicants (last 10)
-    $recent_applicants = array_slice(array_reverse($applications), 0, 10);
+    // Get all applicants (sorted by date, newest first)
+    $all_applicants = array_reverse($applications);
     
     // Get all jobs for listing (including inactive for admin view)
     $all_jobs = get_posts(array(
@@ -1105,7 +1105,7 @@ function tov_jobs_overview_page() {
             </div>
             <div class="stat-card">
                 <div class="stat-number"><?php echo $recent_applications; ?></div>
-                <div class="stat-label">New Applications</div>
+                <div class="stat-label">Applications Submitted in the Last 30 Days</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number"><?php echo $total_applications; ?></div>
@@ -1116,33 +1116,36 @@ function tov_jobs_overview_page() {
         <!-- Recent Applications -->
         <div class="jobs-overview-section">
             <h2>Recent Applications</h2>
-            <?php if (!empty($recent_applicants)): ?>
-                <table class="wp-list-table widefat fixed striped">
-                    <thead>
-                        <tr>
-                            <th>Applicant</th>
-                            <th>Position</th>
-                            <th>Email</th>
-                            <th>Date Applied</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($recent_applicants as $application): ?>
+            <?php if (!empty($all_applicants)): ?>
+                <div class="applications-table-wrapper" <?php echo count($all_applicants) > 7 ? 'style="max-height: 500px; overflow-y: auto;"' : ''; ?>>
+                    <table class="wp-list-table widefat fixed striped">
+                        <thead>
                             <tr>
-                                <td><strong><?php echo esc_html($application['name']); ?></strong></td>
-                                <td><?php echo esc_html($application['job_title']); ?></td>
-                                <td><?php echo esc_html($application['email']); ?></td>
-                                <td><?php echo date('M j, Y', strtotime($application['date'])); ?></td>
-                                <td>
-                                    <?php if (!empty($application['resume_url'])): ?>
-                                        <a href="<?php echo esc_url($application['resume_url']); ?>" target="_blank" class="button button-small">View Resume</a>
-                                    <?php endif; ?>
-                                </td>
+                                <th>Applicant</th>
+                                <th>Position</th>
+                                <th>Email</th>
+                                <th>Date Applied</th>
+                                <th>Actions</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($all_applicants as $index => $application): ?>
+                                <tr id="application-row-<?php echo esc_attr($application['id']); ?>">
+                                    <td><strong><?php echo esc_html($application['name']); ?></strong></td>
+                                    <td><?php echo esc_html($application['job_title']); ?></td>
+                                    <td><?php echo esc_html($application['email']); ?></td>
+                                    <td><?php echo date('M j, Y', strtotime($application['date'])); ?></td>
+                                    <td>
+                                        <?php if (!empty($application['resume_url'])): ?>
+                                            <a href="<?php echo esc_url($application['resume_url']); ?>" target="_blank" class="button button-small button-primary">View Resume</a>
+                                        <?php endif; ?>
+                                        <button type="button" class="button button-small remove-application-btn" data-application-id="<?php echo esc_attr($application['id']); ?>" style="background-color: #dc3545; color: white; border-color: #dc3545;">Remove</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php else: ?>
                 <p>No applications yet.</p>
             <?php endif; ?>
@@ -1300,6 +1303,37 @@ function tov_jobs_overview_page() {
         color: #721c24;
     }
     
+    .applications-table-wrapper {
+        margin-top: 15px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    
+    .remove-application-btn {
+        margin-left: 5px;
+    }
+    
+    .remove-application-btn:hover {
+        background-color: #c82333 !important;
+        border-color: #bd2130 !important;
+    }
+    
     @media (max-width: 768px) {
         .jobs-overview-stats {
             flex-direction: column;
@@ -1307,15 +1341,101 @@ function tov_jobs_overview_page() {
     }
     </style>
     
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Status toggle functionality removed
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.remove-application-btn').on('click', function(e) {
+            e.preventDefault();
+            
+            var button = $(this);
+            var applicationId = button.data('application-id');
+            var row = $('#application-row-' + applicationId);
+            
+            if (!confirm('Are you sure you want to remove this application? This action cannot be undone.')) {
+                return;
+            }
+            
+            // Disable button and show loading
+            button.prop('disabled', true).text('Removing...');
+            
+            // AJAX request to remove application
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'tov_remove_application',
+                    application_id: applicationId,
+                    nonce: '<?php echo wp_create_nonce("remove_application_nonce"); ?>'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Fade out and remove the row
+                        row.fadeOut(300, function() {
+                            $(this).remove();
+                            
+                            // Reload page to update statistics
+                            location.reload();
+                        });
+                    } else {
+                        alert('Error: ' + (response.data || 'Could not remove application'));
+                        button.prop('disabled', false).text('Remove');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred. Please try again.');
+                    button.prop('disabled', false).text('Remove');
+                }
+            });
+        });
     });
-    
     </script>
     <?php
 }
 
+
+// AJAX handler for removing application
+function tov_remove_application_handler() {
+    // Verify nonce
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'remove_application_nonce')) {
+        wp_send_json_error('Security check failed');
+        return;
+    }
+    
+    // Check if user has permission
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('You do not have permission to perform this action');
+        return;
+    }
+    
+    $application_id = sanitize_text_field($_POST['application_id']);
+    
+    if (empty($application_id)) {
+        wp_send_json_error('Application ID is required');
+        return;
+    }
+    
+    // Get all applications
+    $applications = get_option('job_applications', array());
+    
+    // Find and remove the application
+    $found = false;
+    foreach ($applications as $key => $application) {
+        if (isset($application['id']) && $application['id'] === $application_id) {
+            unset($applications[$key]);
+            $found = true;
+            break;
+        }
+    }
+    
+    if ($found) {
+        // Re-index array and save
+        $applications = array_values($applications);
+        update_option('job_applications', $applications);
+        wp_send_json_success('Application removed successfully');
+    } else {
+        wp_send_json_error('Application not found');
+    }
+}
+add_action('wp_ajax_tov_remove_application', 'tov_remove_application_handler');
 
 // AJAX handler for updating job status
 function handle_job_status_update() {
