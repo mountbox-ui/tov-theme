@@ -46,7 +46,7 @@ function tov_facilities_home_shortcode($atts) {
         [
             'icon' => 'Cinema Room.svg',
             'title' => 'Cinema room',
-            'desc' => 'Professional styling services'
+            'desc' => 'Private movie screenings'
         ],
         [
             'icon' => 'Craft Rooms.svg',
