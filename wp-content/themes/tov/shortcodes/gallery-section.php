@@ -48,7 +48,7 @@ function tov_gallery_shortcode($atts) {
 
     ob_start();
     ?>
-    <div class="tov-gallery-container" id="<?php echo esc_attr($gallery_id); ?>">
+    <div class="tov-gallery-container not-prose" id="<?php echo esc_attr($gallery_id); ?>">
         <div class="gallery-grid gallery-columns-<?php echo esc_attr($columns); ?>">
             <?php foreach ($gallery_images as $index => $image): ?>
                 <div class="gallery-item">
@@ -86,6 +86,12 @@ function tov_gallery_shortcode($atts) {
         margin-left: auto;
         margin-right: auto;
         padding: 0 16px;
+    }
+    
+    /* Reset prose styles for gallery images */
+    .tov-gallery-container img {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
     }
     
     .gallery-grid {

@@ -8,7 +8,7 @@ function tov_reg_home_shortcode($atts) {
     ob_start();
     ?>
     
-    <section class="py-20 bg-white">
+    <section class="py-16 md:py-20 bg-white">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-items-center">
                 
