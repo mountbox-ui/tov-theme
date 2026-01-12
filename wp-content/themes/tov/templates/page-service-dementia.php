@@ -138,7 +138,7 @@ get_header(); ?>
                                 Personalised and Tailored Care Includes
                             </h2>
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto">
                                 <div class="flex items-start gap-6 bg-white p-6 rounded-xl">
                                     <i class="fas fa-clipboard-list text-3xl text-[#016A7C] flex-shrink-0 mt-1"></i>
                                     <div>

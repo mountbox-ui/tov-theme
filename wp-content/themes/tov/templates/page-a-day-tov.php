@@ -20,7 +20,7 @@ get_header(); ?>
                     <p class="my-6 text-lg/8 font-lato text-[#757575] dark:text-gray-400">Nestled in the heart of Otterton village, East Devon, The Old Vicarage offers more than just a place to stay – it is a place to live fully, with dignity, joy and connection. From the moment you arrive, your private ensuite room becomes your sanctuary, filled with your own cherished belongings, ready to reflect your personality and story.</p>
                 </div>
                 
-                 <div class="rounded-2xl overflow-hidden max-w-5xl mx-auto mb-8 md:mb-12">
+                 <div class="rounded-2xl overflow-hidden mx-auto mb-8 md:mb-12">
                      <img src="https://images.unsplash.com/photo-1764795932247-d2ce2014fc0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dGlmdWwlMjBidWlsZGluZyUyMGdhcmRlbnxlbnwxfHx8fDE3NjgxMTMzNTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                                     alt="The Old Vicarage" class="w-full h-[250px] md:h-[400px] object-cover" />
                 </div>

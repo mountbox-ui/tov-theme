@@ -34,7 +34,7 @@ get_header(); ?>
                         <div class="container max-w-[1280px] mx-auto px-6">
 
 
-                            <div class="grid grid-cols-1 gap-6 max-w-5xl mx-auto py-12">
+                            <div class="grid grid-cols-1 gap-6 mx-auto py-12">
                                 <div class="rounded-2xl overflow-hidden shadow-lg h-96">
                                     <img src="https://images.unsplash.com/photo-1764795932247-d2ce2014fc0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dGlmdWwlMjBidWlsZGluZyUyMGdhcmRlbnxlbnwxfHx8fDE3NjgxMTMzNTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                                         alt="The Old Vicarage exterior" class="w-full h-full m-0 object-cover" />
@@ -379,7 +379,7 @@ get_header(); ?>
                     </section>
 
                     <!-- Call to Action Section -->
-                    <section class="py-24 bg-[#014854] relative overflow-hidden">
+                    <section class="pt-24 bg-[#014854] relative overflow-hidden">
                         <!-- Background Image -->
                         <img src="https://images.unsplash.com/photo-1764795932247-d2ce2014fc0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dGlmdWwlMjBidWlsZGluZyUyMGdhcmRlbnxlbnwxfHx8fDE3NjgxMTMzNTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                             alt="" class="absolute inset-0 w-full h-full object-cover opacity-30" />
@@ -387,7 +387,7 @@ get_header(); ?>
                         <div class="absolute inset-0 bg-[#014854]/70"></div>
                         <!-- Content -->
                         <div class="container mx-auto px-6 text-center relative z-10">
-                            <h2 class="text-5xl mb-6 text-white max-w-3xl mx-auto  ">
+                            <h2 class="text-5xl text-white max-w-3xl mx-auto  ">
                                 Ready to Experience the Difference?
                             </h2>
                             <p class="text-xl text-[#E8E2C3] mb-10 max-w-2xl mx-auto font-lato">
