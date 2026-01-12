@@ -5238,6 +5238,10 @@ nav a:hover {
   text-decoration-line: underline;
 }
 
+.no-underline {
+  text-decoration-line: none;
+}
+
 .opacity-0 {
   opacity: 0;
 }
@@ -6079,6 +6083,10 @@ nav a:hover {
 
   .sm\:w-\[230px\] {
     width: 230px;
+  }
+
+  .sm\:w-\[165px\] {
+    width: 165px;
   }
 
   .sm\:max-w-\[400px\] {
