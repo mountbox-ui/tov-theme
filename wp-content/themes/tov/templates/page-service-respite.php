@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Service ResidentialPage
+ * Template Name: Service RespitePage
  * Template for displaying individual service pages
  */
 
@@ -17,9 +17,7 @@ get_header(); ?>
                     <h2 class="text-left">
                         <?php the_title(); ?>
                     </h2>
-                    <p class="mt-6 text-lg/8 font-lato text-gray-600 dark:text-gray-400">At The Old Vicarage, we provide
-                        compassionate residential care in a warm, welcoming environment where every resident is valued and
-                        supported to live life to the fullest.</p>
+                    <p class="mt-6 text-lg/8 font-lato text-gray-600 dark:text-gray-400">At The Old Vicarage, we provide trusted respite care in a warm, welcoming environment where every resident is valued and supported with comfort, dignity and peace of mind.</p>
                 </div>
             </header>
 
@@ -36,17 +34,10 @@ get_header(); ?>
                                 </div>
                                 <div>
                                     <h2 class="text-4xl mb-6 text-[#014854] mt-0 ">
-                                        Starting a New Chapter
+                                        Discover Respite Care at The Old Vicarage 
                                     </h2>
                                     <p class="text-lg text-gray-700 mb-4 leading-relaxed font-sans">
-                                        Starting a new chapter in a residential care home can bring mixed emotions and we
-                                        want to assure you that at The Old Vicarage, we are dedicated to making your
-                                        transition as smooth and comfortable as possible.
-                                    </p>
-                                    <p class="text-lg text-gray-700 mb-8 leading-relaxed font-sans">
-                                        Our home, set in the beautiful village of Otterton, is truly a residence belonging
-                                        to its community – our residents. We are simply the team here to ensure you live
-                                        life to the fullest, supported by holistic care in a warm, family atmosphere.
+                                        Caring for a loved one is a profound act of love, but it is also incredibly demanding. At The Old Vicarage, we understand that to sustain this dedication, caregivers need time to rest and recharge. Our Respite Care program is that essential lifeline, offering both you and your loved one a supportive enriching haven. 
                                     </p>
                                     <div class="relative rgba(1, 106, 124, 1) z-10 w-[150px] sm:w-[165px]">
                                         <a href="<?php echo home_url('/contact-us/?form=visit'); ?>" class="btn btn-primary bt-1 no-underline
@@ -61,32 +52,28 @@ get_header(); ?>
                             </div>
                         </div>
                     </section>
-
                     <!-- What is Residential Care Section -->
                     <section class="py-20 bg-[#FAF8F4]">
                         <div class="container max-w-[1280px] mx-auto px-6">
                             <div class="max-w-4xl mx-auto">
                                 <h2 class="text-4xl mb-4 text-black mt-0 ">
-                                    What is Residential Care at The Old Vicarage?
+                                    What is Respite Care at The Old Vicarage? 
                                 </h2>
                                 <div class="w-24 h-1 bg-[#014854] mb-8"></div>
-
                                 <div class="space-y-6 font-sans">
                                     <p class="paragraph">
-                                        Residential care here means enjoying a vibrant living experience with dedicated, heartfelt support available 24 hours a day, 7 days a week. It is a place where you are at the steering wheel of your life. Our core belief is that our residents are our extended family. We watch over the home and provide care in a way we would wish for one of our own. Our experienced proactive team strives to get to know your passions, helping you continue cherished hobbies or discover new ones, ensuring every moment matters and every day is yours to enjoy. 
+                                        Respite care is a planned, short-term, temporary stay at our residential home, designed to provide primary family caregivers with relief. It allows you to take a much-needed break - whether for physical and emotional rejuvenation, managing personal appointments or simply to relax - all while knowing your loved one is receiving professional, heartfelt care. 
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </section>
-
                     <!-- High-quality Care Process -->
                     <section class="py-20 bg-white">
                         <div class="container max-w-[1280px] mx-auto px-6">
                             <h2 class="text-4xl mb-16 text-black text-center mt-0 ">
                                 High-quality care tailored to your needs
                             </h2>
-
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
                                 <!-- Step 1 -->
                                 <div class="text-center">
@@ -102,7 +89,6 @@ get_header(); ?>
                                         preferences, and lifestyle, ensuring we can provide the most appropriate care.
                                     </p>
                                 </div>
-
                                 <!-- Step 2 -->
                                 <div class="text-center">
                                     <div
@@ -117,7 +103,6 @@ get_header(); ?>
                                         ensuring continuity and consistency in your care journey.
                                     </p>
                                 </div>
-
                                 <!-- Step 3 -->
                                 <div class="text-center">
                                     <div
@@ -135,14 +120,12 @@ get_header(); ?>
                             </div>
                         </div>
                     </section>
-
                     <!-- Personalised Care Details -->
                     <section class="py-20 bg-[#F5F1E8]" style="background-color: #F5F1E8;">
                         <div class="container max-w-[1280px] mx-auto px-6">
                             <h2 class="text-4xl mb-12 text-black mt-0 ">
                                 Personalised and Tailored Care Includes
                             </h2>
-
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                                 <div class="flex items-start gap-6 bg-white p-6 rounded-xl">
                                     <i class="fas fa-clipboard-list text-3xl text-[#016A7C] flex-shrink-0 mt-1"></i>
@@ -155,7 +138,6 @@ get_header(); ?>
                                         </p>
                                     </div>
                                 </div>
-
                                 <div class="flex items-start gap-6 bg-white p-6 rounded-xl">
                                     <i class="fas fa-stethoscope text-3xl text-[#016A7C] flex-shrink-0 mt-1"></i>
                                     <div>
@@ -167,7 +149,6 @@ get_header(); ?>
                                         </p>
                                     </div>
                                 </div>
-
                                 <div class="flex items-start gap-6 bg-white p-6 rounded-xl">
                                     <i class="fas fa-hands-helping text-3xl text-[#016A7C] flex-shrink-0 mt-1"></i>
                                     <div>
@@ -179,7 +160,6 @@ get_header(); ?>
                                         </p>
                                     </div>
                                 </div>
-
                                 <div class="flex items-start gap-6 bg-white p-6 rounded-xl">
                                     <i class="fas fa-users text-3xl text-[#016A7C] flex-shrink-0 mt-1"></i>
                                     <div>
@@ -191,7 +171,6 @@ get_header(); ?>
                                         </p>
                                     </div>
                                 </div>
-
                                 <div class="flex items-start gap-6 bg-white p-6 rounded-xl">
                                     <i class="fas fa-moon text-3xl text-[#016A7C] flex-shrink-0 mt-1"></i>
                                     <div>
@@ -206,7 +185,6 @@ get_header(); ?>
                             </div>
                         </div>
                     </section>
-
                     <!-- Expertise Section -->
                     <section class="py-20 bg-white">
                         <div class="container max-w-[1280px] mx-auto px-6">
@@ -216,7 +194,6 @@ get_header(); ?>
                             <p class="text-center paragraph mb-8">
                                 We offer general residential care and are equipped to support specialised care needs in a thoughtful and supportive environment: 
                             </p>
-
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-8">
                                 <div class="bg-[#FAF8F4] p-8 rounded-2xl text-center border-2 border-[#E8E2C3]">
                                     <div
@@ -231,7 +208,6 @@ get_header(); ?>
                                         maintain cognitive function.
                                     </p>
                                 </div>
-
                                 <div class="bg-[#FAF8F4] p-8 rounded-2xl text-center border-2 border-[#E8E2C3]">
                                     <div
                                         class="w-16 h-16 bg-[#016A7C] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -245,7 +221,6 @@ get_header(); ?>
                                         quality of life.
                                     </p>
                                 </div>
-
                                 <div class="bg-[#FAF8F4] p-8 rounded-2xl text-center border-2 border-[#E8E2C3]">
                                     <div
                                         class="w-16 h-16 bg-[#016A7C] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -260,13 +235,11 @@ get_header(); ?>
                                     </p>
                                 </div>
                             </div>
-
                             <p class="text-center text-sm text-gray-600 italic font-sans">
                                 Please note: We do not support advanced dementia care
                             </p>
                         </div>
                     </section>
-
                     <!-- Comfort & Cuisine Section -->
                     <section class="py-20 bg-[#FAF8F4]">
                         <div class="container max-w-[1280px] mx-auto px-6">
@@ -450,23 +423,6 @@ get_header(); ?>
                     </section>
 
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 <div class="prose prose-lg max-w-none dark:prose-invert container mx-auto px-6">
                     <?php
