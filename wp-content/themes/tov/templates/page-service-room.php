@@ -273,7 +273,7 @@ get_header(); ?>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                                <div class="bg-[#FAF8F4] rounded-2xl overflow-hidden shadow-md">
+                                <div class="bg-[#FAF8F4] rounded-2xl overflow-hidden">
                                     <div class="h-48">
                                         <img src="https://images.unsplash.com/photo-1758977405163-f2595de08dfe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwZGluaW5nJTIwcm9vbXxlbnwxfHx8fDE3NjgwNTEzMjB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                                             alt="Cinema room" class="w-full h-full object-cover" />
@@ -289,7 +289,7 @@ get_header(); ?>
                                     </div>
                                 </div>
 
-                                <div class="bg-[#FAF8F4] rounded-2xl overflow-hidden shadow-md">
+                                <div class="bg-[#FAF8F4] rounded-2xl overflow-hidden">
                                     <div class="h-48">
                                         <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                                             alt="Library" class="w-full h-full object-cover" />
@@ -305,7 +305,7 @@ get_header(); ?>
                                     </div>
                                 </div>
 
-                                <div class="bg-[#FAF8F4] rounded-2xl overflow-hidden shadow-md">
+                                <div class="bg-[#FAF8F4] rounded-2xl overflow-hidden">
                                     <div class="h-48">
                                         <img src="https://images.unsplash.com/photo-1584661156681-540e80a161d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwYXJ0JTIwcGFpbnRpbmd8ZW58MXx8fHwxNzY4MTEzMzU1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                                             alt="Craft area" class="w-full h-full object-cover" />
@@ -337,7 +337,7 @@ get_header(); ?>
                             </div>
 
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                                <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                                <div class="bg-white rounded-2xl overflow-hidden">
                                     <img src="https://images.unsplash.com/photo-1757829316659-5f2ffb007eac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGRlcmx5JTIwb3V0ZG9vciUyMGdhcmRlbnxlbnwxfHx8fDE3NjgxMTMzNTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                                         alt="Landscaped gardens" class="w-full h-64 object-cover" />
                                     <div class="p-8">
@@ -356,7 +356,7 @@ get_header(); ?>
                                     </div>
                                 </div>
 
-                                <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                                <div class="bg-white rounded-2xl overflow-hidden">
                                     <img src="https://images.unsplash.com/photo-1739111165604-368400feb1d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGRlcmx5JTIwZ2FyZGVuaW5nJTIwaGFwcHl8ZW58MXx8fHwxNzY4MTEzMzU1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                                         alt="Gardening activities" class="w-full h-64 object-cover" />
                                     <div class="p-8">
@@ -379,14 +379,14 @@ get_header(); ?>
                     </section>
 
                     <!-- Call to Action Section -->
-                    <section class="pt-24 bg-[#014854] relative overflow-hidden">
+                    <section class="bg-[#014854] relative overflow-hidden">
                         <!-- Background Image -->
                         <img src="https://images.unsplash.com/photo-1764795932247-d2ce2014fc0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dGlmdWwlMjBidWlsZGluZyUyMGdhcmRlbnxlbnwxfHx8fDE3NjgxMTMzNTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                             alt="" class="absolute inset-0 w-full h-full object-cover opacity-30" />
                         <!-- Overlay for additional opacity control -->
                         <div class="absolute inset-0 bg-[#014854]/70"></div>
                         <!-- Content -->
-                        <div class="container mx-auto px-6 text-center relative z-10">
+                        <div class="container mx-auto px-6 text-center relative z-10 py-12">
                             <h2 class="text-5xl text-white max-w-3xl mx-auto  ">
                                 Ready to Experience the Difference?
                             </h2>
