@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Service ResidentialPage
+ * Template Name: Service DementiaPage
  * Template for displaying individual service pages
  */
 
@@ -17,9 +17,7 @@ get_header(); ?>
                     <h2 class="text-left">
                         <?php the_title(); ?>
                     </h2>
-                    <p class="mt-6 text-lg/8 font-lato text-gray-600 dark:text-gray-400">At The Old Vicarage, we provide
-                        compassionate residential care in a warm, welcoming environment where every resident is valued and
-                        supported to live life to the fullest.</p>
+                    <p class="mt-6 text-lg/8 font-lato text-gray-600 dark:text-gray-400">At The Old Vicarage, we provide specialist dementia care in a calm, supportive environment where every resident is valued, understood and treated with dignity and respect.</p>
                 </div>
             </header>
 
@@ -36,17 +34,11 @@ get_header(); ?>
                                 </div>
                                 <div>
                                     <h2 class="text-4xl mb-6 text-[#014854] mt-0 ">
-                                        Starting a New Chapter
+                                        Compassionate Dementia Care at The Old Vicarage
                                     </h2>
                                     <p class="text-lg text-gray-700 mb-4 leading-relaxed font-sans">
-                                        Starting a new chapter in a residential care home can bring mixed emotions and we
-                                        want to assure you that at The Old Vicarage, we are dedicated to making your
-                                        transition as smooth and comfortable as possible.
-                                    </p>
-                                    <p class="text-lg text-gray-700 mb-8 leading-relaxed font-sans">
-                                        Our home, set in the beautiful village of Otterton, is truly a residence belonging
-                                        to its community – our residents. We are simply the team here to ensure you live
-                                        life to the fullest, supported by holistic care in a warm, family atmosphere.
+                                        A promise of comfort and connection   
+                                        At The Old Vicarage, we understand that every journey with dementia is unique. That is why we offer heartfelt, personalised care to individuals living with mild to moderate dementia, ensuring they feel safe, connected and truly at ease. Our family-run home is dedicated to delivering comfort, compassion and meaningful connection every single day. 
                                     </p>
                                     <div class="relative rgba(1, 106, 124, 1) z-10 w-[150px] sm:w-[165px]">
                                         <a href="<?php echo home_url('/contact-us/?form=visit'); ?>" class="btn btn-primary bt-1 no-underline
@@ -67,13 +59,16 @@ get_header(); ?>
                         <div class="container max-w-[1280px] mx-auto px-6">
                             <div class="max-w-4xl mx-auto">
                                 <h2 class="text-4xl mb-4 text-black mt-0 ">
-                                    What is Residential Care at The Old Vicarage?
+                                    What is Dementia Care at The Old Vicarage? 
                                 </h2>
                                 <div class="w-24 h-1 bg-[#014854] mb-8"></div>
 
                                 <div class="space-y-6 font-sans">
                                     <p class="paragraph">
-                                        Residential care here means enjoying a vibrant living experience with dedicated, heartfelt support available 24 hours a day, 7 days a week. It is a place where you are at the steering wheel of your life. Our core belief is that our residents are our extended family. We watch over the home and provide care in a way we would wish for one of our own. Our experienced proactive team strives to get to know your passions, helping you continue cherished hobbies or discover new ones, ensuring every moment matters and every day is yours to enjoy. 
+                                        Dementia care at The Old Vicarage is built on an ethos of genuine attention to detail and treating residents like our extended family. Our compassionate team takes the time to truly understand each resident's needs, preferences and routines - from the exact cup they love to drink from to their favourite pastime. 
+                                    </p>
+                                    <p class="paragraph">
+                                        This personalised approach creates a familiar, comforting environment, allowing residents to respond positively to daily life and continue living with purpose. We are here to provide holistic care in a friendly, family atmosphere, looking after our residents in a way we would wish for one of our own.
                                     </p>
                                 </div>
                             </div>

@@ -4461,11 +4461,6 @@ nav a:hover {
   padding-right: 1.5rem;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
 .px-\[18px\] {
   padding-left: 18px;
   padding-right: 18px;
@@ -5182,6 +5177,10 @@ nav a:hover {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.no-underline {
+  text-decoration-line: none;
 }
 
 .opacity-0 {
@@ -6005,6 +6004,10 @@ nav a:hover {
 
   .sm\:w-64 {
     width: 16rem;
+  }
+
+  .sm\:w-\[165px\] {
+    width: 165px;
   }
 
   .sm\:w-\[315px\] {
