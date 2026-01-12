@@ -8,32 +8,20 @@ get_header(); ?>
 
 <?php while (have_posts()):
     the_post(); ?>
-    <div class="bg-white pt-24 sm:pt-32 dark:bg-gray-900">
+    <div class="bg-white dark:bg-gray-900">
         <div class="">
-            <!-- Page Title -->
-            <header class="container max-w-[1280px] mx-auto px-6">
-                <div class="max-w-[800px]">
-                    <h2 class="text-left">
-                        <?php the_title(); ?>
-                    </h2>
-                    <p class="mt-6 text-lg/8 font-lato text-gray-600 dark:text-gray-400 mb-6">At The Old Vicarage, we provide
-                        compassionate residential care in a warm, welcoming environment where every resident is valued and
-                        supported to live life to the fullest.</p>
-                </div>
-            </header>
-
             <!-- Page Content -->
             <div >
                 <div class="min-h-screen bg-[#FAF8F4]">
-
                     <!-- Hero Section -->
-                    <section class="py-16 md:py-20 bg-[#014854] relative">
+                    <section class="pb-16 md:pb-20 pt-[96px] md:pt-[120px] bg-[#014854] relative">
                         <!-- Background Image -->
                         <div class="absolute inset-0">
                             <img src="<?php echo get_template_directory_uri() . '/assets/images/amenities-bg-2.png'; ?>"
                                 alt="" class="w-full h-full object-cover">
                         </div>
                         <div class="container mx-auto px-6 text-center flex flex-col items-center">
+                            <h6 class="text-white">Wellbeing and Activities</h6>
                             <h1 class="text-3xl md:text-4xl mb-6 text-white leading-tight">
                                 Inspired Living: Discovering Joy and Engagement
                             </h1>
@@ -54,8 +42,8 @@ get_header(); ?>
 
                     <!-- Introduction Section -->
                     <section class="py-20 bg-white">
-                        <div class="container mx-auto px-6">
-                            <div class="max-w-5xl mx-auto">
+                        <div class="container max-w-[1280px] mx-auto px-6">
+                            <div class="mx-auto">
                                 <p class="text-xl text-gray-700 leading-relaxed font-sans mb-6">
                                     Our comprehensive Wellbeing and Activities programme is designed to ensure every
                                     resident feels entertained, inspired and actively involved in our vibrant community.
@@ -73,11 +61,10 @@ get_header(); ?>
                             </div>
                         </div>
                     </section>
-
                     <!-- One-to-One Sessions -->
                     <section class="py-20 bg-[#F5F1E8]">
-                        <div class="container mx-auto px-6">
-                            <div class="max-w-6xl mx-auto">
+                        <div class="container max-w-[1280px] mx-auto px-6">
+                            <div class="mx-auto">
                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                     <div>
                                         <h2 class="text-4xl mb-6 text-[#014854]">
@@ -148,7 +135,7 @@ get_header(); ?>
 
                     <!-- Lifestyle Activities Header -->
                     <section class="pt-16 bg-white">
-                        <div class="container mx-auto px-6 flex flex-col items-start">
+                        <div class="container max-w-[1280px] mx-auto px-6 flex flex-col items-start">
                             <h2 class="text-4xl mb-6 text-black">
                                 Lifestyle Activities: A World of Choice
                             </h2>
@@ -162,7 +149,7 @@ get_header(); ?>
 
                     <!-- Creativity and Expression -->
                     <section class="py-20 bg-white">
-                        <div class="container mx-auto px-6">
+                        <div class="container max-w-[1280px] mx-auto px-6">
                             <div class="max-w-6xl mx-auto">
                                 <?php echo do_shortcode('[image_section position="right"]
                                     [image_section_image src="https://images.unsplash.com/photo-1762955911431-4c44c7c3f408?q=80&w=1121&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-[400px] object-cover"]

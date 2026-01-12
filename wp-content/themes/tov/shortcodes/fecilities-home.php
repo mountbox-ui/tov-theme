@@ -74,7 +74,7 @@ function tov_facilities_home_shortcode($atts) {
             'desc' => 'Creative & social space'
         ],
         [
-            'icon' => '../Amenities-Icons/Vector.svg',
+            'icon' => '../Amenities-Icons/Gardening.svg',
             'title' => 'Gardening activities & potting benches',
             'desc' => 'Therapeutic outdoor fun'
         ],
