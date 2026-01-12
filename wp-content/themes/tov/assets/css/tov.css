@@ -4683,6 +4683,10 @@ nav a:hover {
   padding-top: 50px;
 }
 
+.pt-\[96px\] {
+  padding-top: 96px;
+}
+
 .text-left {
   text-align: left;
 }
@@ -6456,6 +6460,14 @@ nav a:hover {
 
   .md\:pt-\[50px\] {
     padding-top: 50px;
+  }
+
+  .md\:pb-20 {
+    padding-bottom: 5rem;
+  }
+
+  .md\:pt-\[120px\] {
+    padding-top: 120px;
   }
 
   .md\:text-2xl {
