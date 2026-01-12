@@ -163,7 +163,8 @@ get_header(); ?>
                 'posts_per_page' => -1,
                 'post_status' => 'publish',
                 'post__in' => $upcoming_events_data,
-                'orderby' => 'post__in'
+                'orderby' => 'date',
+                'order' => 'DESC'
             );
         } else {
             $upcoming_args = array(

@@ -4,6 +4,10 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
+
+    <!-- font-awesomeicons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Google Fonts -->
     
@@ -17,9 +21,9 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site min-h-screen flex flex-col">
-    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854] h-[80px] flex items-center'; ?> absolute top-0 w-full z-50">
+    <header id="masthead" class="site-header <?php echo (is_front_page() || is_home()) ? 'bg-transparent' : 'bg-[#014854]'; ?> absolute top-0 w-full z-50">
         <div class="container-custom max-w-[1280px] mx-auto pl-[0px] pr-[0px] w-full">
-            <div class="flex items-center justify-between <?php echo (is_front_page() || is_home()) ? 'p-4' : 'px-4'; ?>">
+            <div class="flex items-center justify-between <?php echo (is_front_page() || is_home()) ? 'p-4' : 'px-4 py-3 lg:h-[80px]'; ?>">
                 <!-- Site Logo -->
                 <div class="site-branding flex justify-start">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center">
@@ -30,7 +34,7 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-navy-200 hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-navy-400 ml-4" aria-expanded="false">
+                <button id="mobile-menu-button" class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:text-navy-200 hover:bg-[#016A7C] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-navy-400 ml-4" aria-expanded="false">
                     <span class="sr-only"><?php esc_html_e('Open main menu', 'tov-theme'); ?></span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -53,11 +57,28 @@
                         ?>
                     </nav>
 
-                    <!-- Contact Us Button (desktop) -->
-                    <div>
-                        <a href="<?php echo home_url('/book-a-tour/?form=contact'); ?>" class="btn btn-primary bt-1 h-[50px] w-[120px]">
+                    <!-- Contact Us Button with Dropdown (desktop) -->
+                    <div class="relative group">
+                        <a href="<?php echo home_url('/contact/'); ?>" class="btn btn-primary bt-1 h-[50px] w-[150px] flex items-center justify-center gap-1">
                             Contact Us
+                            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
                         </a>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-gray-200">
+                            <div class="py-2">
+                                <a href="<?php echo home_url('/contact/?callback=1'); ?>" class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#E6EEEF] hover:text-[#016A7C] transition-colors duration-200">
+                                    Request a callback
+                                </a>
+                                <a href="<?php echo home_url('/contact/?form=brochure'); ?>" class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#E6EEEF] hover:text-[#016A7C] transition-colors duration-200">
+                                    Download brochure
+                                </a>
+                                <a href="<?php echo home_url('/contact/?form=visit'); ?>" class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#E6EEEF] hover:text-[#016A7C] transition-colors duration-200">
+                                    Book a visit
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@
 get_header(); ?>
 
 <?php while (have_posts()) : the_post(); ?>
-<div class="max-w-[1280px] mx-auto  pt-[110px] pb-[110px] sm:px-6 relative z-10">
+<div class="max-w-[1280px] mx-auto  pt-[110px] pb-[110px] px-4 sm:px-6  relative z-10">
   <div>
     <!-- Page Title -->
     <div class="text-left mb-4 mx-auto max-w-2xl lg:mx-0">

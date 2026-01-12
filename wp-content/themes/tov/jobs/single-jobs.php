@@ -160,7 +160,7 @@ if ($job_status === 'inactive') {
           </div>
           </div>
       <div class="mt-6">
-        <button type="button" class="btn btn-primary bt-1 w-full" onclick="closeThankYouModal()" href="/home">Back to Home</button>
+        <button type="button" class="btn btn-primary bt-1 w-full" onclick="closeThankYouModal(); window.location.href='<?php echo home_url(); ?>';">Back to Home</button>
       </div>
     </div>
   </div>
@@ -176,7 +176,9 @@ if ($job_status === 'inactive') {
 }
 #thankYouModal.hidden {
     display: none !important;
-    .modal-backdrop {
+}
+
+.modal-backdrop {
     position: fixed;
     inset: 0;
     background-color: rgba(107, 114, 128, 0.75);
@@ -269,15 +271,20 @@ if ($job_status === 'inactive') {
 // Modal functions
 function showThankYouModal() {
     const modal = document.getElementById('thankYouModal');
-    modal.classList.remove('hidden');
-    const modal = document.getElementById('thankYouModal');
-    modal.classList.add('hidden');
-    
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
 }
 
 function closeThankYouModal() {
-    document.getElementById('thankYouModal').style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restore scrolling
+    const modal = document.getElementById('thankYouModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
 }
 
 // Close modal when clicking outside
@@ -292,6 +299,62 @@ document.addEventListener('click', function(event) {
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeThankYouModal();
+    }
+});
+
+// Handle form submission via AJAX
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('job-application-form');
+    const submitButton = form.querySelector('button[type="submit"]');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Disable submit button and show loading state
+            submitButton.disabled = true;
+            const originalText = submitButton.textContent;
+            submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Submitting...';
+            
+            // Create FormData object
+            const formData = new FormData(form);
+            formData.append('action', 'tov_job_application_ajax');
+            
+            // Get AJAX URL
+            const ajaxUrl = '<?php echo admin_url("admin-ajax.php"); ?>';
+            
+            // Send AJAX request
+            fetch(ajaxUrl, {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reset button
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+                
+                if (data.success) {
+                    // Reset form
+                    form.reset();
+                    
+                    // Show success modal
+                    showThankYouModal();
+                } else {
+                    // Show error message
+                    alert(data.data && data.data.message ? data.data.message : 'There was an error submitting your application. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Reset button
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+                
+                alert('There was an error submitting your application. Please try again.');
+            });
+        });
     }
 });
 </script>

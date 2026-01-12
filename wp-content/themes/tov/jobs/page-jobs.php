@@ -69,7 +69,7 @@ get_header(); ?>
         
         if ($jobs_query->have_posts()) : ?>
             <!-- Filters -->
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 rounded-lg w-[600px]">
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-8 p-5 rounded-lg w-auto md:w-[600px]">
                 <?php 
                 // Get unique categories, locations, and job types from actual job posts
                 $used_categories = array();
@@ -137,10 +137,11 @@ get_header(); ?>
                     $display_date = $activation_date ? $activation_date : get_the_date('Y-m-d H:i:s');
                     ?>
                     <?php $category_slug = $category ? sanitize_title($category) : ''; ?>
-                    <li class="job-item flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-6" 
+                    <li class="job-item flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-6 cursor-pointer rounded-lg px-4" 
                          data-category="<?php echo esc_attr($category_slug); ?>"
                          data-type="<?php echo esc_attr($job_type); ?>"
-                         data-location="<?php echo esc_attr($location); ?>">
+                         data-location="<?php echo esc_attr($location); ?>"
+                         data-job-url="<?php the_permalink(); ?>">
                         <div class="min-w-0 flex-1">
                             <div class="mb-2">
                                 <h4><?php the_title(); ?></h4>
@@ -216,6 +217,22 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryFilter.addEventListener('change', filterJobs);
     typeFilter.addEventListener('change', filterJobs);
     locationFilter.addEventListener('change', filterJobs);
+    
+    // Add click handler to job items to make entire card clickable
+    jobItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // Don't trigger if clicking on the "View Details" button
+            if (e.target.tagName === 'A' || e.target.closest('a')) {
+                return;
+            }
+            
+            // Get the job URL from the data attribute or the link
+            const jobUrl = item.dataset.jobUrl || item.querySelector('a')?.href;
+            if (jobUrl) {
+                window.location.href = jobUrl;
+            }
+        });
+    });
 });
 </script>
 

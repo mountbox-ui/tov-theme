@@ -53,9 +53,9 @@ function tov_image_section_shortcode($atts, $content = null) {
     
     ob_start();
     ?>
-    <div class="overflow-hidden bg-white mb-24">
+    <div class="overflow-hidden bg-white mb-0 lg:mb-24">
         <div class="max-w-[1280px] mx-auto mt-14 relative z-10">
-            <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-10">
+            <div class="grid grid-cols-1 gap-x-8 gap-y-8 md:gap-y-20 lg:grid-cols-10">
                 <?php if ($swap_order) : ?>
                     <!-- Image on LEFT when position="right" (60% width) -->
                     <div class="lg:col-span-6 order-1 lg:order-1 overflow-hidden">
@@ -67,11 +67,13 @@ function tov_image_section_shortcode($atts, $content = null) {
                     </div>
                 <?php else : ?>
                     <!-- Content on LEFT when position="left" or default (40% width) -->
-                    <div class="lg:col-span-4 lg:pr-8 lg:pt-4 order-1 lg:order-1">
+                    <!-- On mobile: order-2 (shows second), on desktop: order-1 (shows first) -->
+                    <div class="lg:col-span-4 lg:pr-8 lg:pt-4 order-2 lg:order-1">
                         <?php echo $text_content; ?>
                     </div>
                     <!-- Image on RIGHT when position="left" or default (60% width) -->
-                    <div class="lg:col-span-6 order-2 lg:order-2 overflow-hidden">
+                    <!-- On mobile: order-1 (shows first), on desktop: order-2 (shows second) -->
+                    <div class="lg:col-span-6 order-1 lg:order-2 overflow-hidden">
                         <?php echo $image_content; ?>
                     </div>
                 <?php endif; ?>
