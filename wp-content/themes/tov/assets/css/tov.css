@@ -3063,10 +3063,6 @@ nav a:hover {
   height: 24rem;
 }
 
-.h-\[0\] {
-  height: 0;
-}
-
 .h-\[155px\] {
   height: 155px;
 }
@@ -3161,10 +3157,6 @@ nav a:hover {
 
 .h-px {
   height: 1px;
-}
-
-.h-\[200px\] {
-  height: 200px;
 }
 
 .min-h-\[250px\] {
@@ -3297,10 +3289,6 @@ nav a:hover {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[190px\] {
-  width: 190px;
 }
 
 .min-w-0 {
