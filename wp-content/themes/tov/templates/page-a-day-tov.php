@@ -138,7 +138,7 @@ get_header(); ?>
                                             </h2>
                                             <span class="text-base md:text-lg text-gray-500 font-lato">10:00am</span>
                                         </div>
-                                        <div class="bg-white p-4 md:p-8 rounded-2xl shadow-lg">
+                                        <div class="bg-white p-4 md:p-8 rounded-2xl">
                                             <p class="text-base md:text-lg text-gray-700 leading-relaxed font-lato mb-4 md:mb-6">
                                             By 10:30am, it's time for a warm drink and biscuits, often shared in the charming main lounge. Residents gather for the wellbeing & life style activities from morning chair yoga or move it or lose it to art classes, inclusive ingo, gardening club or simply to chat over magazines and music. The activities room upstairs hosts everything from fitness sessions with Jordan to animal visits and book club discussions.
                                             </p>
@@ -207,7 +207,7 @@ get_header(); ?>
                                             </h2>
                                             <span class="text-base md:text-lg text-gray-500 font-sans">12:00pm - 3:30pm</span>
                                         </div>
-                                        <div class="bg-[#FAF8F4] p-4 md:p-8 rounded-2xl shadow-lg">
+                                        <div class="bg-[#FAF8F4] p-4 md:p-8 rounded-2xl">
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                                                 
                                                 <div class="flex flex-col justify-center">
@@ -254,7 +254,7 @@ get_header(); ?>
                                             </h2>
                                             <span class="text-base md:text-lg text-gray-500 font-sans">5:30pm onwards</span>
                                         </div>
-                                        <div class="bg-white p-4 md:p-8 rounded-2xl shadow-lg">
+                                        <div class="bg-white p-4 md:p-8 rounded-2xl">
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                                 <div>
                                                     <p class="text-base md:text-lg text-gray-700 leading-relaxed font-sans mb-4">
