@@ -3362,6 +3362,34 @@ nav a:hover {
   height: 14rem;
 }
 
+.h-\[335px\] {
+  height: 335px;
+}
+
+.h-\[250px\] {
+  height: 250px;
+}
+
+.h-\[230px\] {
+  height: 230px;
+}
+
+.h-\[200px\] {
+  height: 200px;
+}
+
+.h-\[180px\] {
+  height: 180px;
+}
+
+.h-\[330px\] {
+  height: 330px;
+}
+
+.h-\[300px\] {
+  height: 300px;
+}
+
 .max-h-12 {
   max-height: 3rem;
 }
@@ -3588,6 +3616,10 @@ nav a:hover {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-\[300px\] {
+  max-width: 300px;
 }
 
 .flex-1 {
@@ -4294,6 +4326,15 @@ nav a:hover {
 
 .bg-white\/15 {
   background-color: rgb(255 255 255 / 0.15);
+}
+
+.bg-\[\#E6EEEF\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(230 238 239 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#014854\]\/70 {
+  background-color: rgb(1 72 84 / 0.7);
 }
 
 .bg-opacity-75 {
@@ -6032,6 +6073,14 @@ nav a:hover {
     width: 100%;
   }
 
+  .sm\:w-\[250px\] {
+    width: 250px;
+  }
+
+  .sm\:w-\[230px\] {
+    width: 230px;
+  }
+
   .sm\:max-w-\[400px\] {
     max-width: 400px;
   }
@@ -6236,6 +6285,22 @@ nav a:hover {
     margin-top: 3rem;
   }
 
+  .md\:mb-6 {
+    margin-bottom: 1.5rem;
+  }
+
+  .md\:mt-8 {
+    margin-top: 2rem;
+  }
+
+  .md\:mb-10 {
+    margin-bottom: 2.5rem;
+  }
+
+  .md\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
   .md\:block {
     display: block;
   }
@@ -6272,6 +6337,22 @@ nav a:hover {
     height: 100%;
   }
 
+  .md\:h-\[335px\] {
+    height: 335px;
+  }
+
+  .md\:h-64 {
+    height: 16rem;
+  }
+
+  .md\:h-\[300px\] {
+    height: 300px;
+  }
+
+  .md\:h-\[400px\] {
+    height: 400px;
+  }
+
   .md\:w-1\/2 {
     width: 50%;
   }
@@ -6302,6 +6383,10 @@ nav a:hover {
 
   .md\:w-auto {
     width: auto;
+  }
+
+  .md\:w-16 {
+    width: 4rem;
   }
 
   .md\:max-w-\[440px\] {
@@ -6352,6 +6437,18 @@ nav a:hover {
     gap: 40px;
   }
 
+  .md\:gap-6 {
+    gap: 1.5rem;
+  }
+
+  .md\:gap-8 {
+    gap: 2rem;
+  }
+
+  .md\:gap-4 {
+    gap: 1rem;
+  }
+
   .md\:gap-x-14 {
     -moz-column-gap: 3.5rem;
          column-gap: 3.5rem;
@@ -6363,6 +6460,22 @@ nav a:hover {
 
   .md\:gap-y-20 {
     row-gap: 5rem;
+  }
+
+  .md\:p-8 {
+    padding: 2rem;
+  }
+
+  .md\:p-0 {
+    padding: 0px;
+  }
+
+  .md\:p-4 {
+    padding: 1rem;
+  }
+
+  .md\:p-6 {
+    padding: 1.5rem;
   }
 
   .md\:px-0 {
@@ -6388,6 +6501,11 @@ nav a:hover {
   .md\:py-24 {
     padding-top: 6rem;
     padding-bottom: 6rem;
+  }
+
+  .md\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .md\:pb-24 {
@@ -6434,6 +6552,21 @@ nav a:hover {
   .md\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .md\:leading-\[1\.2\] {
