@@ -575,8 +575,12 @@ function tov_handle_contact_form() {
     
     // Admin emails
     $admin_email = get_option('admin_email');
-    $marketing_email = 'marketing@mountbox.in';
-    $admin_emails = array($admin_email, $marketing_email);
+    $admin_emails = array(
+        $admin_email,
+        'alfred.george@newayshealthcare.co.uk',
+        'sinto.antony@newayshealthcare.co.uk',
+        'shelji.jose@newayshealthcare.co.uk'
+    );
     
     // Email subject based on form type
     $subject_map = array(

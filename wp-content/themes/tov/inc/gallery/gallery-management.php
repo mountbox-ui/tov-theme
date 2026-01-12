@@ -27,6 +27,20 @@ function tov_add_gallery_menu() {
 add_action('admin_menu', 'tov_add_gallery_menu');
 
 /**
+ * Enqueue jQuery UI Sortable for gallery page
+ */
+function tov_enqueue_gallery_admin_scripts($hook) {
+    // Only load on gallery management page
+    if ($hook !== 'toplevel_page_tov-gallery') {
+        return;
+    }
+    
+    // Enqueue jQuery UI Sortable
+    wp_enqueue_script('jquery-ui-sortable');
+}
+add_action('admin_enqueue_scripts', 'tov_enqueue_gallery_admin_scripts');
+
+/**
  * Render the gallery management page
  */
 function tov_render_gallery_page() {
@@ -89,8 +103,21 @@ function tov_render_gallery_page() {
                                 <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" style="width: 150px; height: 150px; object-fit: cover;">
                             </div>
                             <div class="gallery-image-info">
-                                <p><strong><?php echo esc_html__('Title:', 'tov'); ?></strong> <?php echo esc_html($image['title']); ?></p>
-                                <p><strong><?php echo esc_html__('Alt Text:', 'tov'); ?></strong> <?php echo esc_html($image['alt']); ?></p>
+                                <div class="gallery-title-edit" style="margin-bottom: 10px;">
+                                    <label style="display: block; margin-bottom: 5px;"><strong><?php echo esc_html__('Title:', 'tov'); ?></strong></label>
+                                    <input type="text" 
+                                           class="gallery-title-input" 
+                                           data-image-index="<?php echo esc_attr($index); ?>"
+                                           value="<?php echo esc_attr($image['title']); ?>" 
+                                           style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;">
+                                    <button type="button" 
+                                            class="button button-small save-title-btn" 
+                                            data-image-index="<?php echo esc_attr($index); ?>"
+                                            style="margin-top: 5px;">
+                                        <?php echo esc_html__('Save Title', 'tov'); ?>
+                                    </button>
+                                </div>
+                                <p><strong><?php echo esc_html__('Alt Text:', 'tov'); ?></strong> <span class="alt-text-display"><?php echo esc_html($image['alt']); ?></span></p>
                                 <p><strong><?php echo esc_html__('Uploaded:', 'tov'); ?></strong> <?php echo esc_html($image['uploaded']); ?></p>
                             </div>
                             <div class="gallery-image-actions">
@@ -139,21 +166,96 @@ function tov_render_gallery_page() {
                 
                 <script>
                 jQuery(document).ready(function($) {
-                    // Make images sortable
-                    $("#gallery-images-sortable").sortable({
-                        placeholder: "ui-state-highlight",
-                        update: function(event, ui) {
-                            var newOrder = [];
-                            $("#gallery-images-sortable .gallery-image-item").each(function() {
-                                newOrder.push($(this).data('image-id'));
-                            });
-                            
-                            // Send AJAX request to update order
-                            $.post(ajaxurl, {
-                                action: 'tov_reorder_gallery_images',
-                                nonce: '<?php echo wp_create_nonce('tov_gallery_reorder'); ?>',
-                                order: newOrder
-                            });
+                    // Make images sortable (only if jQuery UI is loaded)
+                    if ($.fn.sortable) {
+                        $("#gallery-images-sortable").sortable({
+                            placeholder: "ui-state-highlight",
+                            update: function(event, ui) {
+                                var newOrder = [];
+                                $("#gallery-images-sortable .gallery-image-item").each(function() {
+                                    newOrder.push($(this).data('image-id'));
+                                });
+                                
+                                // Get AJAX URL
+                                var ajaxUrl = typeof ajaxurl !== 'undefined' ? ajaxurl : '<?php echo admin_url('admin-ajax.php'); ?>';
+                                
+                                // Send AJAX request to update order
+                                $.post(ajaxUrl, {
+                                    action: 'tov_reorder_gallery_images',
+                                    nonce: '<?php echo wp_create_nonce('tov_gallery_reorder'); ?>',
+                                    order: newOrder
+                                });
+                            }
+                        });
+                    }
+                    
+                    // Handle title update using event delegation
+                    $(document).on('click', '.save-title-btn', function(e) {
+                        e.preventDefault();
+                        var button = $(this);
+                        var imageIndex = button.data('image-index');
+                        var titleInput = $('.gallery-title-input[data-image-index="' + imageIndex + '"]');
+                        var newTitle = titleInput.val().trim();
+                        var altTextDisplay = button.closest('.gallery-image-item').find('.alt-text-display');
+                        
+                        if (!newTitle) {
+                            alert('<?php echo esc_js(__('Title cannot be empty.', 'tov')); ?>');
+                            return;
+                        }
+                        
+                        // Disable button and show loading
+                        button.prop('disabled', true).text('<?php echo esc_js(__('Saving...', 'tov')); ?>');
+                        
+                        // Get AJAX URL
+                        var ajaxUrl = typeof ajaxurl !== 'undefined' ? ajaxurl : '<?php echo admin_url('admin-ajax.php'); ?>';
+                        
+                        // AJAX request to update title
+                        $.ajax({
+                            url: ajaxUrl,
+                            type: 'POST',
+                            data: {
+                                action: 'tov_update_gallery_title',
+                                nonce: '<?php echo wp_create_nonce('tov_gallery_update_title'); ?>',
+                                image_index: imageIndex,
+                                title: newTitle
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                if (response && response.success) {
+                                    // Update alt text display to match title
+                                    altTextDisplay.text(newTitle);
+                                    
+                                    // Update the img alt attribute
+                                    button.closest('.gallery-image-item').find('img').attr('alt', newTitle);
+                                    
+                                    // Show success message
+                                    var successMsg = $('<div class="notice notice-success inline" style="margin: 5px 0; padding: 5px 10px;"><p>Title updated successfully!</p></div>');
+                                    button.after(successMsg);
+                                    
+                                    // Reload the page after showing success message to ensure all data is refreshed
+                                    setTimeout(function() {
+                                        location.reload();
+                                    }, 1000);
+                                } else {
+                                    var errorMsg = (response && response.data) ? response.data : 'Error updating title. Please try again.';
+                                    alert(errorMsg);
+                                    button.prop('disabled', false).text('<?php echo esc_js(__('Save Title', 'tov')); ?>');
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('AJAX Error:', status, error);
+                                console.error('Response:', xhr.responseText);
+                                alert('<?php echo esc_js(__('An error occurred. Please try again.', 'tov')); ?>');
+                                button.prop('disabled', false).text('<?php echo esc_js(__('Save Title', 'tov')); ?>');
+                            }
+                        });
+                    });
+                    
+                    // Allow Enter key to save title using event delegation
+                    $(document).on('keypress', '.gallery-title-input', function(e) {
+                        if (e.which === 13) {
+                            e.preventDefault();
+                            $(this).siblings('.save-title-btn').click();
                         }
                     });
                     
@@ -314,3 +416,68 @@ function tov_handle_gallery_reorder_ajax() {
     wp_send_json_success();
 }
 add_action('wp_ajax_tov_reorder_gallery_images', 'tov_handle_gallery_reorder_ajax');
+
+/**
+ * Handle gallery title update via AJAX
+ */
+function tov_handle_gallery_update_title_ajax() {
+    // Check if nonce is provided
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'tov_gallery_update_title')) {
+        wp_send_json_error(array('message' => 'Security check failed'));
+        return;
+    }
+    
+    // Check permissions
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(array('message' => 'Insufficient permissions'));
+        return;
+    }
+    
+    // Get and validate image index
+    if (!isset($_POST['image_index'])) {
+        wp_send_json_error(array('message' => 'Image index is required'));
+        return;
+    }
+    
+    $image_index = intval($_POST['image_index']);
+    
+    // Get and validate title
+    if (!isset($_POST['title'])) {
+        wp_send_json_error(array('message' => 'Title is required'));
+        return;
+    }
+    
+    $new_title = sanitize_text_field($_POST['title']);
+    
+    if (empty($new_title)) {
+        wp_send_json_error(array('message' => 'Title cannot be empty'));
+        return;
+    }
+    
+    // Get gallery images
+    $gallery_images = get_option('tov_gallery_images', array());
+    
+    // Check if image exists
+    if (!isset($gallery_images[$image_index])) {
+        wp_send_json_error(array('message' => 'Image not found'));
+        return;
+    }
+    
+    // Update title and alt text to match
+    $gallery_images[$image_index]['title'] = $new_title;
+    $gallery_images[$image_index]['alt'] = $new_title; // Alt text matches title
+    
+    // Save updated gallery images
+    $updated = update_option('tov_gallery_images', $gallery_images);
+    
+    if ($updated !== false) {
+        wp_send_json_success(array(
+            'message' => 'Title updated successfully',
+            'title' => $new_title,
+            'alt' => $new_title
+        ));
+    } else {
+        wp_send_json_error(array('message' => 'Failed to save title'));
+    }
+}
+add_action('wp_ajax_tov_update_gallery_title', 'tov_handle_gallery_update_title_ajax');

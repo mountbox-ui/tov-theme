@@ -711,8 +711,12 @@ function tov_handle_job_application_ajax() {
         
         // Send email notification to admin and marketing
         $admin_email = get_option('admin_email');
-        $marketing_email = 'marketing@mountbox.in';
-        $admin_emails = array($admin_email, $marketing_email);
+        $admin_emails = array(
+            $admin_email,
+            'alfred.george@newayshealthcare.co.uk',
+            'sinto.antony@newayshealthcare.co.uk',
+            'shelji.jose@newayshealthcare.co.uk'
+        );
         $admin_subject = 'New Job Application: ' . get_the_title($job_id);
         $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
         $admin_message = "
