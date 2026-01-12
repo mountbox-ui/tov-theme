@@ -681,9 +681,16 @@ function jobs_display_shortcode($atts) {
 }
 add_shortcode('jobs_listing', 'jobs_display_shortcode');
 
-// Handle job application form submission
-function tov_handle_job_application() {
-    if (isset($_POST['job_application_nonce_field']) && wp_verify_nonce($_POST['job_application_nonce_field'], 'job_application_nonce')) {
+// Handle job application form submission via AJAX
+function tov_handle_job_application_ajax() {
+    // Verify nonce
+    if (!isset($_POST['job_application_nonce_field']) || !wp_verify_nonce($_POST['job_application_nonce_field'], 'job_application_nonce')) {
+        wp_send_json_error(array('message' => 'Security check failed. Please refresh the page and try again.'));
+        return;
+    }
+    
+    // Process the form
+    if (isset($_POST['job_id'])) {
         $job_id = intval($_POST['job_id']);
         $applicant_name = sanitize_text_field($_POST['applicant_name']);
         $applicant_email = sanitize_email($_POST['applicant_email']);
@@ -702,42 +709,65 @@ function tov_handle_job_application() {
             }
         }
         
-        // Send email notification to admin
+        // Send email notification to admin and marketing
         $admin_email = get_option('admin_email');
+        $admin_emails = array(
+            $admin_email,
+            'alfred.george@newayshealthcare.co.uk',
+            'sinto.antony@newayshealthcare.co.uk',
+            'shelji.jose@newayshealthcare.co.uk'
+        );
         $admin_subject = 'New Job Application: ' . get_the_title($job_id);
+        $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
         $admin_message = "
         <html>
-        <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
-            <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
-                <h2 style='color: #2d3748; border-bottom: 2px solid #4a90e2; padding-bottom: 10px;'>New Job Application Received</h2>
+        <body style='margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f7f3;'>
+            <table width='100%' cellpadding='0' cellspacing='0' style='background-color: #f9f7f3; padding: 40px 0;'>
+                <tr>
+                    <td align='center'>
+                        <table width='600' cellpadding='0' cellspacing='0' style='background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
+                            <!-- Logo Section -->
+                            <tr>
+                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 1px solid #014854;'>
+                                    <img src='{$logo_url}' alt='The Old Vicarage' style='max-width: 200px; height: auto;'>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 30px 40px 20px 40px;'>
+                                    <h2 style='margin: 0; color: #2d3748; border-bottom: 2px solid #4a90e2; padding-bottom: 10px;'>New Job Application Received</h2>
                 
-                <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Job Details</h3>
-                    <p><strong>Position:</strong> " . get_the_title($job_id) . "</p>
-                    <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
-                </div>
+                                    <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Job Details</h3>
+                                        <p><strong>Position:</strong> " . get_the_title($job_id) . "</p>
+                                        <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
+                                    </div>
+                                    
+                                    <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Applicant Information</h3>
+                                        <p><strong>Name:</strong> $applicant_name</p>
+                                        <p><strong>Email:</strong> $applicant_email</p>
+                                        <p><strong>Phone:</strong> " . ($applicant_phone ? $applicant_phone : 'Not provided') . "</p>
+                                        <p><strong>Location:</strong> " . ($applicant_location ? $applicant_location : 'Not provided') . "</p>
+                                        <p><strong>Experience:</strong> " . ($applicant_experience ? $applicant_experience : 'Not specified') . "</p>
+                                        <p><strong>Resume:</strong> " . (isset($resume_url) ? '<a href="' . $resume_url . '">Download Resume</a>' : 'No resume uploaded') . "</p>
+                                    </div>
+                                    
+                                    " . ($cover_letter ? "
+                                    <div style='background: #fff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #4a90e2;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Cover Letter</h3>
+                                        <p style='white-space: pre-wrap;'>$cover_letter</p>
+                                    </div>
+                                    " : "") . "
                 
-                <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Applicant Information</h3>
-                    <p><strong>Name:</strong> $applicant_name</p>
-                    <p><strong>Email:</strong> $applicant_email</p>
-                    <p><strong>Phone:</strong> " . ($applicant_phone ? $applicant_phone : 'Not provided') . "</p>
-                    <p><strong>Location:</strong> " . ($applicant_location ? $applicant_location : 'Not provided') . "</p>
-                    <p><strong>Experience:</strong> " . ($applicant_experience ? $applicant_experience : 'Not specified') . "</p>
-                    <p><strong>Resume:</strong> " . (isset($resume_url) ? '<a href="' . $resume_url . '">Download Resume</a>' : 'No resume uploaded') . "</p>
-                </div>
-                
-                " . ($cover_letter ? "
-                <div style='background: #fff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #4a90e2;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Cover Letter</h3>
-                    <p style='white-space: pre-wrap;'>$cover_letter</p>
-                </div>
-                " : "") . "
-                
-                <div style='margin-top: 30px; padding: 15px; background: #d4edda; border-radius: 8px; border-left: 4px solid #28a745;'>
-                    <p style='margin: 0; color: #155724;'><strong>Next Steps:</strong> Review the application and contact the candidate if they meet your requirements.</p>
-                </div>
-            </div>
+                                    <div style='margin-top: 30px; padding: 15px; background: #d4edda; border-radius: 8px; border-left: 4px solid #28a745;'>
+                                        <p style='margin: 0; color: #155724;'><strong>Next Steps:</strong> Review the application and contact the candidate if they meet your requirements.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>
         ";
@@ -748,7 +778,7 @@ function tov_handle_job_application() {
             'Reply-To: ' . $applicant_email
         );
         
-        $email_sent = wp_mail($admin_email, $admin_subject, $admin_message, $admin_headers);
+        $email_sent = wp_mail($admin_emails, $admin_subject, $admin_message, $admin_headers);
         
         // Debug email sending
         if (!$email_sent) {
@@ -757,44 +787,61 @@ function tov_handle_job_application() {
         
         // Send confirmation email to applicant
         $applicant_subject = 'Application Submitted Successfully - ' . get_the_title($job_id);
+        $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
         $applicant_message = "
         <html>
-        <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
-            <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
-                <h2 style='color: #2d3748; text-align: center;'>Application Submitted Successfully!</h2>
+        <body style='margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f7f3;'>
+            <table width='100%' cellpadding='0' cellspacing='0' style='background-color: #f9f7f3; padding: 40px 0;'>
+                <tr>
+                    <td align='center'>
+                        <table width='600' cellpadding='0' cellspacing='0' style='background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
+                            <!-- Logo Section -->
+                            <tr>
+                                <td align='left' style='padding: 40px 40px 20px 40px; border-bottom: 1px solid #014854;'>
+                                    <img src='{$logo_url}' alt='The Old Vicarage' style='max-width: 200px; height: auto;'>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 30px 40px 20px 40px;'>
+                                    <h2 style='margin: 0; color: #2d3748; text-align: center;'>Application Submitted Successfully!</h2>
                 
-                <div style='background: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;'>
-                    <h3 style='color: #155724; margin-top: 0;'>✅ Thank You for Your Application</h3>
-                    <p style='color: #155724; margin-bottom: 0;'>Your application has been received and is being reviewed by our team.</p>
-                </div>
-                
-                <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>Application Details</h3>
-                    <p><strong>Position Applied For:</strong> " . get_the_title($job_id) . "</p>
-                    <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
-                    <p><strong>Applicant Name:</strong> $applicant_name</p>
-                </div>
-                
-                <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
-                    <h3 style='color: #2d3748; margin-top: 0;'>What Happens Next?</h3>
-                    <ul style='color: #4a5568; padding-left: 20px;'>
-                        <li>Our team will review your application and resume</li>
-                        <li>If you are shortlisted, we will contact you within 5-7 business days</li>
-                        <li>We may reach out for additional information or to schedule an interview</li>
-                        <li>If you don't hear from us within 2 weeks, please feel free to follow up</li>
-                    </ul>
-                </div>
-                
-                <div style='background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;'>
-                    <h3 style='color: #856404; margin-top: 0;'>Important Note</h3>
-                    <p style='color: #856404; margin-bottom: 0;'>If you are shortlisted, our team will contact you directly. Please ensure your contact information is up to date.</p>
-                </div>
-                
-                <div style='text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;'>
-                    <p style='color: #6c757d; margin: 0;'>Thank you for your interest in joining our team!</p>
-                    <p style='color: #6c757d; margin: 5px 0 0 0;'>Best regards,<br>Hiring Team</p>
-                </div>
-            </div>
+                                    <div style='background: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;'>
+                                        <h3 style='color: #155724; margin-top: 0;'>✅ Thank You for Your Application</h3>
+                                        <p style='color: #155724; margin-bottom: 0;'>Your application has been received and is being reviewed by our team.</p>
+                                    </div>
+                                    
+                                    <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>Application Details</h3>
+                                        <p><strong>Position Applied For:</strong> " . get_the_title($job_id) . "</p>
+                                        <p><strong>Application Date:</strong> " . date('F j, Y \a\t g:i A') . "</p>
+                                        <p><strong>Applicant Name:</strong> $applicant_name</p>
+                                    </div>
+                                    
+                                    <div style='background: #e6f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                                        <h3 style='color: #2d3748; margin-top: 0;'>What Happens Next?</h3>
+                                        <ul style='color: #4a5568; padding-left: 20px;'>
+                                            <li>Our team will review your application and resume</li>
+                                            <li>If you are shortlisted, we will contact you within 5-7 business days</li>
+                                            <li>We may reach out for additional information or to schedule an interview</li>
+                                            <li>If you don't hear from us within 2 weeks, please feel free to follow up</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div style='background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;'>
+                                        <h3 style='color: #856404; margin-top: 0;'>Important Note</h3>
+                                        <p style='color: #856404; margin-bottom: 0;'>If you are shortlisted, our team will contact you directly. Please ensure your contact information is up to date.</p>
+                                    </div>
+                                    
+                                    <div style='text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;'>
+                                        <p style='color: #6c757d; margin: 0;'>Thank you for your interest in joining our team!</p>
+                                        <p style='color: #6c757d; margin: 5px 0 0 0;'>Best regards,<br>Hiring Team</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>
         ";
@@ -831,19 +878,16 @@ function tov_handle_job_application() {
         $applications[] = $new_application;
         update_option('job_applications', $applications);
         
-        // Show success modal instead of popup
-        add_action('wp_footer', function() {
-            echo '<script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    if (typeof showThankYouModal === "function") {
-                        showThankYouModal();
-                    }
-                });
-            </script>';
-        });
+        // Return success response for AJAX
+        wp_send_json_success(array('message' => 'Application submitted successfully!'));
+        return;
+    } else {
+        wp_send_json_error(array('message' => 'Job ID is missing. Please try again.'));
+        return;
     }
 }
-add_action('init', 'tov_handle_job_application');
+add_action('wp_ajax_tov_job_application_ajax', 'tov_handle_job_application_ajax');
+add_action('wp_ajax_nopriv_tov_job_application_ajax', 'tov_handle_job_application_ajax');
 
 // Add some basic styling
 function jobs_admin_styles() {
@@ -1042,8 +1086,8 @@ function tov_jobs_overview_page() {
         }
     }
     
-    // Get recent applicants (last 10)
-    $recent_applicants = array_slice(array_reverse($applications), 0, 10);
+    // Get all applicants (sorted by date, newest first)
+    $all_applicants = array_reverse($applications);
     
     // Get all jobs for listing (including inactive for admin view)
     $all_jobs = get_posts(array(
@@ -1067,7 +1111,7 @@ function tov_jobs_overview_page() {
             </div>
             <div class="stat-card">
                 <div class="stat-number"><?php echo $recent_applications; ?></div>
-                <div class="stat-label">New Applications</div>
+                <div class="stat-label">Applications Submitted in the Last 30 Days</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number"><?php echo $total_applications; ?></div>
@@ -1078,33 +1122,36 @@ function tov_jobs_overview_page() {
         <!-- Recent Applications -->
         <div class="jobs-overview-section">
             <h2>Recent Applications</h2>
-            <?php if (!empty($recent_applicants)): ?>
-                <table class="wp-list-table widefat fixed striped">
-                    <thead>
-                        <tr>
-                            <th>Applicant</th>
-                            <th>Position</th>
-                            <th>Email</th>
-                            <th>Date Applied</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($recent_applicants as $application): ?>
+            <?php if (!empty($all_applicants)): ?>
+                <div class="applications-table-wrapper" <?php echo count($all_applicants) > 7 ? 'style="max-height: 500px; overflow-y: auto;"' : ''; ?>>
+                    <table class="wp-list-table widefat fixed striped">
+                        <thead>
                             <tr>
-                                <td><strong><?php echo esc_html($application['name']); ?></strong></td>
-                                <td><?php echo esc_html($application['job_title']); ?></td>
-                                <td><?php echo esc_html($application['email']); ?></td>
-                                <td><?php echo date('M j, Y', strtotime($application['date'])); ?></td>
-                                <td>
-                                    <?php if (!empty($application['resume_url'])): ?>
-                                        <a href="<?php echo esc_url($application['resume_url']); ?>" target="_blank" class="button button-small">View Resume</a>
-                                    <?php endif; ?>
-                                </td>
+                                <th>Applicant</th>
+                                <th>Position</th>
+                                <th>Email</th>
+                                <th>Date Applied</th>
+                                <th>Actions</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($all_applicants as $index => $application): ?>
+                                <tr id="application-row-<?php echo esc_attr($application['id']); ?>">
+                                    <td><strong><?php echo esc_html($application['name']); ?></strong></td>
+                                    <td><?php echo esc_html($application['job_title']); ?></td>
+                                    <td><?php echo esc_html($application['email']); ?></td>
+                                    <td><?php echo date('M j, Y', strtotime($application['date'])); ?></td>
+                                    <td>
+                                        <?php if (!empty($application['resume_url'])): ?>
+                                            <a href="<?php echo esc_url($application['resume_url']); ?>" target="_blank" class="button button-small button-primary">View Resume</a>
+                                        <?php endif; ?>
+                                        <button type="button" class="button button-small remove-application-btn" data-application-id="<?php echo esc_attr($application['id']); ?>" style="background-color: #dc3545; color: white; border-color: #dc3545;">Remove</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php else: ?>
                 <p>No applications yet.</p>
             <?php endif; ?>
@@ -1262,6 +1309,37 @@ function tov_jobs_overview_page() {
         color: #721c24;
     }
     
+    .applications-table-wrapper {
+        margin-top: 15px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+    
+    .applications-table-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    
+    .remove-application-btn {
+        margin-left: 5px;
+    }
+    
+    .remove-application-btn:hover {
+        background-color: #c82333 !important;
+        border-color: #bd2130 !important;
+    }
+    
     @media (max-width: 768px) {
         .jobs-overview-stats {
             flex-direction: column;
@@ -1269,15 +1347,101 @@ function tov_jobs_overview_page() {
     }
     </style>
     
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Status toggle functionality removed
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.remove-application-btn').on('click', function(e) {
+            e.preventDefault();
+            
+            var button = $(this);
+            var applicationId = button.data('application-id');
+            var row = $('#application-row-' + applicationId);
+            
+            if (!confirm('Are you sure you want to remove this application? This action cannot be undone.')) {
+                return;
+            }
+            
+            // Disable button and show loading
+            button.prop('disabled', true).text('Removing...');
+            
+            // AJAX request to remove application
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'tov_remove_application',
+                    application_id: applicationId,
+                    nonce: '<?php echo wp_create_nonce("remove_application_nonce"); ?>'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Fade out and remove the row
+                        row.fadeOut(300, function() {
+                            $(this).remove();
+                            
+                            // Reload page to update statistics
+                            location.reload();
+                        });
+                    } else {
+                        alert('Error: ' + (response.data || 'Could not remove application'));
+                        button.prop('disabled', false).text('Remove');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred. Please try again.');
+                    button.prop('disabled', false).text('Remove');
+                }
+            });
+        });
     });
-    
     </script>
     <?php
 }
 
+
+// AJAX handler for removing application
+function tov_remove_application_handler() {
+    // Verify nonce
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'remove_application_nonce')) {
+        wp_send_json_error('Security check failed');
+        return;
+    }
+    
+    // Check if user has permission
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('You do not have permission to perform this action');
+        return;
+    }
+    
+    $application_id = sanitize_text_field($_POST['application_id']);
+    
+    if (empty($application_id)) {
+        wp_send_json_error('Application ID is required');
+        return;
+    }
+    
+    // Get all applications
+    $applications = get_option('job_applications', array());
+    
+    // Find and remove the application
+    $found = false;
+    foreach ($applications as $key => $application) {
+        if (isset($application['id']) && $application['id'] === $application_id) {
+            unset($applications[$key]);
+            $found = true;
+            break;
+        }
+    }
+    
+    if ($found) {
+        // Re-index array and save
+        $applications = array_values($applications);
+        update_option('job_applications', $applications);
+        wp_send_json_success('Application removed successfully');
+    } else {
+        wp_send_json_error('Application not found');
+    }
+}
+add_action('wp_ajax_tov_remove_application', 'tov_remove_application_handler');
 
 // AJAX handler for updating job status
 function handle_job_status_update() {

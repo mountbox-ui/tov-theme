@@ -12,7 +12,7 @@ function tov_how_to_start_home_shortcode($atts) {
     ob_start();
     ?>
     
-    <section class="py-20 bg-[#FDFBF7] relative overflow-hidden">
+    <section class="py-16 md:py-20 bg-[#FDFBF7] relative overflow-hidden">
         
 
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">

@@ -9,39 +9,29 @@ function tov_facilities_home_shortcode($atts) {
     
     $facilities = [
         [
-            'icon' => 'BBQ Areas.svg',
-            'title' => 'BBQ Area',
-            'desc' => 'Outdoor grilling spaces'
+            'icon' => 'Couple Rooms.svg',
+            'title' => 'Private rooms',
+            'desc' => 'Private intimate spaces'
         ],
         [
-            'icon' => 'Salon.svg',
-            'title' => 'Hair Salon',
-            'desc' => 'Professional styling services'
+            'icon' => 'BBQ Areas.svg',
+            'title' => 'Modern amenities',
+            'desc' => 'Smart Living Amenities'
+        ],
+        [
+            'icon' => 'private-rooms.svg',
+            'title' => 'En-suite bathrooms',
+            'desc' => 'Easy-Access Showers'
+        ],
+        [
+            'icon' => 'Dining Rooms.svg',
+            'title' => 'Dining rooms',
+            'desc' => 'Elegant dining experiences'
         ],
         [
             'icon' => 'Cafe.svg',
-            'title' => 'Café',
+            'title' => 'Café on the wheels ',
             'desc' => 'Premium coffee & snacks'
-        ],
-        [
-            'icon' => 'Landscaped Gardens.svg',
-            'title' => 'Landscaped Gardens',
-            'desc' => 'Beautiful outdoor spaces'
-        ],
-        [
-            'icon' => 'Cinema Room.svg',
-            'title' => 'Cinema Room',
-            'desc' => 'Private movie screenings'
-        ],
-        [
-            'icon' => 'Library.svg',
-            'title' => 'Library',
-            'desc' => 'Quiet reading sanctuary'
-        ],
-        [
-            'icon' => 'Couple Rooms.svg',
-            'title' => 'Couples Rooms',
-            'desc' => 'Private intimate spaces'
         ],
         [
             'icon' => 'Lounges.svg',
@@ -49,28 +39,38 @@ function tov_facilities_home_shortcode($atts) {
             'desc' => 'Comfortable relaxation areas'
         ],
         [
+            'icon' => 'Salon.svg',
+            'title' => 'Hair salon',
+            'desc' => 'Professional styling services'
+        ],
+        [
+            'icon' => 'Cinema Room.svg',
+            'title' => 'Cinema room',
+            'desc' => 'Private movie screenings'
+        ],
+        [
             'icon' => 'Craft Rooms.svg',
             'title' => 'Craft Room',
             'desc' => 'Creative workshop space'
         ],
         [
-            'icon' => 'Pets Welcome.svg',
-            'title' => 'Pets Welcome',
-            'desc' => 'Pet-friendly facilities'
+            'icon' => 'Library.svg',
+            'title' => 'Library',
+            'desc' => 'Quiet reading sanctuary'
         ],
         [
-            'icon' => 'Dining Rooms.svg',
-            'title' => 'Dining Rooms',
-            'desc' => 'Elegant dining experiences'
+            'icon' => 'Landscaped Gardens.svg',
+            'title' => 'Landscaped gardens ',
+            'desc' => 'Beautiful outdoor spaces'
         ],
         [
             'icon' => 'Therapy.svg',
-            'title' => 'Therapy Room',
+            'title' => 'Dementia lounge',
             'desc' => 'Wellness & relaxation'
         ],
     ];
     ?>
-    <section class="pb-24 bg-[#FDFBF7] relative overflow-hidden">
+    <section class="pb-16 md:pb-24 bg-[#FDFBF7] relative overflow-hidden">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
             <!-- White Container -->
             <div class="bg-white rounded-[32px] p-8 sm:p-12 lg:p-12 shadow-sm relative overflow-hidden">
@@ -105,7 +105,7 @@ function tov_facilities_home_shortcode($atts) {
        
                 <!-- Button -->
                 <div class="relative rgba(1, 106, 124, 1) z-10 w-[300px] sm:w-[315px]">
-                    <a href="<?php echo home_url('/facilities'); ?>" class="btn btn-primary bt-1">
+                    <a href="<?php echo home_url('/rooms-facilities/'); ?>" class="btn btn-primary bt-1">
                         View More for Rooms & Facilities
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                             <path d="M12.6014 18.39L18.7246 12.4443C19.0204 12.2076 19.1683 11.8823 19.1683 11.4681C19.1683 11.054 19.0204 10.7286 18.7246 10.492L12.6014 4.54629C12.3648 4.25048 12.0542 4.10258 11.6697 4.10258C11.2851 4.10258 10.9597 4.23569 10.6935 4.50192C10.4273 4.76814 10.2942 5.10832 10.2942 5.52245C10.2942 5.93657 10.4421 6.26196 10.7379 6.4986L14.3763 10.0483H4.88093C4.52596 10.0483 4.21537 10.1814 3.94914 10.4476C3.68292 10.7138 3.5498 11.054 3.5498 11.4681C3.5498 11.8823 3.68292 12.2224 3.94914 12.4887C4.21537 12.7549 4.52596 12.888 4.88093 12.888H14.3763L10.7379 16.4377C10.4421 16.6743 10.2942 16.9997 10.2942 17.4138C10.2942 17.8279 10.4273 18.1681 10.6935 18.4343C10.9597 18.7006 11.2851 18.8337 11.6697 18.8337C12.0542 18.8337 12.3648 18.6858 12.6014 18.39Z" fill="white"/>

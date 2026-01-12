@@ -404,10 +404,324 @@ add_action('wp_ajax_nopriv_load_more_news', 'tov_load_more_news');
 function tov_enqueue_ajax_script() {
     wp_localize_script('tov-theme-script', 'ajax_object', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'ajax_nonce' => wp_create_nonce('tov_ajax_nonce')
+        'ajax_nonce' => wp_create_nonce('tov_ajax_nonce'),
+        'contact_form_nonce' => wp_create_nonce('tov_contact_form_nonce')
     ));
 }
 add_action('wp_enqueue_scripts', 'tov_enqueue_ajax_script');
+
+/**
+ * Handle contact form submission with email
+ */
+/**
+ * Customize WordPress email sender name
+ */
+function tov_custom_email_from_name($original_email_from) {
+    return 'The Old Vicarage';
+}
+add_filter('wp_mail_from_name', 'tov_custom_email_from_name');
+
+/**
+ * Customize WordPress email sender address
+ */
+function tov_custom_email_from($original_email_address) {
+    return 'enquiries@theoldvicarageotterton.com';
+}
+add_filter('wp_mail_from', 'tov_custom_email_from');
+
+/**
+ * Generate HTML email template
+ */
+function tov_get_email_template($logo_url, $title, $greeting, $intro_text, $details, $button_html, $footer_text) {
+    $current_year = date('Y');
+    
+    $html = '
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>' . esc_html($title) . '</title>
+    </head>
+    <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f7f3;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9f7f3; padding: 40px 0;">
+            <tr>
+                <td align="center">
+                    <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        
+                        <!-- Logo Section -->
+                        <tr>
+                            <td align="left" style="padding: 40px 40px 20px 40px; border-bottom: 1px solid #014854;">
+                                <img src="' . esc_url($logo_url) . '" alt="The Old Vicarage" style="max-width: 200px; height: auto;">
+                            </td>
+                        </tr>
+                        
+                        <!-- Title Section -->
+                        <tr>
+                            <td style="padding: 30px 40px 20px 40px;">
+                                <h1 style="margin: 0; color: #014854; font-size: 24px; font-weight: 600;">
+                                    ' . esc_html($title) . '
+                                </h1>
+                            </td>
+                        </tr>
+                        
+                        <!-- Greeting -->
+                        <tr>
+                            <td style="padding: 0 40px 10px 40px;">
+                                <p style="margin: 0; color: #333333; font-size: 16px; line-height: 1.5;">
+                                    ' . esc_html($greeting) . '
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Intro Text -->
+                        <tr>
+                            <td style="padding: 0 40px 20px 40px;">
+                                <p style="margin: 0; color: #666666; font-size: 15px; line-height: 1.6;">
+                                    ' . $intro_text . '
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Details Section -->
+                        <tr>
+                            <td style="padding: 10px 40px 20px 40px;">
+                                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9f9f9; border-radius: 6px; padding: 20px;">
+                                    <tr>
+                                        <td>
+                                            <p style="margin: 0 0 15px 0; color: #014854; font-size: 16px; font-weight: 600;">
+                                                Details:
+                                            </p>';
+    
+    foreach ($details as $detail) {
+        $html .= '
+                                            <p style="margin: 8px 0; color: #333333; font-size: 14px; line-height: 1.5;">
+                                                <strong>' . esc_html($detail['label']) . ':</strong> ' . esc_html($detail['value']) . '
+                                            </p>';
+    }
+    
+    $html .= '
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- Button Section -->
+                        ' . (!empty($button_html) ? '<tr><td align="left" style="padding: 0 40px 20px 40px;">' . $button_html . '</td></tr>' : '') . '
+                        
+                        <!-- Footer Text -->
+                        <tr>
+                            <td style="padding: 0 40px 20px 40px;">
+                                <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.6;">
+                                    ' . esc_html($footer_text) . '
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Contact Info -->
+                        <tr>
+                            <td style="padding: 0 40px 30px 40px;">
+                                <p style="margin: 0 0 5px 0; color: #666666; font-size: 14px;">
+                                    If you have any questions, please don\'t hesitate to contact us.
+                                </p>
+                                <p style="margin: 15px 0 5px 0; color: #333333; font-size: 14px;">
+                                    <strong>Best regards,</strong><br>
+                                    <strong style="color: #014854;">The Old Vicarage Team</strong>
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <!-- Footer -->
+                        <tr>
+                            <td style="padding: 20px 40px; background-color: #f9f9f9; border-top: 1px solid #e5e5e5;">
+                                <p style="margin: 0 0 10px 0; color: #666666; font-size: 13px; text-align: center;">
+                                    © ' . $current_year . ' The Old Vicarage. All rights reserved.
+                                </p>
+                                <p style="margin: 0; color: #999999; font-size: 12px; text-align: center;">
+                                    Email: enquiries@theoldvicarageotterton.com | Phone: 01395 568 707
+                                </p>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>';
+    
+    return $html;
+}
+
+function tov_handle_contact_form() {
+    // Verify nonce for security
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'tov_contact_form_nonce')) {
+        wp_send_json_error('Security check failed');
+    }
+    
+    // Sanitize form data
+    $form_type = sanitize_text_field($_POST['form_type']);
+    $full_name = sanitize_text_field($_POST['full_name']);
+    $phone_number = sanitize_text_field($_POST['phone_number']);
+    $email_address = sanitize_email($_POST['email_address']);
+    $message = sanitize_textarea_field($_POST['message'] ?? '');
+    $request_callback = isset($_POST['request_callback']) ? 'Yes' : 'No';
+    
+    // Visit specific fields
+    $care_home = sanitize_text_field($_POST['care_home'] ?? '');
+    $preferred_date = sanitize_text_field($_POST['preferred_date'] ?? '');
+    $preferred_time = sanitize_text_field($_POST['preferred_time'] ?? '');
+    
+    // Admin emails
+    $admin_email = get_option('admin_email');
+    $admin_emails = array(
+        $admin_email,
+        'alfred.george@newayshealthcare.co.uk',
+        'sinto.antony@newayshealthcare.co.uk',
+        'shelji.jose@newayshealthcare.co.uk'
+    );
+    
+    // Email subject based on form type
+    $subject_map = array(
+        'contact' => 'New Contact Form Submission',
+        'visit' => 'New Tour Booking Request',
+        'brochure' => 'New Brochure Download Request'
+    );
+    $subject = $subject_map[$form_type] ?? 'New Form Submission';
+    
+    // Build admin email details
+    $admin_details = array(
+        array('label' => 'Name', 'value' => $full_name),
+        array('label' => 'Phone', 'value' => $phone_number),
+        array('label' => 'Email', 'value' => $email_address),
+    );
+    
+    if ($form_type === 'visit') {
+        $admin_details[] = array('label' => 'Care Home', 'value' => $care_home);
+        $admin_details[] = array('label' => 'Preferred Date', 'value' => $preferred_date);
+        $admin_details[] = array('label' => 'Preferred Time', 'value' => $preferred_time);
+    }
+    
+    if (!empty($message)) {
+        $admin_details[] = array('label' => 'Message', 'value' => $message);
+    }
+    
+    if ($form_type === 'contact') {
+        $admin_details[] = array('label' => 'Request Callback', 'value' => $request_callback);
+    }
+    
+    // Logo URL for email
+    $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
+    
+    // Build admin email message
+    $form_type_text = ucfirst($form_type);
+    $admin_message = tov_get_email_template(
+        $logo_url,
+        "New {$form_type_text} Form Submission",
+        "Hello Admin,",
+        "You have received a new <strong>{$form_type_text}</strong> form submission from your website.",
+        $admin_details,
+        "",
+        "Please review this submission and respond to the customer as soon as possible."
+    );
+    
+    // Headers
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    
+    // Send email to admin and marketing
+    $admin_sent = wp_mail($admin_emails, $subject, $admin_message, $headers);
+    
+    // Logo URL for email
+    $logo_url = get_template_directory_uri() . '/assets/images/tov-logo.png';
+    $site_url = get_site_url();
+    
+    // Send confirmation email to user based on form type
+    $user_subject = '';
+    $user_message = '';
+    $attachments = array(); // Initialize attachments array
+    
+    if ($form_type === 'brochure') {
+        // Brochure download confirmation with attachment
+        $user_subject = "Your Brochure from The Old Vicarage";
+        $brochure_url = get_template_directory_uri() . '/assets/brochure/tov-brochure.pdf';
+        
+        // Get the full server path to the brochure PDF file
+        $brochure_path = get_template_directory() . '/assets/brochure/tov-brochure.pdf';
+        
+        // Prepare attachment array if file exists
+        if (file_exists($brochure_path)) {
+            $attachments[] = $brochure_path;
+        }
+        
+        $user_message = tov_get_email_template(
+            $logo_url,
+            "Thank you for your brochure request!",
+            "Dear {$full_name},",
+            "Thank you for your interest in <strong>The Old Vicarage</strong>! Please find your brochure attached to this email. Our team will contact you soon with further details.",
+            array(
+                array('label' => 'Name', 'value' => $full_name),
+                array('label' => 'Email', 'value' => $email_address),
+                array('label' => 'Phone', 'value' => $phone_number),
+            ),
+            "<a href='{$brochure_url}' style='display: inline-block; background-color: #014854; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 20px 0;'>Download Brochure</a>",
+            "The brochure is also attached to this email for your convenience."
+        );
+        
+    } elseif ($form_type === 'contact') {
+        // Contact form confirmation
+        $user_subject = "Thank you for contacting The Old Vicarage";
+        
+        $user_message = tov_get_email_template(
+            $logo_url,
+            "Thank you for your contact request!",
+            "Dear {$full_name},",
+            "Thank you for contacting <strong>The Old Vicarage</strong>. We have received your message and will get back to you as soon as possible.",
+            array(
+                array('label' => 'Name', 'value' => $full_name),
+                array('label' => 'Email', 'value' => $email_address),
+                array('label' => 'Phone', 'value' => $phone_number),
+            ),
+            "",
+            "We will review your message and get back to you within 2-3 business days."
+        );
+        
+    } elseif ($form_type === 'visit') {
+        // Tour booking confirmation
+        $user_subject = "Your Tour Booking Request - The Old Vicarage";
+        
+        $user_message = tov_get_email_template(
+            $logo_url,
+            "Thank you for your book a tour booking request!",
+            "Dear {$full_name},",
+            "Thank you for requesting a tour of <strong>The Old Vicarage</strong>! We have received your booking request and our team will contact you soon with further details.",
+            array(
+                array('label' => 'Name', 'value' => $full_name),
+                array('label' => 'Email', 'value' => $email_address),
+                array('label' => 'Phone', 'value' => $phone_number),
+                array('label' => 'Preferred Date', 'value' => $preferred_date),
+                array('label' => 'Preferred Time', 'value' => $preferred_time),
+            ),
+            "",
+            "We will review your request and get back to you within 2-3 business days."
+        );
+    }
+    
+    // Send email with attachment for brochure
+    if ($form_type === 'brochure' && !empty($attachments)) {
+        $user_sent = wp_mail($email_address, $user_subject, $user_message, $headers, $attachments);
+    } else {
+        $user_sent = wp_mail($email_address, $user_subject, $user_message, $headers);
+    }
+    
+    if ($admin_sent) {
+        wp_send_json_success('Form submitted successfully');
+    } else {
+        wp_send_json_error('Failed to send email');
+    }
+}
+add_action('wp_ajax_tov_contact_form', 'tov_handle_contact_form');
+add_action('wp_ajax_nopriv_tov_contact_form', 'tov_handle_contact_form');
 
 // template for jobs
 require_once get_template_directory() . '/jobs/theme-functions.php';

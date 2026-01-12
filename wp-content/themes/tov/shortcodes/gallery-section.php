@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 function tov_gallery_shortcode($atts) {
     // Parse shortcode attributes
     $atts = shortcode_atts(array(
-        'columns' => '2',
+        'columns' => '3',
         'lightbox' => 'true',
         'size' => 'medium'
     ), $atts);
@@ -48,7 +48,7 @@ function tov_gallery_shortcode($atts) {
 
     ob_start();
     ?>
-    <div class="tov-gallery-container" id="<?php echo esc_attr($gallery_id); ?>">
+    <div class="tov-gallery-container not-prose" id="<?php echo esc_attr($gallery_id); ?>">
         <div class="gallery-grid gallery-columns-<?php echo esc_attr($columns); ?>">
             <?php foreach ($gallery_images as $index => $image): ?>
                 <div class="gallery-item">
@@ -82,9 +82,16 @@ function tov_gallery_shortcode($atts) {
     <style>
     .tov-gallery-container {
         margin: 20px 0;
-        max-width: 1200px;
+        max-width: 1280px;
         margin-left: auto;
         margin-right: auto;
+        padding: 0 16px;
+    }
+    
+    /* Reset prose styles for gallery images */
+    .tov-gallery-container img {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
     }
     
     .gallery-grid {
@@ -111,7 +118,6 @@ function tov_gallery_shortcode($atts) {
         position: relative;
         overflow: hidden;
         border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
@@ -239,12 +245,31 @@ function tov_gallery_shortcode($atts) {
                     max-width: 90%;
                     max-height: 90%;
                     text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
                 }
                 
                 .gallery-lightbox-content img {
-                    max-width: 100%;
-                    max-height: 80vh;
-                    object-fit: contain;
+                    width: 800px;
+                    height: 600px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+                
+                @media (max-width: 1024px) {
+                    .gallery-lightbox-content img {
+                        width: 600px;
+                        height: 450px;
+                    }
+                }
+                
+                @media (max-width: 768px) {
+                    .gallery-lightbox-content img {
+                        width: 90vw;
+                        height: 50vh;
+                    }
                 }
                 
                 .gallery-lightbox-close {
@@ -270,6 +295,7 @@ function tov_gallery_shortcode($atts) {
                     padding: 10px;
                     cursor: pointer;
                     border-radius: 50%;
+                    z-index: 1000001;
                 }
                 
                 .gallery-lightbox-prev {
@@ -278,6 +304,23 @@ function tov_gallery_shortcode($atts) {
                 
                 .gallery-lightbox-next {
                     right: -50px;
+                }
+                
+                /* Mobile adjustments for arrows */
+                @media (max-width: 768px) {
+                    .gallery-lightbox-prev {
+                        left: 10px;
+                    }
+                    
+                    .gallery-lightbox-next {
+                        right: 10px;
+                    }
+                    
+                    .gallery-lightbox-prev,
+                    .gallery-lightbox-next {
+                        background: rgba(0, 0, 0, 0.7);
+                        padding: 12px;
+                    }
                 }
                 
                 .gallery-lightbox-caption {

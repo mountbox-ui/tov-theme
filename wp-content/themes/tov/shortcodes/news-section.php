@@ -167,9 +167,9 @@ function tov_news_section_shortcode($atts) {
     ob_start();
     ?>
 
-    <div class="bg-white py-24 sm:py-[66px] dark:bg-gray-900">
+    <div class="bg-white py-16 md:py-24 dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
-        <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-6">
           <h2 class="text-[#000] leading-[1.2] letter-spacing-[-0.5px]">
             <?php esc_html_e('Latest news', 'tov-theme'); ?>
           </h2>
