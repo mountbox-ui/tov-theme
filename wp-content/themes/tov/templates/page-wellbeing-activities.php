@@ -8,7 +8,7 @@ get_header(); ?>
 
 <?php while (have_posts()):
     the_post(); ?>
-    <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
+    <div class="bg-white pt-24 sm:pt-32 dark:bg-gray-900">
         <div class="">
             <!-- Page Title -->
             <header class="container max-w-[1280px] mx-auto px-6">
@@ -204,7 +204,7 @@ get_header(); ?>
                         </div>
                     </section>
                     <!-- Closing Statement -->
-                     <section class="py-16 md:py-20 bg-[#014854] relative">
+                     <section class="py-16 md:pt-20 bg-[#014854] relative">
                         <!-- Background Image -->
                         <div class="absolute inset-0">
                             <img src="<?php echo get_template_directory_uri() . '/assets/images/amenities-bg-2.png'; ?>"

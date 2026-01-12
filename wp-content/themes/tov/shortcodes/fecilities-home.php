@@ -68,6 +68,16 @@ function tov_facilities_home_shortcode($atts) {
             'title' => 'Dementia lounge',
             'desc' => 'Wellness & relaxation'
         ],
+        [
+            'icon' => '../Amenities-Icons/Acivity.svg',
+            'title' => 'Activity room',
+            'desc' => 'Creative & social space'
+        ],
+        [
+            'icon' => '../Amenities-Icons/Vector.svg',
+            'title' => 'Gardening activities & potting benches',
+            'desc' => 'Therapeutic outdoor fun'
+        ],
     ];
     ?>
     <section class="pb-16 md:pb-24 bg-[#FDFBF7] relative overflow-hidden">
