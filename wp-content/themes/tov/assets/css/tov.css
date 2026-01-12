@@ -3506,6 +3506,18 @@ nav a:hover {
   width: 100%;
 }
 
+.w-\[700px\] {
+  width: 700px;
+}
+
+.w-\[165px\] {
+  width: 165px;
+}
+
+.w-\[500px\] {
+  width: 500px;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -4546,6 +4558,11 @@ nav a:hover {
   padding-bottom: 16px;
 }
 
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -4672,6 +4689,10 @@ nav a:hover {
 
 .pt-\[50px\] {
   padding-top: 50px;
+}
+
+.pt-16 {
+  padding-top: 4rem;
 }
 
 .text-left {

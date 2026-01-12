@@ -25,23 +25,16 @@ function tov_image_section_shortcode($atts, $content = null) {
     $text_content = '';
     
     if (!empty($content)) {
-        // Extract image_section_content shortcode (handles nested features)
-        // Match: [image_section_content...]...[/image_section_content]
-        if (preg_match('/\[image_section_content([^\]]*)\](.*?)\[\/image_section_content\]/s', $content, $content_match)) {
+        // Extract image_section_content shortcode using WP native regex
+        $content_pattern = get_shortcode_regex(['image_section_content']);
+        if (preg_match("/$content_pattern/s", $content, $content_match)) {
             $text_content = do_shortcode($content_match[0]);
         }
         
-        // Extract image_section_image shortcode
-        // Try with content first: [image_section_image]image.jpg[/image_section_image]
-        if (preg_match('/\[image_section_image([^\]]*)\](.*?)\[\/image_section_image\]/s', $content, $image_match)) {
+        // Extract image_section_image shortcode using WP native regex
+        $image_pattern = get_shortcode_regex(['image_section_image']);
+        if (preg_match("/$image_pattern/s", $content, $image_match)) {
             $image_content = do_shortcode($image_match[0]);
-        }
-        // Try self-closing: [image_section_image src="..." alt="..."]
-        elseif (preg_match('/\[image_section_image([^\]]+)\]/s', $content, $image_match)) {
-            // Make sure it's not part of a closing tag
-            if (strpos($image_match[0], '[/') === false) {
-                $image_content = do_shortcode($image_match[0]);
-            }
         }
     }
     
@@ -168,11 +161,16 @@ function tov_get_feature_icon($icon_name) {
 }
 
 function tov_image_section_image_shortcode($atts, $content = null) {
+    // Define default classes separately
+    $default_classes = 'w-full h-auto rounded-xl shadow-xl ring-1 ring-gray-400/10';
+
     $atts = shortcode_atts([
         'src' => '',
         'alt' => 'Product screenshot',
         'width' => '2432',
-        'height' => '1442'
+        'height' => '1442',
+        'class' => $default_classes, // Default to strict existing classes
+        'style' => ''
     ], $atts);
     
     // Get src from attribute or content
@@ -196,12 +194,16 @@ function tov_image_section_image_shortcode($atts, $content = null) {
         }
     }
     
+    $style_attr = !empty($atts['style']) ? ' style="' . esc_attr($atts['style']) . '"' : '';
+
     return sprintf(
-        '<img width="%s" height="%s" src="%s" alt="%s" class="w-full h-auto rounded-xl shadow-xl ring-1 ring-gray-400/10" />',
+        '<img width="%s" height="%s" src="%s" alt="%s" class="%s"%s />',
         esc_attr($atts['width']),
         esc_attr($atts['height']),
         esc_url($src),
-        esc_attr($atts['alt'])
+        esc_attr($atts['alt']),
+        esc_attr($atts['class']),
+        $style_attr
     );
 }
 

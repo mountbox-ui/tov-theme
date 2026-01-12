@@ -40,7 +40,7 @@ get_header(); ?>
                                         A promise of comfort and connection   
                                         At The Old Vicarage, we understand that every journey with dementia is unique. That is why we offer heartfelt, personalised care to individuals living with mild to moderate dementia, ensuring they feel safe, connected and truly at ease. Our family-run home is dedicated to delivering comfort, compassion and meaningful connection every single day. 
                                     </p>
-                                    <div class="relative rgba(1, 106, 124, 1) z-10 w-[150px] sm:w-[165px]">
+                                    <div class="relative rgba(1, 106, 124, 1) z-10 w-[165px]">
                                         <a href="<?php echo home_url('/contact-us/?form=visit'); ?>" class="btn btn-primary bt-1 no-underline
 ">
                                             Book a Visit

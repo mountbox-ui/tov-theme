@@ -48,7 +48,7 @@ get_header(); ?>
                                         to its community – our residents. We are simply the team here to ensure you live
                                         life to the fullest, supported by holistic care in a warm, family atmosphere.
                                     </p>
-                                    <div class="relative rgba(1, 106, 124, 1) z-10 w-[150px] sm:w-[165px]">
+                                    <div class="relative rgba(1, 106, 124, 1) z-10 w-[165px]">
                                         <a href="<?php echo home_url('/contact-us/?form=visit'); ?>" class="btn btn-primary bt-1 no-underline
 ">
                                             Book a Visit

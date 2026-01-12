@@ -39,7 +39,7 @@ get_header(); ?>
                                     <p class="text-lg text-gray-700 mb-4 leading-relaxed font-sans">
                                         Caring for a loved one is a profound act of love, but it is also incredibly demanding. At The Old Vicarage, we understand that to sustain this dedication, caregivers need time to rest and recharge. Our Respite Care program is that essential lifeline, offering both you and your loved one a supportive enriching haven. 
                                     </p>
-                                    <div class="relative rgba(1, 106, 124, 1) z-10 w-[150px] sm:w-[165px]">
+                                    <div class="relative rgba(1, 106, 124, 1) z-10 w-[165px]">
                                         <a href="<?php echo home_url('/contact-us/?form=visit'); ?>" class="btn btn-primary bt-1 no-underline
 ">
                                             Book a Visit
