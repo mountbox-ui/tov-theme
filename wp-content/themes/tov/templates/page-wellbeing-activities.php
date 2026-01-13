@@ -153,7 +153,7 @@ get_header(); ?>
                             <div class="mx-auto">
                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                 <div class="rounded-2xl overflow-hidden shadow-lg">
-                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                    <img src="<?php echo get_template_directory_uri() . "/assets/images/TOV 18.jpg"; ?>"
                                         alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
                                 </div>
                                 <div>
@@ -217,7 +217,7 @@ get_header(); ?>
                         <div class="container max-w-[1280px] mx-auto px-6">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                 <div class="rounded-2xl overflow-hidden shadow-lg lg:order-2">
-                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                    <img src="<?php echo get_template_directory_uri() . "/assets/images/TOV 64.jpg"; ?>"
                                         alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
                                 </div>
                                 <div class="lg:order-1">
@@ -281,7 +281,7 @@ get_header(); ?>
                         <div class="container max-w-[1280px] mx-auto px-6">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                 <div class="rounded-2xl overflow-hidden shadow-lg">
-                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                    <img src="<?php echo get_template_directory_uri() . "/assets/images/TOV 59.jpg"; ?>"
                                         alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
                                 </div>
                                 <div>
@@ -345,7 +345,7 @@ get_header(); ?>
                         <div class="container max-w-[1280px] mx-auto px-6">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                 <div class="rounded-2xl overflow-hidden shadow-lg lg:order-2">
-                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                    <img src="<?php echo get_template_directory_uri() . "/assets/images/TOV 63.jpg"; ?>"
                                         alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
                                 </div>
                                 <div class="lg:order-1">

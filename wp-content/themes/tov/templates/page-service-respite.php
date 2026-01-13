@@ -9,7 +9,7 @@ get_header(); ?>
 
 <?php while (have_posts()):
     the_post(); ?>
-    <div class="bg-white py-24 sm:py-32 dark:bg-gray-900">
+    <div class="bg-white pt-24 sm:pt-32 dark:bg-gray-900">
         <div class="">
             <!-- Page Title -->
             <header class="container max-w-[1280px] mx-auto px-6">
@@ -421,7 +421,6 @@ get_header(); ?>
                             </div>
                         </div>
                     </section>
-
                 </div>
 
                 <div class="prose prose-lg max-w-none dark:prose-invert container mx-auto px-6">
@@ -442,5 +441,7 @@ get_header(); ?>
         </div>
     </div>
 <?php endwhile; ?>
+
+<?php echo do_shortcode('[services_home exclude="Respite care"]'); ?>
 
 <?php get_footer(); ?>
