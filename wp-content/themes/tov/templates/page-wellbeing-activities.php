@@ -150,46 +150,280 @@ get_header(); ?>
                     <!-- Creativity and Expression -->
                     <section class="py-20 bg-white">
                         <div class="container max-w-[1280px] mx-auto px-6">
-                            <div class="max-w-6xl mx-auto">
-                                <?php echo do_shortcode('[image_section position="right"]
-                                    [image_section_image src="https://images.unsplash.com/photo-1762955911431-4c44c7c3f408?q=80&w=1121&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-[400px] object-cover"]
-                                    [image_section_content title="Creativity and Expression " description=""]
-                                    [image_section_feature icon="clock" title="Arts:"]Unleash your inner artist in our regular art classes with Maria Bowers. Whether you are a beginner or an experienced painter, these sessions provide a wonderful, therapeutic outlet for self-expression, allowing residents to create beautiful pieces in a relaxed, social environment. [/image_section_feature]
-                                    [image_section_feature icon="lock" title="Crafts:"]From knitting and sewing to seasonal decoration making, our Craft Activities are perfect for those who enjoy working with their hands. These sessions not only produce lovely items but also promote fine motor skills and cognitive engagement.[/image_section_feature]
-                                    [image_section_feature icon="database" title="Flower arranging:"] Working with natural materials, residents learn the beautiful skill of flower arranging, creating colourful displays that brighten up their own rooms and the common areas.[/image_section_feature]
-                                    [/image_section_content]
-                                    [/image_section]'); ?>
+                            <div class="mx-auto">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                <div class="rounded-2xl overflow-hidden shadow-lg">
+                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                        alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
+                                </div>
+                                <div>
+                                    <h3 class="text-[24px] mb-6 text-[#014854] mt-0 ">
+                                        Creativity and Expression 
+                                    </h3>
+                                    
+                                    <dl class="mt-6 paragraph">
+                                        <!-- Feature 1 -->
+                                        <div class="relative pl-9 mb-4">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Arts
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    Unleash your inner artist in our regular art classes with Maria Bowers. Whether you are a beginner or an experienced painter, these sessions provide a wonderful, therapeutic outlet for self-expression, allowing residents to create beautiful pieces in a relaxed, social environment.
+                                                </dd>
+                                            </div>
+                                        </div>
 
-                                <?php echo do_shortcode('[image_section position="left"]
-                                    [image_section_image src="https://images.unsplash.com/photo-1543333995-a78aea2eee50?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-[400px] object-cover"]
-                                    [image_section_content title="Nature and the Outdoors" description=""]
-                                    [image_section_feature icon="clock" title="Gardening club:"]Get your hands dirty and connect with nature! Our dedicated Gardener works alongside the residents in our Gardening Club, whether it is tending to flower beds, planting vegetables or simply enjoying the fresh air. This activity is incredibly rewarding and promotes physical movement. [/image_section_feature]
-                                    [image_section_feature icon="lock" title="Outdoor trips (Groups & One-to-One)"] We organise regular trips, ensuring everyone has the opportunity to enjoy a change of scenery, whether it is a group outing to a local park or a private one-to-one visit to a favourite spot. [/image_section_feature]
-                                    [image_section_feature icon="database" title="Animal visits:"] Nothing brings a smile quite like an animal! We regularly host therapeutic and entertaining visits from a variety of animals, including Llamas and Dogs, providing unique and heartwarming sensory experiences.[/image_section_feature]
-                                    [/image_section_content]
-                                    [/image_section]'); ?>
+                                        <!-- Feature 2 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Crafts
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    From knitting and sewing to seasonal decoration making, our Craft Activities are perfect for those who enjoy working with their hands. These sessions not only produce lovely items but also promote fine motor skills and cognitive engagement.
+                                                </dd>
+                                            </div>
+                                        </div>
 
-                                <?php echo do_shortcode('[image_section position="right"]
-                                    [image_section_image src="https://images.unsplash.com/photo-1513159446162-54eb8bdaa79b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"]
-                                    [image_section_content title="Physical & Mental Wellness " description=""]
-                                    [image_section_feature icon="clock" title="Keep fit:"] We offer a range of fitness sessions, from the gentle, accessible ‘Move it or Lose it’ class to sessions with Jordan, a professional fitness trainer. These activities focus on improving mobility, strength and balance in a fun, supportive setting. [/image_section_feature]
-                                    [image_section_feature icon="lock" title="Bingo & board games"] Our bingo game is a fun twist on the traditional game, ensuring everyone can participate and enjoy the excitement. We also have regular sessions for quizzes, crosswords, cards & board games, perfect for keeping minds sharp and fostering friendly competition. [/image_section_feature]
-                                    [image_section_feature icon="database" title="Book club:"] Dive into great stories and lively discussions with our book club, encouraging cognitive stimulation and social connection over shared literary interests.[/image_section_feature]
-                                    [/image_section_content]
-                                    [/image_section]'); ?>
-
-                                <?php echo do_shortcode('[image_section position="left"]
-                                    [image_section_image src="https://images.unsplash.com/photo-1762955911769-d652ceaa94bb?q=80&w=1121&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"]
-                                    [image_section_content title="Social and entertainment" description=""]
-                                    [image_section_feature icon="clock" title="Musical entertainment:"]We bring the fun to you with regular sessions featuring professional entertainers, offering music and performances that residents can sing along to, dance to or simply enjoy. [/image_section_feature]
-                                    [image_section_feature icon="lock" title="Afternoon teas and themed parties:"] Life is a celebration! We host delightful afternoon teas and organise exciting themed parties throughout the year to mark holidays and special occasions, creating wonderful opportunities for socialising and making memories.[/image_section_feature]
-                                    [image_section_feature icon="database" title="Theatre:"] We value cultural enrichment. While we may not have a full, resident-run theatre, we often enjoy live performances from visiting groups or incorporate theatre-based activities into our social calendar, providing an engaging and sophisticated entertainment experience. [/image_section_feature]
-                                    [image_section_feature icon="database" title="Boules and outdoor games:"] During the warmer months, residents love getting out for boules and other outdoor games, promoting gentle exercise and camaraderie in the sunshine. [/image_section_feature]
-                                    [/image_section_content]
-                                    [/image_section]'); ?>
+                                        <!-- Feature 3 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Flower Arranging
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    Working with natural materials, residents learn the beautiful skill of flower arranging, creating colourful displays that brighten up their own rooms and the common areas.
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </div>
                             </div>
                         </div>
                     </section>
+
+                    <!-- Nature and the outdoors  -->
+                    <section class="py-20 bg-white">
+                        <div class="container max-w-[1280px] mx-auto px-6">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                <div class="rounded-2xl overflow-hidden shadow-lg lg:order-2">
+                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                        alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
+                                </div>
+                                <div class="lg:order-1">
+                                    <h3 class="text-[24px] mb-6 text-[#014854] mt-0 ">
+                                        Nature and the outdoors 
+                                    </h3>
+                                    
+                                    <dl class="mt-6 paragraph">
+                                        <!-- Feature 1 -->
+                                        <div class="relative pl-9 mb-4">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Gardening Club
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    Get your hands dirty and connect with nature! Our dedicated Gardener works alongside the residents in our Gardening Club, whether it is tending to flower beds, planting vegetables or simply enjoying the fresh air. This activity is incredibly rewarding and promotes physical movement. 
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature 2 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Outdoor trips (Groups & One-to-One)
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    We organise regular trips, ensuring everyone has the opportunity to enjoy a change of scenery, whether it is a group outing to a local park or a private one-to-one visit to a favourite spot.
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature 3 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Animal visits
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    Nothing brings a smile quite like an animal! We regularly host therapeutic and entertaining visits from a variety of animals, including Llamas and Dogs, providing unique and heartwarming sensory experiences. 
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Physical & Mental Wellness -->
+                    <section class="py-20 bg-white">
+                        <div class="container max-w-[1280px] mx-auto px-6">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                <div class="rounded-2xl overflow-hidden shadow-lg">
+                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                        alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
+                                </div>
+                                <div>
+                                    <h3 class="text-[24px] mb-6 text-[#014854] mt-0 ">
+                                        Physical & Mental Wellness 
+                                    </h3>
+                                    
+                                    <dl class="mt-6 paragraph">
+                                        <!-- Feature 1 -->
+                                        <div class="relative pl-9 mb-4">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Keep fit
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    We offer a range of fitness sessions, from the gentle, accessible ‘Move it or Lose it’ class to sessions with Jordan, a professional fitness trainer. These activities focus on improving mobility, strength and balance in a fun, supportive setting.
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature 2 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Bingo & board games
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    Our bingo game is a fun twist on the traditional game, ensuring everyone can participate and enjoy the excitement. We also have regular sessions for quizzes, crosswords, cards & board games, perfect for keeping minds sharp and fostering friendly competition.
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature 3 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Book club
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    Dive into great stories and lively discussions with our book club, encouraging cognitive stimulation and social connection over shared literary interests.
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Social and entertainment  -->
+                    <section class="py-20 bg-white">
+                        <div class="container max-w-[1280px] mx-auto px-6">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                <div class="rounded-2xl overflow-hidden shadow-lg lg:order-2">
+                                    <img src="https://images.unsplash.com/photo-1764173039610-aecaafe54ef4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZW5pb3JzJTIwY29tbXVuaXR5JTIwaW50ZXJhY3Rpb258ZW58MXx8fHwxNzY4MTEzMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                        alt="Residents interacting" class="w-full h-[400px] object-cover m-0" />
+                                </div>
+                                <div class="lg:order-1">
+                                    <h3 class="text-[24px] mb-6 text-[#014854] mt-0 ">
+                                        Social and entertainment 
+                                    </h3>
+                                    
+                                    <dl class="mt-6 paragraph">
+                                        <!-- Feature 1 -->
+                                        <div class="relative pl-9 mb-4">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Musical entertainment
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                     We bring the fun to you with regular sessions featuring professional entertainers, offering music and performances that residents can sing along to, dance to or simply enjoy.
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature 2 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Afternoon teas and themed parties
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    Life is a celebration! We host delightful afternoon teas and organise exciting themed parties throughout the year to mark holidays and special occasions, creating wonderful opportunities for socialising and making memories.
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature 3 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Theatre
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    We value cultural enrichment. While we may not have a full, resident-run theatre, we often enjoy live performances from visiting groups or incorporate theatre-based activities into our social calendar, providing an engaging and sophisticated entertainment experience.
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature 4 -->
+                                        <div class="relative pl-9">
+                                            <span class="absolute left-0 top-[6px]">
+                                                <svg viewBox="0 0 20 20" data-slot="icon" aria-hidden="true" class="w-5 h-5"><circle cx="10" cy="10" r="9" fill="#E0F2F1"/><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L9 11.586l6.293-6.293a1 1 0 0 1 1.414 0Z" fill="#016A7C"/></svg>
+                                            </span>
+                                            <div>
+                                                <dt class="font-semibold text-[#016A7C] paragraph text-lg">
+                                                    Boules and outdoor games
+                                                </dt>
+                                                <dd class="paragraph mb-2">
+                                                    During the warmer months, residents love getting out for boules and other outdoor games, promoting gentle exercise and camaraderie in the sunshine. 
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                            </div>
+                        </div>
+                    </section>
+
+                    
+
                     <!-- Closing Statement -->
                      <section class="py-16 md:pt-20 bg-[#014854] relative">
                         <!-- Background Image -->
