@@ -4461,6 +4461,10 @@ nav a:hover {
   padding: 50px;
 }
 
+.p-\[20px\] {
+  padding: 20px;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -4574,6 +4578,11 @@ nav a:hover {
 .py-\[16px\] {
   padding-top: 16px;
   padding-bottom: 16px;
+}
+
+.py-\[2px\] {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .pb-1 {
@@ -4710,6 +4719,22 @@ nav a:hover {
 
 .pt-\[96px\] {
   padding-top: 96px;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
+.pt-20 {
+  padding-top: 5rem;
+}
+
+.pb-0 {
+  padding-bottom: 0px;
 }
 
 .text-left {
@@ -6189,6 +6214,10 @@ nav a:hover {
     padding-top: 8rem;
   }
 
+  .sm\:pt-20 {
+    padding-top: 5rem;
+  }
+
   .sm\:align-middle {
     vertical-align: middle;
   }
@@ -6248,6 +6277,14 @@ nav a:hover {
 
   .md\:order-last {
     order: 9999;
+  }
+
+  .md\:order-1 {
+    order: 1;
+  }
+
+  .md\:order-2 {
+    order: 2;
   }
 
   .md\:col-span-2 {
@@ -6731,6 +6768,10 @@ nav a:hover {
     padding: 2rem;
   }
 
+  .lg\:p-\[50px\] {
+    padding: 50px;
+  }
+
   .lg\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
@@ -6761,6 +6802,11 @@ nav a:hover {
     padding-bottom: 8rem;
   }
 
+  .lg\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .lg\:pl-8 {
     padding-left: 2rem;
   }
@@ -6775,6 +6821,18 @@ nav a:hover {
 
   .lg\:pt-4 {
     padding-top: 1rem;
+  }
+
+  .lg\:pb-20 {
+    padding-bottom: 5rem;
+  }
+
+  .lg\:pt-28 {
+    padding-top: 7rem;
+  }
+
+  .lg\:pb-24 {
+    padding-bottom: 6rem;
   }
 
   .lg\:text-2xl {
