@@ -7,11 +7,11 @@
 
 get_header(); ?>
 
-<div class="relative isolate bg-white min-h-screen py-24 px-6 lg:px-8">
+<div class="relative isolate bg-white min-h-screen py-[2px] lg:py-24 px-3 lg:px-8">
     <div class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         
         <!-- Left Content Section -->
-        <div class="relative px-6 pb-20 pt-28 sm:pt-32 lg:static lg:px-8 lg:py-12">
+        <div class="relative px-6 pb-10 lg:pb-20 pt-20 sm:pt-32 lg:static lg:px-8 lg:py-12 order-2 lg:order-1">
             <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
                 
                 <!-- Content -->
@@ -66,8 +66,8 @@ get_header(); ?>
         </div>
         
         <!-- Right Form Section -->
-        <div class="px-6 pb-24 pt-28 sm:pb-32 lg:px-8 lg:py-12">
-            <form id="book-tour-form" method="post" action="" class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg bg-[#00455E]/5 rounded-[12px] p-[50px]">
+        <div class="px-2 lg:px-6 pb-0 lg:pb-24 pt-20 lg:pt-28 sm:pb-32 lg:px-8 lg:py-12 order-1 lg:order-2">
+            <form id="book-tour-form" method="post" action="" class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg bg-[#00455E]/5 rounded-[12px] p-[20px] lg:p-[50px]">
                 <?php wp_nonce_field('book_tour_nonce', 'book_tour_nonce_field'); ?>
                 
                 <!-- Tour Type Selection -->
