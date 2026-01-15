@@ -88,7 +88,6 @@
                     <?php } ?>
                     <p class="text-xs text-white/70">&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</p>
                 </div>
-
                 <div>
                     <a href="https://mountbox.in" target="_blank" class="text-xs text-white/70 hover:text-white">Powered by MountBox</a>
                 </div>
@@ -101,7 +100,7 @@
 <div class="floating-actions fixed z-[9999]">
     <!-- Desktop: Side Buttons -->
     <div class="hidden md:flex flex-col gap-3 fixed right-6 top-1/2 -translate-y-1/2">
-            <a href="<?php echo home_url('/contact-us/?form=call-back'); ?>" class="w-14 h-14 bg-[#016A7C] hover:bg-[#016A7C]/80 text-white rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 group relative" title="Request a call back">
+            <a href="<?php echo home_url('/contact/?callback=1'); ?>" class="w-14 h-14 bg-[#016A7C] hover:bg-[#016A7C]/80 text-white rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 group relative" title="Request a call back">
             <span class="sr-only">Request a call back</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -117,7 +116,7 @@
 
     <!-- Mobile: Bottom Bar -->
     <div class="flex md:hidden fixed bottom-0 left-0 right-0 bg-[#016A7C] text-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-[9999]">
-        <a href="<?php echo home_url('/contact-us/?form=brochure'); ?>" class="flex-1 flex items-center justify-center gap-2 py-4 border-r border-white/20 hover:bg-[#016A7C]/80 transition-colors font-jakarta font-semibold text-sm">
+        <a href="<?php echo home_url('/contact/?callback=1'); ?>" class="flex-1 flex items-center justify-center gap-2 py-4 border-r border-white/20 hover:bg-[#016A7C]/80 transition-colors font-jakarta font-semibold text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
